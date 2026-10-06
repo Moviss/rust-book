@@ -54,22 +54,22 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch01-02-hello-world.md | 1 | 1137 | ch01-02-hello-world | gotowe | a26173e7 | 1 |  |  |
 | ch01-03-hello-cargo.md | 1 | 1612 | ch01-03-hello-cargo | gotowe | a26173e7 | 1 | 1 (tytuł Hello, Cargo!) |  |
 | ch02-00-guessing-game-tutorial.md | 2 | 5469 | — | gotowe | a538c911 | 1 |  |  |
-| ch03-00-common-programming-concepts.md | 3 | 201 | — | przegląd | a654ea8f | 1 |  |  |
-| ch03-01-variables-and-mutability.md | 3 | 1337 | ch03-01-variables-and-mutability-sec1-variables, ch03-01-variables-and-mutability-sec2-constants, ch03-01-variables-and-mutability-sec3-shadowing | przegląd | a654ea8f | 1 |  |  |
-| ch03-02-data-types.md | 3 | 2535 | ch03-02-data-types-sec1-scalar, ch03-02-data-types-sec2-compound | przegląd | a654ea8f | 1 |  |  |
-| ch03-03-how-functions-work.md | 3 | 1412 | ch03-03-functions-sec1-parameters, ch03-03-functions-sec2-expressions | przetłumaczone | ab9b00ac | 1 |  |  |
-| ch03-04-comments.md | 3 | 167 | — | przetłumaczone |  | 0 |  |  |
-| ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | przetłumaczone | a127bc9c | 1 |  |  |
-| ch04-00-understanding-ownership.md | 4 | 64 | — | przetłumaczone |  | 0 |  |  |
+| ch03-00-common-programming-concepts.md | 3 | 201 | — | gotowe | a654ea8f | 1 |  |  |
+| ch03-01-variables-and-mutability.md | 3 | 1337 | ch03-01-variables-and-mutability-sec1-variables, ch03-01-variables-and-mutability-sec2-constants, ch03-01-variables-and-mutability-sec3-shadowing | gotowe | a654ea8f | 1 |  |  |
+| ch03-02-data-types.md | 3 | 2535 | ch03-02-data-types-sec1-scalar, ch03-02-data-types-sec2-compound | gotowe | a654ea8f | 1 |  |  |
+| ch03-03-how-functions-work.md | 3 | 1412 | ch03-03-functions-sec1-parameters, ch03-03-functions-sec2-expressions | gotowe | ab69c60f | 1 |  |  |
+| ch03-04-comments.md | 3 | 167 | — | gotowe | ab69c60f | 0 |  |  |
+| ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | gotowe | ab69c60f | 1 |  |  |
+| ch04-00-understanding-ownership.md | 4 | 64 | — | przegląd | a54f221e | 0 |  |  |
 | ch04-01-what-is-ownership.md | 4 | 2764 | ch04-01-ownership-sec1-stackheap, ch04-01-ownership-sec2-moves | gotowe | a172b206 | 1 |  |  |
-| ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | tłumaczenie | a3e4441e | 1 |  |  |
-| ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | tłumaczenie | adc2337e | 1 |  |  |
-| ch04-04-slices.md | 4 | 1832 | ch04-04-slices | tłumaczenie | ad092d36 | 1 |  |  |
-| ch04-05-ownership-recap.md | 4 | 1470 | ch04-05-ownership-recap | do zrobienia | | 0 | | |
-| ch05-00-structs.md | 5 | 135 | — | do zrobienia | | 0 | | |
-| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | do zrobienia | | 0 | | |
-| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | do zrobienia | | 0 | | |
-| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | do zrobienia | | 0 | | |
+| ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | przegląd | a54f221e | 1 |  |  |
+| ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | przegląd | a54f221e | 1 |  |  |
+| ch04-04-slices.md | 4 | 1832 | ch04-04-slices | przegląd | a9daf518 | 1 |  |  |
+| ch04-05-ownership-recap.md | 4 | 1470 | ch04-05-ownership-recap | przegląd | a9daf518 | 0 |  |  |
+| ch05-00-structs.md | 5 | 135 | — | tłumaczenie | a6aa8371 | 1 |  |  |
+| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | tłumaczenie | a6aa8371 | 1 |  |  |
+| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | przetłumaczone | a9374a62 | 1 |  |  |
+| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | tłumaczenie | a06a6fd0 | 1 |  |  |
 | ch06-00-enums.md | 6 | 113 | — | do zrobienia | | 0 | | |
 | ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | do zrobienia | | 0 | | |
 | ch06-02-match.md | 6 | 2072 | ch06-02-match | do zrobienia | | 0 | | |

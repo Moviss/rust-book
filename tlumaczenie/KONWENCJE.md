@@ -113,3 +113,7 @@ używaj formy męskiej.
 
 **Tytuły programów i nazwy własne:** „Hello, world!” i „Hello, Cargo!” zostają po
 angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, world!”.
+
+**Odwołania do podrozdziałów:** „Chapter 4.1” → „podrozdział 4.1” (odmiana: w podrozdziale 4.1); „Chapter 4” → „rozdział 4”.
+
+**Odwołania do sekcji:** cytowany nagłówek z innego pliku zapowiadamy jako „podrozdział „Tytuł”” (nie „sekcja”), niezależnie od poziomu nagłówka.

@@ -136,3 +136,24 @@ recenzent.
 | garbage collector | mechanizm odśmiecania pamięci | mechanizm odśmiecania pamięci (*garbage collector*) | | |
 | memory safety | bezpieczeństwo pamięci | — | | |
 | debug mode / release mode | tryb debugowania / tryb wydania | — | | |
+| place (Brown) | miejsce | miejsce (*place*) | | |
+| use-after-free / double-free | użycie po zwolnieniu / podwójne zwolnienie | użycie po zwolnieniu (*use-after-free*) | | |
+| alias / aliasing | alias / aliasowanie | — | | type alias → alias typu |
+| shared reference | referencja współdzielona | — | | |
+| fat pointer | „gruby” wskaźnik | „gruby” wskaźnik (*fat pointer*) | | |
+| string literal | literał łańcuchowy | — | | |
+| collection | kolekcja | — | | |
+| statically typed | statycznie typowany | — | | |
+| primitive type | typ prymitywny | — | | |
+| mutation | modyfikowanie | modyfikowanie (*mutation*) | | |
+| immutable / mutable reference | referencja niemutowalna / mutowalna | — | | shared → współdzielona, unique → unikalna |
+| non-owning pointer | wskaźnik niebędący właścicielem | — | | |
+| Pointer Safety Principle (Brown) | zasada bezpieczeństwa wskaźników | — | | |
+| capacity | pojemność | — | | |
+| syntactic sugar | lukier składniowy | — | | |
+| lifetime parameter | parametr czasu życia | — | | |
+| derive (czasownik) / derivable trait | wyprowadzać / trait wyprowadzalny | wyprowadzać (*derive*) | | „wyprowadzić trait `Debug`”; derived trait → trait wyprowadzony |
+| refactor | refaktoryzować / refaktoryzacja | — | | |
+| instance | instancja | — | | |
+| outer attribute | atrybut zewnętrzny | — | | |
+| standard output / standard error | standardowe wyjście / standardowe wyjście błędów | — | | |

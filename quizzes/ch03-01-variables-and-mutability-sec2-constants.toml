@@ -1,12 +1,12 @@
 [[questions]]
 id = "a48e524e-852c-400c-ae68-5c76a6761596"
 type = "MultipleChoice"
-prompt.prompt = "Which of the following statements is correct about the difference between using `let` and `const` to declare a variable?"
-answer.answer = "`const` can be used in the global scope, and `let` can only be used in a function"
+prompt.prompt = "Które z poniższych zdań poprawnie opisuje różnicę między deklarowaniem zmiennej za pomocą `let` a za pomocą `const`?"
+answer.answer = "`const` można używać w zasięgu globalnym, a `let` tylko wewnątrz funkcji"
 prompt.distractors = [
-  "They are just different syntaxes for declaring variables with the same semantics",
-  "The compiler will error if a `const` variable's name is not using `UPPER_SNAKE_CASE`",
-  "A `const` can only be assigned to a literal, not an expression involving computation"
+  "To po prostu różne składnie deklarowania zmiennych o tej samej semantyce",
+  "Kompilator zgłosi błąd, jeśli nazwa zmiennej `const` nie jest zapisana w stylu `UPPER_SNAKE_CASE`",
+  "Stałej `const` można przypisać tylko literał, a nie wyrażenie wymagające obliczeń"
 ]
 
 [[questions]]
@@ -21,5 +21,5 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "2"
 context = """
-`const` variables are allowed to be defined outside of a function and to do limited forms of computation.
+Zmienne `const` można definiować poza funkcją, a do ich inicjalizacji można używać ograniczonych form obliczeń.
 """

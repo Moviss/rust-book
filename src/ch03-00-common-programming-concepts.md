@@ -1,23 +1,24 @@
-# Common Programming Concepts {#common-programming-concepts}
+# Typowe koncepcje programistyczne {#common-programming-concepts}
 
-This chapter covers concepts that appear in almost every programming language
-and how they work in Rust. Many programming languages have much in common at
-their core. None of the concepts presented in this chapter are unique to Rust,
-but we’ll discuss them in the context of Rust and explain the conventions
-around using them.
+Ten rozdział omawia koncepcje, które występują niemal w każdym języku
+programowania, i pokazuje, jak działają w Ruście. U podstaw wiele języków
+programowania ma ze sobą dużo wspólnego. Żadna z przedstawionych tu koncepcji
+nie jest unikalna dla Rusta, ale omówimy je w kontekście Rusta i wyjaśnimy
+konwencje związane z ich używaniem.
 
-Specifically, you’ll learn about variables, basic types, functions, comments,
-and control flow. These foundations will be in every Rust program, and learning
-them early will give you a strong core to start from.
+Konkretnie poznasz zmienne, podstawowe typy, funkcje, komentarze i przepływ
+sterowania (*control flow*). Te fundamenty znajdą się w każdym programie w
+Ruście, a nauczenie się ich wcześnie da ci solidną bazę na start.
 
-> #### Keywords {#keywords}
+> #### Słowa kluczowe {#keywords}
 >
-> The Rust language has a set of _keywords_ that are reserved for use by the
-> language only, much as in other languages. Keep in mind that you cannot use
-> these words as names of variables or functions. Most of the keywords have
-> special meanings, and you’ll be using them to do various tasks in your Rust
-> programs; a few have no current functionality associated with them but have
-> been reserved for functionality that might be added to Rust in the future. You
-> can find the list of the keywords in [Appendix A][appendix_a]<!-- ignore -->.
+> Podobnie jak inne języki, Rust ma zestaw _słów kluczowych_ (*keywords*)
+> zarezerwowanych wyłącznie do użytku przez sam język. Pamiętaj, że nie możesz
+> używać tych słów jako nazw zmiennych ani funkcji. Większość słów kluczowych ma
+> specjalne znaczenie i będziesz ich używać do wykonywania różnych zadań w
+> programach w Ruście; kilka z nich nie ma obecnie żadnej przypisanej
+> funkcjonalności, ale zostały zarezerwowane dla funkcjonalności, która może
+> zostać dodana do Rusta w przyszłości. Listę słów kluczowych znajdziesz w
+> [dodatku A][appendix_a]<!-- ignore -->.
 
 [appendix_a]: appendix-01-keywords.md

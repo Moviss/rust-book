@@ -2,7 +2,7 @@
 id = "c5b27431-c318-4243-9621-cadacb737f5a"
 type = "MultipleChoice"
 prompt.prompt = """
-True/false: this code will terminate (that is, it will not loop forever).
+Prawda czy fałsz: ten kod zakończy działanie (czyli nie będzie się wykonywał w nieskończonej pętli).
 
 ```
 fn main() {
@@ -21,10 +21,10 @@ fn main() {
 }
 ```
 """
-answer.answer = "True"
-prompt.distractors = [ "False" ]
+answer.answer = "Prawda"
+prompt.distractors = [ "Fałsz" ]
 context = """
-It will in fact terminate after the first iteration of the loop.
+Faktycznie zakończy działanie po pierwszej iteracji pętli.
 """
 
 [[questions]]
@@ -43,5 +43,5 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "50"
 context = """
-The array `a` has the element `5` repeated 10 times, therefore its sum is `50`. The answer is not `15` --- note that the syntax `[5; 10]` is different from `[5, 10]`.
+Tablica `a` zawiera element `5` powtórzony 10 razy, więc jej suma wynosi `50`. Odpowiedź nie brzmi `15` – zwróć uwagę, że składnia `[5; 10]` różni się od `[5, 10]`.
 """
