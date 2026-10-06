@@ -13,17 +13,17 @@ fn find_nth<T: Ord + Clone>(elems: &[T], n: usize) -> T {
 }
 ```
 
-If you tried to compile this program, which of the following best describes the compiler error you would get?
+Które z poniższych najlepiej opisuje błąd, jaki zgłosiłby kompilator przy próbie skompilowania tego programu?
 """
-answer.answer = "cannot borrow `elems` as mutable for `sort`"
+answer.answer = "nie można pożyczyć `elems` jako mutowalnego dla `sort`"
 prompt.distractors = [
-  "cannot move out of shared reference for `clone`",
-  "cannot move out of shared reference in expression `&elems[n]`",
-  "the lifetime of `T` must outlive `&[T]`",
+  "nie można przenieść wartości spod referencji współdzielonej dla `clone`",
+  "nie można przenieść wartości spod referencji współdzielonej w wyrażeniu `&elems[n]`",
+  "czas życia `T` musi być dłuższy niż czas życia `&[T]`",
 ]
 context = """
-The method `slice::sort` expects a mutable reference to a slice, but
-instead gets an immutable reference.
+Metoda `slice::sort` oczekuje mutowalnej referencji do wycinka, ale
+zamiast niej dostaje referencję niemutowalną.
 """
 
 
@@ -42,7 +42,7 @@ fn find_nth<T: Ord + Clone>(elems: &[T], n: usize) -> T {
 }
 ```
 
-Normally if you try to compile this function, the compiler returns the following error:
+Normalnie przy próbie skompilowania tej funkcji kompilator zwraca następujący błąd:
 
 ```text
 error[E0596]: cannot borrow `*elems` as mutable, as it is behind a `&` reference
@@ -52,11 +52,11 @@ error[E0596]: cannot borrow `*elems` as mutable, as it is behind a `&` reference
   |     ^^^^^^^^^^^^ `elems` is a `&` reference, so the data it refers to cannot be borrowed as mutable
 ```
 
-Assume that the compiler did NOT reject this function. Which (if any) of the following programs would
-(1) pass the compiler, and (2) possibly cause undefined behavior if executed?
-Check each program that satisfies both criteria, OR check "None of these programs" if none are satisfying.
+Załóż, że kompilator NIE odrzucił tej funkcji. Które z poniższych programów (jeśli w ogóle jakieś)
+(1) przeszłyby przez kompilator i (2) mogłyby spowodować niezdefiniowane zachowanie po wykonaniu?
+Zaznacz każdy program, który spełnia oba kryteria, ALBO zaznacz „Żaden z tych programów”, jeśli żaden ich nie spełnia.
 """
-answer.answer = ["None of these programs"]
+answer.answer = ["Żaden z tych programów"]
 prompt.distractors = [
 """
 ```
@@ -81,12 +81,12 @@ println!("{}", n);
 """,
 ]
 context = """
-This program is technically memory-safe because `slice::sort` is only capable of moving
-elements around, not freeing them. For instance, `&v[0]` is guaranteed to point to 
-*some* number after calling `find_nth`, even if it is not the *original* number.
+Ten program jest formalnie bezpieczny pod względem pamięci, ponieważ `slice::sort` potrafi jedynie przestawiać
+elementy, a nie je zwalniać. Na przykład `&v[0]` po wywołaniu `find_nth` na pewno wskazuje na
+*jakąś* liczbę, nawet jeśli nie jest to liczba *oryginalna*.
 
-Note that `find_nth(&v, 10)` does not cause undefined behavior because Rust performs checks
-on array accesses, so evaluating `&v[10]` will panic.
+Zauważ, że `find_nth(&v, 10)` nie powoduje niezdefiniowanego zachowania, ponieważ Rust sprawdza
+dostęp do elementów tablicy, więc obliczenie `&v[10]` spowoduje panikę.
 """
 
 
@@ -105,10 +105,10 @@ fn find_nth<T: Ord + Clone>(elems: &[T], n: usize) -> T {
 }
 ```
 
-Of the following fixes (highlighted in yellow), which fix best satisfies these three criteria:
-1. The fixed function passes the Rust compiler,
-2. The fixed function preserves the intention of the original code, and
-3. The fixed function does not introduce unnecessary inefficiencies
+Która z poniższych poprawek (wyróżnionych na żółto) najlepiej spełnia te trzy kryteria:
+1. Poprawiona funkcja przechodzi przez kompilator Rusta;
+2. Poprawiona funkcja zachowuje intencję oryginalnego kodu;
+3. Poprawiona funkcja nie wprowadza zbędnej nieefektywności.
 """
 answer.answer = """
 ```ide
@@ -151,13 +151,13 @@ fn find_nth<`[T: Ord]`>(`[mut elems: Vec<T>]`, n: usize) -> T {
 """,
 ]
 context = """
-A function like `find_nth` is clearly intended to be a read-only function, i.e. to
-extract some property of the input sequence. Any solution which mutates or drops the input therefore does not preserve the original function's intention, even if
-it is more efficient than creating an auxiliary vector. 
+Funkcja taka jak `find_nth` w oczywisty sposób ma jedynie odczytywać dane, tj.
+wyznaczać pewną właściwość sekwencji wejściowej. Dlatego żadne rozwiązanie, które modyfikuje lub zwalnia dane wejściowe, nie zachowuje intencji oryginalnej funkcji, nawet jeśli
+jest wydajniejsze niż tworzenie pomocniczego wektora.
 
-Creating a `Vec<&T>` is preferable to creating a `Vec<T>`, since if `T` is large, then
-`elems.to_vec()` could be expensive. However, if we knew that `T: Copy`, then `to_vec`
-would be preferable to reduce the number of pointer dereferences within `elems.sort()`.
+Utworzenie `Vec<&T>` jest lepsze niż utworzenie `Vec<T>`, ponieważ jeśli typ `T` jest duży, to
+`elems.to_vec()` może być kosztowne. Gdybyśmy jednak wiedzieli, że `T: Copy`, to lepsze byłoby `to_vec`,
+bo zmniejszyłoby liczbę dereferencji wskaźników w `elems.sort()`.
 """
 
 [[questions]]
@@ -191,19 +191,19 @@ impl TestResult {
 }
 ```
 
-If you tried to compile this program, which of the following best describes the compiler error you would get?
+Które z poniższych najlepiej opisuje błąd, jaki zgłosiłby kompilator przy próbie skompilowania tego programu?
 """
-answer.answer = "in `apply_curve`, cannot borrow `self.scores` as mutable for `iter_mut`"
+answer.answer = "w `apply_curve` nie można pożyczyć `self.scores` jako mutowalnego dla `iter_mut`"
 prompt.distractors = [
-  "in `get_curve`, cannot return a reference to a local variable `self.curve`",
-  "in `apply_curve`, cannot borrow `self` as immutable for `get_curve`",
-  "in `apply_curve`, `*score` cannot be mutated"
+  "w `get_curve` nie można zwrócić referencji do zmiennej lokalnej `self.curve`",
+  "w `apply_curve` nie można pożyczyć `self` jako niemutowalnego dla `get_curve`",
+  "w `apply_curve` nie można modyfikować `*score`"
 ]
 context = """
-Due to lifetime elision, the function `get_curve` has the type signature `get_curve<'a>(&'a self) -> &'a Option<usize>`. 
-This means that a call to `self.get_curve()` extends the entire borrow on `self`, not just on `self.curve`.
-Therefore `self` is immutably borrowed inside the scope of `let Some(curve) = ...`, and `self.scores.iter_mut()`
-cannot be called.
+Ze względu na pomijanie czasów życia funkcja `get_curve` ma sygnaturę typu `get_curve<'a>(&'a self) -> &'a Option<usize>`.
+Oznacza to, że wywołanie `self.get_curve()` przedłuża pożyczenie całego `self`, a nie tylko `self.curve`.
+Dlatego `self` jest niemutowalnie pożyczone w zasięgu `let Some(curve) = ...` i nie można wywołać
+`self.scores.iter_mut()`.
 """
 
 
@@ -238,7 +238,7 @@ impl TestResult {
 }
 ```
 
-Normally if you try to compile this function, the compiler returns the following error:
+Normalnie przy próbie skompilowania tej funkcji kompilator zwraca następujący błąd:
 
 ```text
 error[E0502]: cannot borrow `self.scores` as mutable because it is also borrowed as immutable
@@ -252,11 +252,11 @@ error[E0502]: cannot borrow `self.scores` as mutable because it is also borrowed
    |                           ------ immutable borrow later used here
 ```
 
-Assume that the compiler did NOT reject this function. Which (if any) of the following programs would
-(1) pass the compiler, and (2) possibly cause undefined behavior if executed?
-Check each program that satisfies both criteria, OR check "None of these programs" if none are satisfying.
+Załóż, że kompilator NIE odrzucił tej funkcji. Które z poniższych programów (jeśli w ogóle jakieś)
+(1) przeszłyby przez kompilator i (2) mogłyby spowodować niezdefiniowane zachowanie po wykonaniu?
+Zaznacz każdy program, który spełnia oba kryteria, ALBO zaznacz „Żaden z tych programów”, jeśli żaden ich nie spełnia.
 """
-answer.answer = ["None of these programs"]
+answer.answer = ["Żaden z tych programów"]
 prompt.distractors = [
 """
 ```
@@ -290,9 +290,9 @@ println!("{:?}", result.scores);
 """,
 ]
 context = """
-This program is actually safe as written. It is a limitation of the borrow checker to not understand that `get_curve`
-only borrows `curve`, and doesn't affect `scores`. However, in theory if `get_curve` were changed to return a reference
-to something with `self.scores`, then memory safety could potentially be violated.
+Ten program w obecnej postaci jest w rzeczywistości bezpieczny. Borrow checker ma tu ograniczenie: nie rozumie, że `get_curve`
+pożycza tylko `curve` i nie wpływa na `scores`. Teoretycznie jednak, gdyby `get_curve` zmieniono tak, aby zwracała referencję
+do czegoś w `self.scores`, bezpieczeństwo pamięci mogłoby zostać naruszone.
 """
 
 [[questions]]
@@ -326,10 +326,10 @@ impl TestResult {
 }
 ```
 
-Of the following fixes (highlighted in yellow), which fix best satisfies these three criteria:
-1. The fixed function passes the Rust compiler,
-2. The fixed function preserves the intention of the original code, and
-3. The fixed function does not introduce unnecessary inefficiencies
+Która z poniższych poprawek (wyróżnionych na żółto) najlepiej spełnia te trzy kryteria:
+1. Poprawiona funkcja przechodzi przez kompilator Rusta;
+2. Poprawiona funkcja zachowuje intencję oryginalnego kodu;
+3. Poprawiona funkcja nie wprowadza zbędnej nieefektywności.
 """
 answer.answer = """
 ```ide
@@ -378,9 +378,9 @@ pub fn apply_curve(&mut self) {
 """,
 ]
 context = """
-By inlining the definition of `get_curve` into `apply_curve`, the borrow checker understands that `self.curve` is not `self.scores`,
-so it allows the function to compile. This is a common workaround for this type of borrow checker limitation.
+Po wstawieniu definicji `get_curve` bezpośrednio do `apply_curve` borrow checker rozumie, że `self.curve` to nie `self.scores`,
+więc pozwala skompilować funkcję. To częsty sposób obejścia tego rodzaju ograniczeń borrow checkera.
 
-Another option is to leverage the fact that `self.curve` is cheap to copy and use [`Option::copied`](https://doc.rust-lang.org/std/option/enum.Option.html#method.copied), 
-which would release the borrow on `self` as soon as `.copied()` is called.
+Inną możliwością jest wykorzystanie faktu, że `self.curve` można tanio skopiować, i użycie [`Option::copied`](https://doc.rust-lang.org/std/option/enum.Option.html#method.copied),
+co zakończyłoby pożyczenie `self` zaraz po wywołaniu `.copied()`.
 """

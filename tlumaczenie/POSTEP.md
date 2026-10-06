@@ -90,11 +90,11 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | gotowe | aba68c9b | 1 |  |  |
 | ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | gotowe | aba68c9b | 1 |  |  |
 | ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | gotowe | aba68c9b | 1 |  |  |
-| ch10-00-generics.md | 10 | 898 | — | przegląd | a7841011 | 1 |  |  |
-| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | przegląd | a7841011 | 1 |  |  |
-| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | przegląd | a7841011 | 1 |  |  |
-| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | przegląd | a03441c0 | 1 |  |  |
-| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | przegląd | a03441c0 | 1 |  |  |
+| ch10-00-generics.md | 10 | 898 | — | gotowe | a7841011 | 1 |  |  |
+| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | gotowe | a7841011 | 1 |  |  |
+| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | gotowe | a7841011 | 1 |  |  |
+| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | gotowe | a03441c0 | 1 |  |  |
+| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | gotowe | a03441c0 | 1 |  |  |
 | ch11-00-testing.md | 11 | 340 | — | gotowe | a0133458 | 1 |  |  |
 | ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | gotowe | a0133458 | 1 |  |  |
 | ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | gotowe | a0133458 | 1 |  |  |
