@@ -86,10 +86,10 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | gotowe | aadc4d0e | 1 |  |  |
 | ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | gotowe | aadc4d0e | 1 |  |  |
 | ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | gotowe | aadc4d0e | 1 |  |  |
-| ch09-00-error-handling.md | 9 | 221 | — | przegląd | aba68c9b | 1 |  |  |
-| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | przegląd | aba68c9b | 1 |  |  |
-| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | przegląd | aba68c9b | 1 |  |  |
-| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | przegląd | aba68c9b | 1 |  |  |
+| ch09-00-error-handling.md | 9 | 221 | — | gotowe | aba68c9b | 1 |  |  |
+| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | gotowe | aba68c9b | 1 |  |  |
+| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | gotowe | aba68c9b | 1 |  |  |
+| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | gotowe | aba68c9b | 1 |  |  |
 | ch10-00-generics.md | 10 | 898 | — | przetłumaczone | aedc1c38 | 1 |  |  |
 | ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | przetłumaczone | adf66e87 | 1 |  |  |
 | ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | przetłumaczone | af5a9eb9 | 1 |  |  |
@@ -97,12 +97,12 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | przetłumaczone | a62a61a6 | 1 |  |  |
 | ch11-00-testing.md | 11 | 340 | — | przetłumaczone | a62a61a6 | 1 |  |  |
 | ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | tłumaczenie | a31ffa3b | 1 |  |  |
-| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | tłumaczenie | a0489cf3 | 1 |  |  |
+| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | przetłumaczone | a0489cf3 | 1 |  |  |
 | ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | tłumaczenie | ab3ea7d9 | 1 |  |  |
-| ch12-00-an-io-project.md | 12 | 386 | — | do zrobienia | | 0 | | |
-| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | do zrobienia | | 0 | | |
-| ch12-02-reading-a-file.md | 12 | 342 | — | do zrobienia | | 0 | | |
-| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | do zrobienia | | 0 | | |
+| ch12-00-an-io-project.md | 12 | 386 | — | tłumaczenie | aa57fab2 | 1 |  |  |
+| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | tłumaczenie | aa57fab2 | 1 |  |  |
+| ch12-02-reading-a-file.md | 12 | 342 | — | tłumaczenie | aa57fab2 | 1 |  |  |
+| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | tłumaczenie | a2034a8f | 1 |  |  |
 | ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | do zrobienia | | 0 | | |
 | ch12-05-working-with-environment-variables.md | 12 | 1302 | — | do zrobienia | | 0 | | |
 | ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | do zrobienia | | 0 | | |

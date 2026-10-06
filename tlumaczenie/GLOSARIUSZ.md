@@ -243,3 +243,11 @@ recenzent.
 | subslice | podwycinek | — | | |
 | denial-of-service (DoS) | atak DoS (odmowa usługi) | — | | |
 | Pig Latin | świńska łacina | świńska łacina (*Pig Latin*) | | |
+| test binary / test suite | testowy plik binarny / zestaw testów | — | | |
+| flag (CLI) | flaga | — | | |
+| capture (output) | przechwytywać | — | | |
+| thread-safe | bezpieczny wątkowo | — | | |
+| debug symbols | symbole debugowania | — | | |
+| environment variable | zmienna środowiskowa | — | | |
+| robust / reliable | solidny / niezawodny | — | | rozróżniamy |
+| recover (from error) | obsłużyć błąd i kontynuować | — | | |
