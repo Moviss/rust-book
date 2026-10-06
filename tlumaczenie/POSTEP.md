@@ -13,16 +13,16 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F0.7 Skrypty i autotesty
 - [x] F0.8 Baseline linków
 - [x] F0.9 `CLAUDE.md`
-- [ ] F0.10 Commit narzędzi, push, CI
+- [x] F0.10 Commit narzędzi, push, CI
 - [x] F1.1 `KONWENCJE.md`
 - [x] F1.2 `GLOSARIUSZ.md`
 - [x] F1.3 `wyjatki.toml`
 - [x] F1.4 `postep.py --init`
 - [x] F1.5 `glosariusz_lint.py` na glosariuszu
 - [x] F1.6 Commit konwencji
-- [ ] F2.1 Pilot: tłumaczenie
-- [ ] F2.2 Pilot: przegląd, bramki
-- [ ] F2.3 Autoreview pilota
+- [x] F2.1 Pilot: tłumaczenie
+- [x] F2.2 Pilot: przegląd, bramki
+- [x] F2.3 Autoreview pilota
 - [ ] F2.4 Push i weryfikacja strony
 - [ ] F3.1 Strony otwierające
 - [ ] F3.2 Rozdziały 2–21
@@ -49,10 +49,10 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | title-page.md | 0 | 145 | — | do zrobienia | | 0 | | |
 | foreword.md | 0 | 448 | — | do zrobienia | | 0 | | |
 | ch00-00-introduction.md | 0 | 1611 | — | do zrobienia | | 0 | | |
-| ch01-00-getting-started.md | 1 | 49 | — | do zrobienia | | 0 | | |
-| ch01-01-installation.md | 1 | 926 | ch01-01-installation | do zrobienia | | 0 | | |
-| ch01-02-hello-world.md | 1 | 1137 | ch01-02-hello-world | do zrobienia | | 0 | | |
-| ch01-03-hello-cargo.md | 1 | 1612 | ch01-03-hello-cargo | do zrobienia | | 0 | | |
+| ch01-00-getting-started.md | 1 | 49 | — | gotowe | a26173e7 | 1 |  |  |
+| ch01-01-installation.md | 1 | 926 | ch01-01-installation | gotowe | a26173e7 | 1 |  |  |
+| ch01-02-hello-world.md | 1 | 1137 | ch01-02-hello-world | gotowe | a26173e7 | 1 |  |  |
+| ch01-03-hello-cargo.md | 1 | 1612 | ch01-03-hello-cargo | gotowe | a26173e7 | 1 | 1 (tytuł Hello, Cargo!) |  |
 | ch02-00-guessing-game-tutorial.md | 2 | 5469 | — | do zrobienia | | 0 | | |
 | ch03-00-common-programming-concepts.md | 3 | 201 | — | do zrobienia | | 0 | | |
 | ch03-01-variables-and-mutability.md | 3 | 1337 | ch03-01-variables-and-mutability-sec1-variables, ch03-01-variables-and-mutability-sec2-constants, ch03-01-variables-and-mutability-sec3-shadowing | do zrobienia | | 0 | | |
@@ -61,7 +61,7 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch03-04-comments.md | 3 | 167 | — | do zrobienia | | 0 | | |
 | ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | do zrobienia | | 0 | | |
 | ch04-00-understanding-ownership.md | 4 | 64 | — | do zrobienia | | 0 | | |
-| ch04-01-what-is-ownership.md | 4 | 2764 | ch04-01-ownership-sec1-stackheap, ch04-01-ownership-sec2-moves | do zrobienia | | 0 | | |
+| ch04-01-what-is-ownership.md | 4 | 2764 | ch04-01-ownership-sec1-stackheap, ch04-01-ownership-sec2-moves | gotowe | a172b206 | 1 |  |  |
 | ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | do zrobienia | | 0 | | |
 | ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | do zrobienia | | 0 | | |
 | ch04-04-slices.md | 4 | 1832 | ch04-04-slices | do zrobienia | | 0 | | |
@@ -174,3 +174,5 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F0.7: G1 dla notatek/etykiet plików: błąd, gdy suma `Uwaga:`+`Note:` ≠ liczbie `Note:` w oryginale; pozostawione `Note:`/`Filename:` to ostrzeżenie G5 (inaczej nietknięte pliki nie przeszłyby autotestu „zero błędów”). `SUMMARY.md` nie wymaga `{#id}`.
 - F0.8: baseline linków pusty (0 zepsutych kotwic w oryginale).
 - F1.1: KONWENCJE uzupełnione o zasadę zachowania łamania linii oryginału (rozdziały Brown mają akapity w jednej linii) i o zakaz linii zaczynających się od znaków Markdownu po zawinięciu.
+- F2: glosariusz uzupełniony o terminy z raportów pilota przed recenzją (rustowcy, box, ramka stosu, wartość wskazywana, …); KONWENCJE: listy, rodzaj gramatyczny, „Hello, world!”. `glosariusz_lint.py` pomija angielskie odpowiedniki w nawiasie `(*...*)` (forma D4). G5 ignoruje `{#id}` i dyrektywy.
+- F2.3 autoreview pilota: jakość dobra (bez błędów merytorycznych); poprawiono listy w ch04-01 (fragmenty zdań małą literą ze średnikami), „dokumentacja API” w ch01-01. Wszystkie propozycje „?” w glosariuszu zatwierdzone bez zmian. Dodano: zwalnianie (*freeing* lub *dropping*), modyfikować (*mutate*), endpoint, błąd segmentacji.

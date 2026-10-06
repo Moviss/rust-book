@@ -102,3 +102,14 @@ notatek, przypisów, podpisów i tabel. Nie skracaj i nie streszczaj.
 **Teksty Brown o quizach i eksperymencie:** nazwy elementów interfejsu (np.
 „Submit”, „Next”) zostają po angielsku w cudzysłowie; opisy wokół nich
 tłumaczymy.
+
+**Listy:** punkty będące fragmentami zdania wprowadzonego dwukropkiem zaczynają
+się małą literą i kończą średnikiem (ostatni kropką); punkty będące pełnymi
+zdaniami zaczynają się wielką literą i kończą kropką.
+
+**Rodzaj gramatyczny:** tam, gdzie to łatwe, unikaj form rodzajowych w zwrotach
+do czytelnika („udało ci się napisać” zamiast „napisałeś”); jeśli się nie da,
+używaj formy męskiej.
+
+**Tytuły programów i nazwy własne:** „Hello, world!” i „Hello, Cargo!” zostają po
+angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, world!”.

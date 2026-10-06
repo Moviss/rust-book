@@ -2,15 +2,14 @@
 id = "c1b7cc2e-b5fb-4b67-b0bb-600d82931f08"
 type = "MultipleChoice"
 prompt.prompt = """
-Say you just downloaded a Cargo project, and then you run `cargo run` at the command-line. Which statement is NOT true about what happens next?
+Załóżmy, że masz świeżo pobrany projekt Cargo i uruchamiasz `cargo run` w wierszu poleceń. Które stwierdzenie NIE jest prawdziwe w odniesieniu do tego, co stanie się dalej?
 """
-answer.answer = "Cargo watches for file changes and re-executes the binary on a change"
+answer.answer = "Cargo obserwuje zmiany w plikach i po każdej zmianie ponownie uruchamia plik binarny"
 prompt.distractors = [
-  "Cargo downloads and builds any dependencies of the project",
-  "Cargo builds the project into a binary in the `target/debug` directory",
-  "Cargo executes the project's binary"
+  "Cargo pobiera i buduje wszystkie zależności projektu",
+  "Cargo buduje projekt do pliku binarnego w katalogu `target/debug`",
+  "Cargo uruchamia plik binarny projektu"
 ]
 context = """
-Cargo does not watch your files by default. But you can use plugins like [cargo-watch](https://crates.io/crates/cargo-watch) for this
-purpose.
+Cargo domyślnie nie obserwuje twoich plików. W tym celu możesz jednak użyć wtyczek takich jak [cargo-watch](https://crates.io/crates/cargo-watch).
 """

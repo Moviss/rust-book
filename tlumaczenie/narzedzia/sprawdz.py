@@ -243,9 +243,9 @@ def porownaj_kod_inline(r, gate, en, pl, gdzie=""):
 
 
 def g5_akapity(r, en_akapity, pl_akapity, gdzie=""):
-    en_set = {t.strip() for _, t in en_akapity if len(WORD_RE.findall(t)) >= 4}
+    en_set = {HEADING_ID_RE.sub("", DIRECTIVE_RE.sub("", t)).strip() for _, t in en_akapity}
     for line, t in pl_akapity:
-        tt = t.strip()
+        tt = HEADING_ID_RE.sub("", DIRECTIVE_RE.sub("", t)).strip()
         words = WORD_RE.findall(tt)
         if len(words) < 4:
             continue

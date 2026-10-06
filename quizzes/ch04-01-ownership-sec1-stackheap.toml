@@ -2,25 +2,25 @@
 id = "5d774a01-8604-4386-8d81-498496ccd96c"
 type = "MultipleChoice"
 prompt.prompt = """
-Which of the following best describes the difference between the stack and the heap?
+Które z poniższych zdań najlepiej opisuje różnicę między stosem a stertą?
 """
-answer.answer = "The stack holds data associated with a specific function, while the heap holds data that can outlive a function"
+answer.answer = "Stos przechowuje dane związane z konkretną funkcją, a sterta przechowuje dane, które mogą żyć dłużej niż funkcja"
 prompt.distractors = [ 
-  "The stack can hold pointers to data stored on the heap, while the heap only holds data without pointers",
-  "The stack holds immutable data, while the heap holds mutable data.",
-  "The stack holds copyable data, while the heap holds uncopyable data."
+  "Stos może przechowywać wskaźniki na dane na stercie, a sterta przechowuje tylko dane bez wskaźników",
+  "Stos przechowuje dane niemutowalne, a sterta przechowuje dane mutowalne.",
+  "Stos przechowuje dane, które można kopiować, a sterta dane, których nie można kopiować."
 ]
 context = """
-Frames in the stack are associated with a specific function, and are deallocated when the function returns.
-Data on the heap can live indefinitely. Note that both stack and heap data can be mutable and can be copyable. The heap is allowed to
-contain pointers (even to the stack, as we will see later).
+Ramki na stosie są związane z konkretną funkcją i są dealokowane, gdy funkcja się kończy.
+Dane na stercie mogą żyć dowolnie długo. Zauważ, że zarówno dane na stosie, jak i na stercie mogą być mutowalne i kopiowalne. Sterta może
+zawierać wskaźniki (nawet na stos, jak zobaczymy później).
 """
 
 [[questions]]
 id = "4c953b2d-65bf-4dab-bbbb-14c9b15a690e"
 type = "ShortAnswer"
 prompt.prompt = """
-Consider the execution of the following snippet, with the final state shown:
+Rozważ wykonanie poniższego fragmentu kodu; pokazany jest stan końcowy:
 
 ```aquascope,interpreter
 #fn main() {
@@ -30,9 +30,9 @@ let c = Box::new(15);`[]`
 #}
 ```
 
-In the final state, how many copies of the number `15` live anywhere in memory? Write your answer as a digit, such as 0 or 1.
+Ile kopii liczby `15` znajduje się gdziekolwiek w pamięci w stanie końcowym? Wpisz odpowiedź jako cyfrę, np. 0 albo 1.
 """
 answer.answer = "2"
 context = """
-The two boxes contain the two copies of the number 15. The assignment `let b = a` copies the heap pointer, but not the number on the heap.
+Dwie kopie liczby 15 znajdują się w dwóch boxach. Przypisanie `let b = a` kopiuje wskaźnik na stertę, ale nie liczbę na stercie.
 """

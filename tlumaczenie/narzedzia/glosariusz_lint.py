@@ -19,6 +19,8 @@ INLINE_CODE_RE = re.compile(r"(`+)(?:(?!\1).)+?\1", re.S)
 LINK_DEF_RE = re.compile(r"(?m)^\s*\[[^\]]+\]:\s*\S+.*$")
 URL_RE = re.compile(r"\]\([^)]*\)|https?://\S+")
 COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
+# angielski odpowiednik w nawiasie przy pierwszym wystąpieniu (D4): (*ownership*)
+GLOSS_RE = re.compile(r"\((?:\*[^*\n]+\*|_[^_\n]+_)\)")
 TOML_CODE_RE = re.compile(r'(?ms)^(prompt\.program|answer\.stdout)\s*=\s*""".*?"""')
 CELL_SPLIT_RE = re.compile(r"(?<!\\)\|")
 
@@ -31,7 +33,7 @@ def proza(text: str, toml: bool) -> str:
     """Tekst z wyczyszczonym kodem (z zachowaniem numerów linii i kolumn)."""
     if toml:
         text = TOML_CODE_RE.sub(blank, text)
-    for rx in (FENCE_RE, COMMENT_RE, INLINE_CODE_RE, LINK_DEF_RE, URL_RE):
+    for rx in (FENCE_RE, COMMENT_RE, INLINE_CODE_RE, LINK_DEF_RE, URL_RE, GLOSS_RE):
         text = rx.sub(blank, text)
     return text
 

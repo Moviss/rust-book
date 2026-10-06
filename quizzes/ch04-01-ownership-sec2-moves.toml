@@ -1,16 +1,16 @@
 [[questions]]
 id = "889ca9ac-0f4b-4abf-82c4-be9cd4d4f7ad"
 type = "MultipleChoice"
-prompt.prompt = "Which of the following is NOT a kind of undefined behavior?"
-answer.answer = "Having a pointer to freed memory in a stack frame"
+prompt.prompt = "Które z poniższych NIE jest rodzajem niezdefiniowanego zachowania?"
+answer.answer = "Przechowywanie w ramce stosu wskaźnika na zwolnioną pamięć"
 prompt.distractors = [
-  "Using a pointer that points to freed memory",
-  "Freeing the same memory a second time",
-  "Using a non-boolean value as an `if` condition"
+  "Użycie wskaźnika, który wskazuje na zwolnioną pamięć",
+  "Ponowne zwolnienie tej samej pamięci",
+  "Użycie wartości niebędącej wartością logiczną jako warunku `if`"
 ]
 context = """
-It can be perfectly safe to have a pointer to freed memory in a stack frame. 
-The important thing is to not *use* that pointer again, e.g. by reading it or freeing it.
+Przechowywanie wskaźnika na zwolnioną pamięć w ramce stosu może być całkowicie bezpieczne. 
+Ważne jest, by nie *używać* już tego wskaźnika, np. nie odczytywać go ani nie zwalniać.
 """
 
 [[questions]]
@@ -31,7 +31,7 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "hello world"
 context = """
-This program is valid because `s` is not used after moving it into `add_suffix`.
+Ten program jest poprawny, ponieważ `s` nie jest używane po przeniesieniu do `add_suffix`.
 """
 
 [[questions]]
@@ -51,27 +51,27 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 8
 context = """
-Because `s` could be moved inside of the if-statement, it is illegal to use it on line 8.
-While the if-statement will never execute in this program because `b` is always `false`,
-Rust does not in general try to determine whether if-statements will or won't execute. Rust just
-assumes that it *might* be executed, and therefore `s` *might* be moved.
+Ponieważ `s` może zostać przeniesione wewnątrz instrukcji if, użycie go w wierszu 8 jest niedozwolone.
+Choć w tym programie instrukcja if nigdy się nie wykona, bo `b` zawsze ma wartość `false`,
+Rust w ogólności nie próbuje ustalać, czy instrukcje if się wykonają, czy nie. Rust po prostu
+zakłada, że instrukcja *może* się wykonać, a więc `s` *może* zostać przeniesione.
 """
 
 [[questions]]
 id = "f7d67c11-60bb-4d92-8cc2-8ce82cf4c974"
 type = "MultipleChoice"
 prompt.prompt = """
-Say we have a function that moves a box, like this:
+Załóżmy, że mamy funkcję, która przenosi box, na przykład taką:
 ```
 fn move_a_box(b: Box<i32>) {
   // This space intentionally left blank
 }
 ```
 
-Below are four snippets which are rejected by the Rust compiler. 
-Imagine that Rust instead allowed these snippets to compile and run. 
-Select each snippet that would cause undefined behavior, or select 
-"None of these snippets" if none of these snippets would cause undefined behavior.
+Poniżej znajdują się cztery fragmenty kodu, które kompilator Rusta odrzuca. 
+Wyobraź sobie, że Rust pozwala je skompilować i uruchomić. 
+Zaznacz każdy fragment, który spowodowałby niezdefiniowane zachowanie, albo zaznacz 
+„Żaden z tych fragmentów”, jeśli żaden z nich nie spowodowałby niezdefiniowanego zachowania.
 """
 answer.answer = [
 """
@@ -105,15 +105,15 @@ println!("{}", b);
 move_a_box(b2);
 ```
 """,
-"None of these snippets"
+"Żaden z tych fragmentów"
 ]
 context = """
-The key idea is that when a box is passed to `move_a_box`, its memory is deallocated after `move_a_box` ends.
-Therefore:
-* Reading `b` via `println` after `move_a_box` is undefined behavior, as it reads freed memory.
-* Giving `b` a second owner is undefined behavior, as it would cause Rust to free the box a second time on behalf of `b2`. It doesn't matter whether the `let b2 = b` binding happens
-  before or after `move_a_box`.
+Kluczowe jest to, że gdy box zostaje przekazany do `move_a_box`, jego pamięć jest dealokowana po zakończeniu `move_a_box`.
+Dlatego:
+* Odczytanie `b` przez `println` po `move_a_box` jest niezdefiniowanym zachowaniem, ponieważ odczytuje zwolnioną pamięć.
+* Nadanie `b` drugiego właściciela jest niezdefiniowanym zachowaniem, ponieważ Rust zwolniłby box po raz drugi w imieniu `b2`. Nie ma znaczenia, czy wiązanie `let b2 = b` następuje
+  przed `move_a_box`, czy po nim.
 
-However, doing `let b2 = b` and then `println` is not undefined behavior. Although `b` is moved, its data is not deallocated until `move_a_box` is called at the end. Therefore 
-this program is technically safe, although still rejected by Rust.
+Natomiast wykonanie `let b2 = b`, a potem `println` nie jest niezdefiniowanym zachowaniem. Choć `b` zostało przeniesione, jego dane nie są dealokowane, dopóki na końcu nie zostanie wywołane `move_a_box`. Dlatego 
+ten program jest technicznie bezpieczny, choć Rust i tak go odrzuca.
 """
