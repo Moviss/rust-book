@@ -313,3 +313,30 @@ recenzent.
 | clean up | sprzątać / kod porządkujący | — | | |
 | allocator | alokator | — | | |
 | socket | gniazdo | — | | |
+| strong / weak reference | silna / słaba referencja | silna referencja (*strong reference*) | | |
+| reference count | licznik referencji | — | | |
+| node / tree | węzeł / drzewo | — | | |
+| stack overflow | przepełnienie stosu | — | | |
+| test double / mock object | dubler testowy / atrapa | dubler testowy (*test double*) | | |
+| static analysis | analiza statyczna | — | | |
+| single-/multithreaded | jednowątkowy / wielowątkowy | — | | |
+| main / spawned thread | wątek główny / nowy (utworzony) wątek | — | | |
+| transmitter / receiver | nadajnik / odbiornik | — | | |
+| producer / consumer | producent / konsument | — | | |
+| actor | aktor | — | | |
+| shared-state concurrency | współbieżność ze współdzielonym stanem | — | | |
+| concurrency primitive | prymityw współbieżności | — | | |
+| mutual exclusion | wzajemne wykluczanie | — | | |
+| atomic | atomowy / typy atomowe | — | | |
+| join handle | uchwyt wątku | — | | |
+| thread safety | bezpieczeństwo wątkowe | — | | |
+| marker trait | trait znacznikowy | trait znacznikowy (*marker trait*) | | |
+| fearless concurrency | nieustraszona współbieżność | nieustraszona współbieżność (*fearless concurrency*) | | |
+| process | proces | — | | |
+| block (thread) | blokować / zablokowanie | — | | „blokada” zarezerwowana dla *lock* |
+| asynchronous programming | programowanie asynchroniczne | programowanie asynchroniczne (*asynchronous programming*) | | |
+| CPU-bound / I/O-bound | ograniczony przez procesor / przez wejście-wyjście | — | | |
+| blocking / non-blocking | blokujący / nieblokujący | — | | |
+| future (l.mn.) | future’y | — | | |
+| subtask | podzadanie | — | | |
+| parallelism | równoległość | równoległość (*parallelism*) | | |

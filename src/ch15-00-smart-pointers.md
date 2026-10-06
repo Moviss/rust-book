@@ -1,46 +1,52 @@
-# Smart Pointers {#smart-pointers}
+# Inteligentne wskaźniki {#smart-pointers}
 
-A pointer is a general concept for a variable that contains an address in
-memory. This address refers to, or “points at,” some other data. The most
-common kind of pointer in Rust is a reference, which you learned about in
-Chapter 4. References are indicated by the `&` symbol and borrow the value they
-point to. They don’t have any special capabilities other than referring to
-data, and they have no overhead.
+Wskaźnik to ogólne pojęcie oznaczające zmienną, która zawiera adres w pamięci.
+Ten adres odnosi się do innych danych – „wskazuje” na nie. Najczęściej używanym
+rodzajem wskaźnika w Ruście jest referencja (*reference*), omówiona w
+rozdziale 4. Referencje oznaczamy symbolem `&`; pożyczają one wartość, na którą
+wskazują. Poza odnoszeniem się do danych nie mają żadnych specjalnych
+możliwości i nie wiąże się z nimi żaden narzut.
 
-_Smart pointers_, on the other hand, are data structures that act like a
-pointer but also have additional metadata and capabilities. The concept of
-smart pointers isn’t unique to Rust: Smart pointers originated in C++ and exist
-in other languages as well. Rust has a variety of smart pointers defined in the
-standard library that provide functionality beyond that provided by references.
-To explore the general concept, we’ll look at a couple of different examples of
-smart pointers, including a _reference counting_ smart pointer type. This
-pointer enables you to allow data to have multiple owners by keeping track of
-the number of owners and, when no owners remain, cleaning up the data.
+Z kolei _inteligentne wskaźniki_ (*smart pointers*) to struktury danych, które
+zachowują się jak wskaźnik, ale mają też dodatkowe metadane i możliwości.
+Koncepcja inteligentnych wskaźników nie jest unikalna dla Rusta: wywodzą się
+one z C++ i istnieją także w innych językach. Rust ma w bibliotece
+standardowej wiele inteligentnych wskaźników, które dają możliwości wykraczające
+poza to, co oferują referencje. Aby zbadać tę ogólną koncepcję, przyjrzymy się
+kilku przykładom inteligentnych wskaźników, w tym typowi inteligentnego
+wskaźnika ze _zliczaniem referencji_ (*reference counting*). Taki wskaźnik
+pozwala danym mieć wielu właścicieli: śledzi ich liczbę, a gdy nie zostaje już
+żaden właściciel, sprząta dane.
 
-In Rust, with its concept of ownership and borrowing, there is an additional
-difference between references and smart pointers: While references only borrow
-data, in many cases smart pointers _own_ the data they point to.
+W Ruście, z jego koncepcją własności (*ownership*) i pożyczania (*borrowing*),
+referencje i inteligentne wskaźniki różnią się jeszcze w jednym: referencje
+tylko pożyczają dane, a inteligentne wskaźniki w wielu przypadkach _są
+właścicielami_ danych, na które wskazują.
 
-Smart pointers are usually implemented using structs. Unlike an ordinary
-struct, smart pointers implement the `Deref` and `Drop` traits. The `Deref`
-trait allows an instance of the smart pointer struct to behave like a reference
-so that you can write your code to work with either references or smart
-pointers. The `Drop` trait allows you to customize the code that’s run when an
-instance of the smart pointer goes out of scope. In this chapter, we’ll discuss
-both of these traits and demonstrate why they’re important to smart pointers.
+Inteligentne wskaźniki są zwykle implementowane za pomocą struktur (*struct*).
+W odróżnieniu od zwykłej struktury inteligentne wskaźniki implementują
+*traity* (cechy typu, zbliżone do interfejsu) `Deref` i `Drop`. Trait `Deref`
+pozwala instancji struktury inteligentnego wskaźnika zachowywać się jak
+referencja, dzięki czemu możesz pisać kod działający zarówno z referencjami,
+jak i z inteligentnymi wskaźnikami. Trait `Drop` pozwala dostosować kod
+uruchamiany wtedy, gdy instancja inteligentnego wskaźnika wychodzi poza zasięg
+(*scope*). W tym rozdziale omówimy oba te traity i pokażemy, dlaczego są ważne
+dla inteligentnych wskaźników.
 
-Given that the smart pointer pattern is a general design pattern used
-frequently in Rust, this chapter won’t cover every existing smart pointer. Many
-libraries have their own smart pointers, and you can even write your own. We’ll
-cover the most common smart pointers in the standard library:
+Wzorzec inteligentnego wskaźnika jest ogólnym wzorcem projektowym, często
+używanym w Ruście, więc ten rozdział nie obejmie wszystkich istniejących
+inteligentnych wskaźników. Wiele bibliotek ma własne inteligentne wskaźniki, a
+możesz nawet napisać własne. Omówimy najczęściej używane inteligentne wskaźniki
+z biblioteki standardowej:
 
-- `Box<T>`, for allocating values on the heap
-- `Rc<T>`, a reference counting type that enables multiple ownership
-- `Ref<T>` and `RefMut<T>`, accessed through `RefCell<T>`, a type that enforces
-  the borrowing rules at runtime instead of compile time
+- `Box<T>` – do alokowania wartości na stercie (*heap*);
+- `Rc<T>` – typ ze zliczaniem referencji, który umożliwia współwłasność;
+- `Ref<T>` i `RefMut<T>`, dostępne przez `RefCell<T>` – typ, który egzekwuje
+  reguły pożyczania w czasie działania zamiast w czasie kompilacji.
 
-In addition, we’ll cover the _interior mutability_ pattern where an immutable
-type exposes an API for mutating an interior value. We’ll also discuss
-reference cycles: how they can leak memory and how to prevent them.
+Ponadto omówimy wzorzec _wewnętrznej mutowalności_ (*interior mutability*), w
+którym niemutowalny (*immutable*) typ udostępnia API do modyfikowania wartości
+znajdującej się w jego wnętrzu. Omówimy też cykle referencji: jak mogą
+powodować wycieki pamięci i jak im zapobiegać.
 
-Let’s dive in!
+Zaczynajmy!

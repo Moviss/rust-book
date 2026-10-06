@@ -1,34 +1,39 @@
-## Running Code on Cleanup with the `Drop` Trait {#running-code-on-cleanup-with-the-drop-trait}
+## Uruchamianie kodu przy sprzątaniu za pomocą traitu `Drop` {#running-code-on-cleanup-with-the-drop-trait}
 
-The second trait important to the smart pointer pattern is `Drop`, which lets
-you customize what happens when a value is about to go out of scope. You can
-provide an implementation for the `Drop` trait on any type, and that code can
-be used to release resources like files or network connections.
+Drugim *traitem* (cecha typu, zbliżona do interfejsu) ważnym dla wzorca
+inteligentnego wskaźnika (*smart pointer*) jest `Drop`, który pozwala dostosować
+to, co się dzieje, gdy wartość ma wyjść poza zasięg (*scope*). Implementację
+traitu `Drop` możesz dostarczyć dla dowolnego typu, a jej kod może posłużyć do
+zwalniania zasobów, takich jak pliki czy połączenia sieciowe.
 
-We’re introducing `Drop` in the context of smart pointers because the
-functionality of the `Drop` trait is almost always used when implementing a
-smart pointer. For example, when a `Box<T>` is dropped, it will deallocate the
-space on the heap that the box points to.
+Omawiamy `Drop` w kontekście inteligentnych wskaźników, ponieważ
+funkcjonalność traitu `Drop` jest używana niemal zawsze przy implementowaniu
+inteligentnego wskaźnika. Na przykład gdy *box* (wskaźnik na dane umieszczone
+na stercie) `Box<T>` zostaje zwolniony (*drop*), dealokuje miejsce na stercie
+(*heap*), na które wskazuje.
 
-In some languages, for some types, the programmer must call code to free memory
-or resources every time they finish using an instance of those types. Examples
-include file handles, sockets, and locks. If the programmer forgets, the system
-might become overloaded and crash. In Rust, you can specify that a particular
-bit of code be run whenever a value goes out of scope, and the compiler will
-insert this code automatically. As a result, you don’t need to be careful about
-placing cleanup code everywhere in a program that an instance of a particular
-type is finished with—you still won’t leak resources!
+W niektórych językach, dla niektórych typów, programista musi wywołać kod
+zwalniający pamięć lub zasoby za każdym razem, gdy skończy używać instancji
+takiego typu. Przykładami są uchwyty plików, gniazda i blokady. Jeśli
+programista o tym zapomni, system może zostać przeciążony i ulec awarii. W
+Ruście możesz określić, że dany fragment kodu ma zostać uruchomiony za każdym
+razem, gdy wartość wychodzi poza zasięg, a kompilator wstawi ten kod
+automatycznie. Dzięki temu nie musisz pilnować, by umieszczać kod porządkujący
+w każdym miejscu programu, w którym instancja danego typu przestaje być
+potrzebna – a mimo to nie dojdzie do wycieku zasobów!
 
-You specify the code to run when a value goes out of scope by implementing the
-`Drop` trait. The `Drop` trait requires you to implement one method named
-`drop` that takes a mutable reference to `self`. To see when Rust calls `drop`,
-let’s implement `drop` with `println!` statements for now.
+Kod, który ma zostać uruchomiony, gdy wartość wychodzi poza zasięg, określasz,
+implementując trait `Drop`. Trait `Drop` wymaga zaimplementowania jednej metody
+o nazwie `drop`, która przyjmuje mutowalną (*mutable*) referencję (*reference*)
+do `self`. Aby zobaczyć, kiedy Rust wywołuje `drop`, zaimplementujmy na razie
+`drop` z instrukcjami `println!`.
 
-Listing 15-14 shows a `CustomSmartPointer` struct whose only custom
-functionality is that it will print `Dropping CustomSmartPointer!` when the
-instance goes out of scope, to show when Rust runs the `drop` method.
+Listing 15-14 pokazuje strukturę (*struct*) `CustomSmartPointer`, której jedyną
+własną funkcjonalnością jest wypisanie `Dropping CustomSmartPointer!`, gdy
+instancja wychodzi poza zasięg. Pokazuje to, kiedy Rust uruchamia metodę
+`drop`.
 
-<Listing number="15-14" file-name="src/main.rs" caption="A `CustomSmartPointer` struct that implements the `Drop` trait where we would put our cleanup code">
+<Listing number="15-14" file-name="src/main.rs" caption="Struktura `CustomSmartPointer` implementująca trait `Drop`, w którym umieścilibyśmy kod porządkujący">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-14/src/main.rs}}
@@ -36,50 +41,49 @@ instance goes out of scope, to show when Rust runs the `drop` method.
 
 </Listing>
 
-The `Drop` trait is included in the prelude, so we don’t need to bring it into
-scope. We implement the `Drop` trait on `CustomSmartPointer` and provide an
-implementation for the `drop` method that calls `println!`. The body of the
-`drop` method is where you would place any logic that you wanted to run when an
-instance of your type goes out of scope. We’re printing some text here to
-demonstrate visually when Rust will call `drop`.
+Trait `Drop` należy do *prelude* (zestaw elementów importowanych
+automatycznie), więc nie musimy wprowadzać go do zasięgu. Implementujemy trait
+`Drop` dla `CustomSmartPointer` i dostarczamy implementację metody `drop`, która
+wywołuje `println!`. W ciele metody `drop` umieszczasz logikę, która ma zostać
+wykonana, gdy instancja twojego typu wychodzi poza zasięg. Tutaj wypisujemy
+tekst, żeby pokazać, kiedy Rust wywoła `drop`.
 
-In `main`, we create two instances of `CustomSmartPointer` and then print
-`CustomSmartPointers created`. At the end of `main`, our instances of
-`CustomSmartPointer` will go out of scope, and Rust will call the code we put
-in the `drop` method, printing our final message. Note that we didn’t need to
-call the `drop` method explicitly.
+W `main` tworzymy dwie instancje `CustomSmartPointer`, a następnie wypisujemy
+`CustomSmartPointers created`. Na końcu `main` nasze instancje
+`CustomSmartPointer` wyjdą poza zasięg, a Rust wywoła kod umieszczony przez nas
+w metodzie `drop`, wypisując nasz ostatni komunikat. Zauważ, że nie musieliśmy
+jawnie wywoływać metody `drop`.
 
-When we run this program, we’ll see the following output:
+Po uruchomieniu programu zobaczymy następujące wyjście:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-14/output.txt}}
 ```
 
-Rust automatically called `drop` for us when our instances went out of scope,
-calling the code we specified. Variables are dropped in the reverse order of
-their creation, so `d` was dropped before `c`. This example’s purpose is to
-give you a visual guide to how the `drop` method works; usually you would
-specify the cleanup code that your type needs to run rather than a print
-message.
+Rust automatycznie wywołał za nas `drop`, gdy nasze instancje wyszły poza
+zasięg, uruchamiając określony przez nas kod. Zmienne są zwalniane w kolejności
+odwrotnej do kolejności ich utworzenia, więc `d` zostało zwolnione przed `c`.
+Celem tego przykładu jest pokazanie, jak działa metoda `drop`; zwykle zamiast
+komunikatu do wypisania określasz kod porządkujący, którego potrzebuje twój typ.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="dropping-a-value-early-with-std-mem-drop"></a>
 
-Unfortunately, it’s not straightforward to disable the automatic `drop`
-functionality. Disabling `drop` isn’t usually necessary; the whole point of the
-`Drop` trait is that it’s taken care of automatically. Occasionally, however,
-you might want to clean up a value early. One example is when using smart
-pointers that manage locks: You might want to force the `drop` method that
-releases the lock so that other code in the same scope can acquire the lock.
-Rust doesn’t let you call the `Drop` trait’s `drop` method manually; instead,
-you have to call the `std::mem::drop` function provided by the standard library
-if you want to force a value to be dropped before the end of its scope.
+Niestety wyłączenie automatycznego wywoływania `drop` nie jest proste.
+Wyłączanie `drop` zwykle nie jest potrzebne – cały sens traitu `Drop` polega na
+tym, że wszystko dzieje się automatycznie. Czasem jednak możesz chcieć
+posprzątać wartość wcześniej. Przykładem jest używanie inteligentnych wskaźników zarządzających
+blokadami: możesz chcieć wymusić wywołanie metody `drop`, która zwalnia
+blokadę, aby inny kod w tym samym zasięgu mógł ją uzyskać. Rust nie pozwala
+ręcznie wywołać metody `drop` traitu `Drop`; jeśli chcesz wymusić zwolnienie
+wartości przed końcem jej zasięgu, musisz zamiast tego wywołać funkcję
+`std::mem::drop` dostarczaną przez bibliotekę standardową.
 
-Trying to call the `Drop` trait’s `drop` method manually by modifying the
-`main` function from Listing 15-14 won’t work, as shown in Listing 15-15.
+Próba ręcznego wywołania metody `drop` traitu `Drop` przez zmodyfikowanie
+funkcji `main` z listingu 15-14 nie zadziała, co pokazuje listing 15-15.
 
-<Listing number="15-15" file-name="src/main.rs" caption="Attempting to call the `drop` method from the `Drop` trait manually to clean up early">
+<Listing number="15-15" file-name="src/main.rs" caption="Próba ręcznego wywołania metody `drop` z traitu `Drop` w celu wcześniejszego posprzątania">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-15/src/main.rs:here}}
@@ -87,32 +91,33 @@ Trying to call the `Drop` trait’s `drop` method manually by modifying the
 
 </Listing>
 
-When we try to compile this code, we’ll get this error:
+Gdy spróbujemy skompilować ten kod, otrzymamy taki błąd:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-15/output.txt}}
 ```
 
-This error message states that we’re not allowed to explicitly call `drop`. The
-error message uses the term _destructor_, which is the general programming term
-for a function that cleans up an instance. A _destructor_ is analogous to a
-_constructor_, which creates an instance. The `drop` function in Rust is one
-particular destructor.
+Ten komunikat o błędzie mówi, że nie wolno nam jawnie wywoływać `drop`.
+Komunikat używa terminu _destruktor_ (*destructor*), czyli ogólnego terminu
+programistycznego oznaczającego funkcję, która sprząta po instancji.
+_Destruktor_ jest odpowiednikiem _konstruktora_, który tworzy instancję. Funkcja
+`drop` w Ruście jest jednym z rodzajów destruktora.
 
-Rust doesn’t let us call `drop` explicitly, because Rust would still
-automatically call `drop` on the value at the end of `main`. This would cause a
-double free error because Rust would be trying to clean up the same value twice.
+Rust nie pozwala nam jawnie wywołać `drop`, ponieważ i tak automatycznie
+wywołałby `drop` dla tej wartości na końcu `main`. Spowodowałoby to błąd
+podwójnego zwolnienia (*double free*), ponieważ Rust próbowałby posprzątać tę
+samą wartość dwukrotnie.
 
-We can’t disable the automatic insertion of `drop` when a value goes out of
-scope, and we can’t call the `drop` method explicitly. So, if we need to force
-a value to be cleaned up early, we use the `std::mem::drop` function.
+Nie możemy wyłączyć automatycznego wstawiania `drop`, gdy wartość wychodzi poza
+zasięg, ani jawnie wywołać metody `drop`. Jeśli więc musimy wymusić wcześniejsze
+posprzątanie wartości, używamy funkcji `std::mem::drop`.
 
-The `std::mem::drop` function is different from the `drop` method in the `Drop`
-trait. We call it by passing as an argument the value we want to force-drop.
-The function is in the prelude, so we can modify `main` in Listing 15-15 to
-call the `drop` function, as shown in Listing 15-16.
+Funkcja `std::mem::drop` różni się od metody `drop` w traicie `Drop`.
+Wywołujemy ją, przekazując jako argument wartość, której zwolnienie chcemy
+wymusić. Funkcja należy do prelude, więc możemy zmodyfikować `main` z listingu
+15-15 tak, by wywoływała funkcję `drop`, jak pokazuje listing 15-16.
 
-<Listing number="15-16" file-name="src/main.rs" caption="Calling `std::mem::drop` to explicitly drop a value before it goes out of scope">
+<Listing number="15-16" file-name="src/main.rs" caption="Wywołanie `std::mem::drop` w celu jawnego zwolnienia wartości, zanim wyjdzie ona poza zasięg">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-16/src/main.rs:here}}
@@ -120,29 +125,30 @@ call the `drop` function, as shown in Listing 15-16.
 
 </Listing>
 
-Running this code will print the following:
+Uruchomienie tego kodu wypisze:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-16/output.txt}}
 ```
 
-The text ``Dropping CustomSmartPointer with data `some data`!`` is printed
-between the `CustomSmartPointer created` and `CustomSmartPointer dropped before
-the end of main` text, showing that the `drop` method code is called to drop
-`c` at that point.
+Tekst ``Dropping CustomSmartPointer with data `some data`!`` zostaje wypisany
+między tekstem `CustomSmartPointer created` a tekstem
+`CustomSmartPointer dropped before the end of main`, co pokazuje, że kod metody
+`drop` zostaje wywołany w tym miejscu, by zwolnić `c`.
 
-You can use code specified in a `Drop` trait implementation in many ways to
-make cleanup convenient and safe: For instance, you could use it to create your
-own memory allocator! With the `Drop` trait and Rust’s ownership system, you
-don’t have to remember to clean up, because Rust does it automatically.
+Kod określony w implementacji traitu `Drop` możesz wykorzystać na wiele
+sposobów, by sprzątanie było wygodne i bezpieczne: możesz na przykład użyć go do
+stworzenia własnego alokatora pamięci! Dzięki traitowi `Drop` i systemowi
+własności (*ownership*) w Ruście nie musisz pamiętać o sprzątaniu, ponieważ Rust
+robi to automatycznie.
 
-You also don’t have to worry about problems resulting from accidentally
-cleaning up values still in use: The ownership system that makes sure
-references are always valid also ensures that `drop` gets called only once when
-the value is no longer being used.
+Nie musisz się też martwić problemami wynikającymi z przypadkowego posprzątania
+wartości, które są wciąż w użyciu: system własności, który gwarantuje, że
+referencje są zawsze poprawne, zapewnia również, że `drop` zostanie wywołane
+tylko raz, gdy wartość przestanie być używana.
 
-Now that we’ve examined `Box<T>` and some of the characteristics of smart
-pointers, let’s look at a few other smart pointers defined in the standard
-library.
+Skoro przyjrzeliśmy się już `Box<T>` i niektórym właściwościom inteligentnych
+wskaźników, przyjrzyjmy się kilku innym inteligentnym wskaźnikom zdefiniowanym w
+bibliotece standardowej.
 
 {{#quiz ../quizzes/ch15-03-drop.toml}}

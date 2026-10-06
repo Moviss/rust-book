@@ -333,7 +333,7 @@ Jeśli mamy wycinek łańcucha, możemy przekazać go bezpośrednio. Jeśli mamy
 `String`, możemy przekazać wycinek tego `String` albo referencję do `String`.
 Ta elastyczność wykorzystuje *deref coercion* (automatyczną konwersję przez
 dereferencję) – mechanizm, który omówimy w podrozdziale
-[„Niejawna deref coercion w funkcjach i metodach”][deref-coercions]<!--ignore-->
+[„Używanie deref coercion w funkcjach i metodach”][deref-coercions]<!--ignore-->
 w rozdziale 15.
 
 Gdy funkcja przyjmuje wycinek łańcucha zamiast referencji do `String`, nasze

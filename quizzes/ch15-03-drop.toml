@@ -18,14 +18,14 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 11
 context = """
-An owned value cannot be dropped twice, so it is a compiler error to call a drop the second time.
+Wartości, której jesteśmy właścicielem, nie można zwolnić dwukrotnie, więc drugie wywołanie drop jest błędem kompilacji.
 """
 
 [[questions]]
 id = "b9121273-1c1e-4e99-9cff-a23f845aaeeb"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider this snippet that allocates a string:
+Rozważ ten fragment kodu, który alokuje łańcuch znaków:
 
 ```rust
 fn main() {
@@ -34,13 +34,13 @@ fn main() {
 }
 ```
 
-Which of the following are valid operations to fill in the underscore that would cause `s` to be dropped?
+Które z poniższych operacji można poprawnie wstawić w miejsce podkreślenia, aby spowodować zwolnienie `s`?
 """
 answer.answer = ["`drop(s);`", "`(|_| ())(s);`", "`{ s };`"]
 prompt.distractors = [
     "`s.drop();`",    
 ]
 context = """
-Any use of `s` that moves it and discards the result will cause `s` to be dropped. However, `s.drop()` cannot be
-called directly.
+Każde użycie `s`, które ją przenosi i odrzuca wynik, spowoduje zwolnienie `s`. Natomiast `s.drop()` nie można
+wywołać bezpośrednio.
 """

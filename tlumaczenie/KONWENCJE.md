@@ -125,3 +125,7 @@ angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, 
 **Numer linii kodu:** „w wierszu 3” (nie „w linii 3”).
 
 **Listingi:** „w listingu 4-1” (nie „na listingu”).
+
+**Forma pierwszego wystąpienia:** w nawiasie bez myślnika: „*traity* (cechy typów, zbliżone do interfejsów)”, „*crate’y* (jednostki kompilacji w Ruście)”; termin w nawiasie można odmienić zgodnie ze zdaniem.
+
+**Rodzaj nazw typów w kodzie:** typy-wskaźniki (`Box<T>`, `Rc<T>`, `Arc<T>`, `RefCell<T>`) traktujemy jak „wskaźnik” – rodzaj męski; „deref coercion” – rodzaj żeński.

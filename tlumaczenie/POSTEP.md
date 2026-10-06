@@ -117,25 +117,25 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch14-03-cargo-workspaces.md | 14 | 1574 | ch14-03-cargo-workspaces | gotowe | a0b6c247 | 1 |  |  |
 | ch14-04-installing-binaries.md | 14 | 282 | — | gotowe | a0b6c247 | 1 |  |  |
 | ch14-05-extending-cargo.md | 14 | 161 | — | gotowe | a0b6c247 | 1 |  |  |
-| ch15-00-smart-pointers.md | 15 | 438 | — | przetłumaczone | abb1bb01 | 1 |  |  |
-| ch15-01-box.md | 15 | 2097 | ch15-01-box | przetłumaczone | abb1bb01 | 1 |  |  |
-| ch15-02-deref.md | 15 | 2107 | ch15-02-deref | przetłumaczone | aba46fae | 1 |  |  |
-| ch15-03-drop.md | 15 | 1071 | ch15-03-drop | przetłumaczone | af6d09f1 | 1 |  |  |
-| ch15-04-rc.md | 15 | 1416 | ch15-04-rc | przetłumaczone | ae749a0f | 1 |  |  |
-| ch15-05-interior-mutability.md | 15 | 2790 | ch15-05-interior-mutability | tłumaczenie | a27af7c5 | 1 |  |  |
-| ch15-06-reference-cycles.md | 15 | 2501 | ch15-06-reference-cycles | tłumaczenie | ae4ee3ef | 1 |  |  |
-| ch16-00-concurrency.md | 16 | 451 | — | tłumaczenie | aa341637 | 1 |  |  |
-| ch16-01-threads.md | 16 | 1657 | ch16-01-threads | tłumaczenie | aa341637 | 1 |  |  |
-| ch16-02-message-passing.md | 16 | 1747 | ch16-02-message-passing | tłumaczenie | a4078d27 | 1 |  |  |
-| ch16-03-shared-state.md | 16 | 1957 | ch16-03-shared-state | do zrobienia | | 0 | | |
-| ch16-04-extensible-concurrency-sync-and-send.md | 16 | 892 | ch16-04-extensible-concurrency-send-and-sync | do zrobienia | | 0 | | |
-| ch17-00-async-await.md | 17 | 1644 | — | do zrobienia | | 0 | | |
-| ch17-01-futures-and-syntax.md | 17 | 2979 | async-01-futures-and-syntax | do zrobienia | | 0 | | |
-| ch17-02-concurrency-with-async.md | 17 | 2805 | async-02-concurrency-with-async | do zrobienia | | 0 | | |
-| ch17-03-more-futures.md | 17 | 1473 | async-03-more-futures | do zrobienia | | 0 | | |
-| ch17-04-streams.md | 17 | 631 | async-04-streams | do zrobienia | | 0 | | |
+| ch15-00-smart-pointers.md | 15 | 438 | — | gotowe | a10bc024 | 1 |  |  |
+| ch15-01-box.md | 15 | 2097 | ch15-01-box | gotowe | a10bc024 | 1 |  |  |
+| ch15-02-deref.md | 15 | 2107 | ch15-02-deref | gotowe | a10bc024 | 1 |  |  |
+| ch15-03-drop.md | 15 | 1071 | ch15-03-drop | gotowe | a10bc024 | 1 |  |  |
+| ch15-04-rc.md | 15 | 1416 | ch15-04-rc | gotowe | af1b9fd3 | 1 |  |  |
+| ch15-05-interior-mutability.md | 15 | 2790 | ch15-05-interior-mutability | gotowe | af1b9fd3 | 1 |  |  |
+| ch15-06-reference-cycles.md | 15 | 2501 | ch15-06-reference-cycles | gotowe | af1b9fd3 | 1 |  |  |
+| ch16-00-concurrency.md | 16 | 451 | — | przegląd | a5977de1 | 1 |  |  |
+| ch16-01-threads.md | 16 | 1657 | ch16-01-threads | przegląd | a5977de1 | 1 |  |  |
+| ch16-02-message-passing.md | 16 | 1747 | ch16-02-message-passing | przegląd | a5977de1 | 1 |  |  |
+| ch16-03-shared-state.md | 16 | 1957 | ch16-03-shared-state | przegląd | a5977de1 | 1 |  |  |
+| ch16-04-extensible-concurrency-sync-and-send.md | 16 | 892 | ch16-04-extensible-concurrency-send-and-sync | przegląd | a5977de1 | 1 |  |  |
+| ch17-00-async-await.md | 17 | 1644 | — | przetłumaczone | a38a4454 | 1 |  |  |
+| ch17-01-futures-and-syntax.md | 17 | 2979 | async-01-futures-and-syntax | tłumaczenie | ab1a0d8c | 1 |  |  |
+| ch17-02-concurrency-with-async.md | 17 | 2805 | async-02-concurrency-with-async | tłumaczenie | a69798ab | 1 |  |  |
+| ch17-03-more-futures.md | 17 | 1473 | async-03-more-futures | tłumaczenie | ab6bd790 | 1 |  |  |
+| ch17-04-streams.md | 17 | 631 | async-04-streams | tłumaczenie | a0b11b51 | 1 |  |  |
 | ch17-05-traits-for-async.md | 17 | 4099 | async-05-traits-for-async | do zrobienia | | 0 | | |
-| ch17-06-futures-tasks-threads.md | 17 | 873 | — | do zrobienia | | 0 | | |
+| ch17-06-futures-tasks-threads.md | 17 | 873 | — | tłumaczenie | a0b11b51 | 1 |  |  |
 | ch18-00-oop.md | 18 | 143 | — | do zrobienia | | 0 | | |
 | ch18-01-what-is-oo.md | 18 | 1257 | ch17-01-what-is-oo | do zrobienia | | 0 | | |
 | ch18-02-trait-objects.md | 18 | 2203 | ch17-02-trait-objects | do zrobienia | | 0 | | |
@@ -177,3 +177,4 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F2: glosariusz uzupełniony o terminy z raportów pilota przed recenzją (rustowcy, box, ramka stosu, wartość wskazywana, …); KONWENCJE: listy, rodzaj gramatyczny, „Hello, world!”. `glosariusz_lint.py` pomija angielskie odpowiedniki w nawiasie `(*...*)` (forma D4). G5 ignoruje `{#id}` i dyrektywy.
 - F2.3 autoreview pilota: jakość dobra (bez błędów merytorycznych); poprawiono listy w ch04-01 (fragmenty zdań małą literą ze średnikami), „dokumentacja API” w ch01-01. Wszystkie propozycje „?” w glosariuszu zatwierdzone bez zmian. Dodano: zwalnianie (*freeing* lub *dropping*), modyfikować (*mutate*), endpoint, błąd segmentacji.
 - F2.4: wdrożony pilot (9113fa4a) zweryfikowany: notatka „Uwaga:” w `<section class="note">`, aquascope i quizy na ch04-01.
+- F3: nazwa serwisu w prozie „crates.io” (wielka litera tylko na początku zdania i w cytowanych tytułach); nagłówek ch14-00 „Więcej o Cargo i crates.io” do ujednolicenia w F5.
