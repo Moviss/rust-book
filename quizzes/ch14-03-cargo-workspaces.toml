@@ -2,7 +2,7 @@
 id = "20846719-fe7b-48b8-abfd-9c5f1174472f"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider a workspace with the following structure:
+Rozważ przestrzeń roboczą o następującej strukturze:
 
 ```
 ├── Cargo.lock
@@ -16,7 +16,7 @@ Consider a workspace with the following structure:
         └── Cargo.toml
 ```
 
-With the following content in each file:
+Poszczególne pliki mają następującą zawartość:
 
 ```
 // crates/b/lib.rs
@@ -29,7 +29,7 @@ pub fn f() {}
 b = {path = "../b"}
 ```
 
-Which of the following is the correct path to refer to `f` inside of `a/lib.rs`?
+Która z poniższych ścieżek jest poprawnym odwołaniem do `f` wewnątrz `a/lib.rs`?
 """
 answer.answer = "`b::f`"
 prompt.distractors = [
@@ -38,14 +38,14 @@ prompt.distractors = [
     "`super::b::f`",
 ]
 context = """
-From the perspective of `a`, `b` is an external crate like any other, so you don't use a prefix to access its items.
+Z perspektywy `a` crate `b` jest zewnętrznym crate’em jak każdy inny, więc do jego elementów odwołujesz się bez żadnego przedrostka.
 """
 
 [[questions]]
 id = "bc8a69b2-d9a8-4438-8657-391c3fda5ed9"
 type = "ShortAnswer"
 prompt.prompt = """
-Consider a workspace with three packages `a`, `b`, and `c`. Their respective manifests are:
+Rozważ przestrzeń roboczą z trzema pakietami: `a`, `b` i `c`. Ich manifesty wyglądają następująco:
 
 ```toml
 # a/Cargo.toml
@@ -61,11 +61,11 @@ rand = "0.7.3"
 rand = "0.8.5"
 ```
 
-How many different versions of `rand` will be used when compiling all packages in the workspace? 
-Write your answer as a digit, e.g. 0, 1, so on.
+Ile różnych wersji `rand` zostanie użytych podczas kompilacji wszystkich pakietów przestrzeni roboczej?
+Podaj odpowiedź jako cyfrę, np. 0, 1 itd.
 """
 answer.answer = "2"
 context = """
-According to the rules of semantic versioning, `a` and `c` will both share the latest patch of the minor version `0.8`.
-`b` will use the latest patch of the minor version `0.7`. So two versions in total will be used.
+Zgodnie z regułami wersjonowania semantycznego `a` i `c` będą współdzielić najnowszą poprawkę wersji pomniejszej `0.8`.
+`b` użyje najnowszej poprawki wersji pomniejszej `0.7`. Łącznie zostaną więc użyte dwie wersje.
 """

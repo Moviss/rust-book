@@ -293,3 +293,23 @@ recenzent.
 | development profile | profil deweloperski | — | | |
 | generic type | typ generyczny | typ generyczny (*generic type*) | | liczba pojedyncza; l.mn. → typy generyczne (*generics*) |
 | toilet closure | „domknięcie-toaleta” | — | | |
+| yank | wycofanie / wycofać | wycofanie (*yanking*) | | `cargo yank` jako kod |
+| API token | token API | — | | |
+| path dependency | zależność określona ścieżką | — | | |
+| member (workspace) | członek przestrzeni roboczej | — | | |
+| resolver (Cargo) | algorytm rozwiązywania zależności | — | | |
+| dereference operator | operator dereferencji | — | | |
+| wrapper type | typ opakowujący | — | | |
+| cons list | lista cons | lista cons (*cons list*) | | |
+| recursive type | typ rekurencyjny | typ rekurencyjny (*recursive type*) | | |
+| indirection | pośredniość | pośredniość (*indirection*) | | |
+| linked list | lista powiązana | — | | nie „lista połączona” |
+| reference cycle | cykl referencji | — | | |
+| memory leak | wyciek pamięci | — | | |
+| multiple ownership | współwłasność | — | | |
+| deep copy | głęboka kopia | — | | |
+| data race | wyścig danych | — | | |
+| destructor | destruktor | destruktor (*destructor*) | | |
+| clean up | sprzątać / kod porządkujący | — | | |
+| allocator | alokator | — | | |
+| socket | gniazdo | — | | |

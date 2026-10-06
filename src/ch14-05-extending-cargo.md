@@ -1,17 +1,19 @@
-## Extending Cargo with Custom Commands {#extending-cargo-with-custom-commands}
+## Rozszerzanie Cargo o własne polecenia {#extending-cargo-with-custom-commands}
 
-Cargo is designed so that you can extend it with new subcommands without having
-to modify it. If a binary in your `$PATH` is named `cargo-something`, you can
-run it as if it were a Cargo subcommand by running `cargo something`. Custom
-commands like this are also listed when you run `cargo --list`. Being able to
-use `cargo install` to install extensions and then run them just like the
-built-in Cargo tools is a super-convenient benefit of Cargo’s design!
+Cargo zaprojektowano tak, aby można go było rozszerzać o nowe podpolecenia bez
+konieczności modyfikowania go. Jeśli plik binarny w twoim `$PATH` nazywa się
+`cargo-something`, możesz go uruchomić tak, jakby był podpoleceniem Cargo,
+wpisując `cargo something`. Takie własne polecenia pojawiają się też na liście
+po uruchomieniu `cargo --list`. Możliwość instalowania rozszerzeń za pomocą
+`cargo install` i uruchamiania ich tak samo jak wbudowanych narzędzi Cargo to
+niezwykle wygodna zaleta tego, jak zaprojektowano Cargo!
 
-## Summary {#summary}
+## Podsumowanie {#summary}
 
-Sharing code with Cargo and [crates.io](https://crates.io/)<!-- ignore --> is
-part of what makes the Rust ecosystem useful for many different tasks. Rust’s
-standard library is small and stable, but crates are easy to share, use, and
-improve on a timeline different from that of the language. Don’t be shy about
-sharing code that’s useful to you on [crates.io](https://crates.io/)<!-- ignore
--->; it’s likely that it will be useful to someone else as well!
+Udostępnianie kodu za pomocą Cargo i [crates.io](https://crates.io/)<!-- ignore -->
+to jeden z powodów, dla których ekosystem Rusta przydaje się do tak wielu
+różnych zadań. Biblioteka standardowa Rusta jest mała i stabilna, ale *crate’y*
+(jednostki kompilacji w Ruście) łatwo udostępniać, używać i ulepszać w rytmie
+niezależnym od rozwoju języka. Nie krępuj się udostępniać kodu, który jest
+przydatny dla ciebie, na [crates.io](https://crates.io/)<!-- ignore
+-->; całkiem możliwe, że przyda się też komuś innemu!

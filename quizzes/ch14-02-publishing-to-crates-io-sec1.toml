@@ -2,8 +2,8 @@
 id = "e2df0a8a-7bdd-40a3-9918-e4a856978cbb"
 type = "MultipleChoice"
 prompt.prompt = """
-Say you are publishing a library, and you want to write documentation about the entire library at the top of the `lib.rs` file.
-The documentation should be prefixed with the following comment syntax:
+Załóżmy, że publikujesz bibliotekę i chcesz na początku pliku `lib.rs` napisać dokumentację całej biblioteki.
+Dokumentacja powinna być poprzedzona następującą składnią komentarza:
 """
 answer.answer = "`//!`"
 prompt.distractors = [
@@ -11,14 +11,14 @@ prompt.distractors = [
     "`//`",    
 ]
 context = """
-`//!` is appropriate for module-level documentation, while `///` is for documenting individual items like functions.
+`//!` nadaje się do dokumentacji na poziomie modułu, a `///` służy do dokumentowania pojedynczych elementów, takich jak funkcje.
 """
 
 [[questions]]
 id = "cfb65011-0578-4032-8aaa-b346b091602b"
 type = "MultipleChoice"
 prompt.prompt = """
-Say you are creating a library `worldly` with the following function `lib.rs`:
+Załóżmy, że tworzysz bibliotekę `worldly` z następującą funkcją w `lib.rs`:
 
     /// Adds the string "world" to `s`.
     ///
@@ -39,12 +39,12 @@ Say you are creating a library `worldly` with the following function `lib.rs`:
         assert_eq!(s, "world");
     }
 
-If you run `cargo test`, will any test fail?
+Czy po uruchomieniu `cargo test` któryś test zakończy się niepowodzeniem?
 """
-answer.answer = "Yes"
+answer.answer = "Tak"
 prompt.distractors = [
-    "No",    
+    "Nie",    
 ]
 context = """
-The incorrect example will be run as a doc-test, and cause `cargo test` to fail.
+Niepoprawny przykład zostanie uruchomiony jako test dokumentacyjny i spowoduje niepowodzenie `cargo test`.
 """

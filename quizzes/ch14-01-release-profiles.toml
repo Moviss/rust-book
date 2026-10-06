@@ -2,7 +2,7 @@
 id = "c753bc38-0dc1-44d5-8b06-136fdbbc26d2"
 type = "MultipleChoice"
 prompt.prompt = """
-When you run `cargo build` with no additional flags, which profile is used by default?
+Którego profilu domyślnie używa `cargo build` uruchomione bez dodatkowych flag?
 """
 answer.answer = "`dev`"
 prompt.distractors = [
@@ -10,6 +10,6 @@ prompt.distractors = [
     "`build`",
 ]
 context = """
-To minimize compile times, the default profile is `dev`. You should add `--release` if you want the `release` profile
-for longer compile times but faster code execution. (There is no `build` profile).
+Aby skrócić czas kompilacji, domyślnym profilem jest `dev`. Jeśli chcesz użyć profilu `release`, który kompiluje się
+dłużej, ale daje szybciej działający kod, dodaj `--release`. (Profil `build` nie istnieje).
 """
