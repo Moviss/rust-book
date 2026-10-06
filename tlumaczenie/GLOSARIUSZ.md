@@ -270,3 +270,24 @@ recenzent.
 | poem (w rozdz. 12) | utwór | — | | „wiersz” zarezerwowany dla *line* |
 | correctness | poprawność | — | | |
 | filtering (testów) | filtrowanie | — | | |
+| case-insensitive | bez rozróżniania wielkości liter | — | | |
+| failing test | test kończący się niepowodzeniem | — | | |
+| I/O | wejście-wyjście | — | | |
+| stream (stdout) | strumień | — | | |
+| iterator pattern | wzorzec iteratora | — | | |
+| lazy | leniwy | leniwy (*lazy*) | | |
+| consuming adapter | adapter konsumujący | adapter konsumujący (*consuming adapter*) | | |
+| capture (environment) | przechwytywać (środowisko) | — | | |
+| predicate | predykat | — | | |
+| zero-overhead | zerowy narzut | zasada zerowego narzutu (*zero-overhead*) | | |
+| runtime overhead | narzut w czasie działania | — | | |
+| loop unrolling / bounds checking | rozwijanie pętli / sprawdzanie granic | — | | |
+| top-level function | funkcja najwyższego poziomu | — | | |
+| function traits | traity `Fn` / traity funkcyjne | — | | |
+| halting problem | problem stopu | — | | |
+| query (minigrep) | zapytanie | — | | |
+| skeleton implementation | szkieletowa implementacja | — | | |
+| binary / library target | cel binarny / cel biblioteczny | cel binarny (*binary target*) | | |
+| subcommand | podpolecenie | — | | |
+| optimization level | poziom optymalizacji | — | | |
+| development profile | profil deweloperski | — | | |

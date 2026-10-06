@@ -1,13 +1,13 @@
-## Reading a File {#reading-a-file}
+## Odczytywanie pliku {#reading-a-file}
 
-Now we’ll add functionality to read the file specified in the `file_path`
-argument. First, we need a sample file to test it with: We’ll use a file with a
-small amount of text over multiple lines with some repeated words. Listing 12-3
-has an Emily Dickinson poem that will work well! Create a file called
-_poem.txt_ at the root level of your project, and enter the poem “I’m Nobody!
-Who are you?”
+Teraz dodamy funkcjonalność odczytu pliku wskazanego w argumencie `file_path`.
+Najpierw potrzebujemy przykładowego pliku do testów: użyjemy pliku z niewielką
+ilością tekstu w kilku wierszach i z kilkoma powtarzającymi się słowami. W
+listingu 12-3 znajduje się utwór Emily Dickinson, który świetnie się do tego
+nada! Utwórz plik o nazwie _poem.txt_ w katalogu głównym projektu i wpisz do
+niego utwór „I’m Nobody! Who are you?”.
 
-<Listing number="12-3" file-name="poem.txt" caption="A poem by Emily Dickinson makes a good test case.">
+<Listing number="12-3" file-name="poem.txt" caption="Utwór Emily Dickinson jest dobrym przypadkiem testowym.">
 
 ```text
 {{#include ../listings/ch12-an-io-project/listing-12-03/poem.txt}}
@@ -15,10 +15,10 @@ Who are you?”
 
 </Listing>
 
-With the text in place, edit _src/main.rs_ and add code to read the file, as
-shown in Listing 12-4.
+Gdy tekst jest już na miejscu, otwórz do edycji _src/main.rs_ i dodaj kod
+odczytujący plik, tak jak w listingu 12-4.
 
-<Listing number="12-4" file-name="src/main.rs" caption="Reading the contents of the file specified by the second argument">
+<Listing number="12-4" file-name="src/main.rs" caption="Odczytywanie zawartości pliku wskazanego przez drugi argument">
 
 ```rust,should_panic,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-04/src/main.rs:here}}
@@ -26,31 +26,30 @@ shown in Listing 12-4.
 
 </Listing>
 
-First, we bring in a relevant part of the standard library with a `use`
-statement: We need `std::fs` to handle files.
+Najpierw za pomocą instrukcji (*statement*) `use` wprowadzamy potrzebną część
+biblioteki standardowej: do obsługi plików potrzebujemy `std::fs`.
 
-In `main`, the new statement `fs::read_to_string` takes the `file_path`, opens
-that file, and returns a value of type `std::io::Result<String>` that contains
-the file’s contents.
+W `main` nowa instrukcja `fs::read_to_string` przyjmuje `file_path`, otwiera
+ten plik i zwraca wartość typu `std::io::Result<String>` z zawartością pliku.
 
-After that, we again add a temporary `println!` statement that prints the value
-of `contents` after the file is read so that we can check that the program is
-working so far.
+Następnie znów dodajemy tymczasową instrukcję `println!`, która po odczytaniu
+pliku wypisuje wartość `contents`, żeby sprawdzić, czy program jak dotąd
+działa.
 
-Let’s run this code with any string as the first command line argument (because
-we haven’t implemented the searching part yet) and the _poem.txt_ file as the
-second argument:
+Uruchommy ten kod z dowolnym łańcuchem znaków (*string*) jako pierwszym
+argumentem wiersza poleceń (ponieważ nie zaimplementowaliśmy jeszcze
+wyszukiwania) i plikiem _poem.txt_ jako drugim argumentem:
 
 ```console
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-04/output.txt}}
 ```
 
-Great! The code read and then printed the contents of the file. But the code
-has a few flaws. At the moment, the `main` function has multiple
-responsibilities: Generally, functions are clearer and easier to maintain if
-each function is responsible for only one idea. The other problem is that we’re
-not handling errors as well as we could. The program is still small, so these
-flaws aren’t a big problem, but as the program grows, it will be harder to fix
-them cleanly. It’s a good practice to begin refactoring early on when
-developing a program because it’s much easier to refactor smaller amounts of
-code. We’ll do that next.
+Świetnie! Kod odczytał, a następnie wypisał zawartość pliku. Ma jednak kilka
+wad. Funkcja `main` ma obecnie wiele zadań, a funkcje są zwykle czytelniejsze i
+łatwiejsze w utrzymaniu, gdy każda z nich odpowiada tylko za jedną rzecz.
+Drugi problem polega na tym, że nie obsługujemy błędów tak dobrze, jak
+moglibyśmy. Program jest wciąż mały, więc te wady nie stanowią dużego problemu,
+ale w miarę jego rozrastania się coraz trudniej będzie je elegancko naprawić.
+Dobrą praktyką jest rozpoczęcie refaktoryzacji na wczesnym etapie tworzenia
+programu, ponieważ znacznie łatwiej refaktoryzować mniejsze fragmenty kodu. Tym
+zajmiemy się w następnej kolejności.

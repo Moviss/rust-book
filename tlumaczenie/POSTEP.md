@@ -99,24 +99,24 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | gotowe | a0133458 | 1 |  |  |
 | ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | gotowe | a0133458 | 1 |  |  |
 | ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | gotowe | a0133458 | 1 |  |  |
-| ch12-00-an-io-project.md | 12 | 386 | — | przetłumaczone | aa57fab2 | 1 |  |  |
-| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | przetłumaczone | aa57fab2 | 1 |  |  |
-| ch12-02-reading-a-file.md | 12 | 342 | — | przetłumaczone | aa57fab2 | 1 |  |  |
-| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | przetłumaczone | a2034a8f | 1 |  |  |
-| ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | przetłumaczone | aff7c1ee | 1 |  |  |
-| ch12-05-working-with-environment-variables.md | 12 | 1302 | — | tłumaczenie | a28bc1ea | 1 |  |  |
-| ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | tłumaczenie | a28bc1ea | 1 |  |  |
-| ch13-00-functional-features.md | 13 | 191 | — | tłumaczenie | a92dbfe2 | 1 |  |  |
-| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | tłumaczenie | a92dbfe2 | 1 |  |  |
-| ch13-02-iterators.md | 13 | 1473 | ch13-02-iterators | do zrobienia | | 0 | | |
-| ch13-03-improving-our-io-project.md | 13 | 1271 | — | do zrobienia | | 0 | | |
-| ch13-04-performance.md | 13 | 427 | — | do zrobienia | | 0 | | |
-| ch14-00-more-about-cargo.md | 14 | 110 | — | do zrobienia | | 0 | | |
-| ch14-01-release-profiles.md | 14 | 413 | ch14-01-release-profiles | do zrobienia | | 0 | | |
-| ch14-02-publishing-to-crates-io.md | 14 | 2926 | ch14-02-publishing-to-crates-io-sec1, ch14-02-publishing-to-crates-io-sec2 | do zrobienia | | 0 | | |
-| ch14-03-cargo-workspaces.md | 14 | 1574 | ch14-03-cargo-workspaces | do zrobienia | | 0 | | |
-| ch14-04-installing-binaries.md | 14 | 282 | — | do zrobienia | | 0 | | |
-| ch14-05-extending-cargo.md | 14 | 161 | — | do zrobienia | | 0 | | |
+| ch12-00-an-io-project.md | 12 | 386 | — | gotowe | aaf838c8 | 1 |  |  |
+| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | gotowe | aaf838c8 | 1 |  |  |
+| ch12-02-reading-a-file.md | 12 | 342 | — | gotowe | aaf838c8 | 1 |  |  |
+| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | gotowe | aaf838c8 | 1 |  |  |
+| ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | gotowe | ad855890 | 1 |  |  |
+| ch12-05-working-with-environment-variables.md | 12 | 1302 | — | gotowe | ad855890 | 1 |  |  |
+| ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | gotowe | ad855890 | 1 |  |  |
+| ch13-00-functional-features.md | 13 | 191 | — | przegląd | a877a99a | 1 |  |  |
+| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | przegląd | a877a99a | 1 |  |  |
+| ch13-02-iterators.md | 13 | 1473 | ch13-02-iterators | przegląd | a877a99a | 1 |  |  |
+| ch13-03-improving-our-io-project.md | 13 | 1271 | — | przegląd | a877a99a | 1 |  |  |
+| ch13-04-performance.md | 13 | 427 | — | przegląd | a877a99a | 1 |  |  |
+| ch14-00-more-about-cargo.md | 14 | 110 | — | przetłumaczone | abc93145 | 1 |  |  |
+| ch14-01-release-profiles.md | 14 | 413 | ch14-01-release-profiles | przetłumaczone | abc93145 | 1 |  |  |
+| ch14-02-publishing-to-crates-io.md | 14 | 2926 | ch14-02-publishing-to-crates-io-sec1, ch14-02-publishing-to-crates-io-sec2 | tłumaczenie | afb88a38 | 1 |  |  |
+| ch14-03-cargo-workspaces.md | 14 | 1574 | ch14-03-cargo-workspaces | tłumaczenie | a4bb58d7 | 1 |  |  |
+| ch14-04-installing-binaries.md | 14 | 282 | — | przetłumaczone | abc93145 | 1 |  |  |
+| ch14-05-extending-cargo.md | 14 | 161 | — | przetłumaczone | abc93145 | 1 |  |  |
 | ch15-00-smart-pointers.md | 15 | 438 | — | do zrobienia | | 0 | | |
 | ch15-01-box.md | 15 | 2097 | ch15-01-box | do zrobienia | | 0 | | |
 | ch15-02-deref.md | 15 | 2107 | ch15-02-deref | do zrobienia | | 0 | | |

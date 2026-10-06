@@ -123,3 +123,5 @@ angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, 
 **unsafe w prozie:** *unsafe code* bez kodu inline w oryginale → „niebezpieczny kod”.
 
 **Numer linii kodu:** „w wierszu 3” (nie „w linii 3”).
+
+**Listingi:** „w listingu 4-1” (nie „na listingu”).
