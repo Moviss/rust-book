@@ -1,16 +1,16 @@
-## Ownership Recap {#ownership-recap}
+## Podsumowanie własności {#ownership-recap}
 
-This chapter introduced a lot of new concepts like ownership, borrowing, and slices.
-If you aren't familiar with systems programming, this chapter also introduced new concepts like memory allocation, the stack vs. the heap, pointers, and undefined behavior. Before we move on to the rest of Rust, let's first stop and take a breath. We'll review and practice with the key concepts from this chapter.
+W tym rozdziale wprowadziliśmy wiele nowych pojęć, takich jak własność (*ownership*), pożyczanie (*borrowing*) i wycinki (*slices*).
+Jeśli nie masz doświadczenia z programowaniem systemowym, rozdział ten wprowadził też pojęcia takie jak alokacja pamięci, stos (*stack*) i sterta (*heap*), wskaźniki oraz niezdefiniowane zachowanie (*undefined behavior*). Zanim przejdziemy do dalszej części Rusta, zatrzymajmy się na chwilę i złapmy oddech. Powtórzymy i przećwiczymy najważniejsze pojęcia z tego rozdziału.
 
-### Ownership versus Garbage Collection {#ownership-versus-garbage-collection}
+### Własność a odśmiecanie pamięci {#ownership-versus-garbage-collection}
 
-To put ownership into context, we should talk about **garbage collection**.
-Most programming languages use a garbage collector to manage memory, such as in Python, Javascript, Java, and Go. A garbage collector works at runtime adjacent to a running program (a tracing collector, at least). The collector scans through memory to find data that's no longer used &mdash; that is, the running program can no longer reach that data from a function-local variable. Then the collector deallocates the unused memory for later use.
+Aby umieścić własność w szerszym kontekście, warto omówić **odśmiecanie pamięci** (*garbage collection*).
+Większość języków programowania, takich jak Python, JavaScript, Java i Go, zarządza pamięcią za pomocą mechanizmu odśmiecania pamięci (*garbage collector*). Taki mechanizm pracuje w czasie działania programu, obok niego (przynajmniej w przypadku odśmiecania ze śledzeniem, *tracing collector*). Przeszukuje pamięć w poszukiwaniu danych, które nie są już używane &mdash; czyli takich, do których działający program nie może już dotrzeć z żadnej zmiennej lokalnej funkcji. Następnie dealokuje nieużywaną pamięć, aby można jej było użyć ponownie.
 
-The key benefit of a garbage collector is that it avoids undefined behavior (such as using freed memory), as can happen in C or C++. Garbage collection also avoids the need for a complex type system to check for undefined behavior, like in Rust. However, there are a few drawbacks to garbage collection. One obvious drawback is performance, as garbage collection incurs either frequent small overheads (for reference-counting, like in Python and Swift) or infrequent large overheads (for tracing, like in all other GC'd languages). 
+Główną zaletą odśmiecania pamięci jest to, że zapobiega ono niezdefiniowanemu zachowaniu (na przykład użyciu zwolnionej pamięci), które może wystąpić w C lub C++. Odśmiecanie pamięci zwalnia też z potrzeby stosowania złożonego systemu typów, który wykrywa niezdefiniowane zachowanie, jak w Ruście. Ma ono jednak kilka wad. Oczywistą wadą jest wydajność: odśmiecanie pamięci wiąże się albo z częstymi małymi narzutami (przy zliczaniu referencji, jak w Pythonie i Swifcie), albo z rzadkimi dużymi narzutami (przy śledzeniu, jak we wszystkich pozostałych językach z odśmiecaniem pamięci).
 
-But another less obvious drawback is that **garbage collection can be unpredictable**. To illustrate the point, say we are implementing a `Document` type that represents a mutable list of words. We could implement `Document` in a garbage-collected language such as Python in this way:
+Inną, mniej oczywistą wadą jest to, że **odśmiecanie pamięci bywa nieprzewidywalne**. Aby to zilustrować, załóżmy, że implementujemy typ `Document`, który reprezentuje mutowalną (*mutable*) listę słów. W języku z odśmiecaniem pamięci, takim jak Python, moglibyśmy zaimplementować `Document` w taki sposób:
 
 ```python
 class Document:     
@@ -27,7 +27,7 @@ class Document:
         return self.words
 ```
 
-Here's one way we could use this `Document` class that creates a document `d`, copies it into a new document `d2`, and then mutates `d2`.
+Oto jeden ze sposobów użycia klasy `Document`: tworzymy dokument `d`, kopiujemy go do nowego dokumentu `d2`, a następnie modyfikujemy `d2`.
 
 ```python
 words = ["Hello"]
@@ -37,17 +37,17 @@ d2 = Document(d.get_words())
 d2.add_word("world")
 ```
 
-Consider two key questions about this example:
+Rozważ dwa kluczowe pytania dotyczące tego przykładu:
 
-1. **When is the words array deallocated?** 
-This program has created three pointers to the same array. The variables `words`, `d`, and `d2` all contain a pointer to the words array allocated on the heap. Therefore Python will only deallocate the words array when all three variables are out of scope. More generally, it's often difficult to predict where data will be garbage-collected just by reading the source code.
+1. **Kiedy zostanie zdealokowana tablica słów?**
+Ten program utworzył trzy wskaźniki na tę samą tablicę. Zmienne `words`, `d` i `d2` zawierają wskaźnik na tablicę słów zaalokowaną na stercie. Dlatego Python zdealokuje tablicę słów dopiero wtedy, gdy wszystkie trzy zmienne wyjdą poza zasięg (*scope*). Mówiąc ogólniej, samo czytanie kodu źródłowego często nie wystarcza, by przewidzieć, gdzie dane zostaną usunięte przez mechanizm odśmiecania pamięci.
 
-2. **What are the contents of the document `d`?** 
-Because `d2` contains a pointer to the same words array as `d`, then `d2.add_word("world")` also mutates the document `d`. Therefore in this example, the words in `d` are `["Hello", "world"]`. This happens because `d.get_words()` returns a mutable reference to the words array in `d`. Pervasive, implicit mutable references can easily lead to unpredictable bugs when data structures can leak their internals[^ownership-originally]. Here, it is probably not intended behavior that a change to `d2` can change `d`.
+2. **Co zawiera dokument `d`?**
+Ponieważ `d2` zawiera wskaźnik na tę samą tablicę słów co `d`, wywołanie `d2.add_word("world")` modyfikuje również dokument `d`. W tym przykładzie słowa w `d` to więc `["Hello", "world"]`. Dzieje się tak, ponieważ `d.get_words()` zwraca mutowalną referencję do tablicy słów w `d`. Wszechobecne, niejawne mutowalne referencje łatwo prowadzą do nieprzewidywalnych błędów, gdy struktury danych mogą ujawniać na zewnątrz swoje wnętrze[^ownership-originally]. Zmiana `d2` wpływająca na `d` raczej nie jest tu zamierzonym zachowaniem.
 
-This problem is not unique to Python &mdash; you can encounter similar behavior in C#, Java, Javascript, and so on. In fact, most programming languages actually have a concept of pointers. It's just a question of how the language exposes pointers to the programmer. Garbage collection makes it difficult to see which variable points to which data. For example, it wasn't obvious that `d.get_words()` produced a pointer to data within `d`. 
+Ten problem nie dotyczy wyłącznie Pythona &mdash; podobne zachowanie możesz spotkać w C#, Javie, JavaScripcie i innych językach. Właściwie większość języków programowania ma pojęcie wskaźnika. Różnią się tylko tym, jak udostępniają wskaźniki programiście. Odśmiecanie pamięci utrudnia dostrzeżenie, która zmienna wskazuje na które dane. Na przykład nie było oczywiste, że `d.get_words()` zwraca wskaźnik na dane wewnątrz `d`.
 
-By contrast, Rust's ownership model puts pointers front-and-center. We can see that by translating the `Document` type into a Rust data structure. Normally we would use a `struct`, but we haven't covered those yet, so we'll just use a type alias:
+Model własności w Ruście natomiast stawia wskaźniki na pierwszym planie. Widać to, gdy przełożymy typ `Document` na strukturę danych w Ruście. Normalnie użylibyśmy struktury (`struct`), ale jeszcze ich nie omówiliśmy, więc posłużymy się aliasem typu:
 
 ```rust
 type Document = Vec<String>;
@@ -65,13 +65,13 @@ fn get_words(this: &Document) -> &[String] {
 }
 ```
 
-This Rust API differs from the Python API in a few key ways:
+To API w Ruście różni się od API w Pythonie w kilku kluczowych kwestiach:
 
-* The function `new_document` consumes ownership of the input vector `words`. That means the `Document` *owns* the word vector. The word vector will be predictably deallocated when its owning `Document` goes out of scope.
+* Funkcja `new_document` przejmuje własność wektora wejściowego `words`. Oznacza to, że `Document` *jest właścicielem* wektora słów. Wektor słów zostanie zdealokowany w przewidywalny sposób, gdy będący jego właścicielem `Document` wyjdzie poza zasięg.
 
-* The function `add_word` requires a mutable reference `&mut Document` to be able to mutate a document. It also consumes ownership of the input `word`, meaning no one else can mutate the individual words of the document.
+* Funkcja `add_word` wymaga mutowalnej referencji `&mut Document`, aby móc zmodyfikować dokument. Przejmuje też własność wejściowego `word`, co oznacza, że nikt inny nie może modyfikować poszczególnych słów dokumentu.
 
-* The function `get_words` returns an explicit immutable reference to strings within the document. The only way to create a new document from this word vector is to deep-copy its contents, like this:
+* Funkcja `get_words` zwraca jawną niemutowalną referencję do łańcuchów znaków wewnątrz dokumentu. Jedynym sposobem utworzenia nowego dokumentu z tego wektora słów jest głębokie skopiowanie jego zawartości, na przykład tak:
 
 ```rust,ignore
 fn main() {
@@ -88,20 +88,20 @@ fn main() {
 }
 ```
 
-The point of this example is to say: if Rust is not your first language, then you already have experience working with memory and pointers! Rust just makes those concepts explicit. This has the dual benefit of (1) improving runtime performance by avoiding garbage collection, and (2) improving predictability by preventing accidental "leaks" of data.
+Ten przykład ma pokazać, że jeśli Rust nie jest twoim pierwszym językiem, to masz już doświadczenie w pracy z pamięcią i wskaźnikami! Rust po prostu czyni te pojęcia jawnymi. Daje to podwójną korzyść: (1) poprawia wydajność w czasie działania programu, bo nie ma odśmiecania pamięci, oraz (2) zwiększa przewidywalność, bo zapobiega przypadkowym „wyciekom” danych.
 
-### The Concepts of Ownership {#the-concepts-of-ownership}
+### Pojęcia związane z własnością {#the-concepts-of-ownership}
 
-Next, let's review the concepts of ownership. This review will be quick &mdash; the goal is to remind you of the relevant concepts. If you realize you forgot or didn't understand a concept, then we will link you to the relevant chapters which you can review.
+Teraz powtórzmy pojęcia związane z własnością. Ta powtórka będzie krótka &mdash; jej celem jest przypomnienie ci najważniejszych pojęć. Jeśli zauważysz, że jakieś pojęcie umknęło ci z pamięci albo nie było dla ciebie jasne, podamy linki do odpowiednich podrozdziałów, do których możesz wrócić.
 
-#### Ownership at Runtime {#ownership-at-runtime}
+#### Własność w czasie działania programu {#ownership-at-runtime}
 
-We'll start by reviewing how Rust uses memory at runtime: 
-* Rust allocates local variables in stack frames, which are allocated when a function is called and deallocated when the call ends. 
-* Local variables can hold either data (like numbers, booleans, tuples, etc.) or pointers. 
-* Pointers can be created either through boxes (pointers owning data on the heap) or references (non-owning pointers).
+Zacznijmy od przypomnienia, jak Rust korzysta z pamięci w czasie działania programu:
+* Rust alokuje zmienne lokalne w ramkach stosu (*frames*), które są alokowane w chwili wywołania funkcji i dealokowane, gdy wywołanie się kończy.
+* Zmienne lokalne mogą przechowywać albo dane (takie jak liczby, wartości logiczne, krotki itp.), albo wskaźniki.
+* Wskaźniki można tworzyć albo za pomocą boxów (wskaźników będących właścicielami danych na stercie), albo referencji (wskaźników niebędących właścicielami).
 
-This diagram illustrates how each concept looks at runtime:
+Ten diagram pokazuje, jak każde z tych pojęć wygląda w czasie działania programu:
 
 ```aquascope,interpreter,horizontal
 fn main() {
@@ -121,14 +121,14 @@ fn inner(x: &mut i32) {
 }
 ```
 
-Review this diagram and make sure you understand each part. For example, you should be able to answer:
-* Why does `a_box_stack_ref` point to the stack, while `a_box_heap_ref` point to the heap? 
-* Why is the value `2` no longer on the heap at L2? 
-* Why does `a_num` have the value `5` at L2?
+Przeanalizuj ten diagram i upewnij się, że rozumiesz każdą jego część. Na przykład powinno ci się udać odpowiedzieć na pytania:
+* Dlaczego `a_box_stack_ref` wskazuje na stos, a `a_box_heap_ref` na stertę?
+* Dlaczego w punkcie L2 wartości `2` nie ma już na stercie?
+* Dlaczego w punkcie L2 `a_num` ma wartość `5`?
 
-If you want to review boxes, re-read [Chapter 4.1][ch04-01]. If you want to review references, re-read [Chapter 4.2][ch04-02]. If you want to see case studies involving boxes and references, re-read [Chapter 4.3][ch04-03].
+Jeśli chcesz powtórzyć wiadomości o boxach, przeczytaj ponownie [podrozdział 4.1][ch04-01]. Jeśli chcesz powtórzyć wiadomości o referencjach, przeczytaj ponownie [podrozdział 4.2][ch04-02]. Jeśli chcesz zobaczyć studia przypadków z boxami i referencjami, przeczytaj ponownie [podrozdział 4.3][ch04-03].
 
-Slices are a special kind of reference that refer to a contiguous sequence of data in memory. This diagram illustrates how a slice refers to a subsequence of characters in a string:
+Wycinki to szczególny rodzaj referencji, które odwołują się do ciągłej sekwencji danych w pamięci. Ten diagram pokazuje, jak wycinek odwołuje się do podciągu znaków w łańcuchu:
 
 ```aquascope,interpreter
 fn main() {
@@ -137,12 +137,12 @@ fn main() {
 }
 ```
 
-If you want to review slices, re-read [Chapter 4.4][ch04-04].
+Jeśli chcesz powtórzyć wiadomości o wycinkach, przeczytaj ponownie [podrozdział 4.4][ch04-04].
 
 
-#### Ownership at Compile-time {#ownership-at-compile-time}
+#### Własność w czasie kompilacji {#ownership-at-compile-time}
 
-Rust tracks @Perm{read} (read), @Perm{write} (write), and @Perm{own} (own) permissions on each variable. Rust requires that a variable has appropriate permissions to perform a given operation. As a basic example, if a variable is not declared as `let mut`, then it is missing the @Perm{write} permission and cannot be mutated:
+Rust śledzi dla każdej zmiennej uprawnienia (*permissions*) @Perm{read} (*read*, odczyt), @Perm{write} (*write*, zapis) i @Perm{own} (*own*, własność). Rust wymaga, by zmienna miała odpowiednie uprawnienia do wykonania danej operacji. Prosty przykład: jeśli zmienna nie jest zadeklarowana jako `let mut`, to brakuje jej uprawnienia @Perm{write} i nie można jej modyfikować:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 fn main() {
@@ -151,7 +151,7 @@ fn main() {
 }
 ```
 
-A variable's permissions can be changed if it is **moved** or **borrowed**. A move of a variable with a non-copyable type (like `Box<T>` or `String`) requires the @Perm{read}@Perm{own} permissions, and the move eliminates all permissions on the variable. That rule prevents the use of moved variables:
+Uprawnienia zmiennej mogą się zmienić, jeśli zostanie ona **przeniesiona** lub **pożyczona**. Przeniesienie (*move*) zmiennej typu, którego nie da się kopiować (np. `Box<T>` lub `String`), wymaga uprawnień @Perm{read}@Perm{own}, a samo przeniesienie odbiera zmiennej wszystkie uprawnienia. Ta reguła zapobiega używaniu przeniesionych zmiennych:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 fn main() {
@@ -165,9 +165,9 @@ fn consume_a_string(_s: String) {
 }
 ```
 
-If you want to review how moves work, re-read [Chapter 4.1][ch04-01].
+Jeśli chcesz powtórzyć, jak działa przenoszenie, przeczytaj ponownie [podrozdział 4.1][ch04-01].
 
-Borrowing a variable (creating a reference to it) temporarily removes some of the variable's permissions. An immutable borrow creates an immutable reference, and also disables the borrowed data from being mutated or moved. For example, printing an immutable reference is ok:
+Pożyczenie zmiennej (utworzenie referencji do niej) tymczasowo odbiera jej część uprawnień. Niemutowalne pożyczenie tworzy niemutowalną referencję, a przy tym uniemożliwia modyfikowanie lub przenoszenie pożyczonych danych. Na przykład wypisanie niemutowalnej referencji jest w porządku:
 
 ```aquascope,permissions,stepper,boundaries
 #fn main() {
@@ -178,7 +178,7 @@ println!("{s}");
 #}
 ```
 
-But mutating an immutable reference is not ok:
+Ale modyfikowanie danych przez niemutowalną referencję nie jest w porządku:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 #fn main() {
@@ -189,7 +189,7 @@ println!("{s}");
 #}
 ```
 
-And mutating the immutably borrowed data is not ok:
+Modyfikowanie danych pożyczonych niemutowalnie również nie jest w porządku:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 #fn main() {
@@ -200,7 +200,7 @@ println!("{s_ref}");
 #}
 ```
 
-And moving data out of the reference is not ok:
+Nie jest też w porządku przenoszenie danych z referencji:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 #fn main() {
@@ -211,7 +211,7 @@ println!("{s}");
 #}
 ```
 
-A mutable borrow creates a mutable reference, which disables the borrowed data from being read, written, or moved. For example, mutating a mutable reference is ok:
+Mutowalne pożyczenie tworzy mutowalną referencję, która uniemożliwia odczytywanie, zapisywanie i przenoszenie pożyczonych danych. Na przykład modyfikowanie danych przez mutowalną referencję jest w porządku:
 
 ```aquascope,permissions,stepper,boundaries
 #fn main() {
@@ -222,7 +222,7 @@ println!("{s}");
 #}
 ```
 
-But accessing the mutably borrowed data is not ok:
+Ale dostęp do danych pożyczonych mutowalnie nie jest w porządku:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 #fn main() {
@@ -233,11 +233,11 @@ s_ref.push_str(" world");
 #}
 ```
 
-If you want to review permissions and references, re-read [Chapter 4.2][ch04-02].
+Jeśli chcesz powtórzyć wiadomości o uprawnieniach i referencjach, przeczytaj ponownie [podrozdział 4.2][ch04-02].
 
-#### Connecting Ownership between Compile-time and Runtime {#connecting-ownership-between-compile-time-and-runtime}
+#### Łączenie własności w czasie kompilacji i w czasie działania programu {#connecting-ownership-between-compile-time-and-runtime}
 
-Rust's permissions are designed to prevent undefined behavior. For example, one kind of undefined behavior is a **use-after-free** where freed memory is read or written. Immutable borrows remove the @Perm{write} permission to avoid use-after-free, like in this case:
+Uprawnienia w Ruście mają zapobiegać niezdefiniowanemu zachowaniu. Jednym z rodzajów niezdefiniowanego zachowania jest na przykład **użycie po zwolnieniu** (*use-after-free*), czyli odczyt lub zapis zwolnionej pamięci. Niemutowalne pożyczenia odbierają uprawnienie @Perm{write}, aby zapobiec użyciu po zwolnieniu, jak w tym przypadku:
 
 ```aquascope,interpreter,shouldFail,horizontal
 #fn main() {
@@ -248,7 +248,7 @@ println!("{n}");`[]`
 #}
 ```
 
-Another kind of undefined behavior is a **double-free** where memory is freed twice. Dereferences of references to non-copyable data do not have the @Perm{own} permission to avoid double-frees, like in this case:
+Innym rodzajem niezdefiniowanego zachowania jest **podwójne zwolnienie** (*double-free*), czyli dwukrotne zwolnienie tej samej pamięci. Dereferencje (*dereferences*) referencji do danych, których nie da się kopiować, nie mają uprawnienia @Perm{own}, aby zapobiec podwójnemu zwolnieniu, jak w tym przypadku:
 
 ```aquascope,interpreter,shouldFail,horizontal
 #fn main() {
@@ -260,20 +260,20 @@ drop(v);`[]`
 #}
 ```
 
-If you want to review undefined behavior, re-read [Chapter 4.1][ch04-01] and [Chapter 4.3][ch04-03].
+Jeśli chcesz powtórzyć wiadomości o niezdefiniowanym zachowaniu, przeczytaj ponownie [podrozdział 4.1][ch04-01] i [podrozdział 4.3][ch04-03].
 
 
-### The Rest of Ownership {#the-rest-of-ownership}
+### Pozostałe aspekty własności {#the-rest-of-ownership}
 
-As we introduce additional features like structs, enums, and traits, those features will have specific interactions with ownership. This chapter provides the essential foundation for understanding those interactions &mdash; the concepts of memory, pointers, undefined behavior, and permissions will help us talk about the more advanced parts of Rust in future chapters.
+Gdy będziemy wprowadzać kolejne mechanizmy, takie jak struktury, enumy i traity, okaże się, że każdy z nich w szczególny sposób współdziała z własnością. Ten rozdział daje niezbędne podstawy do zrozumienia tych zależności &mdash; pojęcia pamięci, wskaźników, niezdefiniowanego zachowania i uprawnień pomogą nam omawiać bardziej zaawansowane elementy Rusta w kolejnych rozdziałach.
 
-And don't forget to take the quizzes if you want to check your understanding!
+I nie zapomnij rozwiązać quizów, jeśli chcesz sprawdzić, jak dobrze rozumiesz materiał!
 
 {{#quiz ../quizzes/ch04-05-ownership-recap.toml}}
 
 
 
-[^ownership-originally]: In fact, the original invention of ownership types wasn't about memory safety at all. It was about preventing leaks of mutable references to data structure internals in Java-like languages. If you're curious to learn more about the history of ownership types, check out the paper ["Ownership Types for Flexible Alias Protection"](https://dl.acm.org/doi/abs/10.1145/286936.286947) (Clarke et al. 1998).
+[^ownership-originally]: W rzeczywistości pierwotny pomysł typów własności (*ownership types*) w ogóle nie dotyczył bezpieczeństwa pamięci. Chodziło w nim o zapobieganie wyciekom mutowalnych referencji do wnętrza struktur danych w językach podobnych do Javy. Jeśli chcesz dowiedzieć się więcej o historii typów własności, zajrzyj do artykułu [„Ownership Types for Flexible Alias Protection”](https://dl.acm.org/doi/abs/10.1145/286936.286947) (Clarke i in., 1998).
 
 [ch04-01]: ch04-01-what-is-ownership.html
 [ch04-02]: ch04-02-references-and-borrowing.html

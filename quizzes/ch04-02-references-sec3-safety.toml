@@ -15,8 +15,8 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 7
 context = """
-Although `n` is marked as `mut`, the reference to `n` must also be marked as `mut`. 
-So a valid version of this program would say `incr(&mut n)`.
+Choć `n` jest oznaczone jako `mut`, referencja do `n` również musi być oznaczona jako `mut`.
+Poprawna wersja tego programu zawierałaby więc `incr(&mut n)`.
 """
 
 
@@ -35,15 +35,15 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 6
 context = """
-It is illegal to use a mutable reference to a value (`s3`) while an immutable reference 
-is live (`s2`).
+Nie wolno używać mutowalnej referencji do wartości (`s3`), dopóki żywa jest niemutowalna referencja
+(`s2`).
 """
 
 [[questions]]
 id = "80f6bcd6-b74a-4da3-a014-d423c82ce405"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider this Rust function that pushes a number onto the end of a vector, and then removes and returns the number from the front of the vector:
+Rozważ tę funkcję w Ruście, która dodaje liczbę na koniec wektora, a następnie usuwa i zwraca liczbę z początku wektora:
 
 ```
 fn give_and_take(v: &Vec<i32>, n: i32) -> i32 {
@@ -52,7 +52,7 @@ fn give_and_take(v: &Vec<i32>, n: i32) -> i32 {
 }
 ```
 
-Normally, if you try to compile this function, the compiler returns the following error:
+Zwykle przy próbie skompilowania tej funkcji kompilator zgłasza następujący błąd:
 
 ```text
 error[E0596]: cannot borrow `*v` as mutable, as it is behind a `&` reference
@@ -64,9 +64,9 @@ error[E0596]: cannot borrow `*v` as mutable, as it is behind a `&` reference
   |     ^^^^^^^^^ `v` is a `&` reference, so the data it refers to cannot be borrowed as mutable
 ```
 
-Assume that the compiler did NOT reject this function. Select each (if any) of the following programs that could
-possibly cause undefined behavior if executed. If none of these programs could cause undefined behavior, 
-then check "None of these programs" .
+Załóż, że kompilator NIE odrzucił tej funkcji. Zaznacz każdy z poniższych programów (jeśli taki jest), który po uruchomieniu
+mógłby spowodować niezdefiniowane zachowanie. Jeśli żaden z tych programów nie mógłby spowodować niezdefiniowanego zachowania,
+zaznacz „Żaden z tych programów”.
 """
 answer.answer = [
 """
@@ -95,14 +95,14 @@ let k = give_and_take(&v, 4);
 println!("{}", k);
 ```
 """,
-"None of these programs"
+"Żaden z tych programów"
 ]
 context = """
-As we saw earlier in the section, `v.push(n)` can cause `v` to reallocate its internal contents, invalidating any references to the elements of `v` on the heap.
-Therefore calling `give_and_take(&v, 4)` will cause previously-created element references to point to invalid memory. The two programs that bind `let n = &v[0]`
-before `give_and_take` are candidates for undefined behavior. `let v2 = &v` is not a candidate because a reference to the container `v` is not actually invalidated 
-by mutating `v`.
+Jak widzieliśmy wcześniej w tym podrozdziale, `v.push(n)` może sprawić, że `v` realokuje swoją zawartość, co unieważnia wszystkie referencje do elementów `v` na stercie.
+Dlatego wywołanie `give_and_take(&v, 4)` sprawi, że wcześniej utworzone referencje do elementów będą wskazywać na nieprawidłową pamięć. Dwa programy, które wiążą `let n = &v[0]`
+przed `give_and_take`, są kandydatami do niezdefiniowanego zachowania. `let v2 = &v` nie jest kandydatem, ponieważ modyfikacja `v` w rzeczywistości nie unieważnia
+referencji do samego kontenera `v`.
 
-The program that does `println!("{}", n)` will cause undefined behavior by reading the invalid memory. The program that does `println!("{}", k)` will not cause undefined
-behavior, because it does not use the invalidated reference.
+Program, który wykonuje `println!("{}", n)`, spowoduje niezdefiniowane zachowanie, odczytując nieprawidłową pamięć. Program, który wykonuje `println!("{}", k)`, nie spowoduje
+niezdefiniowanego zachowania, ponieważ nie używa unieważnionej referencji.
 """

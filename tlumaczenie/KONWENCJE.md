@@ -117,3 +117,7 @@ angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, 
 **Odwołania do podrozdziałów:** „Chapter 4.1” → „podrozdział 4.1” (odmiana: w podrozdziale 4.1); „Chapter 4” → „rozdział 4”.
 
 **Odwołania do sekcji:** cytowany nagłówek z innego pliku zapowiadamy jako „podrozdział „Tytuł”” (nie „sekcja”), niezależnie od poziomu nagłówka.
+
+**Po „Uwaga:”** piszemy małą literą (polska reguła po dwukropku), chyba że dalej jest nazwa własna lub kod.
+
+**unsafe w prozie:** *unsafe code* bez kodu inline w oryginale → „niebezpieczny kod”.

@@ -1,6 +1,6 @@
-## References and Borrowing {#references-and-borrowing}
+## Referencje i pożyczanie {#references-and-borrowing}
 
-Ownership, boxes, and moves provide a foundation for safely programming with the heap. However, move-only APIs can be inconvenient to use. For example, say you want to read some strings twice:
+Własność (*ownership*), *boxy* (wskaźniki na dane umieszczone na stercie) i przeniesienia (*move*) dają podstawę do bezpiecznego programowania z użyciem sterty (*heap*). API oparte wyłącznie na przeniesieniach bywa jednak niewygodne. Załóżmy na przykład, że chcesz dwukrotnie odczytać kilka łańcuchów znaków (*string*):
 
 ```aquascope,interpreter,shouldFail,horizontal
 fn main() {
@@ -15,7 +15,7 @@ fn greet(g1: String, g2: String) {
 }
 ```
 
-In this example, calling `greet` moves the data from `m1` and `m2` into the parameters of `greet`. Both strings are dropped at the end of `greet`, and therefore cannot be used within `main`. If we try to read them like in the operation `format!(..)`, then that would be undefined behavior. The Rust compiler therefore rejects this program with the same error we saw last section:
+W tym przykładzie wywołanie `greet` przenosi dane z `m1` i `m2` do parametrów `greet`. Oba łańcuchy zostają zwolnione (*drop*) na końcu `greet`, więc nie można ich użyć w `main`. Gdybyśmy spróbowali je odczytać, jak w operacji `format!(..)`, byłoby to niezdefiniowane zachowanie (*undefined behavior*). Dlatego kompilator Rusta odrzuca ten program z tym samym błędem, który widzieliśmy w poprzednim podrozdziale:
 
 ```text
 error[E0382]: borrow of moved value: `m1`
@@ -23,7 +23,7 @@ error[E0382]: borrow of moved value: `m1`
  (...rest of the error...)
 ```
 
-This move behavior is extremely inconvenient. Programs often need to use a string more than once. An alternative `greet` could return ownership of the strings, like this:
+Takie zachowanie przy przeniesieniu jest wyjątkowo niewygodne. Programy często muszą użyć łańcucha więcej niż raz. Alternatywna wersja `greet` mogłaby zwracać własność łańcuchów, o tak:
 
 ```aquascope,interpreter,horizontal
 fn main() {
@@ -39,11 +39,11 @@ fn greet(g1: String, g2: String) -> (String, String) {
 }
 ```
 
-However, this style of program is quite verbose. Rust provides a concise style of reading and writing without moves through references.
+Taki styl programowania jest jednak dość rozwlekły. Rust oferuje zwięzły sposób odczytu i zapisu bez przeniesień: referencje (*references*).
 
-### References Are Non-Owning Pointers {#references-are-non-owning-pointers}
+### Referencje to wskaźniki, które nie są właścicielami {#references-are-non-owning-pointers}
 
-A **reference** is a kind of pointer. Here's an example of a reference that rewrites our `greet` program in a more convenient manner:
+**Referencja** to rodzaj wskaźnika. Oto przykład referencji, dzięki której program `greet` da się zapisać wygodniej:
 
 ```aquascope,interpreter,horizontal
 fn main() {
@@ -58,21 +58,21 @@ fn greet(g1: &String, g2: &String) { // note the ampersands
 }
 ```
 
-The expression `&m1` uses the ampersand operator to create a reference to (or "borrow") `m1`. The type of the `greet` parameter `g1` is changed to `&String`, meaning "a reference to a `String`".
+Wyrażenie (*expression*) `&m1` używa operatora ampersand, by utworzyć referencję do `m1` (czyli ją „pożyczyć”). Typ parametru `g1` funkcji `greet` zmienia się na `&String`, co oznacza „referencję do `String`”.
 
 <!-- At runtime, the references look like this:
 
 <img src="img/experiment/ch04-02-stack1.jpg" class="center" width="350" /> -->
 
-Observe at L2 that there are two steps from `g1` to the string "Hello". `g1` is a reference that points to `m1` on the stack, and `m1` is a String containing a box that points to "Hello" on the heap.
+Zauważ, że w punkcie L2 droga od `g1` do łańcucha „Hello” prowadzi przez dwa kroki. `g1` jest referencją wskazującą na `m1` na stosie (*stack*), a `m1` jest wartością typu String zawierającą box, który wskazuje na „Hello” na stercie.
 
-While `m1` owns the heap data "Hello", `g1` does _not_ own either `m1` or "Hello". Therefore after `greet` ends and the program reaches L3, no heap data has been deallocated. Only the stack frame for `greet` disappears. This fact is consistent with our *Box Deallocation Principle*. Because `g1` did not own "Hello", Rust did not deallocate "Hello" on behalf of `g1`.
+Właścicielem danych „Hello” na stercie jest `m1`, ale `g1` _nie_ jest właścicielem ani `m1`, ani „Hello”. Dlatego gdy `greet` się kończy i program dochodzi do punktu L3, żadne dane na stercie nie zostają zdealokowane. Znika tylko ramka stosu (*stack frame*) `greet`. Jest to zgodne z naszą *zasadą dealokacji boxa*. Ponieważ `g1` nie było właścicielem „Hello”, Rust nie zdealokował „Hello” w imieniu `g1`.
 
-References are **non-owning pointers**, because they do not own the data they point to.
+Referencje są **wskaźnikami niebędącymi właścicielami** (*non-owning pointers*), ponieważ nie są właścicielami danych, na które wskazują.
 
-### Dereferencing a Pointer Accesses Its Data {#dereferencing-a-pointer-accesses-its-data}
+### Dereferencja wskaźnika daje dostęp do jego danych {#dereferencing-a-pointer-accesses-its-data}
 
-The previous examples using boxes and strings have not shown how Rust "follows" a pointer to its data. For example, the `println!` macro has mysteriously worked for both owned strings of type `String`, and for string references of type `&String`. The underlying mechanism is the **dereference** operator, written with an asterisk (`*`). For example, here's a program that uses dereferences in a few different ways:
+Poprzednie przykłady z boxami i łańcuchami nie pokazywały, jak Rust „podąża” za wskaźnikiem do jego danych. Na przykład makro `println!` w tajemniczy sposób działało zarówno dla łańcuchów posiadanych na własność, typu `String`, jak i dla referencji do łańcuchów, typu `&String`. Mechanizmem, który za tym stoi, jest operator **dereferencji** (*dereference*), zapisywany gwiazdką (`*`). Oto na przykład program, który na kilka sposobów używa dereferencji:
 
 ```aquascope,interpreter
 # fn main() {
@@ -89,9 +89,9 @@ let c: i32 = *r2;`[]`    // so only one dereference is needed to read it
 # }
 ```
 
-Observe the difference between `r1` pointing to `x` on the stack, and `r2` pointing to the heap value `2`.
+Zwróć uwagę na różnicę: `r1` wskazuje na `x` na stosie, a `r2` na wartość `2` na stercie.
 
-You probably won't see the dereference operator very often when you read Rust code. Rust implicitly inserts dereferences and references in certain cases, such as calling a method with the dot operator. For example, this program shows two equivalent ways of calling the [`i32::abs`](https://doc.rust-lang.org/std/primitive.i32.html#method.abs) (absolute value) and [`str::len`](https://doc.rust-lang.org/std/primitive.str.html#method.len) (string length) functions:
+Czytając kod w Ruście, raczej rzadko zobaczysz operator dereferencji. W niektórych sytuacjach, na przykład przy wywoływaniu metody operatorem kropki, Rust niejawnie wstawia dereferencje i referencje. Ten program pokazuje na przykład dwa równoważne sposoby wywołania funkcji [`i32::abs`](https://doc.rust-lang.org/std/primitive.i32.html#method.abs) (wartość bezwzględna) i [`str::len`](https://doc.rust-lang.org/std/primitive.str.html#method.len) (długość łańcucha):
 
 ```rust,ignore
 # fn main()  {
@@ -112,26 +112,26 @@ assert_eq!(s_len1, s_len2);
 # }
 ```
 
-This example shows implicit conversions in three ways:
-1. The `i32::abs` function expects an input of type `i32`. To call `abs` with a `Box<i32>`, you can explicitly dereference the box like `i32::abs(*x)`. You can also implicitly dereference the box using method-call syntax like `x.abs()`. The dot syntax is syntactic sugar for the function-call syntax.
+Ten przykład pokazuje niejawne konwersje na trzy sposoby:
+1. Funkcja `i32::abs` oczekuje argumentu typu `i32`. Żeby wywołać `abs` z wartością `Box<i32>`, możesz jawnie wykonać dereferencję boxa: `i32::abs(*x)`. Możesz też wykonać ją niejawnie, używając składni wywołania metody: `x.abs()`. Składnia z kropką jest lukrem składniowym dla składni wywołania funkcji.
 
-2. This implicit conversion works for multiple layers of pointers. For example, calling `abs` on a reference to a box `r: &Box<i32>` will insert two dereferences.
+2. Ta niejawna konwersja działa dla wielu poziomów wskaźników. Na przykład wywołanie `abs` na referencji do boxa `r: &Box<i32>` wstawi dwie dereferencje.
 
-3. This conversion also works the opposite direction. The function `str::len` expects a reference `&str`. If you call `len` on an owned `String`, then Rust will insert a single borrowing operator. (In fact, there is a further conversion from `String` to `str`!)
+3. Konwersja działa też w przeciwnym kierunku. Funkcja `str::len` oczekuje referencji `&str`. Jeśli wywołasz `len` na posiadanym na własność `String`, Rust wstawi jeden operator pożyczenia. (W rzeczywistości zachodzi tu jeszcze jedna konwersja, z `String` na `str`!)
 
-We will say more about method calls and implicit conversions in later chapters. For now, the important takeaway is that these conversions are happening with method calls and some macros like `println`. We want to unravel all the "magic" of Rust so you can have a clear mental model of how Rust works.
+O wywołaniach metod i niejawnych konwersjach powiemy więcej w kolejnych rozdziałach. Na razie najważniejsze jest to, że takie konwersje zachodzą przy wywołaniach metod i w niektórych makrach, takich jak `println`. Chcemy rozwikłać całą „magię” Rusta, żeby dać ci jasny model myślowy tego, jak działa Rust.
 
 {{#quiz ../quizzes/ch04-02-references-sec1-basics.toml}}
 
-### Rust Avoids Simultaneous Aliasing and Mutation {#rust-avoids-simultaneous-aliasing-and-mutation}
+### Rust nie dopuszcza jednoczesnego aliasowania i modyfikowania {#rust-avoids-simultaneous-aliasing-and-mutation}
 
-Pointers are a powerful and dangerous feature because they enable **aliasing**. Aliasing is accessing the same data through different variables. On its own, aliasing is harmless. But combined with **mutation**, we have a recipe for disaster. One variable can "pull the rug out" from another variable in many ways, for example:
+Wskaźniki to potężny i niebezpieczny mechanizm, ponieważ umożliwiają **aliasowanie** (*aliasing*). Aliasowanie to dostęp do tych samych danych przez różne zmienne. Samo w sobie aliasowanie jest nieszkodliwe. W połączeniu z **modyfikowaniem** (*mutation*) daje jednak przepis na katastrofę. Jedna zmienna może na wiele sposobów „wyciągnąć dywan spod nóg” innej, na przykład:
 
-- By deallocating the aliased data, leaving the other variable to point to deallocated memory.
-- By mutating the aliased data, invalidating runtime properties expected by the other variable.
-- By _concurrently_ mutating the aliased data, causing a data race with nondeterministic behavior for the other variable.
+- dealokując współdzielone dane, przez co druga zmienna wskazuje na zdealokowaną pamięć;
+- modyfikując współdzielone dane, przez co przestają obowiązywać właściwości, których druga zmienna oczekuje w czasie działania programu;
+- modyfikując współdzielone dane _współbieżnie_, co powoduje wyścig danych z niedeterministycznym zachowaniem drugiej zmiennej.
 
-As a running example, we are going to look at programs using the vector data structure, [`Vec`]. Unlike arrays which have a fixed length, vectors have a variable length by storing their elements in the heap. For example, [`Vec::push`] adds an element to the end of a vector, like this:
+W kolejnych przykładach będziemy przyglądać się programom używającym struktury danych zwanej wektorem, [`Vec`]. W odróżnieniu od tablic, które mają stałą długość, wektory mają zmienną długość, bo przechowują elementy na stercie. Na przykład [`Vec::push`] dodaje element na koniec wektora, o tak:
 
 ```aquascope,interpreter,horizontal
 #fn main() {
@@ -140,9 +140,9 @@ v.push(4);`[]`
 #}
 ```
 
-The macro `vec!` creates a vector with the elements between the brackets. The vector `v` has type `Vec<i32>`. The syntax `<i32>` means the elements of the vector have type `i32`.
+Makro `vec!` tworzy wektor z elementów podanych w nawiasach kwadratowych. Wektor `v` ma typ `Vec<i32>`. Składnia `<i32>` oznacza, że elementy wektora mają typ `i32`.
 
-One important implementation detail is that `v` allocates a heap array of a certain *capacity*. We can peek into `Vec`'s internals and see this detail for ourselves:
+Ważnym szczegółem implementacji jest to, że `v` alokuje na stercie tablicę o określonej *pojemności* (*capacity*). Możemy zajrzeć do wnętrza `Vec` i sami zobaczyć ten szczegół:
 
 ```aquascope,interpreter,horizontal,concreteTypes
 #fn main() {
@@ -150,11 +150,11 @@ let mut v: Vec<i32> = vec![1, 2, 3];`[]`
 #}
 ```
 
-> *Note:* click the binocular icon in the top right of the diagram to toggle this detailed view in any runtime diagram.
+> *Uwaga:* kliknij ikonę lornetki w prawym górnym rogu diagramu, by w dowolnym diagramie pamięci przełączyć ten szczegółowy widok.
 
-Notice that the vector has a length (`len`) of 3 and a capacity (`cap`) of 3. The vector is at capacity. So when we do a `push`, the vector has to create a new allocation with larger capacity, copy all the elements over, and deallocate the original heap array. In the diagram above, the array `1 2 3 4` is in a (potentially) different memory location than the original array `1 2 3`.
+Zauważ, że wektor ma długość (`len`) 3 i pojemność (`cap`) 3. Wektor jest zapełniony. Dlatego przy wywołaniu `push` musi utworzyć nową alokację o większej pojemności, skopiować do niej wszystkie elementy i zdealokować pierwotną tablicę na stercie. Na diagramie powyżej tablica `1 2 3 4` znajduje się (potencjalnie) w innym miejscu pamięci niż pierwotna tablica `1 2 3`.
 
-To tie this back to memory safety, let's bring references into the mix. Say we created a reference to a vector's heap data. Then that reference can be invalidated by a push, as simulated below:
+Żeby powiązać to z bezpieczeństwem pamięci, dorzućmy do tego referencje. Załóżmy, że utworzyliśmy referencję do danych wektora na stercie. Wtedy wywołanie push może unieważnić tę referencję, co symuluje poniższy przykład:
 
 ```aquascope,interpreter,shouldFail,horizontal
 #fn main() {
@@ -165,30 +165,30 @@ println!("Third element is {}", *num);`[]`
 #}
 ```
 
-Initially, `v` points to an array with 3 elements on the heap. Then `num` is created as a reference to the third element, as seen at L1. However, the operation `v.push(4)` resizes `v`. The resize will deallocate the previous array and allocate a new, bigger array. In the process, `num` is left pointing to invalid memory. Therefore at L3, dereferencing `*num` reads invalid memory, causing undefined behavior.
+Na początku `v` wskazuje na tablicę z 3 elementami na stercie. Następnie tworzymy `num` jako referencję do trzeciego elementu, co widać w punkcie L1. Operacja `v.push(4)` zmienia jednak rozmiar `v`. Zmiana rozmiaru dealokuje poprzednią tablicę i alokuje nową, większą. W efekcie `num` wskazuje na nieprawidłową pamięć. Dlatego w punkcie L3 dereferencja `*num` odczytuje nieprawidłową pamięć, co powoduje niezdefiniowane zachowanie.
 
-In more abstract terms, the issue is that the vector `v` is both aliased (by the reference `num`) and mutated (by the operation `v.push(4)`). So to avoid these kinds of issues, Rust follows a basic principle:
+Mówiąc bardziej abstrakcyjnie, problem polega na tym, że wektor `v` jest jednocześnie aliasowany (przez referencję `num`) i modyfikowany (przez operację `v.push(4)`). Żeby unikać takich problemów, Rust przestrzega podstawowej zasady:
 
-> **Pointer Safety Principle**: data should never be aliased and mutated at the same time.
+> **Zasada bezpieczeństwa wskaźników:** dane nigdy nie powinny być jednocześnie aliasowane i modyfikowane.
 
-Data can be aliased. Data can be mutated. But data cannot be _both_ aliased _and_ mutated. For example, Rust enforces this principle for boxes (owned pointers) by disallowing aliasing. Assigning a box from one variable to another will move ownership, invalidating the previous variable. Owned data can only be accessed through the owner &mdash; no aliases.
+Dane mogą być aliasowane. Dane mogą być modyfikowane. Ale dane nie mogą być _jednocześnie_ aliasowane _i_ modyfikowane. Na przykład w przypadku boxów (wskaźników będących właścicielami) Rust egzekwuje tę zasadę, zabraniając aliasowania. Przypisanie boxa z jednej zmiennej do drugiej przenosi własność i unieważnia poprzednią zmienną. Do danych posiadanych na własność można sięgać tylko przez ich właściciela &mdash; bez aliasów.
 
-However, because references are non-owning pointers, they need different rules than boxes to ensure the *Pointer Safety Principle*. By design, references are meant to temporarily create aliases. In the rest of this section, we will explain the basics of how Rust ensures the safety of references through the **borrow checker.**
+Referencje są jednak wskaźnikami niebędącymi właścicielami, więc potrzebują innych reguł niż boxy, żeby zapewnić przestrzeganie *zasady bezpieczeństwa wskaźników*. Referencje z założenia służą do tymczasowego tworzenia aliasów. W dalszej części tego podrozdziału wyjaśnimy podstawy tego, jak Rust zapewnia bezpieczeństwo referencji za pomocą ***borrow checkera*** (mechanizmu sprawdzania pożyczeń).
 
-### References Change Permissions on Places {#references-change-permissions-on-places}
+### Referencje zmieniają uprawnienia do miejsc {#references-change-permissions-on-places}
 
-The core idea behind the borrow checker is that variables have three kinds of **permissions** on their data:
+Podstawowa idea działania *borrow checkera* polega na tym, że zmienne mają trzy rodzaje **uprawnień** (*permissions*) do swoich danych:
 
-- **Read** (@Perm{read}): data can be copied to another location.
-- **Write** (@Perm{write}): data can be mutated.
-- **Own** (@Perm{own}): data can be moved or dropped.
+- **R** (*read*, odczyt), @Perm{read}: dane można skopiować w inne miejsce;
+- **W** (*write*, zapis), @Perm{write}: dane można modyfikować;
+- **O** (*own*, własność), @Perm{own}: dane można przenieść lub zwolnić.
 
-These permissions don't exist at runtime, only within the compiler. They describe how the compiler "thinks" about your program before the program is executed.
+Te uprawnienia nie istnieją w czasie działania programu, tylko w kompilatorze. Opisują, jak kompilator „myśli” o twoim programie, zanim ten zostanie wykonany.
 
-By default, a variable has read/own permissions (@Perm{read}@Perm{own}) on its data. If a variable is annotated with `let mut`, then it also has the write permission (@Perm{write}). The key idea is
-that **references can temporarily remove these permissions.**
+Domyślnie zmienna ma do swoich danych uprawnienia odczytu i własności (@Perm{read}@Perm{own}). Jeśli zmienna jest zadeklarowana przez `let mut`, ma też uprawnienie zapisu (@Perm{write}). Kluczowa idea polega na tym, że
+**referencje mogą tymczasowo odbierać te uprawnienia.**
 
-To illustrate this idea, let's look at the permissions on a variation of the program above that is actually safe. The `push` has been moved after the `println!`. The permissions in this program are visualized with a new kind of diagram. The diagram shows the changes in permissions on each line.
+Żeby to zilustrować, przyjrzyjmy się uprawnieniom w wariancie powyższego programu, który faktycznie jest bezpieczny. Wywołanie `push` zostało przesunięte za `println!`. Uprawnienia w tym programie przedstawiamy na nowym rodzaju diagramu. Diagram pokazuje zmiany uprawnień w każdej linii.
 
 ```aquascope,permissions,stepper
 #fn main() {
@@ -199,19 +199,19 @@ v.push(4);
 #}
 ```
 
-Let's walk through each line:
+Przejdźmy przez kolejne linie:
 
-1. After `let mut v = (...)`, the variable `v` has been initialized (indicated by <i class="fa fa-arrow-turn-up"></i>). It gains @Perm[gained]{read}@Perm[gained]{write}@Perm[gained]{own} permissions (the plus sign indicates gain).
-2. After `let num = &v[2]`, the data in `v` has been **borrowed** by `num` (indicated by <i class="fa fa-arrow-right"></i>). Three things happen:
-   - The borrow removes @Perm[lost]{write}@Perm[lost]{own} permissions from `v` (the slash indicates loss). `v` cannot be written or owned, but it can still be read.
-   - The variable `num` has gained @Perm{read}@Perm{own} permissions. `num` is not writable (the missing @Perm{write} permission is shown as a dash <span class="perm write">‒</span>) because it was not marked `let mut`.
-   - The **place** `*num` has gained the @Perm{read} permission.
-3. After `println!(...)`, then `num` is no longer in use, so `v` is no longer borrowed. Therefore:
-   - `v` regains its @Perm{write}@Perm{own} permissions (indicated by <i class="fa fa-rotate-left"></i>).
-   - `num` and `*num` have lost all of their permissions (indicated by <i class="fa fa-arrow-turn-down"></i>).
-4. After `v.push(4)`, then `v` is no longer in use, and it loses all of its permissions.
+1. Po `let mut v = (...)` zmienna `v` zostaje zainicjalizowana (wskazuje na to ikona <i class="fa fa-arrow-turn-up"></i>). Zyskuje uprawnienia @Perm[gained]{read}@Perm[gained]{write}@Perm[gained]{own} (znak plus oznacza zyskanie).
+2. Po `let num = &v[2]` dane w `v` zostają **pożyczone** przez `num` (wskazuje na to ikona <i class="fa fa-arrow-right"></i>). Dzieją się trzy rzeczy:
+   - Pożyczenie odbiera `v` uprawnienia @Perm[lost]{write}@Perm[lost]{own} (ukośnik oznacza utratę). `v` nie można zapisywać ani posiadać na własność, ale wciąż można je odczytywać.
+   - Zmienna `num` zyskuje uprawnienia @Perm{read}@Perm{own}. `num` nie jest zapisywalne (brak uprawnienia @Perm{write} pokazano kreską <span class="perm write">‒</span>), ponieważ nie zostało zadeklarowane przez `let mut`.
+   - **Miejsce** (*place*) `*num` zyskuje uprawnienie @Perm{read}.
+3. Po `println!(...)` zmienna `num` przestaje być używana, więc `v` przestaje być pożyczone. Dlatego:
+   - `v` odzyskuje uprawnienia @Perm{write}@Perm{own} (wskazuje na to ikona <i class="fa fa-rotate-left"></i>);
+   - `num` i `*num` tracą wszystkie uprawnienia (wskazuje na to ikona <i class="fa fa-arrow-turn-down"></i>).
+4. Po `v.push(4)` zmienna `v` przestaje być używana i traci wszystkie uprawnienia.
 
-Next, let's explore a few nuances of the diagram. First, why do you see both `num` and `*num`? Because accessing data through a reference is not the same as manipulating the reference itself. For example, say we declared a reference to a number with `let mut`:
+Przyjrzyjmy się teraz kilku niuansom diagramu. Po pierwsze, dlaczego widać zarówno `num`, jak i `*num`? Ponieważ dostęp do danych przez referencję to coś innego niż operowanie na samej referencji. Załóżmy na przykład, że zadeklarowaliśmy referencję do liczby przez `let mut`:
 
 ```aquascope,permissions,stepper
 #fn main() {
@@ -221,18 +221,18 @@ let mut x_ref = &x;
 #}
 ```
 
-Notice that `x_ref` has the @Perm{write} permission, while `*x_ref` does not. That means we can assign a different reference to the `x_ref` variable (e.g. `x_ref = &y`), but we cannot mutate the data it points to (e.g. `*x_ref += 1`).
+Zauważ, że `x_ref` ma uprawnienie @Perm{write}, a `*x_ref` go nie ma. Oznacza to, że możemy przypisać zmiennej `x_ref` inną referencję (np. `x_ref = &y`), ale nie możemy modyfikować danych, na które wskazuje (np. `*x_ref += 1`).
 
-More generally, permissions are defined on **places** and not just variables. A place is anything you can put on the left-hand side of an assignment. Places include:
+Mówiąc ogólniej, uprawnienia są zdefiniowane dla **miejsc**, a nie tylko dla zmiennych. Miejsce to wszystko, co może stać po lewej stronie przypisania. Miejscami są:
 
-- Variables, like `a`.
-- Dereferences of places, like `*a`.
-- Array accesses of places, like `a[0]`.
-- Fields of places, like `a.0` for tuples or `a.field` for structs (discussed next chapter).
-- Any combination of the above, like `*((*a)[0].1)`.
+- zmienne, np. `a`;
+- dereferencje miejsc, np. `*a`;
+- dostępy do elementów tablicy w miejscach, np. `a[0]`;
+- pola miejsc, np. `a.0` dla krotek (*tuples*) lub `a.field` dla struktur (*structs*), omówionych w następnym rozdziale;
+- dowolne połączenia powyższych, np. `*((*a)[0].1)`.
 
 
-Second, why do places lose permissions when they become unused? Because some permissions are mutually exclusive. If you write `num = &v[2]`, then `v` cannot be mutated or dropped while `num` is in use. But that doesn't mean it's invalid to use `num` again. For example, if we add another `println!` to the above program, then `num` simply loses its permissions one line later:
+Po drugie, dlaczego miejsca tracą uprawnienia, gdy przestają być używane? Ponieważ niektóre uprawnienia wzajemnie się wykluczają. Jeśli napiszesz `num = &v[2]`, to `v` nie może być modyfikowane ani zwolnione, dopóki `num` jest w użyciu. Nie znaczy to jednak, że ponowne użycie `num` jest niedozwolone. Jeśli na przykład dodamy do powyższego programu kolejne `println!`, to `num` po prostu straci uprawnienia jedną linię później:
 
 ```aquascope,permissions,stepper
 #fn main() {
@@ -244,14 +244,14 @@ v.push(4);
 #}
 ```
 
-It's only a problem if you attempt to use `num` again *after* mutating `v`. Let's look at this in more detail.
+Problem pojawia się dopiero wtedy, gdy spróbujesz użyć `num` ponownie *po* zmodyfikowaniu `v`. Przyjrzyjmy się temu dokładniej.
 
 
-### The Borrow Checker Finds Permission Violations {#the-borrow-checker-finds-permission-violations}
+### Borrow checker wykrywa naruszenia uprawnień {#the-borrow-checker-finds-permission-violations}
 
-Recall the *Pointer Safety Principle*: data should not be aliased and mutated. The goal of these permissions is to ensure that data cannot be mutated if it is aliased. Creating a reference to data ("borrowing" it) causes that data to be temporarily read-only until the reference is no longer in use.
+Przypomnij sobie *zasadę bezpieczeństwa wskaźników*: dane nie powinny być jednocześnie aliasowane i modyfikowane. Celem uprawnień jest zagwarantowanie, że dane nie mogą być modyfikowane, jeśli są aliasowane. Utworzenie referencji do danych (czyli ich „pożyczenie”) sprawia, że dane te są tymczasowo tylko do odczytu, dopóki referencja jest w użyciu.
 
-Rust uses these permissions in its **borrow checker**. The borrow checker looks for potentially unsafe operations involving references. Let's return to the unsafe program we saw earlier, where `push` invalidates a reference. This time we'll add another aspect to the permissions diagram:
+Rust korzysta z tych uprawnień w swoim **borrow checkerze**. *Borrow checker* szuka potencjalnie niebezpiecznych operacji z udziałem referencji. Wróćmy do niebezpiecznego programu, który widzieliśmy wcześniej, gdzie `push` unieważnia referencję. Tym razem dodamy do diagramu uprawnień jeszcze jeden element:
 
 ```aquascope,permissions,boundaries,stepper,shouldFail
 #fn main() {
@@ -262,11 +262,11 @@ println!("Third element is {}", *num);
 #}
 ```
 
-Any time a place is used, Rust expects that place to have certain permissions depending on the operation. For example, the borrow `&v[2]` requires that `v` is readable. Therefore the @Perm{read} permission is shown between the operation `&` and the place `v`. The letter is filled-in because `v` has the read permission at that line.
+Za każdym razem, gdy miejsce jest używane, Rust oczekuje, że będzie ono miało określone uprawnienia, zależnie od operacji. Na przykład pożyczenie `&v[2]` wymaga, by `v` dało się odczytać. Dlatego między operacją `&` a miejscem `v` widać uprawnienie @Perm{read}. Litera jest wypełniona, ponieważ w tej linii `v` ma uprawnienie odczytu.
 
-By contrast, the mutating operation `v.push(4)` requires that `v` is readable and writable. Both @Perm{read} and @Perm{write} are shown. However, `v` does not have write permissions (it is borrowed by `num`). So the letter @Perm[missing]{write} is hollow, indicating that the write permission is *expected* but `v` does not have it.
+Natomiast modyfikująca operacja `v.push(4)` wymaga, by `v` dało się odczytać i zapisać. Widoczne są zarówno @Perm{read}, jak i @Perm{write}. `v` nie ma jednak uprawnienia zapisu (jest pożyczone przez `num`). Dlatego litera @Perm[missing]{write} jest pusta w środku, co oznacza, że uprawnienie zapisu jest *oczekiwane*, ale `v` go nie ma.
 
-If you try to compile this program, then the Rust compiler will return the following error:
+Jeśli spróbujesz skompilować ten program, kompilator Rusta zgłosi następujący błąd:
 
 ```text
 error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
@@ -280,14 +280,14 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
   |                                 ---- immutable borrow later used here
 ```
 
-The error message explains that `v` cannot be mutated while the reference `num` is in use. That's the surface-level reason &mdash; the underlying issue is that `num` could be invalidated by `push`. Rust catches that potential violation of memory safety.
+Komunikat o błędzie wyjaśnia, że `v` nie może być modyfikowane, dopóki referencja `num` jest w użyciu. To powód widoczny na powierzchni &mdash; problem leżący u podstaw polega na tym, że `push` mógłby unieważnić `num`. Rust wychwytuje to potencjalne naruszenie bezpieczeństwa pamięci.
 
 
-### Mutable References Provide Unique and Non-Owning Access to Data {#mutable-references-provide-unique-and-non-owning-access-to-data}
+### Referencje mutowalne zapewniają unikalny dostęp do danych bez własności {#mutable-references-provide-unique-and-non-owning-access-to-data}
 
-The references we have seen so far are read-only **immutable references** (also called **shared references**). Immutable references permit aliasing but disallow mutation. However, it is also useful to temporarily provide mutable access to data without moving it.
+Referencje, które widzieliśmy dotąd, to referencje tylko do odczytu, czyli **referencje niemutowalne** (*immutable references*), nazywane też **referencjami współdzielonymi** (*shared references*). Referencje niemutowalne pozwalają na aliasowanie, ale nie na modyfikowanie. Przydaje się jednak także możliwość tymczasowego udostępnienia danych do modyfikacji bez ich przenoszenia.
 
-The mechanism for this is **mutable references** (also called **unique references**). Here's a simple example of a mutable reference with the accompanying permissions changes:
+Służą do tego **referencje mutowalne** (*mutable references*), nazywane też **referencjami unikalnymi** (*unique references*). Oto prosty przykład referencji mutowalnej wraz z towarzyszącymi zmianami uprawnień:
 
 ```aquascope,permissions,stepper,boundaries
 #fn main() {
@@ -299,18 +299,18 @@ println!("Vector is now {:?}", v);
 #}
 ```
 
-<blockquote><div style="margin-block-start: 1em; margin-block-end: 1em"><i>Note:</i> when the expected permissions are not strictly relevant to an example, we will abbreviate them as dots like <div class="permission-stack stack-size-2"><div class="perm read"><div class="small">•</div><div class="big">R</div></div><div class="perm write"><div class="small">•</div><div class="big">W</div></div></div>. You can hover your mouse over the circles (or tap on a touchscreen) to see the corresponding permission letters.</div></blockquote>
+<blockquote><div style="margin-block-start: 1em; margin-block-end: 1em"><i>Uwaga:</i> gdy oczekiwane uprawnienia nie mają w danym przykładzie istotnego znaczenia, będziemy je skracać do kropek, np. <div class="permission-stack stack-size-2"><div class="perm read"><div class="small">•</div><div class="big">R</div></div><div class="perm write"><div class="small">•</div><div class="big">W</div></div></div>. Najedź myszą na kółka (albo dotknij ich na ekranie dotykowym), by zobaczyć odpowiadające im litery uprawnień.</div></blockquote>
 
-A mutable reference is created with the `&mut` operator. The type of `num` is written as `&mut i32`. Compared to immutable references, you can see two important differences in the permissions:
+Referencję mutowalną tworzy się operatorem `&mut`. Typ `num` zapisujemy jako `&mut i32`. W porównaniu z referencjami niemutowalnymi w uprawnieniach widać dwie ważne różnice:
 
-1. When `num` was an immutable reference, `v` still had the @Perm{read} permission. Now that `num` is a mutable reference, `v` has lost _all_ permissions while `num` is in use.
-2. When `num` was an immutable reference, the place `*num` only had the @Perm{read} permission. Now that `num` is a mutable reference, `*num` has also gained the @Perm{write} permission.
+1. Gdy `num` było referencją niemutowalną, `v` wciąż miało uprawnienie @Perm{read}. Teraz, gdy `num` jest referencją mutowalną, `v` traci _wszystkie_ uprawnienia na czas, gdy `num` jest w użyciu.
+2. Gdy `num` było referencją niemutowalną, miejsce `*num` miało tylko uprawnienie @Perm{read}. Teraz, gdy `num` jest referencją mutowalną, `*num` zyskało też uprawnienie @Perm{write}.
 
-The first observation is what makes mutable references *safe*. Mutable references allow mutation but prevent aliasing. The borrowed place `v` becomes temporarily unusable, so effectively not an alias.
+Pierwsza obserwacja sprawia, że referencje mutowalne są *bezpieczne*. Referencje mutowalne pozwalają na modyfikowanie, ale zapobiegają aliasowaniu. Pożyczonego miejsca `v` tymczasowo nie można używać, więc w praktyce nie jest ono aliasem.
 
-The second observation is what makes mutable references *useful*. `v[2]` can be mutated through `*num`. For example, `*num += 1` mutates `v[2]`. Note that `*num` has the @Perm{write} permission, but `num` does not. `num` refers to the mutable reference itself, e.g. `num` cannot be reassigned to a *different* mutable reference.
+Druga obserwacja sprawia, że referencje mutowalne są *przydatne*. `v[2]` można modyfikować przez `*num`. Na przykład `*num += 1` modyfikuje `v[2]`. Zauważ, że `*num` ma uprawnienie @Perm{write}, ale `num` go nie ma. `num` oznacza samą referencję mutowalną, np. `num` nie można przypisać *innej* referencji mutowalnej.
 
-Mutable references can also be temporarily "downgraded" to read-only references. For example:
+Referencje mutowalne można też tymczasowo „zdegradować” do referencji tylko do odczytu. Na przykład:
 
 ```aquascope,permissions,stepper,boundaries
 #fn main() {
@@ -321,16 +321,16 @@ println!("{} {}", *num, *num2);
 #}
 ```
 
-> *Note:* when permission changes are not relevant to an example, we will hide them. You can view hidden steps by clicking "»", and you can view hidden permissions within a step by clicking "● ● ●".
+> *Uwaga:* gdy zmiany uprawnień nie mają znaczenia w danym przykładzie, będziemy je ukrywać. Ukryte kroki możesz wyświetlić, klikając „»”, a ukryte uprawnienia w obrębie kroku – klikając „● ● ●”.
 
-In this program, the borrow `&*num` removes the @Perm{write} permission from `*num` but _not_ the @Perm{read} permission, so `println!(..)` can read both `*num` and `*num2`.
+W tym programie pożyczenie `&*num` odbiera `*num` uprawnienie @Perm{write}, ale _nie_ uprawnienie @Perm{read}, więc `println!(..)` może odczytać zarówno `*num`, jak i `*num2`.
 
 
-### Permissions Are Returned At The End of a Reference's Lifetime {#permissions-are-returned-at-the-end-of-a-references-lifetime}
+### Uprawnienia wracają na końcu czasu życia referencji {#permissions-are-returned-at-the-end-of-a-references-lifetime}
 
-We said above that a reference changes permissions while it is "in use". The phrase "in use" is describing a reference's **lifetime**, or the range of code spanning from its birth (where the reference is created) to its death (the last time(s) the reference is used).
+Napisaliśmy wyżej, że referencja zmienia uprawnienia, dopóki jest „w użyciu”. Określenie „w użyciu” opisuje **czas życia** (*lifetime*) referencji, czyli fragment kodu od jej narodzin (gdzie referencja zostaje utworzona) do jej śmierci (ostatniego użycia lub ostatnich użyć referencji).
 
-For example, in this program, the lifetime of `y` starts with `let y = &x`, and ends with `let z = *y`:
+Na przykład w tym programie czas życia `y` zaczyna się od `let y = &x`, a kończy na `let z = *y`:
 
 ```aquascope,permissions,stepper,boundaries
 #fn main() {
@@ -341,9 +341,9 @@ x += z;
 #}
 ```
 
-The @Perm{write} permission on `x` is returned to `x` after the lifetime of `y` has ended, like we have seen before.
+Uprawnienie @Perm{write} wraca do `x` po zakończeniu czasu życia `y`, tak jak widzieliśmy już wcześniej.
 
-In the previous examples, a lifetime has been a contiguous region of code. However, once we introduce control flow, this is not necessarily the case. For example, here is a function that capitalizes the first character in a vector of ASCII characters:
+W poprzednich przykładach czas życia był ciągłym fragmentem kodu. Gdy jednak pojawia się przepływ sterowania (*control flow*), nie musi tak być. Oto na przykład funkcja, która zamienia na wielką literę pierwszy znak w wektorze znaków ASCII:
 
 ```aquascope,permissions,stepper,boundaries
 fn ascii_capitalize(v: &mut Vec<char>) {
@@ -357,16 +357,16 @@ fn ascii_capitalize(v: &mut Vec<char>) {
 }
 ```
 
-The variable `c` has a different lifetime in each branch of the if-statement. In the then-block, `c` is used in the expression `c.to_ascii_uppercase()`. Therefore `*v` does not regain the @Perm{write} permission until after that line.
+Zmienna `c` ma w każdej gałęzi instrukcji if inny czas życia. W bloku then `c` jest używane w wyrażeniu `c.to_ascii_uppercase()`. Dlatego `*v` odzyskuje uprawnienie @Perm{write} dopiero po tej linii.
 
-However, in the else-block, `c` is not used. `*v` immediately regains the @Perm{write} permission on entry to the else-block.
+W bloku else `c` nie jest natomiast używane. `*v` odzyskuje uprawnienie @Perm{write} od razu po wejściu do bloku else.
 
 {{#quiz ../quizzes/ch04-02-references-sec2-perms.toml}}
 
 
-### Data Must Outlive All Of Its References {#data-must-outlive-all-of-its-references}
+### Dane muszą żyć dłużej niż wszystkie referencje do nich {#data-must-outlive-all-of-its-references}
 
-As a part of the *Pointer Safety Principle*, the borrow checker enforces that **data must outlive any references to it.** Rust enforces this property in two ways. The first way deals with references that are created and dropped within the scope of a single function. For example, say we tried to drop a string while holding a reference to it:
+W ramach *zasady bezpieczeństwa wskaźników* *borrow checker* pilnuje, by **dane żyły dłużej niż wszystkie referencje do nich.** Rust egzekwuje tę właściwość na dwa sposoby. Pierwszy dotyczy referencji, które są tworzone i zwalniane w zasięgu (*scope*) jednej funkcji. Załóżmy na przykład, że próbujemy zwolnić łańcuch, trzymając referencję do niego:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 #fn main() {
@@ -377,9 +377,9 @@ println!("{}", s_ref);
 #}
 ```
 
-To catch these kinds of errors, Rust uses the permissions we've already discussed. The borrow `&s` removes the @Perm{own} permission from `s`. However, `drop` expects the @Perm{own} permission, leading to a permission mismatch.
+Do wychwytywania takich błędów Rust używa omówionych już uprawnień. Pożyczenie `&s` odbiera `s` uprawnienie @Perm{own}. `drop` oczekuje jednak uprawnienia @Perm{own}, co prowadzi do niezgodności uprawnień.
 
-The key idea is that in this example, Rust knows how long `s_ref` lives. But Rust needs a different enforcement mechanism when it doesn't know how long a reference lives. Specifically, when references are either input to a function, or output from a function. For example, here is a safe function that returns a reference to the first element in a vector:
+Kluczowe jest to, że w tym przykładzie Rust wie, jak długo żyje `s_ref`. Gdy jednak nie wie, jak długo żyje referencja, potrzebuje innego mechanizmu egzekwowania. Dotyczy to konkretnie referencji, które są danymi wejściowymi funkcji albo jej wynikiem. Oto na przykład bezpieczna funkcja, która zwraca referencję do pierwszego elementu wektora:
 
 ```aquascope,permissions,boundaries,showFlows
 fn first(strings: &Vec<String>) -> &String {
@@ -388,9 +388,9 @@ fn first(strings: &Vec<String>) -> &String {
 }
 ```
 
-This snippet introduces a new kind of permission, the flow permission @Perm{flow}. The @Perm{flow} permission is expected whenever an expression uses an input reference (like `&strings[0]`), or returns an output reference (like `return s_ref`).
+Ten fragment wprowadza nowy rodzaj uprawnienia: F (*flow*, przepływ), oznaczane @Perm{flow}. Uprawnienie @Perm{flow} jest oczekiwane zawsze wtedy, gdy wyrażenie używa referencji wejściowej (jak `&strings[0]`) albo zwraca referencję wyjściową (jak `return s_ref`).
 
-Unlike the @Perm{read}@Perm{write}@Perm{own} permissions, @Perm{flow} does not change throughout the body of a function. A reference has the @Perm{flow} permission if it's allowed to be used (that is, to *flow*) in a particular expression. For example, let's say we change `first` to a new function `first_or` that includes a `default` parameter:
+W odróżnieniu od uprawnień @Perm{read}@Perm{write}@Perm{own} uprawnienie @Perm{flow} nie zmienia się w obrębie ciała funkcji. Referencja ma uprawnienie @Perm{flow}, jeśli wolno jej zostać użytej (czyli *przepłynąć*) w danym wyrażeniu. Załóżmy na przykład, że zmienimy `first` w nową funkcję `first_or`, która ma parametr `default`:
 
 ```aquascope,permissions,boundaries,showFlows,shouldFail
 fn first_or<'a, 'b, 'c>(strings: &'a Vec<String>, default: &'b String) -> &'c String {
@@ -402,7 +402,7 @@ fn first_or<'a, 'b, 'c>(strings: &'a Vec<String>, default: &'b String) -> &'c St
 }
 ```
 
-This function no longer compiles, because the expressions `&strings[0]` and `default` lack the necessary @Perm{flow} permission to be returned. But why? Rust gives the following error:
+Ta funkcja już się nie kompiluje, ponieważ wyrażenia `&strings[0]` i `default` nie mają uprawnienia @Perm{flow} potrzebnego do zwrócenia ich z funkcji. Ale dlaczego? Rust zgłasza następujący błąd:
 
 ```text
 error[E0106]: missing lifetime specifier
@@ -414,7 +414,7 @@ error[E0106]: missing lifetime specifier
   = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `strings` or `default`
 ```
 
-The message "missing lifetime specifier" is a bit mysterious, but the help message provides some useful context. If Rust *just* looks at the function signature, it doesn't know whether the output `&String` is a reference to either `strings` or `default`. To understand why that matters, let's say we used `first_or` like this:
+Komunikat „missing lifetime specifier” jest dość zagadkowy, ale komunikat pomocy podaje przydatny kontekst. Jeśli Rust patrzy *tylko* na sygnaturę funkcji, nie wie, czy wynik `&String` jest referencją do `strings`, czy do `default`. Żeby zrozumieć, dlaczego to ważne, załóżmy, że użyliśmy `first_or` w ten sposób:
 
 ```rust,ignore
 fn main() {
@@ -426,11 +426,11 @@ fn main() {
 }
 ```
 
-This program is unsafe if `first_or` allows `default` to *flow* into the return value. Like the previous example, `drop` could invalidate `s`. Rust would only allow this program to compile if it was *certain* that `default` cannot flow into the return value.
+Ten program jest niebezpieczny, jeśli `first_or` pozwala, by `default` *przepłynęło* do wartości zwracanej. Podobnie jak w poprzednim przykładzie `drop` mógłby unieważnić `s`. Rust pozwoliłby skompilować ten program tylko wtedy, gdyby miał *pewność*, że `default` nie może przepłynąć do wartości zwracanej.
 
-To specify whether `default` can be returned, Rust provides a mechanism called *lifetime parameters*. We will explain that feature later in Chapter 10.3, ["Validating References with Lifetimes"](ch10-03-lifetime-syntax.html). For now, it's enough to know that: (1) input/output references are treated differently than references within a function body, and (2) Rust uses a different mechanism, the @Perm{flow} permission, to check the safety of those references.
+Do określania, czy `default` może zostać zwrócone, Rust udostępnia mechanizm zwany *parametrami czasu życia*. Wyjaśnimy go później, w podrozdziale 10.3 [„Sprawdzanie poprawności referencji za pomocą czasów życia”](ch10-03-lifetime-syntax.html). Na razie wystarczy wiedzieć, że: (1) referencje wejściowe i wyjściowe są traktowane inaczej niż referencje w ciele funkcji oraz (2) do sprawdzania bezpieczeństwa tych referencji Rust używa innego mechanizmu, czyli uprawnienia @Perm{flow}.
 
-To see the @Perm{flow} permission in another context, say you tried to return a reference to a variable on the stack like this:
+Żeby zobaczyć uprawnienie @Perm{flow} w innym kontekście, załóżmy, że próbujesz zwrócić referencję do zmiennej na stosie, o tak:
 
 ```aquascope,permissions,boundaries,showFlows,shouldFail
 fn return_a_string() -> &String {
@@ -440,24 +440,24 @@ fn return_a_string() -> &String {
 }
 ```
 
-This program is unsafe because the reference `&s` will be invalidated when `return_a_string` returns. And Rust will reject this program with a similar `missing lifetime specifier` error. Now you can understand that error means that `s_ref` is missing the appropriate flow permissions.
+Ten program jest niebezpieczny, ponieważ referencja `&s` zostanie unieważniona, gdy `return_a_string` zwróci wartość. Rust odrzuci ten program z podobnym błędem `missing lifetime specifier`. Teraz już rozumiesz, że ten błąd oznacza, iż `s_ref` nie ma odpowiednich uprawnień przepływu.
 
 
 {{#quiz ../quizzes/ch04-02-references-sec3-safety.toml}}
 
 
-### Summary {#summary}
+### Podsumowanie {#summary}
 
-References provide the ability to read and write data without consuming ownership of it. References are created with borrows (`&` and `&mut`) and used with dereferences (`*`), often implicitly.
+Referencje pozwalają odczytywać i zapisywać dane bez przejmowania ich na własność. Referencje tworzy się przez pożyczenie (`&` i `&mut`), a używa przez dereferencję (`*`), często niejawną.
 
-However, references can be easily misused. Rust's borrow checker enforces a system of permissions that ensures references are used safely:
+Referencji łatwo jednak użyć niewłaściwie. *Borrow checker* Rusta egzekwuje system uprawnień, który gwarantuje, że referencje są używane bezpiecznie:
 
-- All variables can read, own, and (optionally) write their data.
-- Creating a reference will transfer permissions from the borrowed place to the reference.
-- Permissions are returned once the reference's lifetime has ended.
-- Data must outlive all references that point to it.
+- Wszystkie zmienne mogą odczytywać swoje dane, być ich właścicielami i (opcjonalnie) je zapisywać.
+- Utworzenie referencji przenosi uprawnienia z pożyczonego miejsca na referencję.
+- Uprawnienia wracają, gdy kończy się czas życia referencji.
+- Dane muszą żyć dłużej niż wszystkie referencje, które na nie wskazują.
 
-In this section, it probably feels like we've described more of what Rust _cannot_ do than what Rust _can_ do. That is intentional! One of Rust's core features is allowing you to use pointers without garbage collection, while also avoiding undefined behavior. Understanding these safety rules now will help you avoid frustration with the compiler later.
+Pewnie masz wrażenie, że w tym podrozdziale opisaliśmy więcej tego, czego Rust _nie_ potrafi, niż tego, co _potrafi_. To celowe! Jedną z podstawowych cech Rusta jest to, że pozwala używać wskaźników bez odśmiecania pamięci (*garbage collection*), a jednocześnie unikać niezdefiniowanego zachowania. Zrozumienie tych reguł bezpieczeństwa teraz pomoże ci uniknąć frustracji w zmaganiach z kompilatorem później.
 
 [`String::push_str`]: https://doc.rust-lang.org/std/string/struct.String.html#method.push_str
 [`Vec`]: https://doc.rust-lang.org/std/vec/struct.Vec.html

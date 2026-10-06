@@ -60,24 +60,24 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch03-03-how-functions-work.md | 3 | 1412 | ch03-03-functions-sec1-parameters, ch03-03-functions-sec2-expressions | gotowe | ab69c60f | 1 |  |  |
 | ch03-04-comments.md | 3 | 167 | — | gotowe | ab69c60f | 0 |  |  |
 | ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | gotowe | ab69c60f | 1 |  |  |
-| ch04-00-understanding-ownership.md | 4 | 64 | — | przegląd | a54f221e | 0 |  |  |
+| ch04-00-understanding-ownership.md | 4 | 64 | — | gotowe | a54f221e | 0 |  |  |
 | ch04-01-what-is-ownership.md | 4 | 2764 | ch04-01-ownership-sec1-stackheap, ch04-01-ownership-sec2-moves | gotowe | a172b206 | 1 |  |  |
-| ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | przegląd | a54f221e | 1 |  |  |
-| ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | przegląd | a54f221e | 1 |  |  |
-| ch04-04-slices.md | 4 | 1832 | ch04-04-slices | przegląd | a9daf518 | 1 |  |  |
-| ch04-05-ownership-recap.md | 4 | 1470 | ch04-05-ownership-recap | przegląd | a9daf518 | 0 |  |  |
-| ch05-00-structs.md | 5 | 135 | — | tłumaczenie | a6aa8371 | 1 |  |  |
-| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | tłumaczenie | a6aa8371 | 1 |  |  |
-| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | przetłumaczone | a9374a62 | 1 |  |  |
-| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | tłumaczenie | a06a6fd0 | 1 |  |  |
-| ch06-00-enums.md | 6 | 113 | — | do zrobienia | | 0 | | |
-| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | do zrobienia | | 0 | | |
-| ch06-02-match.md | 6 | 2072 | ch06-02-match | do zrobienia | | 0 | | |
-| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | do zrobienia | | 0 | | |
-| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | do zrobienia | | 0 | | |
-| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | do zrobienia | | 0 | | |
-| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | do zrobienia | | 0 | | |
-| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | do zrobienia | | 0 | | |
+| ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | gotowe | a54f221e | 1 | 1 (`x` scalone, uzasadnione) |  |
+| ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | gotowe | a54f221e | 1 |  |  |
+| ch04-04-slices.md | 4 | 1832 | ch04-04-slices | gotowe | a9daf518 | 1 |  |  |
+| ch04-05-ownership-recap.md | 4 | 1470 | ch04-05-ownership-recap | gotowe | a9daf518 | 0 |  |  |
+| ch05-00-structs.md | 5 | 135 | — | przegląd | ab2fdd3d | 1 |  |  |
+| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | przegląd | ab2fdd3d | 1 |  |  |
+| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | przegląd | ab2fdd3d | 1 |  |  |
+| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | przegląd | ab2fdd3d | 1 |  |  |
+| ch06-00-enums.md | 6 | 113 | — | przetłumaczone | ace7fdce | 1 |  |  |
+| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | przetłumaczone | ace7fdce | 1 |  |  |
+| ch06-02-match.md | 6 | 2072 | ch06-02-match | przetłumaczone | a931e740 | 1 | 2 (`match` jako kod, uzasadnione) |  |
+| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | tłumaczenie | a1686ec4 | 1 |  |  |
+| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | tłumaczenie | a1686ec4 | 1 |  |  |
+| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | tłumaczenie | afe1270a | 1 |  |  |
+| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | tłumaczenie | afe1270a | 1 |  |  |
+| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | tłumaczenie | a1fd5f96 | 1 |  |  |
 | ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | do zrobienia | | 0 | | |
 | ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | do zrobienia | | 0 | | |
 | ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | do zrobienia | | 0 | | |

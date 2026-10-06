@@ -157,3 +157,24 @@ recenzent.
 | instance | instancja | — | | |
 | outer attribute | atrybut zewnętrzny | — | | |
 | standard output / standard error | standardowe wyjście / standardowe wyjście błędów | — | | |
+| field init shorthand | skrócona inicjalizacja pól | skrócona inicjalizacja pól (*field init shorthand*) | | |
+| struct update syntax | składnia aktualizacji struktury | składnia aktualizacji struktury (*struct update syntax*) | | |
+| tuple struct / unit-like struct | struktura krotkowa / struktura jednostkowa | struktura krotkowa (*tuple struct*) | | |
+| dot notation | notacja kropkowa | — | | |
+| owned type | typ będący właścicielem swoich danych | — | | |
+| getter | getter | getter (*getter*, metoda dostępowa) | | |
+| reborrow | ponowne pożyczenie | — | | |
+| constructor | konstruktor | — | | |
+| namespace | przestrzeń nazw | — | | |
+| substring | podłańcuch | — | | |
+| tracing collector | odśmiecanie ze śledzeniem | — | | |
+| exhaustive / exhaustiveness | wyczerpujący / wyczerpywalność | wyczerpujący (*exhaustive*) | | |
+| catch-all pattern | wzorzec przechwytujący wszystko | wzorzec przechwytujący wszystko (*catch-all*) | | |
+| wildcard | symbol wieloznaczny | — | | |
+| null | null | — | | nieodmienne; wartość null, referencja null |
+| type system | system typów | — | | |
+| invariant | niezmiennik | — | | |
+| constructor function (wariant enuma) | funkcja konstruująca | — | | |
+| owns (dane) | jest właścicielem | — | | unikamy „posiada”; *property* → właściwość (nie „własność”) |
+| reallocate | realokować | — | | |
+| reference-counted pointer | wskaźnik ze zliczaniem referencji | — | | |

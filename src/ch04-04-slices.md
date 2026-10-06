@@ -1,77 +1,78 @@
-## The Slice Type {#the-slice-type}
+## Typ wycinka {#the-slice-type}
 
-*Slices* let you reference a contiguous sequence of elements in a [collection](ch08-00-common-collections.md) 
-rather than the whole collection. A slice is a kind of reference, so it is a non-owning pointer.
+*Wycinki* (*slices*) pozwalają odwołać się do ciągłej sekwencji elementów w
+[kolekcji](ch08-00-common-collections.md) zamiast do całej kolekcji. Wycinek
+jest rodzajem referencji (*reference*), a więc wskaźnikiem niebędącym
+właścicielem danych.
 
-To motivate why slices are useful, let's work through a small programming problem: 
-write a function that takes a string of
-words separated by spaces and returns the first word it finds in that string.
-If the function doesn’t find a space in the string, the whole string must be
-one word, so the entire string should be returned. Without slices, we might
-write the signature of the function like this:
+Żeby pokazać, do czego przydają się wycinki, rozwiążmy mały problem
+programistyczny: napiszmy funkcję, która przyjmuje łańcuch znaków (*string*)
+złożony ze słów rozdzielonych spacjami i zwraca pierwsze słowo, jakie w nim
+znajdzie. Jeśli funkcja nie znajdzie w łańcuchu spacji, cały łańcuch musi być
+jednym słowem, więc należy zwrócić go w całości. Bez wycinków sygnaturę tej
+funkcji moglibyśmy zapisać tak:
 
 ```rust,ignore
 fn first_word(s: &String) -> ?
 ```
 
-The `first_word` function has a `&String` as a parameter. We don’t want
-ownership of the string, so this is fine. But what should we return? We don’t really have a
-way to talk about *part* of a string. However, we could return the index of the
-end of the word, indicated by a space. Let’s try that, as shown in Listing 4-7.
+Funkcja `first_word` przyjmuje jako parametr `&String`. Nie potrzebujemy
+własności (*ownership*) łańcucha, więc to w porządku. Ale co powinniśmy zwrócić? Nie mamy
+właściwie sposobu, żeby mówić o *części* łańcucha. Moglibyśmy jednak zwrócić
+indeks końca słowa, wyznaczonego przez spację. Spróbujmy tego, jak pokazuje
+listing 4-7.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-7: The `first_word` function that returns a
-byte index value into the `String` parameter</span>
+<span class="caption">Listing 4-7: Funkcja `first_word`, która zwraca indeks
+bajtu w parametrze typu `String`</span>
 
-Because we need to go through the `String` element by element and check whether
-a value is a space, we’ll convert our `String` to an array of bytes using the
-`as_bytes` method:
+Musimy przejść przez `String` element po elemencie i sprawdzić, czy dana
+wartość jest spacją, dlatego zamieniamy nasz `String` na tablicę bajtów za
+pomocą metody `as_bytes`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}
 ```
 
-Next, we create an iterator over the array of bytes using the `iter` method:
+Następnie tworzymy iterator po tablicy bajtów za pomocą metody `iter`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}
 ```
 
-We’ll discuss iterators in more detail in [Chapter 13][ch13]<!-- ignore -->.
-For now, know that `iter` is a method that returns each element in a collection
-and that `enumerate` wraps the result of `iter` and returns each element as
-part of a tuple instead. The first element of the tuple returned from
-`enumerate` is the index, and the second element is a reference to the element.
-This is a bit more convenient than calculating the index ourselves.
+Iteratory omówimy dokładniej w [rozdziale 13][ch13]<!-- ignore -->. Na razie
+wystarczy wiedzieć, że `iter` to metoda, która zwraca kolejne elementy
+kolekcji, a `enumerate` opakowuje wynik `iter` i zwraca każdy element jako
+część krotki (*tuple*). Pierwszym elementem krotki zwracanej przez `enumerate`
+jest indeks, a drugim referencja do elementu. To nieco wygodniejsze niż
+samodzielne obliczanie indeksu.
 
-Because the `enumerate` method returns a tuple, we can use patterns to
-destructure that tuple. We’ll be discussing patterns more in [Chapter
-6][ch6]<!-- ignore -->. In the `for` loop, we specify a pattern that has `i`
-for the index in the tuple and `&item` for the single byte in the tuple.
-Because we get a reference to the element from `.iter().enumerate()`, we use
-`&` in the pattern.
+Ponieważ metoda `enumerate` zwraca krotkę, możemy ją zdestrukturyzować za
+pomocą wzorców. Wzorce omówimy szerzej w [rozdziale 6][ch6]<!-- ignore -->. W
+pętli `for` podajemy wzorzec, w którym `i` oznacza indeks z krotki, a `&item`
+pojedynczy bajt z krotki. Ponieważ `.iter().enumerate()` daje nam referencję
+do elementu, we wzorcu używamy `&`.
 
-Inside the `for` loop, we search for the byte that represents the space by
-using the byte literal syntax. If we find a space, we return the position.
-Otherwise, we return the length of the string by using `s.len()`:
+Wewnątrz pętli `for` szukamy bajtu oznaczającego spację, korzystając ze
+składni literału bajtowego. Jeśli znajdziemy spację, zwracamy jej pozycję. W
+przeciwnym razie zwracamy długość łańcucha, używając `s.len()`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:inside_for}}
 ```
 
-We now have a way to find out the index of the end of the first word in the
-string, but there’s a problem. We’re returning a `usize` on its own, but it’s
-only a meaningful number in the context of the `&String`. In other words,
-because it’s a separate value from the `String`, there’s no guarantee that it
-will still be valid in the future. Consider the program in Listing 4-8 that
-uses the `first_word` function from Listing 4-7.
+Mamy teraz sposób na znalezienie indeksu końca pierwszego słowa w łańcuchu,
+ale jest pewien problem. Zwracamy sam `usize`, a ta liczba ma sens tylko w
+kontekście `&String`. Innymi słowy, ponieważ jest to wartość oddzielna od
+`String`, nie ma gwarancji, że w przyszłości nadal będzie poprawna. Weźmy
+program z listingu 4-8, który używa funkcji `first_word` z listingu 4-7.
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```aquascope,interpreter+permissions,boundaries,stepper,horizontal
 fn first_word(s: &String) -> usize {
@@ -93,33 +94,36 @@ fn main() {
 }
 ``` 
 
-<span class="caption">Listing 4-8: Storing the result from calling the
-`first_word` function and then changing the `String` contents</span>
+<span class="caption">Listing 4-8: Zapisanie wyniku wywołania funkcji
+`first_word`, a następnie zmiana zawartości `String`</span>
 
-This program compiles without any errors, as `s` retains write permissions
-after calling `first_word`. Because `word` isn’t connected to the state of `s`
-at all, `word` still contains the value `5`. We could use that value `5` with
-the variable `s` to try to extract the first word out, but this would be a bug
-because the contents of `s` have changed since we saved `5` in `word`.
+Ten program kompiluje się bez błędów, ponieważ po wywołaniu `first_word`
+zmienna `s` zachowuje uprawnienie (*permission*) do zapisu. Ponieważ `word` w
+ogóle nie jest powiązane ze stanem `s`, `word` nadal zawiera wartość `5`.
+Moglibyśmy użyć tej wartości `5` razem ze zmienną `s`, żeby spróbować wydobyć
+pierwsze słowo, ale byłby to błąd, bo zawartość `s` zmieniła się od chwili,
+gdy zapisaliśmy `5` w `word`.
 
-Having to worry about the index in `word` getting out of sync with the data in
-`s` is tedious and error prone! Managing these indices is even more brittle if
-we write a `second_word` function. Its signature would have to look like this:
+Pilnowanie, żeby indeks w `word` nie rozjechał się z danymi w `s`, jest żmudne
+i podatne na błędy! Zarządzanie takimi indeksami staje się jeszcze bardziej
+kruche, gdy napiszemy funkcję `second_word`. Jej sygnatura musiałaby wyglądać
+tak:
 
 ```rust,ignore
 fn second_word(s: &String) -> (usize, usize) {
 ```
 
-Now we’re tracking a starting *and* an ending index, and we have even more
-values that were calculated from data in a particular state but aren’t tied to
-that state at all. We have three unrelated variables floating around that
-need to be kept in sync.
+Teraz śledzimy indeks początkowy *i* końcowy, a do tego mamy jeszcze więcej
+wartości, które obliczono na podstawie danych w określonym stanie, ale które w
+ogóle nie są z tym stanem związane. Krążą nam po programie trzy niepowiązane
+zmienne, które trzeba utrzymywać w zgodności.
 
-Luckily, Rust has a solution to this problem: string slices.
+Na szczęście Rust ma rozwiązanie tego problemu: wycinki łańcuchów.
 
-### String Slices {#string-slices}
+### Wycinki łańcuchów {#string-slices}
 
-A *string slice* is a reference to part of a `String`, and it looks like this:
+*Wycinek łańcucha* (*string slice*) to referencja do części `String`. Wygląda
+tak:
 
 ```aquascope,interpreter
 #fn main() {
@@ -131,15 +135,17 @@ let s2: &String = &s; `[]`
 #}
 ```
 
-Rather than a reference to the entire `String` (like `s2`), `hello` is a reference to a
-portion of the `String`, specified in the extra `[0..5]` bit. We create slices
-using a range within brackets by specifying `[starting_index..ending_index]`,
-where `starting_index` is the first position in the slice and `ending_index` is
-one more than the last position in the slice.
+Zamiast referencji do całego `String` (jak `s2`) `hello` jest referencją do
+fragmentu `String`, określonego dodatkowym zapisem `[0..5]`. Wycinki tworzymy
+za pomocą zakresu w nawiasach kwadratowych, podając
+`[starting_index..ending_index]`, gdzie `starting_index` to pierwsza pozycja
+w wycinku, a `ending_index` to pozycja o jeden większa od ostatniej pozycji w
+wycinku.
 
-Slices are special kinds of references because they are "fat" pointers, or pointers
-with metadata. Here, the metadata is the length of the slice. We can see this metadata
-by changing our visualization to peek into the internals of Rust's data structures:
+Wycinki są szczególnym rodzajem referencji, ponieważ są „grubymi” wskaźnikami
+(*fat pointers*), czyli wskaźnikami z metadanymi. Tutaj metadaną jest
+długość wycinka. Możemy ją zobaczyć, jeśli zmienimy wizualizację tak, żeby
+zajrzeć do wnętrza struktur danych Rusta:
 
 ```aquascope,interpreter,concreteTypes,hideCode
 fn main() {
@@ -152,12 +158,15 @@ fn main() {
 }
 ```
 
-Observe that the variables `hello` and `world` have both a `ptr` and a `len` field, which together define the underlined regions
-of the string on the heap. You can also see here what a `String` actually looks like: a string is a vector of bytes (`Vec<u8>`),
-which contains a length `len` and a buffer `buf` that has a pointer `ptr` and a capacity `cap`.
+Zauważ, że zmienne `hello` i `world` mają pola `ptr` i `len`, które razem
+wyznaczają podkreślone obszary łańcucha na stercie (*heap*). Widać tu też, jak
+naprawdę wygląda `String`: łańcuch to wektor bajtów (`Vec<u8>`), który zawiera
+długość `len` oraz bufor `buf` ze wskaźnikiem `ptr` i pojemnością `cap`.
 
-Because slices are references, they also change the permissions on referenced data. For example, observe below that when
-`hello` is created as a slice of `s`, then `s` loses write and own permissions:
+Ponieważ wycinki są referencjami, zmieniają też uprawnienia do danych, do
+których się odwołują. Zauważ na przykład poniżej, że gdy `hello` zostaje
+utworzone jako wycinek `s`, zmienna `s` traci uprawnienia do zapisu i
+własności:
 
 ```aquascope,permissions,stepper,boundaries
 fn main() {
@@ -168,10 +177,10 @@ fn main() {
 }
 ```
 
-#### Range syntax {#range-syntax}
+#### Składnia zakresów {#range-syntax}
 
-With Rust’s `..` range syntax, if you want to start at index zero, you can drop
-the value before the two periods. In other words, these are equal:
+Jeśli w składni zakresów `..` w Ruście chcesz zacząć od indeksu zero, możesz
+pominąć wartość przed dwiema kropkami. Innymi słowy, te zapisy są równoważne:
 
 ```rust
 let s = String::from("hello");
@@ -180,8 +189,8 @@ let slice = &s[0..2];
 let slice = &s[..2];
 ```
 
-By the same token, if your slice includes the last byte of the `String`, you
-can drop the trailing number. That means these are equal:
+Na tej samej zasadzie, jeśli wycinek obejmuje ostatni bajt `String`, możesz
+pominąć końcową liczbę. Te zapisy są więc równoważne:
 
 ```rust
 let s = String::from("hello");
@@ -192,8 +201,8 @@ let slice = &s[3..len];
 let slice = &s[3..];
 ```
 
-You can also drop both values to take a slice of the entire string. So these
-are equal:
+Możesz też pominąć obie wartości, żeby wziąć wycinek całego łańcucha. Te
+zapisy są więc równoważne:
 
 ```rust
 let s = String::from("hello");
@@ -204,49 +213,50 @@ let slice = &s[0..len];
 let slice = &s[..];
 ```
 
-> Note: String slice range indices must occur at valid UTF-8 character
-> boundaries. If you attempt to create a string slice in the middle of a
-> multibyte character, your program will exit with an error. For the purposes
-> of introducing string slices, we are assuming ASCII only in this section; a
-> more thorough discussion of UTF-8 handling is in the [“Storing UTF-8 Encoded
-> Text with Strings”][strings]<!-- ignore --> section of Chapter 8.
+> Uwaga: indeksy zakresu wycinka łańcucha muszą wypadać na prawidłowych
+> granicach znaków UTF-8. Jeśli spróbujesz utworzyć wycinek łańcucha w środku
+> znaku wielobajtowego, program zakończy się błędem. Na potrzeby wprowadzenia
+> wycinków łańcuchów zakładamy w tej sekcji wyłącznie znaki ASCII; dokładniejsze
+> omówienie obsługi UTF-8 znajdziesz w podrozdziale
+> [„Przechowywanie tekstu zakodowanego w UTF-8 w łańcuchach”][strings]<!-- ignore -->
+> w rozdziale 8.
 
-#### Rewriting `first_word` with string slices {#rewriting-first_word-with-string-slices}
+#### Przepisanie `first_word` z użyciem wycinków łańcuchów {#rewriting-first_word-with-string-slices}
 
-With all this information in mind, let’s rewrite `first_word` to return a
-slice. The type that signifies “string slice” is written as `&str`:
+Mając to wszystko na uwadze, przepiszmy `first_word` tak, żeby zwracała
+wycinek. Typ oznaczający „wycinek łańcucha” zapisujemy jako `&str`:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}
 ```
 
-We get the index for the end of the word in the same way as we did in Listing
-4-7, by looking for the first occurrence of a space. When we find a space, we
-return a string slice using the start of the string and the index of the space
-as the starting and ending indices.
+Indeks końca słowa uzyskujemy tak samo jak w listingu 4-7: szukając
+pierwszego wystąpienia spacji. Gdy znajdziemy spację, zwracamy wycinek
+łańcucha, używając początku łańcucha i indeksu spacji jako indeksów
+początkowego i końcowego.
 
-Now when we call `first_word`, we get back a single value that is tied to the
-underlying data. The value is made up of a reference to the starting point of
-the slice and the number of elements in the slice.
+Teraz, gdy wywołujemy `first_word`, dostajemy z powrotem jedną wartość,
+związaną z danymi, na których się opiera. Wartość ta składa się z referencji
+do punktu początkowego wycinka i liczby elementów w wycinku.
 
-Returning a slice would also work for a `second_word` function:
+Zwracanie wycinka sprawdziłoby się też w funkcji `second_word`:
 
 ```rust,ignore
 fn second_word(s: &String) -> &str {
 ```
 
-We now have a straightforward API that’s much harder to mess up, because the
-compiler will ensure the references into the `String` remain valid. Remember
-the bug in the program in Listing 4-8, when we got the index to the end of the
-first word but then cleared the string so our index was invalid? That code was
-logically incorrect but didn’t show any immediate errors. The problems would
-show up later if we kept trying to use the first word index with an emptied
-string. Slices make this bug impossible and let us know we have a problem with
-our code much sooner. For example:
+Mamy teraz proste API, którego znacznie trudniej użyć źle, bo kompilator
+zapewni, że referencje do `String` pozostaną poprawne. Pamiętasz błąd w
+programie z listingu 4-8, gdy uzyskaliśmy indeks końca pierwszego słowa, a
+potem wyczyściliśmy łańcuch, przez co indeks stał się nieprawidłowy? Ten kod
+był logicznie niepoprawny, ale nie zgłaszał od razu żadnych błędów. Problemy
+ujawniłyby się później, gdybyśmy dalej próbowali używać indeksu pierwszego
+słowa z opróżnionym łańcuchem. Wycinki sprawiają, że taki błąd jest
+niemożliwy, i dużo wcześniej informują nas o problemie w kodzie. Na przykład:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```aquascope,permissions,boundaries,stepper,shouldFail
 #fn first_word(s: &String) -> &str {
@@ -268,81 +278,85 @@ fn main() {
 }
 ```
 
-You can see that calling `first_word` now removes the write permission from `s`,
-which prevents us from calling `s.clear()`. Here’s the compiler error:
+Widać, że wywołanie `first_word` odbiera teraz zmiennej `s` uprawnienie do
+zapisu, co uniemożliwia wywołanie `s.clear()`. Oto błąd kompilatora:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}
 ```
 
-Recall from the borrowing rules that if we have an immutable reference to
-something, we cannot also take a mutable reference. Because `clear` needs to
-truncate the `String`, it needs to get a mutable reference. The `println!`
-after the call to `clear` uses the reference in `word`, so the immutable
-reference must still be active at that point. Rust disallows the mutable
-reference in `clear` and the immutable reference in `word` from existing at the
-same time, and compilation fails. Not only has Rust made our API easier to use,
-but it has also eliminated an entire class of errors at compile time!
+Przypomnij sobie z zasad pożyczania (*borrowing*), że jeśli mamy do czegoś
+niemutowalną referencję, nie możemy jednocześnie wziąć referencji mutowalnej
+(*mutable*). Ponieważ `clear` musi skrócić `String`, potrzebuje referencji
+mutowalnej. `println!` po wywołaniu `clear` używa referencji z `word`, więc
+niemutowalna referencja musi w tym miejscu nadal być aktywna. Rust nie
+pozwala, żeby mutowalna referencja w `clear` i niemutowalna referencja w
+`word` istniały jednocześnie, więc kompilacja kończy się niepowodzeniem. Rust
+nie tylko ułatwił korzystanie z naszego API, ale też wyeliminował całą klasę
+błędów w czasie kompilacji (*compile-time*)!
 
-#### String Literals Are Slices {#string-literals-are-slices}
+#### Literały łańcuchowe są wycinkami {#string-literals-are-slices}
 
-Recall that we talked about string literals being stored inside the binary. Now
-that we know about slices, we can properly understand string literals:
+Wspominaliśmy już, że literały łańcuchowe są przechowywane wewnątrz pliku
+binarnego. Teraz, gdy znamy wycinki, możemy właściwie zrozumieć literały
+łańcuchowe:
 
 ```rust
 let s = "Hello, world!";
 ```
 
-The type of `s` here is `&str`: it’s a slice pointing to that specific point of
-the binary. This is also why string literals are immutable; `&str` is an
-immutable reference.
+Typem `s` jest tu `&str`: to wycinek wskazujący na konkretne miejsce w pliku
+binarnym. Dlatego też literały łańcuchowe są niemutowalne – `&str` jest
+niemutowalną referencją.
 
-#### String Slices as Parameters {#string-slices-as-parameters}
+#### Wycinki łańcuchów jako parametry {#string-slices-as-parameters}
 
-Knowing that you can take slices of literals and `String` values leads us to
-one more improvement on `first_word`, and that’s its signature:
+Skoro wiesz, że wycinki można brać zarówno z literałów, jak i z wartości
+`String`, możemy jeszcze raz ulepszyć `first_word` – tym razem jej sygnaturę:
 
 ```rust,ignore
 fn first_word(s: &String) -> &str {
 ```
 
-A more experienced Rustacean would write the signature shown in Listing 4-9
-instead because it allows us to use the same function on both `&String` values
-and `&str` values.
+Bardziej doświadczony rustowiec (*Rustacean*) napisałby zamiast tego
+sygnaturę z listingu 4-9, bo pozwala ona używać tej samej funkcji zarówno dla
+wartości `&String`, jak i `&str`.
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 4-9: Improving the `first_word` function by using
-a string slice for the type of the `s` parameter</span>
+<span class="caption">Listing 4-9: Ulepszenie funkcji `first_word` przez
+użycie wycinka łańcucha jako typu parametru `s`</span>
 
-If we have a string slice, we can pass that directly. If we have a `String`, we
-can pass a slice of the `String` or a reference to the `String`. This
-flexibility takes advantage of *deref coercions*, a feature we will cover in the
-[“Implicit Deref Coercions with Functions and
-Methods”][deref-coercions]<!--ignore--> section of Chapter 15.
+Jeśli mamy wycinek łańcucha, możemy przekazać go bezpośrednio. Jeśli mamy
+`String`, możemy przekazać wycinek tego `String` albo referencję do `String`.
+Ta elastyczność wykorzystuje *deref coercion* (automatyczną konwersję przez
+dereferencję) – mechanizm, który omówimy w podrozdziale
+[„Niejawna deref coercion w funkcjach i metodach”][deref-coercions]<!--ignore-->
+w rozdziale 15.
 
-Defining a function to take a string slice instead of a reference to a `String`
-makes our API more general and useful without losing any functionality:
+Gdy funkcja przyjmuje wycinek łańcucha zamiast referencji do `String`, nasze
+API staje się bardziej ogólne i użyteczne, a nie tracimy żadnej
+funkcjonalności:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}
 ```
 
-### Other Slices {#other-slices}
+### Inne wycinki {#other-slices}
 
-String slices, as you might imagine, are specific to strings. But there’s a
-more general slice type, too. Consider this array:
+Wycinki łańcuchów, jak można się domyślić, dotyczą tylko łańcuchów. Istnieje jednak
+również ogólniejszy typ wycinka. Weźmy taką tablicę:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
 ```
 
-Just as we might want to refer to a part of a string, we might want to refer
-to part of an array. We’d do so like this:
+Tak jak możemy chcieć odwołać się do części łańcucha, możemy chcieć odwołać
+się do części tablicy. Robimy to tak:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
@@ -352,19 +366,21 @@ let slice = &a[1..3];
 assert_eq!(slice, &[2, 3]);
 ```
 
-This slice has the type `&[i32]`. It works the same way as string slices do, by
-storing a reference to the first element and a length. You’ll use this kind of
-slice for all sorts of other collections. We’ll discuss these collections in
-detail when we talk about vectors in Chapter 8.
+Ten wycinek ma typ `&[i32]`. Działa tak samo jak wycinki łańcuchów: przechowuje
+referencję do pierwszego elementu i długość. Takiego rodzaju wycinków będziesz
+używać dla najróżniejszych innych kolekcji. Kolekcje te omówimy szczegółowo,
+gdy będziemy mówić o wektorach w rozdziale 8.
 
 {{#quiz ../quizzes/ch04-04-slices.toml}}
 
-## Summary {#summary}
+## Podsumowanie {#summary}
 
-Slices are a special kind of reference that refer to sub-ranges of a sequence, like a 
-string or a vector. At runtime, a slice is represented as a "fat pointer" which contains
-a pointer to the beginning of the range and a length of the range. One advantage of slices
-over index-based ranges is that the slice cannot be invalidated while it's being used.
+Wycinki to szczególny rodzaj referencji, które odwołują się do podzakresów
+sekwencji, takiej jak łańcuch znaków czy wektor. W czasie działania programu
+wycinek jest reprezentowany jako „gruby” wskaźnik, który zawiera wskaźnik na
+początek zakresu i długość zakresu. Jedną z zalet wycinków w porównaniu z
+zakresami opartymi na indeksach jest to, że wycinek nie może zostać
+unieważniony, gdy jest używany.
 
 [ch13]: ch13-02-iterators.html
 [ch6]: ch06-02-match.html#patterns-that-bind-to-values

@@ -2,7 +2,7 @@
 id = "7fbda6e4-dca7-458e-ab52-fab03181f90b"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider the variables `s2` and `s3` in the following program. These two variables will be located in memory within the stack frame for `main`. Each variable has a size in memory on the stack, *not* including the size of pointed data. Which statement is true about the sizes of `s2` and `s3`?
+Przyjrzyj się zmiennym `s2` i `s3` w poniższym programie. Obie zmienne znajdą się w pamięci w ramce stosu funkcji `main`. Każda zmienna zajmuje na stosie określony rozmiar, *nie* licząc rozmiaru wskazywanych danych. Które zdanie o rozmiarach `s2` i `s3` jest prawdziwe?
 
 ```
 fn main() {
@@ -12,13 +12,13 @@ fn main() {
 }
 ```
 """
-answer.answer = "`s3` has more bytes than `s2`"
+answer.answer = "`s3` zajmuje więcej bajtów niż `s2`"
 prompt.distractors = [
-  "`s3` has the same number of bytes as `s2`",
-  "`s3` has fewer bytes than `s2`"
+  "`s3` zajmuje tyle samo bajtów co `s2`",
+  "`s3` zajmuje mniej bajtów niż `s2`"
 ]
 context = """
-The type `&String` is a normal reference consisting of a single pointer, so 8 bytes on a 64-bit architecture. The type `&str` is a special slice reference which consists of a pointer *and* a length, so 16 bytes. Therefore `s3` of type `&str` uses more memory than `s2` of type `&String`. You can verify this yourself using [`std::mem::size_of`](https://doc.rust-lang.org/std/mem/fn.size_of.html), like so:
+Typ `&String` to zwykła referencja składająca się z jednego wskaźnika, więc na architekturze 64-bitowej zajmuje 8 bajtów. Typ `&str` to specjalna referencja będąca wycinkiem, która składa się ze wskaźnika *i* długości, więc zajmuje 16 bajtów. Dlatego `s3` typu `&str` zużywa więcej pamięci niż `s2` typu `&String`. Możesz to sprawdzić samodzielnie za pomocą [`std::mem::size_of`](https://doc.rust-lang.org/std/mem/fn.size_of.html), na przykład tak:
 
 ```rust
 fn main() {
@@ -30,7 +30,7 @@ fn main() {
 }
 ```
 
-Also, note that Rust will implicitly convert string references to either `&String` or `&str` based on the context of the reference. So the expression `&s` produces two different values based on the expected type of `&s`.
+Zwróć też uwagę, że Rust niejawnie przekształca referencje do łańcuchów w `&String` albo `&str` w zależności od kontekstu referencji. Wyrażenie `&s` daje więc dwie różne wartości w zależności od oczekiwanego typu `&s`.
 """
 
 [[questions]]
@@ -50,5 +50,5 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 5
 context = """
-Because `s.as_bytes()` produces an immutable reference to `s`, it is illegal to mutate `s` (via `push_str`) inside the for-loop.
+Ponieważ `s.as_bytes()` tworzy niemutowalną referencję do `s`, modyfikowanie `s` (przez `push_str`) wewnątrz pętli for jest niedozwolone.
 """

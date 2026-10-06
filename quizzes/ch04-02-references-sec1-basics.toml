@@ -2,7 +2,7 @@
 id = "0b8dbb4f-7c56-4b6e-8358-95c7b46f90c3"
 type = "ShortAnswer"
 prompt.prompt = """
-Consider the following program, showing the state of memory after the last line:
+Rozważ poniższy program, który pokazuje stan pamięci po ostatniej linii:
 ```aquascope,interpreter
 #fn main() {
 let x = Box::new(0);
@@ -10,21 +10,21 @@ let y = Box::new(&x);`[]`
 #}
 ```
 
-If you wanted to copy out the number `0` through `y`, how many dereferences would you need to use? 
-Write your answer as a digit. For example, if the correct expression is `*y`, then the answer is 1. 
+Ilu dereferencji trzeba użyć, by skopiować liczbę `0` przez `y`?
+Podaj odpowiedź jako cyfrę. Na przykład jeśli poprawnym wyrażeniem jest `*y`, odpowiedzią jest 1.
 """
 answer.answer = "3"
 context = """
-`***y` is the correct expression. `y` has the type `Box<&Box<i32>>`. It is a heap pointer to a stack reference 
-to a heap pointer. Therefore `y` must be dereferenced three times, once for each layer of indirection.
+Poprawnym wyrażeniem jest `***y`. `y` ma typ `Box<&Box<i32>>`. Jest to wskaźnik na stertę wskazujący na referencję na stosie,
+która wskazuje na wskaźnik na stertę. Dlatego dereferencję `y` trzeba wykonać trzy razy, raz dla każdego poziomu pośredniości.
 """
 
 [[questions]]
 id = "7cf19153-3647-4afc-953a-f9392ddb96fb"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider the following program, showing the state of memory after the last line:
- 
+Rozważ poniższy program, który pokazuje stan pamięci po ostatniej linii:
+
 ```aquascope,interpreter
 fn get_first(vr: &Vec<i32>) -> i32 {
   vr[0]
@@ -37,15 +37,15 @@ fn main() {
 }
 ```
 
-Which of the following best explains why `v` is not deallocated after calling `get_first`?
+Które z poniższych zdań najlepiej wyjaśnia, dlaczego `v` nie zostaje zdealokowane po wywołaniu `get_first`?
 """
-answer.answer = "`vr` is a reference which does not own the vector it points to"
+answer.answer = "`vr` jest referencją, która nie jest właścicielem wektora, na który wskazuje"
 prompt.distractors = [
-  "`vr` is not mutated within `get_first`",
-  "`get_first` returns a value of type `i32`, not the vector itself",
-  "`v` is used after calling `get_first` in the `println`"
+  "`vr` nie jest modyfikowane w `get_first`",
+  "`get_first` zwraca wartość typu `i32`, a nie sam wektor",
+  "`v` jest używane po wywołaniu `get_first` w `println`"
 ]
 context = """
-References are non-owning pointers. Therefore passing `&v` to `get_first` does not move ownership of `v` into `get_first`,
-and subsequently `v` is not deallocated after `get_first` ends.
+Referencje to wskaźniki, które nie są właścicielami. Dlatego przekazanie `&v` do `get_first` nie przenosi własności `v` do `get_first`,
+a w konsekwencji `v` nie zostaje zdealokowane po zakończeniu `get_first`.
 """

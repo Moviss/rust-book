@@ -2,24 +2,24 @@
 id = "cbe8ef63-4f7e-45fd-b11f-e6eba40587b0"
 type = "MultipleChoice"
 prompt.prompt = """
-Which of the following best explains why an `i32` can be copied without a move, but a `String` cannot?
+Które z poniższych najlepiej wyjaśnia, dlaczego `i32` można skopiować bez przenoszenia, a `String` nie?
 """
-answer.answer = "A `String` owns data on the heap, while an `i32` does not"
+answer.answer = "`String` posiada dane na stercie, a `i32` nie"
 prompt.distractors = [
-    "An `i32` is smaller in memory than a `String`",
-    "An `i32` is a primitive type in Rust, while a `String` is not",
-    "A `String` can be placed on the heap, while an `i32` can only be placed on the stack"
+    "`i32` zajmuje w pamięci mniej miejsca niż `String`",
+    "`i32` jest w Ruście typem prymitywnym, a `String` nie",
+    "`String` może zostać umieszczony na stercie, a `i32` tylko na stosie"
 ]
 context = """
-If a `String` could be copied without a move, then two variables could think they own
-the same string, leading to a double-free.
+Gdyby `String` dało się skopiować bez przenoszenia, dwie zmienne mogłyby uważać, że są
+właścicielami tego samego łańcucha, co prowadziłoby do podwójnego zwolnienia.
 """
 
 [[questions]]
 id = "512e1ec0-cd7b-4a90-949b-d7b08b4009a8"
 type = "MultipleChoice"
 prompt.prompt = """
-The following code snippet does not compile:
+Poniższy fragment kodu się nie kompiluje:
 
 ```rust
 let s = String::from("Hello world");
@@ -28,25 +28,25 @@ let s2 = *s_ref;
 println!("{s2}");
 ```
 
-Which of the following best describes the undefined behavior that could occur if this program were allowed to execute?
+Które z poniższych najlepiej opisuje niezdefiniowane zachowanie, do którego mogłoby dojść, gdyby pozwolono wykonać ten program?
 """
-answer.answer = "The string is freed twice at the end of the program"
+answer.answer = "Łańcuch zostaje zwolniony dwukrotnie na końcu programu"
 prompt.distractors = [
-  "The read of `s2` in `println` is a use of freed memory",
-  "The dereference `*s_ref` is a use of freed memory",
-  "There is no undefined behavior in this program"
+  "Odczyt `s2` w `println` jest użyciem zwolnionej pamięci",
+  "Dereferencja `*s_ref` jest użyciem zwolnionej pamięci",
+  "W tym programie nie ma niezdefiniowanego zachowania"
 ]
 context = """
-The `println` is technically safe, since the string won't be deallocated until the end
-of the current scope. But then undefined behavior occurs, when the string is freed twice
-on behalf of `s` and `s2`.
+Samo `println` jest formalnie bezpieczne, ponieważ łańcuch zostanie zdealokowany dopiero na końcu
+bieżącego zasięgu. Wtedy jednak dochodzi do niezdefiniowanego zachowania, bo łańcuch jest zwalniany
+dwukrotnie: raz w imieniu `s`, a raz w imieniu `s2`.
 """
 
 [[questions]]
 id = "1e31e163-5bd4-4385-b222-33c19058bf6a"
 type = "MultipleChoice"
 prompt.prompt = """
-The following program does not compile:
+Poniższy program się nie kompiluje:
 
 ```rust
 fn copy_to_prev(v: &mut Vec<i32>, i: usize) {
@@ -59,19 +59,19 @@ fn main() {
 }
 ```
 
-Which of the following best describes the undefined behavior that could occur if this program were allowed to execute?
+Które z poniższych najlepiej opisuje niezdefiniowane zachowanie, do którego mogłoby dojść, gdyby pozwolono wykonać ten program?
 """
-answer.answer = "There is no undefined behavior in this program"
+answer.answer = "W tym programie nie ma niezdefiniowanego zachowania"
 prompt.distractors = [
-  "The assignment `*n` is a use of freed memory",
-  "The borrow `&mut v[i]` creates a pointer to freed memory",
-  "The read of `v[i - 1]` is a use of freed memory"
+  "Przypisanie do `*n` jest użyciem zwolnionej pamięci",
+  "Pożyczenie `&mut v[i]` tworzy wskaźnik do zwolnionej pamięci",
+  "Odczyt `v[i - 1]` jest użyciem zwolnionej pamięci"
 ]
 context = """
-This program is safe. No undefined behavior could occur if it were executed. (If `i` was outside
-the bounds of `v`, then Rust will panic at runtime rather than cause undefined behavior.)
+Ten program jest bezpieczny. Jego wykonanie nie mogłoby doprowadzić do niezdefiniowanego zachowania. (Gdyby `i` wykraczało
+poza granice `v`, Rust spanikowałby w czasie działania, zamiast doprowadzić do niezdefiniowanego zachowania).
 
-The issue is that Rust doesn't know for sure that `v[i]` and `v[i - 1]` are referring to different elements.
+Problem polega na tym, że Rust nie wie na pewno, że `v[i]` i `v[i - 1]` odnoszą się do różnych elementów.
 """
 
 
@@ -79,7 +79,7 @@ The issue is that Rust doesn't know for sure that `v[i]` and `v[i - 1]` are refe
 id = "4df75888-2cd5-4259-8629-46a307429fd0"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider this function that is a simplified variant of the function from the previous quiz:
+Rozważ tę funkcję, która jest uproszczoną wersją funkcji z poprzedniego quizu:
 
 ```
 /// Adds "Ph.D." to a person's name
@@ -89,7 +89,7 @@ fn award_phd(name: &String) {
 }
 ```
 
-The Rust compiler rejects this function with the following error:
+Kompilator Rusta odrzuca tę funkcję z następującym błędem:
 
 ```text
 error[E0507]: cannot move out of `*name` which is behind a shared reference
@@ -102,9 +102,9 @@ error[E0507]: cannot move out of `*name` which is behind a shared reference
   |                    help: consider borrowing here: `&*name`
 ```
 
-Assume that the compiler did NOT reject this function. Select each (if any) of the following programs that could
-possibly cause undefined behavior if executed. If none of these programs could cause undefined behavior, 
-then check "None of these programs" .
+Załóż, że kompilator NIE odrzucił tej funkcji. Zaznacz każdy z poniższych programów (jeśli taki jest), który po wykonaniu
+mógłby spowodować niezdefiniowane zachowanie. Jeśli żaden z tych programów nie mógłby spowodować niezdefiniowanego zachowania,
+zaznacz „Żaden z tych programów”.
 """
 answer.answer = [
 """
@@ -131,14 +131,14 @@ println!("{}", name_ref);
 
 ]
 prompt.distractors = [
-  "None of these programs"
+  "Żaden z tych programów"
 ]
 context = """
-The statement `let mut name = *name` makes `name` take ownership of the input string.
-However, the caller also still retains ownership of the string. Therefore after `award_phd`
-finishes, the string is deallocated. Therefore every program above has undefined behavior, 
-because `name` will eventually be deallocated a second time. It does not matter whether `name`
-or a reference to `name` is read after calling `award_phd`.
+Instrukcja `let mut name = *name` sprawia, że `name` przejmuje własność wejściowego łańcucha.
+Wywołujący nadal jednak zachowuje własność tego łańcucha. Dlatego po zakończeniu `award_phd`
+łańcuch zostaje zdealokowany. W efekcie każdy z powyższych programów ma niezdefiniowane zachowanie,
+ponieważ `name` w końcu zostanie zdealokowane po raz drugi. Nie ma znaczenia, czy po wywołaniu
+`award_phd` odczytywane jest `name`, czy referencja do `name`.
 """
 
 [[questions]]
@@ -157,6 +157,6 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "0 2"
 context = """
-This program does compile, as the binding of `x` copies `point[0]`, allowing `y` to mutably borrow `point[1]`.
-The mutation `x += 1` does not affect `point`, while the mutation `*y += 1` does, so the final result is `0 2`.
+Ten program się kompiluje, ponieważ wiązanie `x` kopiuje `point[0]`, co pozwala `y` mutowalnie pożyczyć `point[1]`.
+Modyfikacja `x += 1` nie wpływa na `point`, a modyfikacja `*y += 1` już tak, więc wynikiem jest `0 2`.
 """
