@@ -1,5 +1,14 @@
 # Czym ta książka się różni? {#whats-different-about-this-book}
 
+> **Nieoficjalne tłumaczenie.** To nieoficjalny polski przekład eksperymentalnej
+> wersji książki *The Rust Programming Language* przygotowanej przez Uniwersytet
+> Browna ([oryginał](https://rust-book.cs.brown.edu/)), która z kolei opiera się
+> na [oficjalnej książce Rusta](https://doc.rust-lang.org/book/). Tłumaczenie
+> nie jest związane z autorami oryginału, a jego tekst zmieniono względem
+> oryginału (przekład na język polski). Licencja jak w oryginale: MIT lub
+> Apache-2.0. Źródła tłumaczenia:
+> [Moviss/rust-book](https://github.com/Moviss/rust-book).
+
 <div style="display: flex; gap: 2em"> 
 
 Ta książka jest eksperymentalnym forkiem [*The Rust Programming Language*](http://doc.rust-lang.org/book/), stworzonym przez badaczy z <a href="https://cel.cs.brown.edu/">Cognitive Engineering Lab</a> na Uniwersytecie Browna. Jeśli cię to ciekawi, na tej stronie wyjaśniamy, czym ta książka różni się od oryginalnej TRPL. Jeśli jednak chcesz po prostu zacząć naukę Rusta, możesz śmiało pominąć tę stronę i wrócić do niej później.

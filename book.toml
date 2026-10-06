@@ -2,7 +2,8 @@
 # in `nostarch/book.toml`!
 
 [book]
-title = "The Rust Programming Language"
+title = "Język programowania Rust"
+language = "pl"
 authors = ["Steve Klabnik", "Carol Nichols", "Contributions from the Rust Community"]
 
 [output.html]

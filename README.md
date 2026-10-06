@@ -1,5 +1,16 @@
 # The Rust Programming Language
 
+> **Unofficial Polish translation.** This fork (`Moviss/rust-book`) contains an
+> unofficial Polish translation of the Brown University experimental edition of
+> *The Rust Programming Language* ([original](https://rust-book.cs.brown.edu/),
+> [source](https://github.com/cognitive-engineering-lab/rust-book)), which is
+> itself based on the [official Rust book](https://doc.rust-lang.org/book/).
+> The prose in `src/` and `quizzes/` has been translated into Polish; code is
+> unchanged. The translation is not affiliated with or endorsed by the original
+> authors. It is published at <https://moviss.github.io/rust-book/> under the
+> same MIT / Apache-2.0 licenses as the original. Translation tooling, plan and
+> glossary live in [`tlumaczenie/`](tlumaczenie/).
+
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
 
 This repository contains the source of "The Rust Programming Language" book, specifically an experimental branch that supports interactive features like quizzes.

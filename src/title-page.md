@@ -1,5 +1,14 @@
 # Język programowania Rust {#the-rust-programming-language}
 
+> **Nieoficjalne tłumaczenie.** To nieoficjalny polski przekład eksperymentalnej
+> wersji książki *The Rust Programming Language* przygotowanej przez Uniwersytet
+> Browna ([oryginał](https://rust-book.cs.brown.edu/)), która z kolei opiera się
+> na [oficjalnej książce Rusta](https://doc.rust-lang.org/book/). Tłumaczenie
+> nie jest związane z autorami oryginału, a jego tekst zmieniono względem
+> oryginału (przekład na język polski). Licencja jak w oryginale: MIT lub
+> Apache-2.0. Źródła tłumaczenia:
+> [Moviss/rust-book](https://github.com/Moviss/rust-book).
+
 *Steve Klabnik, Carol Nichols i Chris Krycho, przy współpracy społeczności Rusta*
 
 *(oraz z eksperymentalnymi modyfikacjami!)*

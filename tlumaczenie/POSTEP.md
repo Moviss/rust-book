@@ -27,11 +27,11 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F3.1 Strony otwierające
 - [x] F3.2 Rozdziały 2–21
 - [ ] F3.3 Dodatki
-- [ ] F4.1 `SUMMARY.md`
-- [ ] F4.2 `book.toml`
-- [ ] F4.3 `ferris.js`
-- [ ] F4.4 Notka D12
-- [ ] F4.5 Commit
+- [x] F4.1 `SUMMARY.md`
+- [x] F4.2 `book.toml`
+- [x] F4.3 `ferris.js`
+- [x] F4.4 Notka D12
+- [x] F4.5 Commit
 - [ ] F5.1 Glosariusz na całej książce
 - [ ] F5.2 Spójność odwołań
 - [ ] F5.3 Raport G5
@@ -179,3 +179,5 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F2.4: wdrożony pilot (9113fa4a) zweryfikowany: notatka „Uwaga:” w `<section class="note">`, aquascope i quizy na ch04-01.
 - F3: nazwa serwisu w prozie „crates.io” (wielka litera tylko na początku zdania i w cytowanych tytułach); nagłówek ch14-00 „Więcej o Cargo i crates.io” do ujednolicenia w F5.
 - F3: `sprawdz.py` – `<code>` w HTML liczone po usunięciu komentarzy HTML (fałszywy alarm w ch17-05).
+- F4.1: tytuły w SUMMARY = przetłumaczone H1; różnice względem H1 jak w oryginale: ch17-03 „Praca z dowolną liczbą future’ów”, ch17-06 „Future’y, zadania i wątki”, dodatki „A – …”. `postep.py --summary` poprawiony (pierwszy nagłówek poza kodem).
+- F4.4: notka D12 jako cytat na górze `experiment-intro.md` i `title-page.md` (linki: oryginał Brown, oficjalna książka, repozytorium tłumaczenia); sekcja w README.md.
