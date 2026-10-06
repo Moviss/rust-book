@@ -119,3 +119,20 @@ recenzent.
 | format string | łańcuch formatujący | — | | |
 | hardcoded | wpisany na sztywno | — | | |
 | snake case | *snake case* | — | | nazwa stylu, bez tłumaczenia |
+| unit value `()` | wartość jednostkowa | wartość jednostkowa (*unit*) | | typ: typ jednostkowy (*unit type*); nie „unit” bez tłumaczenia |
+| data type / scalar / compound | typ danych / skalarny / złożony | — | | |
+| integer / floating-point / Boolean | liczba całkowita / zmiennoprzecinkowa / wartość logiczna | — | | signed/unsigned → ze znakiem / bez znaku |
+| integer overflow / wrapping | przepełnienie liczby całkowitej / zawijanie | — | | |
+| literal | literał | — | | |
+| destructuring | destrukturyzacja | — | | |
+| loop label / iteration | etykieta pętli / iteracja | — | | |
+| arm (`if`, `match`) | ramię | ramię (*arm*) | | |
+| placeholder | symbol zastępczy | symbol zastępczy (*placeholder*) | | |
+| handle | uchwyt | — | | |
+| registry | rejestr | — | | crates.io jako nazwa własna |
+| binary crate / library crate | crate binarny / crate biblioteczny | — | | |
+| Semantic Versioning | wersjonowanie semantyczne | — | | |
+| comment / documentation comment | komentarz / komentarz dokumentacyjny | — | | |
+| garbage collector | mechanizm odśmiecania pamięci | mechanizm odśmiecania pamięci (*garbage collector*) | | |
+| memory safety | bezpieczeństwo pamięci | — | | |
+| debug mode / release mode | tryb debugowania / tryb wydania | — | | |
