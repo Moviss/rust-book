@@ -1,0 +1,22 @@
+# Wyjątki dla bramek sprawdz.py (G1) i glosariusz_lint.py (G6).
+# Sekcja na plik (ścieżka względem repo); sekcja "*" dotyczy wszystkich plików.
+#   dodatkowe_urle  – URL-e dozwolone ponad te z oryginału
+#   dodatkowe_bloki – liczba dodatkowych elementów szkieletu (np. cytat z notką)
+#   glosariusz      – zaakceptowane trafienia G6: { tekst = "...", uzasadnienie = "..." }
+
+# Notka o nieoficjalnym tłumaczeniu (D12), dodawana w Fazie 4.
+["src/experiment-intro.md"]
+dodatkowe_urle = [
+  "https://rust-book.cs.brown.edu/",
+  "https://doc.rust-lang.org/book/",
+  "https://github.com/Moviss/rust-book",
+]
+dodatkowe_bloki = 1
+
+["src/title-page.md"]
+dodatkowe_urle = [
+  "https://rust-book.cs.brown.edu/",
+  "https://doc.rust-lang.org/book/",
+  "https://github.com/Moviss/rust-book",
+]
+dodatkowe_bloki = 1

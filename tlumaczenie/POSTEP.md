@@ -14,12 +14,12 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F0.8 Baseline linków
 - [x] F0.9 `CLAUDE.md`
 - [ ] F0.10 Commit narzędzi, push, CI
-- [ ] F1.1 `KONWENCJE.md`
-- [ ] F1.2 `GLOSARIUSZ.md`
-- [ ] F1.3 `wyjatki.toml`
-- [ ] F1.4 `postep.py --init`
-- [ ] F1.5 `glosariusz_lint.py` na glosariuszu
-- [ ] F1.6 Commit konwencji
+- [x] F1.1 `KONWENCJE.md`
+- [x] F1.2 `GLOSARIUSZ.md`
+- [x] F1.3 `wyjatki.toml`
+- [x] F1.4 `postep.py --init`
+- [x] F1.5 `glosariusz_lint.py` na glosariuszu
+- [x] F1.6 Commit konwencji
 - [ ] F2.1 Pilot: tłumaczenie
 - [ ] F2.2 Pilot: przegląd, bramki
 - [ ] F2.3 Autoreview pilota
@@ -41,9 +41,136 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [ ] F5.7 `CLAUDE.md` końcowy
 - [ ] F5.8 Raport końcowy
 
+## Pliki
+
+| plik | rozdz. | słowa EN | quizy | status | agent | próby | G5 | uwagi |
+|---|---|---|---|---|---|---|---|---|
+| experiment-intro.md | 0 | 550 | example-quiz | do zrobienia | | 0 | | |
+| title-page.md | 0 | 145 | — | do zrobienia | | 0 | | |
+| foreword.md | 0 | 448 | — | do zrobienia | | 0 | | |
+| ch00-00-introduction.md | 0 | 1611 | — | do zrobienia | | 0 | | |
+| ch01-00-getting-started.md | 1 | 49 | — | do zrobienia | | 0 | | |
+| ch01-01-installation.md | 1 | 926 | ch01-01-installation | do zrobienia | | 0 | | |
+| ch01-02-hello-world.md | 1 | 1137 | ch01-02-hello-world | do zrobienia | | 0 | | |
+| ch01-03-hello-cargo.md | 1 | 1612 | ch01-03-hello-cargo | do zrobienia | | 0 | | |
+| ch02-00-guessing-game-tutorial.md | 2 | 5469 | — | do zrobienia | | 0 | | |
+| ch03-00-common-programming-concepts.md | 3 | 201 | — | do zrobienia | | 0 | | |
+| ch03-01-variables-and-mutability.md | 3 | 1337 | ch03-01-variables-and-mutability-sec1-variables, ch03-01-variables-and-mutability-sec2-constants, ch03-01-variables-and-mutability-sec3-shadowing | do zrobienia | | 0 | | |
+| ch03-02-data-types.md | 3 | 2535 | ch03-02-data-types-sec1-scalar, ch03-02-data-types-sec2-compound | do zrobienia | | 0 | | |
+| ch03-03-how-functions-work.md | 3 | 1412 | ch03-03-functions-sec1-parameters, ch03-03-functions-sec2-expressions | do zrobienia | | 0 | | |
+| ch03-04-comments.md | 3 | 167 | — | do zrobienia | | 0 | | |
+| ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | do zrobienia | | 0 | | |
+| ch04-00-understanding-ownership.md | 4 | 64 | — | do zrobienia | | 0 | | |
+| ch04-01-what-is-ownership.md | 4 | 2764 | ch04-01-ownership-sec1-stackheap, ch04-01-ownership-sec2-moves | do zrobienia | | 0 | | |
+| ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | do zrobienia | | 0 | | |
+| ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | do zrobienia | | 0 | | |
+| ch04-04-slices.md | 4 | 1832 | ch04-04-slices | do zrobienia | | 0 | | |
+| ch04-05-ownership-recap.md | 4 | 1470 | ch04-05-ownership-recap | do zrobienia | | 0 | | |
+| ch05-00-structs.md | 5 | 135 | — | do zrobienia | | 0 | | |
+| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | do zrobienia | | 0 | | |
+| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | do zrobienia | | 0 | | |
+| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | do zrobienia | | 0 | | |
+| ch06-00-enums.md | 6 | 113 | — | do zrobienia | | 0 | | |
+| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | do zrobienia | | 0 | | |
+| ch06-02-match.md | 6 | 2072 | ch06-02-match | do zrobienia | | 0 | | |
+| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | do zrobienia | | 0 | | |
+| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | do zrobienia | | 0 | | |
+| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | do zrobienia | | 0 | | |
+| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | do zrobienia | | 0 | | |
+| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | do zrobienia | | 0 | | |
+| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | do zrobienia | | 0 | | |
+| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | do zrobienia | | 0 | | |
+| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | do zrobienia | | 0 | | |
+| ch08-00-common-collections.md | 8 | 218 | — | do zrobienia | | 0 | | |
+| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | do zrobienia | | 0 | | |
+| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | do zrobienia | | 0 | | |
+| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | do zrobienia | | 0 | | |
+| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | do zrobienia | | 0 | | |
+| ch09-00-error-handling.md | 9 | 221 | — | do zrobienia | | 0 | | |
+| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | do zrobienia | | 0 | | |
+| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | do zrobienia | | 0 | | |
+| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | do zrobienia | | 0 | | |
+| ch10-00-generics.md | 10 | 898 | — | do zrobienia | | 0 | | |
+| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | do zrobienia | | 0 | | |
+| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | do zrobienia | | 0 | | |
+| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | do zrobienia | | 0 | | |
+| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | do zrobienia | | 0 | | |
+| ch11-00-testing.md | 11 | 340 | — | do zrobienia | | 0 | | |
+| ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | do zrobienia | | 0 | | |
+| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | do zrobienia | | 0 | | |
+| ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | do zrobienia | | 0 | | |
+| ch12-00-an-io-project.md | 12 | 386 | — | do zrobienia | | 0 | | |
+| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | do zrobienia | | 0 | | |
+| ch12-02-reading-a-file.md | 12 | 342 | — | do zrobienia | | 0 | | |
+| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | do zrobienia | | 0 | | |
+| ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | do zrobienia | | 0 | | |
+| ch12-05-working-with-environment-variables.md | 12 | 1302 | — | do zrobienia | | 0 | | |
+| ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | do zrobienia | | 0 | | |
+| ch13-00-functional-features.md | 13 | 191 | — | do zrobienia | | 0 | | |
+| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | do zrobienia | | 0 | | |
+| ch13-02-iterators.md | 13 | 1473 | ch13-02-iterators | do zrobienia | | 0 | | |
+| ch13-03-improving-our-io-project.md | 13 | 1271 | — | do zrobienia | | 0 | | |
+| ch13-04-performance.md | 13 | 427 | — | do zrobienia | | 0 | | |
+| ch14-00-more-about-cargo.md | 14 | 110 | — | do zrobienia | | 0 | | |
+| ch14-01-release-profiles.md | 14 | 413 | ch14-01-release-profiles | do zrobienia | | 0 | | |
+| ch14-02-publishing-to-crates-io.md | 14 | 2926 | ch14-02-publishing-to-crates-io-sec1, ch14-02-publishing-to-crates-io-sec2 | do zrobienia | | 0 | | |
+| ch14-03-cargo-workspaces.md | 14 | 1574 | ch14-03-cargo-workspaces | do zrobienia | | 0 | | |
+| ch14-04-installing-binaries.md | 14 | 282 | — | do zrobienia | | 0 | | |
+| ch14-05-extending-cargo.md | 14 | 161 | — | do zrobienia | | 0 | | |
+| ch15-00-smart-pointers.md | 15 | 438 | — | do zrobienia | | 0 | | |
+| ch15-01-box.md | 15 | 2097 | ch15-01-box | do zrobienia | | 0 | | |
+| ch15-02-deref.md | 15 | 2107 | ch15-02-deref | do zrobienia | | 0 | | |
+| ch15-03-drop.md | 15 | 1071 | ch15-03-drop | do zrobienia | | 0 | | |
+| ch15-04-rc.md | 15 | 1416 | ch15-04-rc | do zrobienia | | 0 | | |
+| ch15-05-interior-mutability.md | 15 | 2790 | ch15-05-interior-mutability | do zrobienia | | 0 | | |
+| ch15-06-reference-cycles.md | 15 | 2501 | ch15-06-reference-cycles | do zrobienia | | 0 | | |
+| ch16-00-concurrency.md | 16 | 451 | — | do zrobienia | | 0 | | |
+| ch16-01-threads.md | 16 | 1657 | ch16-01-threads | do zrobienia | | 0 | | |
+| ch16-02-message-passing.md | 16 | 1747 | ch16-02-message-passing | do zrobienia | | 0 | | |
+| ch16-03-shared-state.md | 16 | 1957 | ch16-03-shared-state | do zrobienia | | 0 | | |
+| ch16-04-extensible-concurrency-sync-and-send.md | 16 | 892 | ch16-04-extensible-concurrency-send-and-sync | do zrobienia | | 0 | | |
+| ch17-00-async-await.md | 17 | 1644 | — | do zrobienia | | 0 | | |
+| ch17-01-futures-and-syntax.md | 17 | 2979 | async-01-futures-and-syntax | do zrobienia | | 0 | | |
+| ch17-02-concurrency-with-async.md | 17 | 2805 | async-02-concurrency-with-async | do zrobienia | | 0 | | |
+| ch17-03-more-futures.md | 17 | 1473 | async-03-more-futures | do zrobienia | | 0 | | |
+| ch17-04-streams.md | 17 | 631 | async-04-streams | do zrobienia | | 0 | | |
+| ch17-05-traits-for-async.md | 17 | 4099 | async-05-traits-for-async | do zrobienia | | 0 | | |
+| ch17-06-futures-tasks-threads.md | 17 | 873 | — | do zrobienia | | 0 | | |
+| ch18-00-oop.md | 18 | 143 | — | do zrobienia | | 0 | | |
+| ch18-01-what-is-oo.md | 18 | 1257 | ch17-01-what-is-oo | do zrobienia | | 0 | | |
+| ch18-02-trait-objects.md | 18 | 2203 | ch17-02-trait-objects | do zrobienia | | 0 | | |
+| ch18-03-oo-design-patterns.md | 18 | 4285 | ch17-03-oo-design-patterns | do zrobienia | | 0 | | |
+| ch18-04-inventory.md | 18 | 34 | ch17-04-inventory | do zrobienia | | 0 | | |
+| ch18-05-design-challenge.md | 18 | 598 | ch17-05-design-challenge-references, ch17-05-design-challenge-trait-trees, ch17-05-design-challenge-dispatch, ch17-05-design-challenge-intermediates | do zrobienia | | 0 | | |
+| ch19-00-patterns.md | 19 | 239 | — | do zrobienia | | 0 | | |
+| ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | do zrobienia | | 0 | | |
+| ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | do zrobienia | | 0 | | |
+| ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | do zrobienia | | 0 | | |
+| ch20-00-advanced-features.md | 20 | 198 | — | do zrobienia | | 0 | | |
+| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | do zrobienia | | 0 | | |
+| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | do zrobienia | | 0 | | |
+| ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | do zrobienia | | 0 | | |
+| ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | do zrobienia | | 0 | | |
+| ch20-05-macros.md | 20 | 3550 | ch19-06-macros | do zrobienia | | 0 | | |
+| ch21-00-final-project-a-web-server.md | 21 | 356 | — | do zrobienia | | 0 | | |
+| ch21-01-single-threaded.md | 21 | 3273 | — | do zrobienia | | 0 | | |
+| ch21-02-multithreaded.md | 21 | 4855 | — | do zrobienia | | 0 | | |
+| ch21-03-graceful-shutdown-and-cleanup.md | 21 | 1497 | — | do zrobienia | | 0 | | |
+| end-of-experiment.md | 0 | 47 | — | do zrobienia | | 0 | | |
+| appendix-00.md | dod. | 17 | — | do zrobienia | | 0 | | |
+| appendix-01-keywords.md | dod. | 743 | — | do zrobienia | | 0 | | |
+| appendix-02-operators.md | dod. | 1779 | — | do zrobienia | | 0 | | |
+| appendix-03-derivable-traits.md | dod. | 1495 | — | do zrobienia | | 0 | | |
+| appendix-04-useful-development-tools.md | dod. | 567 | — | do zrobienia | | 0 | | |
+| appendix-05-editions.md | dod. | 496 | — | do zrobienia | | 0 | | |
+| appendix-06-translation.md | dod. | 97 | — | do zrobienia | | 0 | | |
+| appendix-07-nightly-rust.md | dod. | 1376 | — | do zrobienia | | 0 | | |
+
+
 ## Decyzje orkiestratora
 
 - F0.3: `pnpm init-repo` zgłasza błędy typów w `@types/node` (TS1005), ale `dist/` powstaje i build przechodzi; mdbook-quiz działa lokalnie, fallback R2 (`przelot.py`) niepotrzebny (skrypt istnieje).
 - F0.5: G0 zielona w trybie `attr`: 590 pinów, 0 pominiętych, id w `<main>` identyczne dla 120 plików.
 - F0.7: G1 dla notatek/etykiet plików: błąd, gdy suma `Uwaga:`+`Note:` ≠ liczbie `Note:` w oryginale; pozostawione `Note:`/`Filename:` to ostrzeżenie G5 (inaczej nietknięte pliki nie przeszłyby autotestu „zero błędów”). `SUMMARY.md` nie wymaga `{#id}`.
 - F0.8: baseline linków pusty (0 zepsutych kotwic w oryginale).
+- F1.1: KONWENCJE uzupełnione o zasadę zachowania łamania linii oryginału (rozdziały Brown mają akapity w jednej linii) i o zakaz linii zaczynających się od znaków Markdownu po zawinięciu.
