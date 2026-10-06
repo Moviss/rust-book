@@ -2,9 +2,9 @@
 id = "d19f9e83-d4c2-41d5-9fc7-81db5135eb1e"
 type = "MultipleChoice"
 prompt.prompt = """
-In the running example from this section, a blog post could have one of three states: `Draft`, `PendingReview`, and `Published`. In the example, each state was represented as a struct, and state transitions was represented as trait methods returning trait objects.
+W przykładzie omawianym w tym podrozdziale wpis na blogu mógł być w jednym z trzech stanów: `Draft`, `PendingReview` lub `Published`. Każdy stan był reprezentowany przez strukturę, a przejścia między stanami – przez metody traitu zwracające obiekty traitów.
 
-An alternative implementation could represent the states as an enum, like this:
+W alternatywnej implementacji stany można by reprezentować za pomocą enuma, na przykład tak:
 
 ```
 enum BlogState {
@@ -25,29 +25,32 @@ impl Post {
 }
 ```
 
-Which of the following are good reasons to prefer the struct/trait representation over the enum representation?
+Które z poniższych powodów przemawiają za wyborem reprezentacji opartej na strukturach i traitach zamiast reprezentacji opartej na enumie?
 """
 answer.answer = [
-    "An API client could add a new state to the system",
-    "Adding a new state does not require modifying methods on every other state"
+    "Klient API mógłby dodać do systemu nowy stan",
+    "Dodanie nowego stanu nie wymaga modyfikowania metod we wszystkich pozostałych stanach"
 ]
 prompt.distractors = [
-    "The use of `match` is slower at runtime than dynamic dispatch",
-    "An API client could add a new method for all states in the system"
+    "Użycie `match` jest w czasie działania wolniejsze niż dynamiczne wywoływanie",
+    "Klient API mógłby dodać nową metodę dla wszystkich stanów w systemie"
 ]
 context = """
-The struct/trait approach is extensible in the sense that an API client could potentially
-create a new state (such as `Retracted`) without changing the core API functionality. When
-adding this state, the methods for other states do not need to be changed. Whereas with enums,
-a client cannot add a new branch to the enum. Moreover, all `match` expressions must be updated
-when a state is added.
+Podejście oparte na strukturach i traitach jest rozszerzalne w tym sensie, że klient API mógłby
+utworzyć nowy stan (na przykład `Retracted`) bez zmieniania podstawowej funkcjonalności API. Przy
+dodawaniu takiego stanu nie trzeba zmieniać metod pozostałych stanów. Natomiast w przypadku enumów
+klient nie może dodać nowego wariantu do enuma. Co więcej, po dodaniu stanu trzeba zaktualizować
+wszystkie wyrażenia `match`.
 
-A `match` is not likely to be slower than dynamic dispatch. A match is a simple branch based on
-an enum's tag, while dynamic dispatch requires a layer of indirection through a trait
-object's virtual table with non-inlined function calls.
+Wyrażenie `match` raczej nie będzie wolniejsze niż dynamiczne wywoływanie. Takie wyrażenie to proste
+rozgałęzienie na podstawie znacznika enuma, natomiast dynamiczne wywoływanie wymaga dodatkowego poziomu
+pośredniości – przez tablicę metod wirtualnych obiektu traitu – i wywołań funkcji, które nie są
+wstawiane w miejsce wywołania (*inlining*).
 
-An API client cannot add a new *method* for existing states in the struct/trait approach, they 
-can only add new states. The methods are fixed by the API author's trait definition. Note that you could add a new method which only builds on existing methods via extension traits, such as:
+W podejściu opartym na strukturach i traitach klient API nie może dodać nowej *metody* dla
+istniejących stanów – może jedynie dodawać nowe stany. Metody są ustalone przez definicję traitu
+napisaną przez autora API. Zwróć uwagę, że można dodać nową metodę, która jedynie korzysta z
+istniejących metod, za pomocą traitów rozszerzających (*extension traits*), na przykład:
 
 ```
 trait StateExt {
@@ -61,5 +64,5 @@ impl<S: State> StateExt for S {
 }
 ```
 
-But these extensions cannot read the private data of the states.
+Takie rozszerzenia nie mają jednak dostępu do prywatnych danych stanów.
 """

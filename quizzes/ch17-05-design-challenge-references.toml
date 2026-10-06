@@ -1,12 +1,12 @@
 [multipart]
 q = """
-**Context:** You are designing a simple asset manager for a game engine.
+**Kontekst:** projektujesz prosty menedżer zasobów dla silnika gier.
 
-**Functionality:** An API client will provide paths of assets to load, and gets back access to the loaded assets.
+**Funkcjonalność:** klient API podaje ścieżki zasobów do załadowania i w zamian otrzymuje dostęp do załadowanych zasobów.
 
-**Assumptions:** You may assume that loads happen synchronously and instantaneously.
+**Założenia:** możesz założyć, że ładowanie odbywa się synchronicznie i natychmiastowo.
 
-**Designs:** Below are several proposed designs to implement the functionality.
+**Rozwiązania:** poniżej znajduje się kilka proponowanych rozwiązań realizujących tę funkcjonalność.
 
 ```
 pub struct AssetManager {
@@ -43,17 +43,17 @@ impl AssetManager {
 type = "MultipleChoice"
 multipart = "q"
 prompt.prompt = """
-Select each design option that satisfies the following requirement:
+Zaznacz każdą opcję projektową, która spełnia następujące wymaganie:
 
-**Requirement:** Once loaded, an asset should be permanently immutable.
+**Wymaganie:** raz załadowany zasób powinien być na stałe niemutowalny.
 """
 prompt.distractors = ["2"]
 prompt.sortAnswers = true
 answer.answer = ["1", "3", "4"]
 context = """
-The immutability of assets is enforced by types that don't permit mutating operations. Both an immutable borrow `&Asset`
-and an immutable smart-pointer like `Rc` don't permit mutating operations. Therefore Options 1, 3, and 4 DO satisfy this requirement.
-Option 2 returns a mutable borrow, which does NOT satisfy the requirement.
+Niemutowalność zasobów wymuszają typy, które nie pozwalają na operacje modyfikujące. Ani niemutowalne pożyczenie `&Asset`,
+ani niemutowalny inteligentny wskaźnik taki jak `Rc` nie pozwalają na operacje modyfikujące. Dlatego opcje 1, 3 i 4 SPEŁNIAJĄ to wymaganie.
+Opcja 2 zwraca mutowalne pożyczenie, więc NIE spełnia wymagania.
 """
 id = "10ae140e-72a6-4594-802a-d656f33cd836"
 
@@ -62,15 +62,15 @@ id = "10ae140e-72a6-4594-802a-d656f33cd836"
 type = "MultipleChoice"
 multipart = "q"
 prompt.prompt = """
-Select each design option that satisfies the following requirement:
+Zaznacz każdą opcję projektową, która spełnia następujące wymaganie:
 
-**Requirement:**  Clients of the asset manager need to retain access to assets across several short-term borrows of the asset manager.
+**Wymaganie:** klienci menedżera zasobów muszą zachować dostęp do zasobów przez wiele krótkotrwałych pożyczeń menedżera zasobów.
 """
 prompt.distractors = ["1", "2"]
 prompt.sortAnswers = true
 answer.answer = ["3", "4"]
 context = """
-"Retaining access across borrows" means the client wants to write a program like this:
+„Zachowanie dostępu przez wiele pożyczeń” oznacza, że klient chce napisać program podobny do tego:
 
 ```
 let asset = {
@@ -84,12 +84,12 @@ let another_asset = {
 };
 ```
 
-In this case, the lifetime of the value returned by `load` must not be tied to the lifetime of the `AssetManager`. Options 1 and 2
-require that the `&Asset` and `&mut Asset` only live as long as the `&mut self`. Therefore the borrow checker
-would reject programs like the one above where an asset outlives the manager reference. Options 1 and 2 do NOT satisfy the requirement.
+W takim przypadku czas życia wartości zwracanej przez `load` nie może być powiązany z czasem życia `AssetManager`. Opcje 1 i 2
+wymagają, by `&Asset` i `&mut Asset` żyły tylko tak długo jak `&mut self`. Dlatego borrow checker
+odrzuciłby programy takie jak powyższy, w których zasób żyje dłużej niż referencja do menedżera. Opcje 1 i 2 NIE spełniają wymagania.
 
-Options 3 and 4 DO satisfy the requirement. The lifetime of `Rc<Asset>` is not tied to the lifetime of `&mut self`. Similarly, the lifetime
-of `AssetHandle` is not tied to the lifetime of `&mut self`.
+Opcje 3 i 4 SPEŁNIAJĄ wymaganie. Czas życia `Rc<Asset>` nie jest powiązany z czasem życia `&mut self`. Podobnie czas życia
+`AssetHandle` nie jest powiązany z czasem życia `&mut self`.
 """
 id = "b69cde98-8ccd-4a89-aeeb-80a3338f9e68"
 
@@ -98,22 +98,22 @@ id = "b69cde98-8ccd-4a89-aeeb-80a3338f9e68"
 multipart = "q"
 type = "MultipleChoice"
 prompt.prompt = """
-Select each design option that satisfies the following requirement:
+Zaznacz każdą opcję projektową, która spełnia następujące wymaganie:
 
-**Requirement:** It is important that all assets be deallocated at a single, predictable time.
+**Wymaganie:** ważne jest, aby wszystkie zasoby zostały zdealokowane w jednym, przewidywalnym momencie.
 """
 prompt.distractors = ["3"]
 prompt.sortAnswers = true
 answer.answer = ["1", "2", "4"]
 context = """
-To deallocate all assets at a single time, the `AssetManager` must retain exclusive ownership over them.
-Therefore when the `AssetManager` is dropped (or otherwise instructed to deallocate assets), 
-it is guaranteed that all of the assets can be safely dropped.
-Options 1, 2, and 4 DO satisfy this requirement. Option 4 would require that `AssetManager::get` panics if
-the client calls `manager.get(handle)` after an asset has been deallocated. If there is a real chance a client may do this,
-another alternative would be for `get` to return `Option<&Asset>`.
+Aby zdealokować wszystkie zasoby naraz, `AssetManager` musi zachować wyłączną własność nad nimi.
+Dzięki temu, gdy `AssetManager` zostanie zwolniony (lub w inny sposób poinstruowany, by zdealokować zasoby),
+mamy gwarancję, że wszystkie zasoby można bezpiecznie zwolnić.
+Opcje 1, 2 i 4 SPEŁNIAJĄ to wymaganie. Opcja 4 wymagałaby, aby `AssetManager::get` panikował, jeśli
+klient wywoła `manager.get(handle)` po zdealokowaniu zasobu. Jeśli istnieje realna szansa, że klient tak zrobi,
+inną możliwością byłoby zwracanie przez `get` wartości `Option<&Asset>`.
 
-Option 3 does NOT satisfy this requirement. Reference-counted pointers are jointly owned by every owner of an `Rc<Asset>`.
-The `AssetManager` has no good way to ensure that all assets have no other owners at deallocation time.
+Opcja 3 NIE spełnia tego wymagania. Wskaźniki ze zliczaniem referencji są współwłasnością każdego właściciela `Rc<Asset>`.
+`AssetManager` nie ma dobrego sposobu, by zapewnić, że w chwili dealokacji żaden zasób nie ma innych właścicieli.
 """
 id = "48527488-ecfc-4f16-9824-76a3ac7183f4"

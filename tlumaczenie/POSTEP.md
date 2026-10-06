@@ -136,12 +136,12 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch17-04-streams.md | 17 | 631 | async-04-streams | gotowe | acb62eb4 | 1 | 1 (`Iterator` z cytowanego nagłówka) |  |
 | ch17-05-traits-for-async.md | 17 | 4099 | async-05-traits-for-async | gotowe | acb62eb4 | 1 |  |  |
 | ch17-06-futures-tasks-threads.md | 17 | 873 | — | gotowe | acb62eb4 | 1 |  |  |
-| ch18-00-oop.md | 18 | 143 | — | przegląd | af0a919a | 1 |  |  |
-| ch18-01-what-is-oo.md | 18 | 1257 | ch17-01-what-is-oo | przegląd | af0a919a | 1 |  |  |
-| ch18-02-trait-objects.md | 18 | 2203 | ch17-02-trait-objects | przegląd | af0a919a | 1 |  |  |
-| ch18-03-oo-design-patterns.md | 18 | 4285 | ch17-03-oo-design-patterns | przegląd | af0a919a | 1 |  |  |
-| ch18-04-inventory.md | 18 | 34 | ch17-04-inventory | przegląd | aea152b3 | 1 |  | zrecenzowane |
-| ch18-05-design-challenge.md | 18 | 598 | ch17-05-design-challenge-references, ch17-05-design-challenge-trait-trees, ch17-05-design-challenge-dispatch, ch17-05-design-challenge-intermediates | przegląd | aea152b3 | 1 |  | zrecenzowane |
+| ch18-00-oop.md | 18 | 143 | — | gotowe | af0a919a | 1 |  |  |
+| ch18-01-what-is-oo.md | 18 | 1257 | ch17-01-what-is-oo | gotowe | af0a919a | 1 |  |  |
+| ch18-02-trait-objects.md | 18 | 2203 | ch17-02-trait-objects | gotowe | af0a919a | 1 |  |  |
+| ch18-03-oo-design-patterns.md | 18 | 4285 | ch17-03-oo-design-patterns | gotowe | af0a919a | 1 |  |  |
+| ch18-04-inventory.md | 18 | 34 | ch17-04-inventory | gotowe | aea152b3 | 1 |  |  |
+| ch18-05-design-challenge.md | 18 | 598 | ch17-05-design-challenge-references, ch17-05-design-challenge-trait-trees, ch17-05-design-challenge-dispatch, ch17-05-design-challenge-intermediates | gotowe | aea152b3 | 1 |  |  |
 | ch19-00-patterns.md | 19 | 239 | — | przegląd | a8eeb640 | 1 |  |  |
 | ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | przegląd | a8eeb640 | 1 |  |  |
 | ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | przegląd | a8eeb640 | 1 |  |  |

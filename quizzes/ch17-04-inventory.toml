@@ -186,17 +186,17 @@ fn add_displayable<T: Display>(
 }
 ```
 
-If you tried to compile this program, which of the following best describes the compiler error you would get?
+Które z poniższych najlepiej opisuje błąd, jaki zgłosiłby kompilator przy próbie skompilowania tego programu?
 """
-answer.answer = "the type `T` does not live long enough when cast to a trait object"
+answer.answer = "typ `T` nie żyje wystarczająco długo przy rzutowaniu na obiekt traitu"
 prompt.distractors = [
-  "the type `T` may be dynamically sized and cannot be casted to a trait object",
-  "the type `T` cannot be boxed if it contains a reference",
-  "the type `T` does not outlive the lifetime of the reference `&mut Vec<..>`"
+  "typ `T` może mieć dynamiczny rozmiar i nie da się go rzutować na obiekt traitu",
+  "typu `T` nie można umieścić w boxie, jeśli zawiera referencję",
+  "typ `T` nie żyje dłużej niż czas życia referencji `&mut Vec<..>`"
 ]
 context = """
-When casting `Box<T>` to `Box<dyn Display>` (implicitly in `v.push(..)`), Rust requires that the trait object `dyn Display`
-must outlive the vector. However, the lifetime of `T` is unspecified, so `T` may not live long enough.
+Przy rzutowaniu `Box<T>` na `Box<dyn Display>` (niejawnie w `v.push(..)`) Rust wymaga, aby obiekt traitu `dyn Display`
+żył dłużej niż wektor. Czas życia `T` nie jest jednak określony, więc `T` może nie żyć wystarczająco długo.
 """
 
 
@@ -218,7 +218,7 @@ fn add_displayable<T: Display>(
 }
 ```
 
-Normally if you try to compile this function, the compiler returns the following error:
+Normalnie przy próbie skompilowania tej funkcji kompilator zwraca następujący błąd:
 
 ```text
 error[E0310]: the parameter type `T` may not live long enough
@@ -228,9 +228,9 @@ error[E0310]: the parameter type `T` may not live long enough
   |            ^^^^^^^^^^^
 ```
 
-Assume that the compiler did NOT reject this function. Which (if any) of the following programs would
-(1) pass the compiler, and (2) possibly cause undefined behavior if executed?
-Check each program that satisfies both criteria, OR check "None of these programs" if none are satisfying."""
+Załóż, że kompilator NIE odrzucił tej funkcji. Które z poniższych programów (jeśli w ogóle jakieś)
+(1) przeszłyby przez kompilator i (2) mogłyby spowodować niezdefiniowane zachowanie po wykonaniu?
+Zaznacz każdy program, który spełnia oba kryteria, ALBO zaznacz „Żaden z tych programów”, jeśli żaden ich nie spełnia."""
 answer.answer = [
 """
 ```
@@ -244,7 +244,7 @@ println!("{}", v[0]);
 """,
 ]
 prompt.distractors = [
-  "None of these programs",
+  "Żaden z tych programów",
 """
 ```
 let mut v: Vec<Box<dyn Display>> = Vec::new();
@@ -263,9 +263,9 @@ add_displayable(&mut v, 5);
 """
 ]
 context = """
-This program is memory-unsafe. To create a memory safety violation, the program must create a type `T` that contains
-references which do not outlive the vector. For example, adding `&n` where `n` goes out of scope before `v` means that
-the later use of `v[0]` is a read of deallocated memory.
+Ten program nie jest bezpieczny pod względem pamięci. Aby naruszyć bezpieczeństwo pamięci, program musi utworzyć typ `T` zawierający
+referencje, które nie żyją dłużej niż wektor. Na przykład dodanie `&n`, gdy `n` wychodzi z zasięgu przed `v`, oznacza, że
+późniejsze użycie `v[0]` jest odczytem zdealokowanej pamięci.
 """
 
 
@@ -287,10 +287,10 @@ fn add_displayable<T: Display>(
 }
 ```
 
-Of the following fixes (highlighted in yellow), which fix best satisfies these three criteria:
-1. The fixed function passes the Rust compiler,
-2. The fixed function preserves the intention of the original code, and
-3. The fixed function does not introduce unnecessary inefficiencies
+Która z poniższych poprawek (wyróżnionych na żółto) najlepiej spełnia te trzy kryteria:
+1. Poprawiona funkcja przechodzi przez kompilator Rusta;
+2. Poprawiona funkcja zachowuje intencję oryginalnego kodu;
+3. Poprawiona funkcja nie wprowadza zbędnej nieefektywności.
 """
 answer.answer = """
 ```ide
@@ -335,11 +335,11 @@ fn add_displayable<`['a]`, T: Display `[+ 'a]`>(
 """,
 ]
 context = """
-The most idiomatic fix is to specify how the lifetime of `T` should relate to the lifetime of the trait object `dyn Display`.
-Here, that means adding a lifetime parameter `'a`, saying that `T` outlives `'a`, and that the trait objects also live for
-at least `'a`. 
+Najbardziej idiomatyczną poprawką jest określenie, jak czas życia `T` ma się odnosić do czasu życia obiektu traitu `dyn Display`.
+Oznacza to dodanie parametru czasu życia `'a`, który mówi, że `T` żyje dłużej niż `'a` i że obiekty traitu również żyją
+co najmniej przez `'a`.
 
-Using a `'static` bound is the same thing but worse: it is simply less expressive, disallowing the vector's trait objects
-from ever holding references. Putting the lifetime `'a` on the `&'a mut Vec<..>` reference is not correct and does not
-fix the compiler error.
+Użycie ograniczenia `'static` daje to samo, tylko gorzej: jest po prostu mniej ekspresywne, bo nigdy nie pozwala obiektom
+traitu w wektorze przechowywać referencji. Umieszczenie czasu życia `'a` na referencji `&'a mut Vec<..>` jest niepoprawne i nie
+usuwa błędu kompilatora.
 """

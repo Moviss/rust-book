@@ -1,17 +1,17 @@
-# Object-Oriented Programming Features {#object-oriented-programming-features}
+# Mechanizmy programowania obiektowego {#object-oriented-programming-features}
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="object-oriented-programming-features-of-rust"></a>
 
-Object-oriented programming (OOP) is a way of modeling programs. Objects as a
-programmatic concept were introduced in the programming language Simula in the
-1960s. Those objects influenced Alan Kay’s programming architecture in which
-objects pass messages to each other. To describe this architecture, he coined
-the term _object-oriented programming_ in 1967. Many competing definitions
-describe what OOP is, and by some of these definitions Rust is object oriented
-but by others it is not. In this chapter, we’ll explore certain characteristics
-that are commonly considered object oriented and how those characteristics
-translate to idiomatic Rust. We’ll then show you how to implement an
-object-oriented design pattern in Rust and discuss the trade-offs of doing so
-versus implementing a solution using some of Rust’s strengths instead.
+Programowanie obiektowe (OOP) to jeden ze sposobów modelowania programów.
+Obiekty jako pojęcie programistyczne pojawiły się w języku Simula w latach 60.
+XX wieku. Zainspirowały one architekturę programów Alana Kaya, w której obiekty
+przekazują sobie nawzajem komunikaty. Na określenie tej architektury Kay ukuł
+w 1967 roku termin _programowanie obiektowe_ (*object-oriented programming*).
+Istnieje wiele konkurujących ze sobą definicji OOP; według niektórych z nich
+Rust jest językiem obiektowym, a według innych nie. W tym rozdziale przyjrzymy
+się pewnym cechom powszechnie uważanym za obiektowe i temu, jak przekładają się
+one na idiomatyczny Rust. Następnie pokażemy, jak zaimplementować w Ruście
+obiektowy wzorzec projektowy, i omówimy kompromisy takiego podejścia w
+porównaniu z rozwiązaniem wykorzystującym mocne strony Rusta.

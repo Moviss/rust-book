@@ -1,50 +1,50 @@
-## Characteristics of Object-Oriented Languages {#characteristics-of-object-oriented-languages}
+## Cechy języków obiektowych {#characteristics-of-object-oriented-languages}
 
-There is no consensus in the programming community about what features a
-language must have to be considered object oriented. Rust is influenced by many
-programming paradigms, including OOP; for example, we explored the features
-that came from functional programming in Chapter 13. Arguably, OOP languages
-share certain common characteristics—namely, objects, encapsulation, and
-inheritance. Let’s look at what each of those characteristics means and whether
-Rust supports it.
+W społeczności programistów nie ma zgody co do tego, jakie mechanizmy musi mieć
+język, aby można go było uznać za obiektowy. Na Rusta wpłynęło wiele paradygmatów
+programowania, w tym OOP; na przykład w rozdziale 13 omówiliśmy mechanizmy
+zaczerpnięte z programowania funkcyjnego. Można argumentować, że języki OOP
+mają pewne wspólne cechy – mianowicie obiekty, hermetyzację i dziedziczenie.
+Przyjrzyjmy się, co oznacza każda z tych cech i czy Rust ją obsługuje.
 
-### Objects Contain Data and Behavior {#objects-contain-data-and-behavior}
+### Obiekty zawierają dane i zachowanie {#objects-contain-data-and-behavior}
 
-The book _Design Patterns: Elements of Reusable Object-Oriented Software_ by
-Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wesley,
-1994), colloquially referred to as _The Gang of Four_ book, is a catalog of
-object-oriented design patterns. It defines OOP in this way:
+Książka _Design Patterns: Elements of Reusable Object-Oriented Software_
+autorstwa Ericha Gammy, Richarda Helma, Ralpha Johnsona i Johna Vlissidesa
+(Addison-Wesley, 1994), potocznie nazywana książką _Gang of Four_ („Bandy
+Czworga”), to katalog obiektowych wzorców projektowych. Definiuje ona OOP w ten
+sposób:
 
-> Object-oriented programs are made up of objects. An **object** packages both
-> data and the procedures that operate on that data. The procedures are
-> typically called **methods** or **operations**.
+> Programy obiektowe składają się z obiektów. **Obiekt** łączy w sobie zarówno
+> dane, jak i procedury, które na tych danych operują. Procedury te nazywa się
+> zwykle **metodami** lub **operacjami**.
 
-Using this definition, Rust is object oriented: Structs and enums have data,
-and `impl` blocks provide methods on structs and enums. Even though structs and
-enums with methods aren’t _called_ objects, they provide the same
-functionality, according to the Gang of Four’s definition of objects.
+Według tej definicji Rust jest obiektowy: struktury (*struct*) i *enumy* (typy
+wyliczeniowe) mają dane, a bloki `impl` dostarczają metod dla struktur i
+enumów. Choć struktury i enumy z metodami nie są _nazywane_ obiektami, zgodnie
+z definicją obiektów Bandy Czworga zapewniają tę samą funkcjonalność.
 
-### Encapsulation That Hides Implementation Details {#encapsulation-that-hides-implementation-details}
+### Hermetyzacja, która ukrywa szczegóły implementacji {#encapsulation-that-hides-implementation-details}
 
-Another aspect commonly associated with OOP is the idea of _encapsulation_,
-which means that the implementation details of an object aren’t accessible to
-code using that object. Therefore, the only way to interact with an object is
-through its public API; code using the object shouldn’t be able to reach into
-the object’s internals and change data or behavior directly. This enables the
-programmer to change and refactor an object’s internals without needing to
-change the code that uses the object.
+Kolejnym aspektem często kojarzonym z OOP jest idea _hermetyzacji_, która
+oznacza, że szczegóły implementacji obiektu nie są dostępne dla kodu, który
+tego obiektu używa. Jedynym sposobem interakcji z obiektem jest więc jego
+publiczne API; kod używający obiektu nie powinien mieć możliwości sięgania do
+jego wnętrza i bezpośredniej zmiany danych lub zachowania. Dzięki temu
+programista może zmieniać i refaktoryzować wnętrze obiektu bez konieczności
+zmiany kodu, który z tego obiektu korzysta.
 
-We discussed how to control encapsulation in Chapter 7: We can use the `pub`
-keyword to decide which modules, types, functions, and methods in our code
-should be public, and by default everything else is private. For example, we
-can define a struct `AveragedCollection` that has a field containing a vector
-of `i32` values. The struct can also have a field that contains the average of
-the values in the vector, meaning the average doesn’t have to be computed on
-demand whenever anyone needs it. In other words, `AveragedCollection` will
-cache the calculated average for us. Listing 18-1 has the definition of the
-`AveragedCollection` struct.
+W rozdziale 7 omówiliśmy, jak sterować hermetyzacją: za pomocą słowa
+kluczowego (*keyword*) `pub` możemy zdecydować, które moduły, typy, funkcje i
+metody w naszym kodzie mają być publiczne, a wszystko inne jest domyślnie
+prywatne. Możemy na przykład zdefiniować strukturę `AveragedCollection` z polem
+zawierającym wektor (*vector*) wartości `i32`. Struktura może mieć też pole
+przechowujące średnią wartości z wektora, dzięki czemu średniej nie trzeba
+obliczać na żądanie za każdym razem, gdy ktoś jej potrzebuje. Innymi słowy,
+`AveragedCollection` będzie przechowywać obliczoną średnią w pamięci podręcznej.
+Listing 18-1 zawiera definicję struktury `AveragedCollection`.
 
-<Listing number="18-1" file-name="src/lib.rs" caption="An `AveragedCollection` struct that maintains a list of integers and the average of the items in the collection">
+<Listing number="18-1" file-name="src/lib.rs" caption="Struktura `AveragedCollection`, która przechowuje listę liczb całkowitych i średnią elementów kolekcji">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-01/src/lib.rs}}
@@ -52,13 +52,14 @@ cache the calculated average for us. Listing 18-1 has the definition of the
 
 </Listing>
 
-The struct is marked `pub` so that other code can use it, but the fields within
-the struct remain private. This is important in this case because we want to
-ensure that whenever a value is added or removed from the list, the average is
-also updated. We do this by implementing `add`, `remove`, and `average` methods
-on the struct, as shown in Listing 18-2.
+Struktura jest oznaczona jako `pub`, aby mógł jej używać inny kod, ale pola
+wewnątrz struktury pozostają prywatne. Jest to tutaj ważne, ponieważ chcemy
+mieć pewność, że za każdym razem, gdy wartość zostanie dodana do listy lub z
+niej usunięta, średnia również zostanie zaktualizowana. Osiągamy to,
+implementując w strukturze metody `add`, `remove` i `average`, jak pokazano w
+listingu 18-2.
 
-<Listing number="18-2" file-name="src/lib.rs" caption="Implementations of the public methods `add`, `remove`, and `average` on `AveragedCollection`">
+<Listing number="18-2" file-name="src/lib.rs" caption="Implementacje publicznych metod `add`, `remove` i `average` w `AveragedCollection`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-02/src/lib.rs:here}}
@@ -66,86 +67,91 @@ on the struct, as shown in Listing 18-2.
 
 </Listing>
 
-The public methods `add`, `remove`, and `average` are the only ways to access
-or modify data in an instance of `AveragedCollection`. When an item is added to
-`list` using the `add` method or removed using the `remove` method, the
-implementations of each call the private `update_average` method that handles
-updating the `average` field as well.
+Publiczne metody `add`, `remove` i `average` to jedyne sposoby odczytu lub
+modyfikacji danych w instancji `AveragedCollection`. Gdy element zostaje dodany
+do `list` metodą `add` lub usunięty metodą `remove`, implementacja każdej z
+nich wywołuje także prywatną metodę `update_average`, która zajmuje się
+aktualizacją pola `average`.
 
-We leave the `list` and `average` fields private so that there is no way for
-external code to add or remove items to or from the `list` field directly;
-otherwise, the `average` field might become out of sync when the `list`
-changes. The `average` method returns the value in the `average` field,
-allowing external code to read the `average` but not modify it.
+Pola `list` i `average` pozostawiamy prywatne, aby zewnętrzny kod nie mógł
+bezpośrednio dodawać elementów do pola `list` ani ich z niego usuwać; w
+przeciwnym razie pole `average` mogłoby przestać być zsynchronizowane ze zmianami
+`list`. Metoda `average` zwraca wartość pola `average`, pozwalając zewnętrznemu
+kodowi odczytać `average`, ale nie modyfikować go.
 
-Because we’ve encapsulated the implementation details of the struct
-`AveragedCollection`, we can easily change aspects, such as the data structure,
-in the future. For instance, we could use a `HashSet<i32>` instead of a
-`Vec<i32>` for the `list` field. As long as the signatures of the `add`,
-`remove`, and `average` public methods stayed the same, code using
-`AveragedCollection` wouldn’t need to change. If we made `list` public instead,
-this wouldn’t necessarily be the case: `HashSet<i32>` and `Vec<i32>` have
-different methods for adding and removing items, so the external code would
-likely have to change if it were modifying `list` directly.
+Ponieważ zhermetyzowaliśmy szczegóły implementacji struktury
+`AveragedCollection`, możemy w przyszłości łatwo zmienić różne jej aspekty, na
+przykład strukturę danych. Moglibyśmy na przykład użyć dla pola `list` typu
+`HashSet<i32>` zamiast `Vec<i32>`. Dopóki sygnatury publicznych metod `add`,
+`remove` i `average` pozostałyby takie same, kod używający `AveragedCollection`
+nie musiałby się zmieniać. Gdybyśmy natomiast upublicznili pole `list`, nie
+musiałoby tak być: `HashSet<i32>` i `Vec<i32>` mają różne metody dodawania i
+usuwania elementów, więc zewnętrzny kod prawdopodobnie musiałby się zmienić,
+gdyby modyfikował `list` bezpośrednio.
 
-If encapsulation is a required aspect for a language to be considered object
-oriented, then Rust meets that requirement. The option to use `pub` or not for
-different parts of code enables encapsulation of implementation details.
+Jeśli hermetyzacja jest niezbędnym warunkiem uznania języka za obiektowy, to
+Rust ten warunek spełnia. Możliwość decydowania, czy użyć `pub` dla różnych
+części kodu, pozwala hermetyzować szczegóły implementacji.
 
-### Inheritance as a Type System and as Code Sharing {#inheritance-as-a-type-system-and-as-code-sharing}
+### Dziedziczenie jako system typów i jako współdzielenie kodu {#inheritance-as-a-type-system-and-as-code-sharing}
 
-_Inheritance_ is a mechanism whereby an object can inherit elements from
-another object’s definition, thus gaining the parent object’s data and behavior
-without you having to define them again.
+_Dziedziczenie_ (*inheritance*) to mechanizm, dzięki któremu obiekt może
+odziedziczyć elementy z definicji innego obiektu, zyskując w ten sposób dane i
+zachowanie obiektu nadrzędnego bez konieczności ponownego ich definiowania.
 
-If a language must have inheritance to be object oriented, then Rust is not
-such a language. There is no way to define a struct that inherits the parent
-struct’s fields and method implementations without using a macro.
+Jeśli język musi mieć dziedziczenie, aby był obiektowy, to Rust takim językiem
+nie jest. Nie da się zdefiniować struktury, która dziedziczy pola i
+implementacje metod struktury nadrzędnej, bez użycia makra.
 
-However, if you’re used to having inheritance in your programming toolbox, you
-can use other solutions in Rust, depending on your reason for reaching for
-inheritance in the first place.
+Jeśli jednak dziedziczenie to dla ciebie stały element programistycznego
+warsztatu, możesz w Ruście skorzystać z innych rozwiązań – zależnie od tego, z
+jakiego powodu w ogóle sięgasz po dziedziczenie.
 
-You would choose inheritance for two main reasons. One is for reuse of code:
-You can implement particular behavior for one type, and inheritance enables you
-to reuse that implementation for a different type. You can do this in a limited
-way in Rust code using default trait method implementations, which you saw in
-Listing 10-14 when we added a default implementation of the `summarize` method
-on the `Summary` trait. Any type implementing the `Summary` trait would have
-the `summarize` method available on it without any further code. This is
-similar to a parent class having an implementation of a method and an
-inheriting child class also having the implementation of the method. We can
-also override the default implementation of the `summarize` method when we
-implement the `Summary` trait, which is similar to a child class overriding the
-implementation of a method inherited from a parent class.
+Dziedziczenie wybiera się z dwóch głównych powodów. Pierwszym jest ponowne
+użycie kodu: możesz zaimplementować określone zachowanie dla jednego typu, a
+dziedziczenie pozwala ponownie użyć tej implementacji dla innego typu. W
+ograniczonym zakresie możesz to zrobić w kodzie Rusta za pomocą domyślnych
+implementacji metod *traitów* (cech typów, zbliżonych do interfejsów), które
+widzieliśmy w listingu 10-14, gdy dodaliśmy domyślną implementację metody
+`summarize` do traitu `Summary`. Każdy typ implementujący trait `Summary`
+miałby dostępną metodę `summarize` bez żadnego dodatkowego kodu. Przypomina to
+sytuację, w której klasa nadrzędna ma implementację metody, a dziedzicząca po
+niej klasa podrzędna również ma implementację tej metody. Możemy też nadpisać
+domyślną implementację metody `summarize`, gdy implementujemy trait `Summary`,
+co przypomina nadpisywanie przez klasę podrzędną implementacji metody
+odziedziczonej po klasie nadrzędnej.
 
-The other reason to use inheritance relates to the type system: to enable a
-child type to be used in the same places as the parent type. This is also
-called _polymorphism_, which means that you can substitute multiple objects for
-each other at runtime if they share certain characteristics.
+Drugi powód używania dziedziczenia wiąże się z systemem typów: chodzi o to, aby
+typu podrzędnego można było używać w tych samych miejscach co typu nadrzędnego.
+Nazywa się to również _polimorfizmem_ (*polymorphism*), co oznacza, że w czasie
+działania programu można zastępować jedne obiekty innymi, jeśli mają one
+pewne wspólne cechy.
 
-> ### Polymorphism {#polymorphism}
+> ### Polimorfizm {#polymorphism}
 >
-> To many people, polymorphism is synonymous with inheritance. But it’s
-> actually a more general concept that refers to code that can work with data of
-> multiple types. For inheritance, those types are generally subclasses.
+> Dla wielu osób polimorfizm jest synonimem dziedziczenia. W rzeczywistości jest
+> to jednak pojęcie ogólniejsze, odnoszące się do kodu, który może działać na
+> danych wielu typów. W przypadku dziedziczenia tymi typami są zazwyczaj
+> podklasy.
 >
-> Rust instead uses generics to abstract over different possible types and
-> trait bounds to impose constraints on what those types must provide. This is
-> sometimes called _bounded parametric polymorphism_.
+> Rust zamiast tego używa typów generycznych (*generics*) do abstrahowania od
+> różnych możliwych typów oraz ograniczeń traitów (*trait bounds*) do nakładania
+> wymagań co do tego, co te typy muszą zapewniać. Nazywa się to czasem
+> _ograniczonym polimorfizmem parametrycznym_ (*bounded parametric
+> polymorphism*).
 
-Rust has chosen a different set of trade-offs by not offering inheritance.
-Inheritance is often at risk of sharing more code than necessary. Subclasses
-shouldn’t always share all characteristics of their parent class but will do so
-with inheritance. This can make a program’s design less flexible. It also
-introduces the possibility of calling methods on subclasses that don’t make
-sense or that cause errors because the methods don’t apply to the subclass. In
-addition, some languages will only allow _single inheritance_ (meaning a
-subclass can only inherit from one class), further restricting the flexibility
-of a program’s design.
+Rezygnując z dziedziczenia, Rust wybrał inny zestaw kompromisów. Dziedziczenie
+często niesie ryzyko współdzielenia większej ilości kodu, niż to konieczne.
+Podklasy nie zawsze powinny współdzielić wszystkie cechy swojej klasy
+nadrzędnej, a przy dziedziczeniu tak się dzieje. Może to zmniejszyć
+elastyczność projektu programu. Wprowadza to również możliwość wywoływania na
+podklasach metod, które nie mają sensu lub powodują błędy, ponieważ nie mają
+zastosowania do danej podklasy. Ponadto niektóre języki pozwalają tylko na
+_dziedziczenie pojedyncze_ (*single inheritance*; podklasa może dziedziczyć
+tylko po jednej klasie), co dodatkowo ogranicza elastyczność projektu programu.
 
-For these reasons, Rust takes the different approach of using trait objects
-instead of inheritance to achieve polymorphism at runtime. Let’s look at how
-trait objects work.
+Z tych powodów Rust stosuje inne podejście: zamiast dziedziczenia używa
+obiektów traitów (*trait objects*), aby osiągnąć polimorfizm w czasie działania
+programu. Przyjrzyjmy się, jak działają obiekty traitów.
 
 {{#quiz ../quizzes/ch17-01-what-is-oo.toml}}
