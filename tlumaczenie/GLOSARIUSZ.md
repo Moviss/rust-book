@@ -223,3 +223,23 @@ recenzent.
 | duplication | powielanie kodu | — | | |
 | feature (języka/narzędzia) | mechanizm / funkcjonalność | — | | nie „funkcja” (koliduje z *function*) |
 | line (kodu) | wiersz | — | | „linia” tylko dla wyjścia programu |
+| contract (funkcji) | kontrakt | — | | |
+| validation | walidacja | — | | |
+| vulnerability | podatność | — | | |
+| type checking | sprawdzanie typów | — | | |
+| monomorphization | monomorfizacja | monomorfizacja (*monomorphization*) | | |
+| concrete type | typ konkretny | — | | |
+| generic type parameter | generyczny parametr typu | — | | |
+| file handle | uchwyt pliku | — | | |
+| propagate (error) | propagować (błąd) | propagowanie (*propagating*) błędu | | |
+| early return | wczesny powrót | — | | |
+| method chaining | łączenie wywołań metod w łańcuch | — | | |
+| question mark operator | operator `?` (znaku zapytania) | — | | |
+| default implementation | implementacja domyślna | — | | |
+| blanket implementation | implementacja zbiorcza | implementacja zbiorcza (*blanket implementation*) | | |
+| coherence / orphan rule | spójność / reguła sieroty | reguła sieroty (*orphan rule*) | | |
+| implementor | typ implementujący | — | | |
+| where clause | klauzula `where` | — | | |
+| subslice | podwycinek | — | | |
+| denial-of-service (DoS) | atak DoS (odmowa usługi) | — | | |
+| Pig Latin | świńska łacina | świńska łacina (*Pig Latin*) | | |

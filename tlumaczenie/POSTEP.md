@@ -81,24 +81,24 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | gotowe | a854e603 | 1 |  |  |
 | ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | gotowe | a854e603 | 1 |  |  |
 | ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | gotowe | a854e603 | 1 |  |  |
-| ch08-00-common-collections.md | 8 | 218 | — | przegląd | aadc4d0e | 1 |  |  |
-| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | przegląd | aadc4d0e | 1 |  |  |
-| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | przegląd | aadc4d0e | 1 |  |  |
-| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | przegląd | aadc4d0e | 1 |  |  |
-| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | przegląd | aadc4d0e | 1 |  |  |
-| ch09-00-error-handling.md | 9 | 221 | — | przetłumaczone | a761342d | 1 |  |  |
-| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | przetłumaczone | a761342d | 1 |  |  |
-| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | tłumaczenie | a2969649 | 1 |  |  |
-| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | tłumaczenie | a51e2957 | 1 |  |  |
+| ch08-00-common-collections.md | 8 | 218 | — | gotowe | aadc4d0e | 1 |  |  |
+| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | gotowe | aadc4d0e | 1 |  |  |
+| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | gotowe | aadc4d0e | 1 |  |  |
+| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | gotowe | aadc4d0e | 1 |  |  |
+| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | gotowe | aadc4d0e | 1 |  |  |
+| ch09-00-error-handling.md | 9 | 221 | — | przegląd | aba68c9b | 1 |  |  |
+| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | przegląd | aba68c9b | 1 |  |  |
+| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | przegląd | aba68c9b | 1 |  |  |
+| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | przegląd | aba68c9b | 1 |  |  |
 | ch10-00-generics.md | 10 | 898 | — | przetłumaczone | aedc1c38 | 1 |  |  |
-| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | tłumaczenie | adf66e87 | 1 |  |  |
-| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | tłumaczenie | af5a9eb9 | 1 |  |  |
-| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | do zrobienia | | 0 | | |
-| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | do zrobienia | | 0 | | |
-| ch11-00-testing.md | 11 | 340 | — | do zrobienia | | 0 | | |
-| ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | do zrobienia | | 0 | | |
-| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | do zrobienia | | 0 | | |
-| ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | do zrobienia | | 0 | | |
+| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | przetłumaczone | adf66e87 | 1 |  |  |
+| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | przetłumaczone | af5a9eb9 | 1 |  |  |
+| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | tłumaczenie | abcfb357 | 1 |  |  |
+| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | przetłumaczone | a62a61a6 | 1 |  |  |
+| ch11-00-testing.md | 11 | 340 | — | przetłumaczone | a62a61a6 | 1 |  |  |
+| ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | tłumaczenie | a31ffa3b | 1 |  |  |
+| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | tłumaczenie | a0489cf3 | 1 |  |  |
+| ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | tłumaczenie | ab3ea7d9 | 1 |  |  |
 | ch12-00-an-io-project.md | 12 | 386 | — | do zrobienia | | 0 | | |
 | ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | do zrobienia | | 0 | | |
 | ch12-02-reading-a-file.md | 12 | 342 | — | do zrobienia | | 0 | | |

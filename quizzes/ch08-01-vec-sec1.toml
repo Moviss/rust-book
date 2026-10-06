@@ -2,7 +2,7 @@
 id = "1665d1ef-961f-4451-a988-ec46121531f9"
 type = "MultipleChoice"
 prompt.prompt = """
-Which call to this `find_until` function will cause a runtime panic?
+Które wywołanie funkcji `find_until` spowoduje panikę w czasie działania programu?
 
 ```
 fn find_until(v: &Vec<i32>, n: i32, til: usize) -> Option<usize> {
@@ -22,8 +22,8 @@ prompt.distractors = [
   "`find_until(&vec![1, 2, 3], 1, 4)`"
 ]
 context = """
-If `til = 4`, then for a vector of length 3, the for-loop will attempt to index the vector with `i = 3`, which is out of bounds.
-This function does not panic if `n = 1` because it returns before reaching the out-of-bounds index.
+Jeśli `til = 4`, to dla wektora o długości 3 pętla for spróbuje zaindeksować wektor wartością `i = 3`, która wykracza poza jego granice.
+Ta funkcja nie panikuje dla `n = 1`, ponieważ kończy działanie, zanim dotrze do indeksu spoza granic.
 """
 
 [[questions]]
@@ -42,7 +42,7 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 6
 context = """
-`Vec::push` moves its argument, so `s` is not usable after calling `v.push(s)`. Therefore calling `println!("original: {}", s)` is not ownership-safe.
+`Vec::push` przenosi swój argument, więc po wywołaniu `v.push(s)` nie można już używać `s`. Dlatego wywołanie `println!("original: {}", s)` nie jest bezpieczne z punktu widzenia własności.
 """
 
 [[questions]]
@@ -59,7 +59,6 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 3
 context = """
-Non-copyable types cannot be moved out of a vector by indexing. Only methods such as `Vec::remove` permit moving out of a vector. See Section 4.3 
-["Copying vs. Moving Out of a Collection"](ch04-03-fixing-ownership-errors.html#fixing-an-unsafe-program-copying-vs-moving-out-of-a-collection)
-for a deeper explanation of why.
+Wartości typów, których nie można kopiować, nie da się przenieść z wektora przez indeksowanie. Przeniesienie wartości z wektora umożliwiają tylko metody takie jak `Vec::remove`. Dokładniejsze wyjaśnienie, dlaczego tak jest, znajdziesz w podrozdziale 4.3
+[„Naprawianie niebezpiecznego programu: kopiowanie a przenoszenie z kolekcji”](ch04-03-fixing-ownership-errors.html#fixing-an-unsafe-program-copying-vs-moving-out-of-a-collection).
 """

@@ -16,17 +16,17 @@ fn remove_zeros(v: &mut Vec<i32>) {
 }
 ```
 
-If you tried to compile this function, which of the following best describes the compiler error you would get?
+Które z poniższych najlepiej opisuje błąd, jaki zgłosiłby kompilator przy próbie skompilowania tej funkcji?
 """
-answer.answer = "`v.remove(i)` cannot borrow `v` as mutable"
+answer.answer = "`v.remove(i)` nie może pożyczyć `v` jako mutowalnego"
 prompt.distractors = [
-  "`v` does not live long enough to call `v.remove(i)`",
-  "`t` cannot be dereferenced while `i` is live",
-  "`v.iter()` cannot be called on a mutable reference"
+  "`v` nie żyje wystarczająco długo, by wywołać `v.remove(i)`",
+  "nie można wykonać dereferencji `t`, dopóki `i` żyje",
+  "nie można wywołać `v.iter()` na referencji mutowalnej"
 ]
 context = """
-The function `v.iter()` immutably borrows a vector `v` for the duration of the for-loop. However, `v.remove(i)` requires a mutable
-reference to `v`. Therefore `v.remove(i)` cannot borrow `v` as mutable, since that would conflict with the iterator.
+Funkcja `v.iter()` pożycza wektor `v` niemutowalnie na czas trwania pętli for. Jednak `v.remove(i)` wymaga mutowalnej
+referencji do `v`. Dlatego `v.remove(i)` nie może pożyczyć `v` jako mutowalnego, bo kolidowałoby to z iteratorem.
 """
 
 
@@ -48,7 +48,7 @@ fn remove_zeros(v: &mut Vec<i32>) {
 }
 ```
 
-Normally if you try to compile this function, the compiler returns the following error:
+Normalnie przy próbie skompilowania tej funkcji kompilator zwraca następujący błąd:
 
 ```text
 error[E0502]: cannot borrow `*v` as mutable because it is also borrowed as immutable
@@ -64,9 +64,9 @@ error[E0502]: cannot borrow `*v` as mutable because it is also borrowed as immut
   |             ^^^^^^^^^^^ mutable borrow occurs here
 ```
 
-Assume that the compiler did NOT reject this function. Which (if any) of the following programs would
-(1) pass the compiler, and (2) possibly cause undefined behavior if executed?
-Check each program that satisfies both criteria, OR check "None of these programs" if none are satisfying.
+Załóż, że kompilator NIE odrzucił tej funkcji. Które z poniższych programów (jeśli w ogóle jakieś)
+(1) przeszłyby przez kompilator i (2) mogłyby spowodować niezdefiniowane zachowanie po wykonaniu?
+Zaznacz każdy program, który spełnia oba kryteria, ALBO zaznacz „Żaden z tych programów”, jeśli żaden ich nie spełnia.
 """
 answer.answer = [
 """
@@ -90,13 +90,13 @@ let mut v = vec![1; 100];
 remove_zeros(&mut v);
 ```
 """,
-"None of these programs",
+"Żaden z tych programów",
 ]
 context = """
-To violate memory safety, `remove_zeros` must be called with a vector that contains a zero after the first element.
-The call to `v.shrink_to_fit()` will deallocate memory owned by the vector (due to resizing), which will invalidate the
-iterator `v.iter()` which contains a pointer to the old data. Note that reading the vector `v` after calling `remove_zeros`
-is not essential to the safety violation, since the issue is internal to `remove_zeros`.
+Aby naruszyć bezpieczeństwo pamięci, `remove_zeros` musi zostać wywołane z wektorem zawierającym zero po pierwszym elemencie.
+Wywołanie `v.shrink_to_fit()` zdealokuje pamięć, której właścicielem jest wektor (z powodu zmiany rozmiaru), co unieważni
+iterator `v.iter()` zawierający wskaźnik na stare dane. Zauważ, że odczyt wektora `v` po wywołaniu `remove_zeros`
+nie jest niezbędny do naruszenia bezpieczeństwa, ponieważ problem występuje wewnątrz `remove_zeros`.
 """
 
 [[questions]]
@@ -117,10 +117,10 @@ fn remove_zeros(v: &mut Vec<i32>) {
 }
 ```
 
-Of the following fixes (highlighted in yellow), which fix best satisfies these three criteria:
-1. The fixed function passes the Rust compiler,
-2. The fixed function preserves the intention of the original code, and
-3. The fixed function does not introduce unnecessary inefficiencies
+Która z poniższych poprawek (wyróżnionych na żółto) najlepiej spełnia te trzy kryteria:
+1. Poprawiona funkcja przechodzi przez kompilator Rusta;
+2. Poprawiona funkcja zachowuje intencję oryginalnego kodu;
+3. Poprawiona funkcja nie wprowadza zbędnej nieefektywności.
 """
 answer.answer = """
 ```ide
@@ -174,13 +174,13 @@ fn remove_zeros(v: `[Vec<i32>]`) {
 """,
 ]
 context = """
-Any strategy that requires allocating a new vector, either via `Vec::clone` or `Vec::new`, requires unnecessary additional allocation.
-Therefore the simplest strategy that works is to only iterate over the indices `0 .. v.len()` which does not borrow `v`. We do this
-in reverse order to avoid removing missing indexes.
+Każda strategia wymagająca utworzenia nowego wektora, czy to przez `Vec::clone`, czy przez `Vec::new`, wymaga zbędnej dodatkowej alokacji.
+Dlatego najprostszą działającą strategią jest iterowanie wyłącznie po indeksach `0 .. v.len()`, co nie pożycza `v`. Robimy to
+w odwrotnej kolejności, aby nie usuwać nieistniejących indeksów.
 
-Like with Problem 1, the most idiomatic strategy is actually to use a built-in function we haven't discussed,
-[`Vec::retain`](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.retain). This function keeps only elements in a vector
-that pass a predicate, but does so with more memory-efficiency.
+Podobnie jak w problemie 1, najbardziej idiomatyczną strategią jest w rzeczywistości użycie wbudowanej funkcji, której jeszcze nie omawialiśmy:
+[`Vec::retain`](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.retain). Ta funkcja zachowuje w wektorze tylko elementy
+spełniające predykat, ale robi to oszczędniej pod względem pamięci.
 """
 
 [[questions]]
@@ -199,17 +199,17 @@ fn reverse(v: &mut Vec<String>) {
 }
 ```
 
-If you tried to compile this program, which of the following best describes the compiler error you would get?
+Które z poniższych najlepiej opisuje błąd, jaki zgłosiłby kompilator przy próbie skompilowania tego programu?
 """
-answer.answer = "cannot borrow `v` as mutable twice for `v[i]` and `v[n - i - 1]`"
+answer.answer = "nie można pożyczyć `v` jako mutowalnego dwukrotnie dla `v[i]` i `v[n - i - 1]`"
 prompt.distractors = [
-  "cannot borrow `v` as immutable for `v.len()` when `v` is a mutable borrow",
-  "cannot mutably borrow an element `v[i]` of a mutable vector"
+  "nie można pożyczyć `v` jako niemutowalnego dla `v.len()`, gdy `v` jest pożyczeniem mutowalnym",
+  "nie można mutowalnie pożyczyć elementu `v[i]` mutowalnego wektora"
 ]
 context = """
-The compiler does not consider the specific value of the indexes used to access an array, so `&mut v[i]`
-and `&mut v[n - i - 1]` are assumed to possibly refer to the same element. Therefore we get an error
-where `v` cannot be mutably borrowed twice.
+Kompilator nie bierze pod uwagę konkretnych wartości indeksów używanych do dostępu do tablicy, więc zakłada, że `&mut v[i]`
+i `&mut v[n - i - 1]` mogą wskazywać na ten sam element. Dlatego dostajemy błąd mówiący, że
+`v` nie może zostać dwukrotnie pożyczony mutowalnie.
 """
 
 
@@ -229,7 +229,7 @@ fn reverse(v: &mut Vec<String>) {
 }
 ```
 
-Normally if you try to compile this function, the compiler returns the following error:
+Normalnie przy próbie skompilowania tej funkcji kompilator zwraca następujący błąd:
 
 ```text
 error[E0499]: cannot borrow `*v` as mutable more than once at a time
@@ -242,11 +242,11 @@ error[E0499]: cannot borrow `*v` as mutable more than once at a time
   |         first borrow later used by call
 ```
 
-Assume that the compiler did NOT reject this function. Which (if any) of the following programs would
-(1) pass the compiler, and (2) possibly cause undefined behavior if executed?
-Check each program that satisfies both criteria, OR check "None of these programs" if none are satisfying.
+Załóż, że kompilator NIE odrzucił tej funkcji. Które z poniższych programów (jeśli w ogóle jakieś)
+(1) przeszłyby przez kompilator i (2) mogłyby spowodować niezdefiniowane zachowanie po wykonaniu?
+Zaznacz każdy program, który spełnia oba kryteria, ALBO zaznacz „Żaden z tych programów”, jeśli żaden ich nie spełnia.
 """
-answer.answer = ["None of these programs"]
+answer.answer = ["Żaden z tych programów"]
 prompt.distractors = [
 """
 ```
@@ -271,9 +271,9 @@ println!("{:?}", v);
 """,
 ]
 context = """
-This function cannot cause a memory safety violation because `i != n - i - 1` for all `i`, so the two
-mutable references always refer to different elements. Note that the `let x = &v[0]` program would not
-compile, as Rust's borrow checker would not allow `reverse` to be called while `x` is live.
+Ta funkcja nie może naruszyć bezpieczeństwa pamięci, ponieważ `i != n - i - 1` dla każdego `i`, więc dwie
+mutowalne referencje zawsze wskazują na różne elementy. Zauważ, że program z `let x = &v[0]` by się nie
+skompilował, ponieważ borrow checker Rusta nie pozwoliłby wywołać `reverse`, dopóki `x` żyje.
 """
 
 [[questions]]
@@ -292,10 +292,10 @@ fn reverse(v: &mut Vec<String>) {
 }
 ```
 
-Of the following fixes (highlighted in yellow), which fix best satisfies these three criteria:
-1. The fixed function passes the Rust compiler,
-2. The fixed function preserves the intention of the original code, and
-3. The fixed function does not introduce unnecessary inefficiencies
+Która z poniższych poprawek (wyróżnionych na żółto) najlepiej spełnia te trzy kryteria:
+1. Poprawiona funkcja przechodzi przez kompilator Rusta;
+2. Poprawiona funkcja zachowuje intencję oryginalnego kodu;
+3. Poprawiona funkcja nie wprowadza zbędnej nieefektywności.
 """
 answer.answer = """
 ```ide
@@ -348,9 +348,9 @@ fn reverse(v: &mut Vec<String>) {
 """,
 ]
 context = """
-In a situation where the borrow checker rejects an operation that is actually safe and has no workaround, then
-unsafe code is sometimes acceptable if it's critical to avoid allocations. 
-In this specific case, you should actually use [`Vec::swap`](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.swap), which is internally implemented
-with heavily-tested `unsafe` code similar to the code above. 
-But in general, if the standard library doesn't happen to support your use case, then `unsafe` can be acceptable if used correctly.
+Gdy borrow checker odrzuca operację, która w rzeczywistości jest bezpieczna i nie da się jej obejść,
+niebezpieczny kod bywa dopuszczalny, jeśli uniknięcie alokacji ma kluczowe znaczenie.
+W tym konkretnym przypadku należy jednak użyć [`Vec::swap`](https://doc.rust-lang.org/std/vec/struct.Vec.html#method.swap), która wewnętrznie jest zaimplementowana
+za pomocą gruntownie przetestowanego kodu `unsafe`, podobnego do powyższego.
+Ogólnie jednak, jeśli biblioteka standardowa akurat nie obsługuje twojego przypadku użycia, `unsafe` może być dopuszczalne, o ile jest używane poprawnie.
 """

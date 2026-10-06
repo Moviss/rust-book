@@ -13,7 +13,7 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 4
 context = """
-Even though `v` is mutably borrowed, that only allows `i` to be mutated inside the for-loop, not `v`. Therefore calling `v.push` is an ownership error.
+Choć `v` jest pożyczony mutowalnie, pozwala to wewnątrz pętli for modyfikować tylko `i`, a nie `v`. Dlatego wywołanie `v.push` jest błędem własności.
 """
 
 [[questions]]
@@ -36,6 +36,6 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "5 5"
 context = """
-`i` has type `&mut i32`, meaning it is a pointer to a number within `v`. So if we push `i` into `v2`, then `v2` contains pointers to `v`. Therefore
-mutating `v2[0]` actually mutates `v[0]`.
+`i` ma typ `&mut i32`, czyli jest wskaźnikiem na liczbę wewnątrz `v`. Jeśli więc dodamy `i` do `v2`, to `v2` zawiera wskaźniki do `v`. Dlatego
+modyfikowanie `v2[0]` w rzeczywistości modyfikuje `v[0]`.
 """
