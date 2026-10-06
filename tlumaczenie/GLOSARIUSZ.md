@@ -412,3 +412,47 @@ recenzent.
 | bounded parametric polymorphism | ograniczony polimorfizm parametryczny | — | | |
 | single inheritance | dziedziczenie pojedyncze | — | | |
 | struct field shorthand (wzorce) | skrócony zapis pól | — | | |
+| type synonym / type alias | synonim typu / alias typu | — | | |
+| empty type | typ pusty | — | | |
+| diverging function | funkcja rozbieżna | funkcja rozbieżna (*diverging function*) | | |
+| dynamically sized type | typ o dynamicznym rozmiarze (DST) | typ o dynamicznym rozmiarze (*dynamically sized type*) | | |
+| opaque type | typ nieprzezroczysty | typ nieprzezroczysty (*opaque type*) | | |
+| initializer function | funkcja inicjalizująca | — | | |
+| function type | typ funkcyjny | — | | |
+| function pointer | wskaźnik na funkcję | wskaźnik na funkcję (*function pointer*) | | |
+| thread pool | pula wątków | — | | |
+| join (thread) | dołączyć wątek | — | | |
+| web server | serwer WWW | — | | |
+| request / response | żądanie / odpowiedź | — | | |
+| request line / status line | wiersz żądania / wiersz statusu | — | | |
+| status code | kod statusu | — | | |
+| client / server | klient / serwer | — | | |
+| buffering | buforowanie | — | | |
+| throughput | przepustowość | — | | |
+| compiler-driven development | programowanie sterowane kompilatorem | programowanie sterowane kompilatorem (*compiler-driven development*) | | |
+| job | zadanie | — | | |
+| poisoned (mutex) | zatruty | zatruty (*poisoned*) | | |
+| metaprogramming | metaprogramowanie | metaprogramowanie (*metaprogramming*) | | |
+| declarative / procedural macro | makro deklaratywne / proceduralne | makro deklaratywne (*declarative macro*) | | |
+| attribute-like / function-like macro | makro atrybutowe / funkcyjne | — | | |
+| expand (macro) | rozwijać | — | | |
+| token stream | strumień tokenów | — | | |
+| (abstract) syntax tree | (abstrakcyjne) drzewo składni | — | | |
+| identifier | identyfikator | — | | |
+| reflection | refleksja | — | | |
+| raw identifier | surowy identyfikator | — | | |
+| higher-ranked lifetime | czas życia wyższego rzędu | — | | |
+| turbofish | *turbofish* | — | | |
+| escape sequence | sekwencja ucieczki | — | | |
+| inner attribute | atrybut wewnętrzny | — | | |
+| short-circuiting | skrócone obliczanie | — | | |
+| lint / linter | lint / linter | lint (reguła analizy statycznej) | | |
+| release channel | kanał wydań | kanał wydań (*release channel*) | | |
+| feature flag / feature gate | flaga funkcjonalności / bramka funkcjonalności | — | | |
+| backport | przenosić wstecz | — | | |
+| regression | regresja | — | | |
+| issue (GitHub) | zgłoszenie | — | | |
+| language server | serwer języka | — | | |
+| temporary value | wartość tymczasowa | — | | |
+| body (HTTP) | treść | — | | |
+| URI / URL | ujednolicony identyfikator / lokalizator zasobów | — | | |

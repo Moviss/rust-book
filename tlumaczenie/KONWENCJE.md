@@ -129,3 +129,5 @@ angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, 
 **Forma pierwszego wystąpienia:** w nawiasie bez myślnika: „*traity* (cechy typów, zbliżone do interfejsów)”, „*crate’y* (jednostki kompilacji w Ruście)”; termin w nawiasie można odmienić zgodnie ze zdaniem.
 
 **Rodzaj nazw typów w kodzie:** typy-wskaźniki (`Box<T>`, `Rc<T>`, `Arc<T>`, `RefCell<T>`) traktujemy jak „wskaźnik” – rodzaj męski; „deref coercion” – rodzaj żeński.
+
+**Rodzaj nazw typów z kodu (poza wskaźnikami):** według polskiego rzeczownika, który typ oznacza: `ThreadPool` – „pula” (żeński), `Worker` – „pracownik” (męski).

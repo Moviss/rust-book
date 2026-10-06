@@ -1,41 +1,42 @@
-# Final Project: Building a Multithreaded Web Server {#final-project-building-a-multithreaded-web-server}
+# Projekt końcowy: budujemy wielowątkowy serwer WWW {#final-project-building-a-multithreaded-web-server}
 
-It’s been a long journey, but we’ve reached the end of the book. In this
-chapter, we’ll build one more project together to demonstrate some of the
-concepts we covered in the final chapters, as well as recap some earlier
-lessons.
+To była długa podróż, ale dotarliśmy do końca książki. W tym rozdziale
+zbudujemy razem jeszcze jeden projekt, aby zademonstrować niektóre z pojęć
+omówionych w ostatnich rozdziałach i przypomnieć część wcześniejszych lekcji.
 
-For our final project, we’ll make a web server that says “Hello!” and looks like
-Figure 21-1 in a web browser.
+W ramach projektu końcowego napiszemy serwer WWW, który mówi „Hello!” i w
+przeglądarce wygląda tak jak na rysunku 21-1.
 
-Here is our plan for building the web server:
+Oto nasz plan budowy serwera WWW:
 
-1. Learn a bit about TCP and HTTP.
-2. Listen for TCP connections on a socket.
-3. Parse a small number of HTTP requests.
-4. Create a proper HTTP response.
-5. Improve the throughput of our server with a thread pool.
+1. Poznać trochę TCP i HTTP.
+2. Nasłuchiwać połączeń TCP na gnieździe.
+3. Parsować niewielką liczbę żądań HTTP.
+4. Utworzyć poprawną odpowiedź HTTP.
+5. Zwiększyć przepustowość serwera za pomocą puli wątków.
 
-<img alt="Screenshot of a web browser visiting the address 127.0.0.1:8080 displaying a webpage with the text content “Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />
+<img alt="Zrzut ekranu przeglądarki, która odwiedza adres 127.0.0.1:8080 i wyświetla stronę z tekstem „Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 21-1: Our final shared project</span>
+<span class="caption">Rysunek 21-1: Nasz końcowy wspólny projekt</span>
 
-Before we get started, we should mention two details. First, the method we’ll
-use won’t be the best way to build a web server with Rust. Community members
-have published a number of production-ready crates available at
-[crates.io](https://crates.io/) that provide more complete web server and
-thread pool implementations than we’ll build. However, our intention in this
-chapter is to help you learn, not to take the easy route. Because Rust is a
-systems programming language, we can choose the level of abstraction we want to
-work with and can go to a lower level than is possible or practical in other
-languages.
+Zanim zaczniemy, wspomnijmy o dwóch rzeczach. Po pierwsze, metoda, której
+użyjemy, nie będzie najlepszym sposobem budowania serwera WWW w Ruście.
+Członkowie społeczności opublikowali w serwisie [crates.io](https://crates.io/)
+wiele gotowych do użytku produkcyjnego *crate’ów* (jednostek kompilacji w
+Ruście), które zawierają pełniejsze implementacje serwera WWW i puli wątków niż
+ta, którą zbudujemy. Celem tego rozdziału jest jednak pomóc ci się uczyć, a nie
+pójść na łatwiznę. Ponieważ Rust jest językiem programowania systemowego,
+możemy wybrać poziom abstrakcji, na którym chcemy pracować, i zejść niżej, niż
+jest to możliwe lub praktyczne w innych językach.
 
-Second, we will not be using async and await here. Building a thread pool is a
-big enough challenge on its own, without adding in building an async runtime!
-However, we will note how async and await might be applicable to some of the
-same problems we will see in this chapter. Ultimately, as we noted back in
-Chapter 17, many async runtimes use thread pools for managing their work.
+Po drugie, nie będziemy tu używać async i await. Zbudowanie puli wątków jest
+samo w sobie wystarczająco dużym wyzwaniem, nawet bez budowania środowiska
+uruchomieniowego (*runtime*) dla kodu asynchronicznego! Zwrócimy jednak uwagę,
+jak async i await mogłyby się przydać przy niektórych problemach, które
+napotkamy w tym rozdziale. Ostatecznie, jak wspomnieliśmy w rozdziale 17, wiele
+środowisk uruchomieniowych dla kodu asynchronicznego zarządza swoją pracą za
+pomocą pul wątków.
 
-We’ll therefore write the basic HTTP server and thread pool manually so that
-you can learn the general ideas and techniques behind the crates you might use
-in the future.
+Dlatego podstawowy serwer HTTP i pulę wątków napiszemy ręcznie, aby poznać
+ogólne idee i techniki stojące za crate’ami, których możesz używać w
+przyszłości.

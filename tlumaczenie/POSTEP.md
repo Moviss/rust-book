@@ -25,7 +25,7 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F2.3 Autoreview pilota
 - [x] F2.4 Push i weryfikacja strony
 - [x] F3.1 Strony otwierające
-- [ ] F3.2 Rozdziały 2–21
+- [x] F3.2 Rozdziały 2–21
 - [ ] F3.3 Dodatki
 - [ ] F4.1 `SUMMARY.md`
 - [ ] F4.2 `book.toml`
@@ -146,25 +146,25 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | gotowe | a8eeb640 | 1 |  |  |
 | ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | gotowe | a8eeb640 | 1 |  |  |
 | ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | gotowe | a8eeb640 | 1 |  |  |
-| ch20-00-advanced-features.md | 20 | 198 | — | przetłumaczone | aeb351d4 | 1 |  |  |
-| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | przetłumaczone | aeb351d4 | 1 |  |  |
-| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | przetłumaczone | af37da15 | 1 |  |  |
-| ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | tłumaczenie | acbdcea8 | 1 |  |  |
-| ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | tłumaczenie | a310f9c5 | 1 |  |  |
-| ch20-05-macros.md | 20 | 3550 | ch19-06-macros | tłumaczenie | aad219c8 | 1 |  |  |
-| ch21-00-final-project-a-web-server.md | 21 | 356 | — | tłumaczenie | a1e6b1cc | 1 |  |  |
-| ch21-01-single-threaded.md | 21 | 3273 | — | tłumaczenie | a1e6b1cc | 1 |  |  |
-| ch21-02-multithreaded.md | 21 | 4855 | — | tłumaczenie | a9f98fb4 | 1 |  |  |
-| ch21-03-graceful-shutdown-and-cleanup.md | 21 | 1497 | — | tłumaczenie | adda9e3f | 1 |  |  |
+| ch20-00-advanced-features.md | 20 | 198 | — | przegląd | a4c4322a | 1 |  | zrecenzowane |
+| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | przegląd | a4c4322a | 1 |  | zrecenzowane |
+| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | przegląd | a4c4322a | 1 |  | zrecenzowane |
+| ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | przegląd | a862ec0f | 1 |  |  |
+| ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | przegląd | a862ec0f | 1 |  |  |
+| ch20-05-macros.md | 20 | 3550 | ch19-06-macros | przegląd | a862ec0f | 1 |  |  |
+| ch21-00-final-project-a-web-server.md | 21 | 356 | — | gotowe | a6f1718b | 1 |  |  |
+| ch21-01-single-threaded.md | 21 | 3273 | — | gotowe | a6f1718b | 1 |  |  |
+| ch21-02-multithreaded.md | 21 | 4855 | — | gotowe | afea98ae | 1 |  |  |
+| ch21-03-graceful-shutdown-and-cleanup.md | 21 | 1497 | — | gotowe | a6f1718b | 1 |  |  |
 | end-of-experiment.md | 0 | 47 | — | gotowe | afe257bc | 1 |  |  |
-| appendix-00.md | dod. | 17 | — | do zrobienia | | 0 | | |
-| appendix-01-keywords.md | dod. | 743 | — | do zrobienia | | 0 | | |
-| appendix-02-operators.md | dod. | 1779 | — | do zrobienia | | 0 | | |
-| appendix-03-derivable-traits.md | dod. | 1495 | — | do zrobienia | | 0 | | |
-| appendix-04-useful-development-tools.md | dod. | 567 | — | do zrobienia | | 0 | | |
-| appendix-05-editions.md | dod. | 496 | — | do zrobienia | | 0 | | |
-| appendix-06-translation.md | dod. | 97 | — | do zrobienia | | 0 | | |
-| appendix-07-nightly-rust.md | dod. | 1376 | — | do zrobienia | | 0 | | |
+| appendix-00.md | dod. | 17 | — | przegląd | a5a133b8 | 1 |  |  |
+| appendix-01-keywords.md | dod. | 743 | — | przegląd | a5a133b8 | 1 |  |  |
+| appendix-02-operators.md | dod. | 1779 | — | przegląd | a5a133b8 | 1 |  |  |
+| appendix-03-derivable-traits.md | dod. | 1495 | — | przegląd | aea87797 | 1 |  |  |
+| appendix-04-useful-development-tools.md | dod. | 567 | — | przegląd | aea87797 | 1 |  |  |
+| appendix-05-editions.md | dod. | 496 | — | przegląd | aea87797 | 1 |  |  |
+| appendix-06-translation.md | dod. | 97 | — | przegląd | a5a133b8 | 1 | 2 (wiersze z samymi nazwami języków i linkami) |  |
+| appendix-07-nightly-rust.md | dod. | 1376 | — | przegląd | aea87797 | 1 |  |  |
 
 
 ## Decyzje orkiestratora
