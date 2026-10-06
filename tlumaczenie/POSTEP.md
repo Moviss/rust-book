@@ -37,9 +37,9 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F5.3 Raport G5
 - [x] F5.4 Pełny build, linki, `sprawdz.py`
 - [x] F5.5 (pominięty, opcjonalny) `mdbook test` (opcjonalnie)
-- [ ] F5.6 Push, CI, weryfikacja strony
+- [x] F5.6 Push, CI, weryfikacja strony
 - [x] F5.7 `CLAUDE.md` końcowy
-- [ ] F5.8 Raport końcowy
+- [x] F5.8 Raport końcowy
 
 ## Pliki
 
@@ -187,3 +187,4 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F5.4: build lokalny zielony, G4: 0 nowych zepsutych kotwic, autotesty 28/28.
 - F5.5: `mdbook test` pominięty (opcjonalny; kod nie był zmieniany).
 - F5: dodatkowe ujednolicenia: mała litera po „Uwaga:” (6 miejsc), „wiersz” zamiast „linia” dla kodu (2 miejsca), link do „Zrozumieć własność” na stronie startowej.
+- F5.6: CI zielone (run 37530348114, 6fbc8008); strona: `lang="pl"`, tytuł „Język programowania Rust”, notka na stronie startowej; ch02/ch04-02/ch06-02/ch15-05/ch19-03 renderują notatki, listingi, quizy i aquascope.
