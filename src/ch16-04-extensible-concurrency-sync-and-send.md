@@ -3,7 +3,7 @@
 <a id="extensible-concurrency-with-the-sync-and-send-traits"></a>
 <a id="extensible-concurrency-with-the-send-and-sync-traits"></a>
 
-## Extensible Concurrency with `Send` and `Sync`
+## Extensible Concurrency with `Send` and `Sync` {#extensible-concurrency-with-send-and-sync}
 
 Interestingly, almost every concurrency feature we’ve talked about so far in
 this chapter has been part of the standard library, not the language. Your
@@ -18,7 +18,7 @@ rather than the standard library are the `std::marker` traits `Send` and `Sync`.
 
 <a id="allowing-transference-of-ownership-between-threads-with-send"></a>
 
-### Transferring Ownership Between Threads
+### Transferring Ownership Between Threads {#transferring-ownership-between-threads}
 
 The `Send` marker trait indicates that ownership of values of the type
 implementing `Send` can be transferred between threads. Almost every Rust type
@@ -43,7 +43,7 @@ we’ll discuss in Chapter 20.
 
 <a id="allowing-access-from-multiple-threads-with-sync"></a>
 
-### Accessing from Multiple Threads
+### Accessing from Multiple Threads {#accessing-from-multiple-threads}
 
 The `Sync` marker trait indicates that it is safe for the type implementing
 `Sync` to be referenced from multiple threads. In other words, any type `T`
@@ -65,7 +65,7 @@ family of related `Cell<T>` types are `Send` (if `T: Send`), but they are not `S
 
 
 
-### Implementing `Send` and `Sync` Manually Is Unsafe
+### Implementing `Send` and `Sync` Manually Is Unsafe {#implementing-send-and-sync-manually-is-unsafe}
 
 Because types composed entirely of other types that implement the `Send` and
 `Sync` traits also automatically implement `Send` and `Sync`, we don’t have to
@@ -80,7 +80,7 @@ information is that building new concurrent types not made up of `Send` and
 Rustonomicon”][nomicon] has more information about these guarantees and how to
 uphold them.
 
-## Summary
+## Summary {#summary}
 
 This isn’t the last you’ll see of concurrency in this book: The next chapter
 focuses on async programming, and the project in Chapter 21 will use the

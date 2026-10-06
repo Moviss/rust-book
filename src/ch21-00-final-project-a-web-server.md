@@ -1,4 +1,4 @@
-# Final Project: Building a Multithreaded Web Server
+# Final Project: Building a Multithreaded Web Server {#final-project-building-a-multithreaded-web-server}
 
 It’s been a long journey, but we’ve reached the end of the book. In this
 chapter, we’ll build one more project together to demonstrate some of the

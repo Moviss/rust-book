@@ -30,7 +30,7 @@ use crate::{config::Mode, CompositeError};
 ///
 /// ````markdown
 /// <figure class="listing">
-/// <span class="file-name">Filename: src/main.rs</span>
+/// <span class="file-name">Plik: src/main.rs</span>
 ///
 /// ```rust
 /// fn main() {}
@@ -231,7 +231,7 @@ impl Listing {
 
         match self.file_name.as_ref() {
             Some(file_name) => format!(
-                "{figure}<span class=\"file-name\">Filename: {file_name}</span>\n",
+                "{figure}<span class=\"file-name\">Plik: {file_name}</span>\n",
             ),
             None => figure,
         }

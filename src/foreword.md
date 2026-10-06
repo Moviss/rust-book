@@ -1,4 +1,4 @@
-# Foreword
+# Foreword {#foreword}
 
 The Rust programming language has come a long way in a few short years, from
 its creation and incubation by a small and nascent community of enthusiasts, to

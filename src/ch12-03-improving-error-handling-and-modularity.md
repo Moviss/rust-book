@@ -1,4 +1,4 @@
-## Refactoring to Improve Modularity and Error Handling
+## Refactoring to Improve Modularity and Error Handling {#refactoring-to-improve-modularity-and-error-handling}
 
 To improve our program, we’ll fix four problems that have to do with the
 program’s structure and how it’s handling potential errors. First, our `main`
@@ -37,7 +37,7 @@ Let’s address these four problems by refactoring our project.
 
 <a id="separation-of-concerns-for-binary-projects"></a>
 
-### Separating Concerns in Binary Projects
+### Separating Concerns in Binary Projects {#separating-concerns-in-binary-projects}
 
 The organizational problem of allocating responsibility for multiple tasks to
 the `main` function is common to many binary projects. As a result, many Rust
@@ -67,7 +67,7 @@ your program’s logic by moving it out of the `main` function. The code that
 remains in the `main` function will be small enough to verify its correctness
 by reading it. Let’s rework our program by following this process.
 
-#### Extracting the Argument Parser
+#### Extracting the Argument Parser {#extracting-the-argument-parser}
 
 We’ll extract the functionality for parsing arguments into a function that
 `main` will call. Listing 12-5 shows the new start of the `main` function that
@@ -96,7 +96,7 @@ in small, incremental steps. After making this change, run the program again to
 verify that the argument parsing still works. It’s good to check your progress
 often, to help identify the cause of problems when they occur.
 
-#### Grouping Configuration Values
+#### Grouping Configuration Values {#grouping-configuration-values}
 
 We can take another small step to improve the `parse_config` function further.
 At the moment, we’re returning a tuple, but then we immediately break that
@@ -139,7 +139,7 @@ However, cloning the data also makes our code very straightforward because we
 don’t have to manage the lifetimes of the references; in this circumstance,
 giving up a little performance to gain simplicity is a worthwhile trade-off.
 
-> ### The Trade-Offs of Using `clone`
+> ### The Trade-Offs of Using `clone` {#the-trade-offs-of-using-clone}
 >
 > There’s a tendency among many Rustaceans to avoid using `clone` to fix
 > ownership problems because of its runtime cost. In
@@ -162,7 +162,7 @@ that their purpose is to configure how the program will work. Any code that
 uses these values knows to find them in the `config` instance in the fields
 named for their purpose.
 
-#### Creating a Constructor for `Config`
+#### Creating a Constructor for `Config` {#creating-a-constructor-for-config}
 
 So far, we’ve extracted the logic responsible for parsing the command line
 arguments from `main` and placed it in the `parse_config` function. Doing so
@@ -193,7 +193,7 @@ We’ve updated `main` where we were calling `parse_config` to instead call
 within an `impl` block, which associates the `new` function with `Config`. Try
 compiling this code again to make sure it works.
 
-### Fixing the Error Handling
+### Fixing the Error Handling {#fixing-the-error-handling}
 
 Now we’ll work on fixing our error handling. Recall that attempting to access
 the values in the `args` vector at index 1 or index 2 will cause the program to
@@ -208,7 +208,7 @@ The line `index out of bounds: the len is 1 but the index is 1` is an error
 message intended for programmers. It won’t help our end users understand what
 they should do instead. Let’s fix that now.
 
-#### Improving the Error Message
+#### Improving the Error Message {#improving-the-error-message}
 
 In Listing 12-8, we add a check in the `new` function that will verify that the
 slice is long enough before accessing index 1 and index 2. If the slice isn’t
@@ -249,7 +249,7 @@ we’ll use the other technique you learned about in Chapter 9—[returning a
 
 <a id="returning-a-result-from-new-instead-of-calling-panic"></a>
 
-#### Returning a `Result` Instead of Calling `panic!`
+#### Returning a `Result` Instead of Calling `panic!` {#returning-a-result-instead-of-calling-panic}
 
 We can instead return a `Result` value that will contain a `Config` instance in
 the successful case and will describe the problem in the error case. We’re also
@@ -290,7 +290,7 @@ process more cleanly in the error case.
 
 <a id="calling-confignew-and-handling-errors"></a>
 
-#### Calling `Config::build` and Handling Errors
+#### Calling `Config::build` and Handling Errors {#calling-configbuild-and-handling-errors}
 
 To handle the error case and print a user-friendly message, we need to update
 `main` to handle the `Result` being returned by `Config::build`, as shown in
@@ -339,7 +339,7 @@ Great! This output is much friendlier for our users.
 
 <a id="extracting-logic-from-the-main-function"></a>
 
-### Extracting Logic from `main`
+### Extracting Logic from `main` {#extracting-logic-from-main}
 
 Now that we’ve finished refactoring the configuration parsing, let’s turn to
 the program’s logic. As we stated in [“Separating Concerns in Binary
@@ -368,7 +368,7 @@ argument.
 
 <a id="returning-errors-from-the-run-function"></a>
 
-#### Returning Errors from `run`
+#### Returning Errors from `run` {#returning-errors-from-run}
 
 With the remaining program logic separated into the `run` function, we can
 improve the error handling, as we did with `Config::build` in Listing 12-9.
@@ -423,7 +423,7 @@ might indicate that an error occurred. But we’re not checking to see whether o
 not there was an error, and the compiler reminds us that we probably meant to
 have some error-handling code here! Let’s rectify that problem now.
 
-#### Handling Errors Returned from `run` in `main`
+#### Handling Errors Returned from `run` in `main` {#handling-errors-returned-from-run-in-main}
 
 We’ll check for errors and handle them using a technique similar to one we used
 with `Config::build` in Listing 12-10, but with a slight difference:
@@ -444,7 +444,7 @@ the success case, we only care about detecting an error, so we don’t need
 The bodies of the `if let` and the `unwrap_or_else` functions are the same in
 both cases: We print the error and exit.
 
-### Splitting Code into a Library Crate
+### Splitting Code into a Library Crate {#splitting-code-into-a-library-crate}
 
 Our `minigrep` project is looking good so far! Now we’ll split the
 _src/main.rs_ file and put some code into the _src/lib.rs_ file. That way, we

@@ -1,4 +1,4 @@
-# Common Programming Concepts
+# Common Programming Concepts {#common-programming-concepts}
 
 This chapter covers concepts that appear in almost every programming language
 and how they work in Rust. Many programming languages have much in common at
@@ -10,7 +10,7 @@ Specifically, you’ll learn about variables, basic types, functions, comments,
 and control flow. These foundations will be in every Rust program, and learning
 them early will give you a strong core to start from.
 
-> #### Keywords
+> #### Keywords {#keywords}
 >
 > The Rust language has a set of _keywords_ that are reserved for use by the
 > language only, much as in other languages. Keep in mind that you cannot use

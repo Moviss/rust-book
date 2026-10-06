@@ -1,4 +1,4 @@
-## Publishing a Crate to Crates.io
+## Publishing a Crate to Crates.io {#publishing-a-crate-to-cratesio}
 
 We’ve used packages from [crates.io](https://crates.io/)<!-- ignore --> as
 dependencies of our project, but you can also share your code with other people
@@ -10,7 +10,7 @@ Rust and Cargo have features that make your published package easier for people
 to find and use. We’ll talk about some of these features next and then explain
 how to publish a package.
 
-### Making Useful Documentation Comments
+### Making Useful Documentation Comments {#making-useful-documentation-comments}
 
 Accurately documenting your packages will help other users know how and when to
 use them, so it’s worth investing the time to write documentation. In Chapter
@@ -52,7 +52,7 @@ rendered, as shown in Figure 14-1.
 <span class="caption">Figure 14-1: The HTML documentation for the `add_one`
 function</span>
 
-#### Commonly Used Sections
+#### Commonly Used Sections {#commonly-used-sections}
 
 We used the `# Examples` Markdown heading in Listing 14-1 to create a section
 in the HTML with the title “Examples.” Here are some other sections that crate
@@ -73,7 +73,7 @@ Most documentation comments don’t need all of these sections, but this is a
 good checklist to remind you of the aspects of your code users will be
 interested in knowing about.
 
-#### Documentation Comments as Tests
+#### Documentation Comments as Tests {#documentation-comments-as-tests}
 
 Adding example code blocks in your documentation comments can help demonstrate
 how to use your library and has an additional bonus: Running `cargo test` will
@@ -106,7 +106,7 @@ catch that the example and the code are out of sync with each other!
 
 <a id="commenting-contained-items"></a>
 
-#### Contained Item Comments
+#### Contained Item Comments {#contained-item-comments}
 
 The style of doc comment `//!` adds documentation to the item that *contains*
 the comments rather than to the items *following* the comments. We typically
@@ -151,7 +151,7 @@ including the comment describing the crate as a whole</span>
 
 <a id="exporting-a-convenient-public-api-with-pub-use"></a>
 
-### Exporting a Convenient Public API
+### Exporting a Convenient Public API {#exporting-a-convenient-public-api}
 
 The structure of your public API is a major consideration when publishing a
 crate. People who use your crate are less familiar with the structure than you
@@ -268,7 +268,7 @@ that internal structure from what you present to your users. Look at some of
 the code of crates you’ve installed to see if their internal structure differs
 from their public API.
 
-### Setting Up a Crates.io Account
+### Setting Up a Crates.io Account {#setting-up-a-cratesio-account}
 
 Before you can publish any crates, you need to create an account on
 [crates.io](https://crates.io/)<!-- ignore --> and get an API token. To do so,
@@ -290,7 +290,7 @@ it with anyone else. If you do share it with anyone for any reason, you should
 revoke it and generate a new token on [crates.io](https://crates.io/)<!-- ignore
 -->.
 
-### Adding Metadata to a New Crate
+### Adding Metadata to a New Crate {#adding-metadata-to-a-new-crate}
 
 Let’s say you have a crate you want to publish. Before publishing, you’ll need
 to add some metadata in the `[package]` section of the crate’s _Cargo.toml_
@@ -382,7 +382,7 @@ license = "MIT OR Apache-2.0"
 metadata you can specify to ensure that others can discover and use your crate
 more easily.
 
-### Publishing to Crates.io
+### Publishing to Crates.io {#publishing-to-cratesio}
 
 Now that you’ve created an account, saved your API token, chosen a name for
 your crate, and specified the required metadata, you’re ready to publish!
@@ -425,7 +425,7 @@ You may press ctrl-c to skip waiting; the crate should be available shortly.
 Congratulations! You’ve now shared your code with the Rust community, and
 anyone can easily add your crate as a dependency of their project.
 
-### Publishing a New Version of an Existing Crate
+### Publishing a New Version of an Existing Crate {#publishing-a-new-version-of-an-existing-crate}
 
 When you’ve made changes to your crate and are ready to release a new version,
 you change the `version` value specified in your _Cargo.toml_ file and
@@ -438,7 +438,7 @@ Then, run `cargo publish` to upload the new version.
 <a id="removing-versions-from-cratesio-with-cargo-yank"></a>
 <a id="deprecating-versions-from-cratesio-with-cargo-yank"></a>
 
-### Deprecating Versions from Crates.io
+### Deprecating Versions from Crates.io {#deprecating-versions-from-cratesio}
 
 Although you can’t remove previous versions of a crate, you can prevent any
 future projects from adding them as a new dependency. This is useful when a

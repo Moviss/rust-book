@@ -1,10 +1,10 @@
-## Appendix D: Useful Development Tools
+## Appendix D: Useful Development Tools {#appendix-d-useful-development-tools}
 
 In this appendix, we talk about some useful development tools that the Rust
 project provides. We’ll look at automatic formatting, quick ways to apply
 warning fixes, a linter, and integrating with IDEs.
 
-### Automatic Formatting with `rustfmt`
+### Automatic Formatting with `rustfmt` {#automatic-formatting-with-rustfmt}
 
 The `rustfmt` tool reformats your code according to the community code style.
 Many collaborative projects use `rustfmt` to prevent arguments about which
@@ -24,7 +24,7 @@ Running this command reformats all the Rust code in the current crate. This
 should only change the code style, not the code semantics. For more information
 on `rustfmt`, see [its documentation][rustfmt].
 
-### Fix Your Code with `rustfix`
+### Fix Your Code with `rustfix` {#fix-your-code-with-rustfix}
 
 The `rustfix` tool is included with Rust installations and can automatically
 fix compiler warnings that have a clear way to correct the problem that’s
@@ -86,7 +86,7 @@ You can also use the `cargo fix` command to transition your code between
 different Rust editions. Editions are covered in [Appendix E][editions]<!--
 ignore -->.
 
-### More Lints with Clippy
+### More Lints with Clippy {#more-lints-with-clippy}
 
 The Clippy tool is a collection of lints to analyze your code so that you can
 catch common mistakes and improve your Rust code. Clippy is included with
@@ -147,7 +147,7 @@ fn main() {
 
 For more information on Clippy, see [its documentation][clippy].
 
-### IDE Integration Using `rust-analyzer`
+### IDE Integration Using `rust-analyzer` {#ide-integration-using-rust-analyzer}
 
 To help with IDE integration, the Rust community recommends using
 [`rust-analyzer`][rust-analyzer]<!-- ignore -->. This tool is a set of

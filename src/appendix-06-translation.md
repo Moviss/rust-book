@@ -1,4 +1,4 @@
-## Appendix F: Translations of the Book
+## Appendix F: Translations of the Book {#appendix-f-translations-of-the-book}
 
 For resources in languages other than English. Most are still in progress; see
 [the Translations label][label] to help or let us know about a new translation!

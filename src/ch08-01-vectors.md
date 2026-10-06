@@ -1,4 +1,4 @@
-## Storing Lists of Values with Vectors
+## Storing Lists of Values with Vectors {#storing-lists-of-values-with-vectors}
 
 The first collection type we’ll look at is `Vec<T>`, also known as a vector.
 Vectors allow you to store more than one value in a single data structure that
@@ -6,7 +6,7 @@ puts all the values next to each other in memory. Vectors can only store values
 of the same type. They are useful when you have a list of items, such as the
 lines of text in a file or the prices of items in a shopping cart.
 
-### Creating a New Vector
+### Creating a New Vector {#creating-a-new-vector}
 
 To create a new, empty vector, we call the `Vec::new` function, as shown in
 Listing 8-1.
@@ -48,7 +48,7 @@ Because we’ve given initial `i32` values, Rust can infer that the type of `v`
 is `Vec<i32>`, and the type annotation isn’t necessary. Next, we’ll look at how
 to modify a vector.
 
-### Updating a Vector
+### Updating a Vector {#updating-a-vector}
 
 To create a vector and then add elements to it, we can use the `push` method,
 as shown in Listing 8-3.
@@ -66,7 +66,7 @@ make it mutable using the `mut` keyword, as discussed in Chapter 3. The numbers
 we place inside are all of type `i32`, and Rust infers this from the data, so
 we don’t need the `Vec<i32>` annotation.
 
-### Reading Elements of Vectors
+### Reading Elements of Vectors {#reading-elements-of-vectors}
 
 There are two ways to reference a value stored in a vector: via indexing or by
 using the `get` method. In the following examples, we’ve annotated the types of
@@ -155,7 +155,7 @@ ending up in that situation.
 > Note: For more on the implementation details of the `Vec<T>` type, see [“The
 > Rustonomicon”][nomicon].
 
-### Iterating Over the Values in a Vector
+### Iterating Over the Values in a Vector {#iterating-over-the-values-in-a-vector}
 
 To access each element in a vector in turn, we would iterate through all of the
 elements rather than use indices to access one at a time. Listing 8-7 shows how
@@ -188,7 +188,7 @@ To change the value that the mutable reference refers to, we again use the `*` d
 
 {{#quiz ../quizzes/ch08-01-vec-sec1.toml}}
 
-### Safely Using Iterators
+### Safely Using Iterators {#safely-using-iterators}
 
 We will discuss more about how iterators work in Chapter 13.2 ["Processing a Series of Items with Iterators"](ch13-02-iterators.html).
 For now, one important detail is that iterators contain a pointer to data within the vector. We can see how
@@ -261,7 +261,7 @@ let n1: &i32               = &v[i1];`[]`
 #}
 ```
 
-### Using an Enum to Store Multiple Types
+### Using an Enum to Store Multiple Types {#using-an-enum-to-store-multiple-types}
 
 Vectors can only store values that are of the same type. This can be
 inconvenient; there are definitely use cases for needing to store a list of
@@ -301,7 +301,7 @@ to review [the API documentation][vec-api]<!-- ignore --> for all of the many
 useful methods defined on `Vec<T>` by the standard library. For example, in
 addition to `push`, a `pop` method removes and returns the last element.
 
-### Dropping a Vector Drops Its Elements
+### Dropping a Vector Drops Its Elements {#dropping-a-vector-drops-its-elements}
 
 Like any other `struct`, a vector is freed when it goes out of scope, as
 annotated in Listing 8-10.

@@ -1,4 +1,4 @@
-## Using `Box<T>` to Point to Data on the Heap
+## Using `Box<T>` to Point to Data on the Heap {#using-boxt-to-point-to-data-on-the-heap}
 
 The most straightforward smart pointer is a box, whose type is written
 `Box<T>`. _Boxes_ allow you to store data on the heap rather than the stack.
@@ -31,7 +31,7 @@ topic. So, what you learn here you’ll apply again in that section!
 
 <a id="using-boxt-to-store-data-on-the-heap"></a>
 
-### Storing Data on the Heap
+### Storing Data on the Heap {#storing-data-on-the-heap}
 
 Before we discuss the heap storage use case for `Box<T>`, we’ll cover the
 syntax and how to interact with values stored within a `Box<T>`.
@@ -60,7 +60,7 @@ stack, where they’re stored by default, is more appropriate in the majority of
 situations. Let’s look at a case where boxes allow us to define types that we
 wouldn’t be allowed to define if we didn’t have boxes.
 
-### Enabling Recursive Types with Boxes
+### Enabling Recursive Types with Boxes {#enabling-recursive-types-with-boxes}
 
 A value of a _recursive type_ can have another value of the same type as part of
 itself. Recursive types pose an issue because Rust needs to know at compile time
@@ -79,7 +79,7 @@ more complex situations involving recursive types.
 
 <a id="more-information-about-the-cons-list"></a>
 
-#### Understanding the Cons List
+#### Understanding the Cons List {#understanding-the-cons-list}
 
 A _cons list_ is a data structure that comes from the Lisp programming language
 and its dialects, is made up of nested pairs, and is the Lisp version of a
@@ -158,7 +158,7 @@ directly. As a result, Rust can’t figure out how much space it needs to store 
 `List` value. Let’s break down why we get this error. First, we’ll look at how
 Rust decides how much space it needs to store a value of a non-recursive type.
 
-#### Computing the Size of a Non-Recursive Type
+#### Computing the Size of a Non-Recursive Type {#computing-the-size-of-a-non-recursive-type}
 
 Recall the `Message` enum we defined in Listing 6-2 when we discussed enum
 definitions in Chapter 6:
@@ -192,7 +192,7 @@ variant. The `Cons` variant holds a value of type `i32` and a value of type
 
 <a id="using-boxt-to-get-a-recursive-type-with-a-known-size"></a>
 
-#### Getting a Recursive Type with a Known Size
+#### Getting a Recursive Type with a Known Size {#getting-a-recursive-type-with-a-known-size}
 
 Because Rust can’t figure out how much space to allocate for recursively
 defined types, the compiler gives an error with this helpful suggestion:

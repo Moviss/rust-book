@@ -1,4 +1,4 @@
-# Understanding Ownership
+# Understanding Ownership {#understanding-ownership}
 
 Ownership is Rust’s most unique feature and has deep implications for the rest
 of the language. It enables Rust to make memory safety guarantees without

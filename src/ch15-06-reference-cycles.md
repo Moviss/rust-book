@@ -1,4 +1,4 @@
-## Reference Cycles Can Leak Memory
+## Reference Cycles Can Leak Memory {#reference-cycles-can-leak-memory}
 
 Rust’s memory safety guarantees make it difficult, but not impossible, to
 accidentally create memory that is never cleaned up (known as a _memory leak_).
@@ -9,7 +9,7 @@ items refer to each other in a cycle. This creates memory leaks because the
 reference count of each item in the cycle will never reach 0, and the values
 will never be dropped.
 
-### Creating a Reference Cycle
+### Creating a Reference Cycle {#creating-a-reference-cycle}
 
 Let’s look at how a reference cycle might happen and how to prevent it,
 starting with the definition of the `List` enum and a `tail` method in Listing
@@ -111,7 +111,7 @@ reference cycles.
 
 <a id="preventing-reference-cycles-turning-an-rct-into-a-weakt"></a>
 
-### Preventing Reference Cycles Using `Weak<T>`
+### Preventing Reference Cycles Using `Weak<T>` {#preventing-reference-cycles-using-weakt}
 
 So far, we’ve demonstrated that calling `Rc::clone` increases the
 `strong_count` of an `Rc<T>` instance, and an `Rc<T>` instance is only cleaned
@@ -148,7 +148,7 @@ parent items.
 
 <a id="creating-a-tree-data-structure-a-node-with-child-nodes"></a>
 
-#### Creating a Tree Data Structure
+#### Creating a Tree Data Structure {#creating-a-tree-data-structure}
 
 To start, we’ll build a tree with nodes that know about their child nodes.
 We’ll create a struct named `Node` that holds its own `i32` value as well as
@@ -185,7 +185,7 @@ We clone the `Rc<Node>` in `leaf` and store that in `branch`, meaning the
 doesn’t know they’re related. We want `leaf` to know that `branch` is its
 parent. We’ll do that next.
 
-#### Adding a Reference from a Child to Its Parent
+#### Adding a Reference from a Child to Its Parent {#adding-a-reference-from-a-child-to-its-parent}
 
 To make the child node aware of its parent, we need to add a `parent` field to
 our `Node` struct definition. The trouble is in deciding what the type of
@@ -256,7 +256,7 @@ The lack of infinite output indicates that this code didn’t create a reference
 cycle. We can also tell this by looking at the values we get from calling
 `Rc::strong_count` and `Rc::weak_count`.
 
-#### Visualizing Changes to `strong_count` and `weak_count`
+#### Visualizing Changes to `strong_count` and `weak_count` {#visualizing-changes-to-strong_count-and-weak_count}
 
 Let’s look at how the `strong_count` and `weak_count` values of the `Rc<Node>`
 instances change by creating a new inner scope and moving the creation of
@@ -298,7 +298,7 @@ specifying that the relationship from a child to its parent should be a
 nodes point to child nodes and vice versa without creating a reference cycle
 and memory leaks.
 
-## Summary
+## Summary {#summary}
 
 This chapter covered how to use smart pointers to make different guarantees and
 trade-offs from those Rust makes by default with regular references. The

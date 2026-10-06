@@ -1,4 +1,4 @@
-## An Example Program Using Structs
+## An Example Program Using Structs {#an-example-program-using-structs}
 
 To understand when we might want to use structs, let’s write a program that
 calculates the area of a rectangle. We’ll start by using single variables and
@@ -40,7 +40,7 @@ manageable to group width and height together. We’ve already discussed one way
 we might do that in [“The Tuple Type”][the-tuple-type]<!-- ignore --> section
 of Chapter 3: by using tuples.
 
-### Refactoring with Tuples
+### Refactoring with Tuples {#refactoring-with-tuples}
 
 Listing 5-9 shows another version of our program that uses tuples.
 
@@ -68,7 +68,7 @@ our data in our code, it’s now easier to introduce errors.
 
 <a id="refactoring-with-structs-adding-more-meaning"></a>
 
-### Refactoring with Structs
+### Refactoring with Structs {#refactoring-with-structs}
 
 We use structs to add meaning by labeling the data. We can transform the tuple
 we’re using into a struct with a name for the whole as well as names for the
@@ -107,7 +107,7 @@ win for clarity.
 
 <a id="adding-useful-functionality-with-derived-traits"></a>
 
-### Adding Functionality with Derived Traits
+### Adding Functionality with Derived Traits {#adding-functionality-with-derived-traits}
 
 It’d be useful to be able to print an instance of `Rectangle` while we’re
 debugging our program and see the values for all its fields. Listing 5-11 tries

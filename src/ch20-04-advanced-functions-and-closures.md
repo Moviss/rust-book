@@ -1,9 +1,9 @@
-## Advanced Functions and Closures
+## Advanced Functions and Closures {#advanced-functions-and-closures}
 
 This section explores some advanced features related to functions and closures,
 including function pointers and returning closures.
 
-### Function Pointers
+### Function Pointers {#function-pointers}
 
 We’ve talked about how to pass closures to functions; you can also pass regular
 functions to functions! This technique is useful when you want to pass a
@@ -100,7 +100,7 @@ that `map` is called on by using the initializer function of `Status::Value`.
 Some people prefer this style and some people prefer to use closures. They
 compile to the same code, so use whichever style is clearer to you.
 
-### Returning Closures
+### Returning Closures {#returning-closures}
 
 Closures are represented by traits, which means you can’t return closures
 directly. In most cases where you might want to return a trait, you can instead

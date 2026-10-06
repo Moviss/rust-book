@@ -1,11 +1,11 @@
-## Improving Our I/O Project
+## Improving Our I/O Project {#improving-our-io-project}
 
 With this new knowledge about iterators, we can improve the I/O project in
 Chapter 12 by using iterators to make places in the code clearer and more
 concise. Let’s look at how iterators can improve our implementation of the
 `Config::build` function and the `search` function.
 
-### Removing a `clone` Using an Iterator
+### Removing a `clone` Using an Iterator {#removing-a-clone-using-an-iterator}
 
 In Listing 12-6, we added code that took a slice of `String` values and created
 an instance of the `Config` struct by indexing into the slice and cloning the
@@ -40,7 +40,7 @@ Once `Config::build` takes ownership of the iterator and stops using indexing
 operations that borrow, we can move the `String` values from the iterator into
 `Config` rather than calling `clone` and making a new allocation.
 
-#### Using the Returned Iterator Directly
+#### Using the Returned Iterator Directly {#using-the-returned-iterator-directly}
 
 Open your I/O project’s _src/main.rs_ file, which should look like this:
 
@@ -98,7 +98,7 @@ iterating over it, we can add the `mut` keyword into the specification of the
 
 <a id="using-iterator-trait-methods-instead-of-indexing"></a>
 
-#### Using `Iterator` Trait Methods
+#### Using `Iterator` Trait Methods {#using-iterator-trait-methods}
 
 Next, we’ll fix the body of `Config::build`. Because `args` implements the
 `Iterator` trait, we know we can call the `next` method on it! Listing 13-20
@@ -124,7 +124,7 @@ the same thing for the `file_path` value.
 
 <a id="making-code-clearer-with-iterator-adapters"></a>
 
-### Clarifying Code with Iterator Adapters
+### Clarifying Code with Iterator Adapters {#clarifying-code-with-iterator-adapters}
 
 We can also take advantage of iterators in the `search` function in our I/O
 project, which is reproduced here in Listing 13-21 as it was in Listing 12-19.
@@ -173,7 +173,7 @@ will be printed as each matching line is found because the `for` loop in the
 
 <a id="choosing-between-loops-or-iterators"></a>
 
-### Choosing Between Loops and Iterators
+### Choosing Between Loops and Iterators {#choosing-between-loops-and-iterators}
 
 The next logical question is which style you should choose in your own code and
 why: the original implementation in Listing 13-21 or the version using

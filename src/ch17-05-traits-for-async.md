@@ -2,7 +2,7 @@
 
 <a id="digging-into-the-traits-for-async"></a>
 
-## A Closer Look at the Traits for Async
+## A Closer Look at the Traits for Async {#a-closer-look-at-the-traits-for-async}
 
 Throughout the chapter, we’ve used the `Future`, `Stream`, and `StreamExt`
 traits in various ways. So far, though, we’ve avoided getting too far into the
@@ -17,7 +17,7 @@ for other documentation.
 
 <a id="future"></a>
 
-### The `Future` Trait
+### The `Future` Trait {#the-future-trait}
 
 Let’s start by taking a closer look at how the `Future` trait works. Here’s how
 Rust defines it:
@@ -127,7 +127,7 @@ yet ready.
 <a id="pinning-and-the-pin-and-unpin-traits"></a>
 <a id="the-pin-and-unpin-traits"></a>
 
-### The `Pin` Type and the `Unpin` Trait
+### The `Pin` Type and the `Unpin` Trait {#the-pin-type-and-the-unpin-trait}
 
 Back in Listing 17-13, we used the `trpl::join!` macro to await three
 futures. However, it’s common to have a collection such as a vector containing
@@ -438,7 +438,7 @@ idea of how to fix your code!
 > [4][pinning]<!-- ignore --> of
 > [_Asynchronous Programming in Rust_][async-book].
 
-### The `Stream` Trait
+### The `Stream` Trait {#the-stream-trait}
 
 Now that you have a deeper grasp on the `Future`, `Pin`, and `Unpin` traits, we
 can turn our attention to the `Stream` trait. As you learned earlier in the

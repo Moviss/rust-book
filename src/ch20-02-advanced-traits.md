@@ -1,4 +1,4 @@
-## Advanced Traits
+## Advanced Traits {#advanced-traits}
 
 We first covered traits in the [“Defining Shared Behavior with
 Traits”][traits]<!-- ignore --> section in Chapter 10, but we didn’t discuss
@@ -10,7 +10,7 @@ the nitty-gritty.
 <a id="specifying-placeholder-types-in-trait-definitions-with-associated-types"></a>
 <a id="associated-types"></a>
 
-### Defining Traits with Associated Types
+### Defining Traits with Associated Types {#defining-traits-with-associated-types}
 
 _Associated types_ connect a type placeholder with a trait such that the trait
 method definitions can use these placeholder types in their signatures. The
@@ -93,7 +93,7 @@ and documenting the associated type in the API documentation is a good practice.
 
 <a id="default-generic-type-parameters-and-operator-overloading"></a>
 
-### Using Default Generic Parameters and Operator Overloading
+### Using Default Generic Parameters and Operator Overloading {#using-default-generic-parameters-and-operator-overloading}
 
 When we use generic type parameters, we can specify a default concrete type for
 the generic type. This eliminates the need for implementors of the trait to
@@ -189,7 +189,7 @@ implementation code.
 <a id="fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name"></a>
 <a id="disambiguating-between-methods-with-the-same-name"></a>
 
-### Disambiguating Between Identically Named Methods
+### Disambiguating Between Identically Named Methods {#disambiguating-between-identically-named-methods}
 
 Nothing in Rust prevents a trait from having a method with the same name as
 another trait’s method, nor does Rust prevent you from implementing both traits
@@ -344,7 +344,7 @@ to identify which implementation you want to call.
 
 <a id="using-supertraits-to-require-one-traits-functionality-within-another-trait"></a>
 
-### Using Supertraits
+### Using Supertraits {#using-supertraits}
 
 Sometimes you might write a trait definition that depends on another trait: For
 a type to implement the first trait, you want to require that type to also
@@ -427,7 +427,7 @@ it within an outline of asterisks.
 <a id="using-the-newtype-pattern-to-implement-external-traits-on-external-types"></a>
 <a id="using-the-newtype-pattern-to-implement-external-traits"></a>
 
-### Implementing External Traits with the Newtype Pattern
+### Implementing External Traits with the Newtype Pattern {#implementing-external-traits-with-the-newtype-pattern}
 
 In the [“Implementing a Trait on a Type”][implementing-a-trait-on-a-type]<!--
 ignore --> section in Chapter 10, we mentioned the orphan rule that states

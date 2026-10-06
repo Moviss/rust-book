@@ -1,4 +1,4 @@
-# Programming a Guessing Game
+# Programming a Guessing Game {#programming-a-guessing-game}
 
 Let’s jump into Rust by working through a hands-on project together! This
 chapter introduces you to a few common Rust concepts by showing you how to use
@@ -15,7 +15,7 @@ correct, the game will print a congratulatory message and exit.
 
 > **Note:** there are no quizzes in this chapter, since it is just supposed to give you a feel for the language.
 
-## Setting Up a New Project
+## Setting Up a New Project {#setting-up-a-new-project}
 
 To set up a new project, go to the _projects_ directory that you created in
 Chapter 1 and make a new project using Cargo, like so:
@@ -68,7 +68,7 @@ the next one.
 
 Reopen the _src/main.rs_ file. You’ll be writing all the code in this file.
 
-## Processing a Guess
+## Processing a Guess {#processing-a-guess}
 
 The first part of the guessing game program will ask for user input, process
 that input, and check that the input is in the expected form. To start, we’ll
@@ -121,7 +121,7 @@ the screen:
 This code is printing a prompt stating what the game is and requesting input
 from the user.
 
-### Storing Values with Variables
+### Storing Values with Variables {#storing-values-with-variables}
 
 Next, we’ll create a _variable_ to store the user input, like this:
 
@@ -169,7 +169,7 @@ common name for a function that makes a new value of some kind.
 In full, the `let mut guess = String::new();` line has created a mutable
 variable that is currently bound to a new, empty instance of a `String`. Whew!
 
-### Receiving User Input
+### Receiving User Input {#receiving-user-input}
 
 Recall that we included the input/output functionality from the standard
 library with `use std::io;` on the first line of the program. Now we’ll call
@@ -209,7 +209,7 @@ thoroughly.)
 
 <a id="handling-potential-failure-with-the-result-type"></a>
 
-### Handling Potential Failure with `Result`
+### Handling Potential Failure with `Result` {#handling-potential-failure-with-result}
 
 We’re still working on this line of code. We’re now discussing a third line of
 text, but note that it’s still part of a single logical line of code. The next
@@ -268,7 +268,7 @@ but in our case we just want to crash this program when a problem occurs, so we
 can use `expect`. You’ll learn about recovering from errors in [Chapter
 9][recover]<!-- ignore -->.
 
-### Printing Values with `println!` Placeholders
+### Printing Values with `println!` Placeholders {#printing-values-with-println-placeholders}
 
 Aside from the closing curly bracket, there’s only one more line to discuss in
 the code so far:
@@ -295,7 +295,7 @@ println!("x = {x} and y + 2 = {}", y + 2);
 
 This code would print `x = 5 and y + 2 = 12`.
 
-### Testing the First Part
+### Testing the First Part {#testing-the-first-part}
 
 Let’s test the first part of the guessing game. Run it using `cargo run`:
 
@@ -319,7 +319,7 @@ You guessed: 6
 At this point, the first part of the game is done: We’re getting input from the
 keyboard and then printing it.
 
-## Generating a Secret Number
+## Generating a Secret Number {#generating-a-secret-number}
 
 Next, we need to generate a secret number that the user will try to guess. The
 secret number should be different every time so that the game is fun to play
@@ -331,7 +331,7 @@ crate][randcrate] with said functionality.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="using-a-crate-to-get-more-functionality"></a>
 
-### Increasing Functionality with a Crate
+### Increasing Functionality with a Crate {#increasing-functionality-with-a-crate}
 
 Remember that a crate is a collection of Rust source code files. The project
 we’ve been building is a binary crate, which is an executable. The `rand` crate
@@ -452,7 +452,7 @@ reuse what it has already downloaded and compiled for those.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="ensuring-reproducible-builds-with-the-cargo-lock-file"></a>
 
-#### Ensuring Reproducible Builds
+#### Ensuring Reproducible Builds {#ensuring-reproducible-builds}
 
 Cargo has a mechanism that ensures that you can rebuild the same artifact every
 time you or anyone else builds your code: Cargo will use only the versions of
@@ -473,7 +473,7 @@ remain at 0.8.5 until you explicitly upgrade, thanks to the _Cargo.lock_ file.
 Because the _Cargo.lock_ file is important for reproducible builds, it’s often
 checked into source control with the rest of the code in your project.
 
-#### Updating a Crate to Get a New Version
+#### Updating a Crate to Get a New Version {#updating-a-crate-to-get-a-new-version}
 
 When you _do_ want to update a crate, Cargo provides the command `update`,
 which will ignore the _Cargo.lock_ file and figure out all the latest versions
@@ -518,7 +518,7 @@ for now, that’s all you need to know. Cargo makes it very easy to reuse
 libraries, so Rustaceans are able to write smaller projects that are assembled
 from a number of packages.
 
-### Generating a Random Number
+### Generating a Random Number {#generating-a-random-number}
 
 Let’s start using `rand` to generate a number to guess. The next step is to
 update _src/main.rs_, as shown in Listing 2-3.
@@ -593,7 +593,7 @@ You guessed: 5
 You should get different random numbers, and they should all be numbers between
 1 and 100. Great job!
 
-## Comparing the Guess to the Secret Number
+## Comparing the Guess to the Secret Number {#comparing-the-guess-to-the-secret-number}
 
 Now that we have user input and a random number, we can compare them. That step
 is shown in Listing 2-4. Note that this code won’t compile just yet, as we will
@@ -758,7 +758,7 @@ guess a number that is too high, and guess a number that is too low.
 We have most of the game working now, but the user can make only one guess.
 Let’s change that by adding a loop!
 
-## Allowing Multiple Guesses with Looping
+## Allowing Multiple Guesses with Looping {#allowing-multiple-guesses-with-looping}
 
 The `loop` keyword creates an infinite loop. We’ll add a loop to give users
 more chances at guessing the number:
@@ -822,7 +822,7 @@ Typing `quit` will quit the game, but as you’ll notice, so will entering any
 other non-number input. This is suboptimal, to say the least; we want the game
 to also stop when the correct number is guessed.
 
-### Quitting After a Correct Guess
+### Quitting After a Correct Guess {#quitting-after-a-correct-guess}
 
 Let’s program the game to quit when the user wins by adding a `break` statement:
 
@@ -836,7 +836,7 @@ Adding the `break` line after `You win!` makes the program exit the loop when
 the user guesses the secret number correctly. Exiting the loop also means
 exiting the program, because the loop is the last part of `main`.
 
-### Handling Invalid Input
+### Handling Invalid Input {#handling-invalid-input}
 
 To further refine the game’s behavior, rather than crashing the program when
 the user inputs a non-number, let’s make the game ignore a non-number so that
@@ -922,7 +922,7 @@ secret number. Listing 2-6 shows the final code.
 
 At this point, you’ve successfully built the guessing game. Congratulations!
 
-## Summary
+## Summary {#summary}
 
 This project was a hands-on way to introduce you to many new Rust concepts:
 `let`, `match`, functions, the use of external crates, and more. In the next

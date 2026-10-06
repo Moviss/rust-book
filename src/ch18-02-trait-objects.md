@@ -2,7 +2,7 @@
 
 <a id="using-trait-objects-that-allow-for-values-of-different-types"></a>
 
-## Using Trait Objects to Abstract over Shared Behavior
+## Using Trait Objects to Abstract over Shared Behavior {#using-trait-objects-to-abstract-over-shared-behavior}
 
 In Chapter 8, we mentioned that one limitation of vectors is that they can
 store elements of only one type. We created a workaround in Listing 8-9 where
@@ -39,7 +39,7 @@ they were `Component` instances and call `draw` on them. But because Rust
 doesn’t have inheritance, we need another way to structure the `gui` library to
 allow users to create new types compatible with the library.
 
-### Defining a Trait for Common Behavior
+### Defining a Trait for Common Behavior {#defining-a-trait-for-common-behavior}
 
 To implement the behavior that we want `gui` to have, we’ll define a trait
 named `Draw` that will have one method named `draw`. Then, we can define a
@@ -125,7 +125,7 @@ can hold a `Vec<T>` that contains a `Box<Button>` as well as a
 `Box<TextField>`. Let’s look at how this works, and then we’ll talk about the
 runtime performance implications.
 
-### Implementing the Trait
+### Implementing the Trait {#implementing-the-trait}
 
 Now we’ll add some types that implement the `Draw` trait. We’ll provide the
 `Button` type. Again, actually implementing a GUI library is beyond the scope
@@ -163,7 +163,7 @@ on the `SelectBox` type as well, as shown in Listing 18-8.
 
 </Listing>
 
-### Using the Trait
+### Using the Trait {#using-the-trait}
 
 Our library’s user can now write their `main` function to create a `Screen`
 instance. To the `Screen` instance, they can add a `SelectBox` and a `Button`
@@ -224,7 +224,7 @@ didn’t mean to pass and so should pass a different type, or we should implemen
 
 <!-- BEGIN INTERVENTION: cce62358-5291-4eb3-84d6-fbc570873ee3 -->
 
-### Trait Objects and Type Inference
+### Trait Objects and Type Inference {#trait-objects-and-type-inference}
 
 One downside to using trait objects is how they interact with type inference. 
 For example, consider type inference for `Vec<T>`. When `T` is not a trait object,
@@ -313,7 +313,7 @@ API clients in the case of type inference.
 
 <a id="trait-objects-perform-dynamic-dispatch"></a>
 
-### Performing Dynamic Dispatch
+### Performing Dynamic Dispatch {#performing-dynamic-dispatch}
 
 Recall in [“Performance of Code Using
 Generics”][performance-of-code-using-generics]<!-- ignore --> in Chapter 10 our

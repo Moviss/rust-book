@@ -1,11 +1,11 @@
-## Generic Data Types
+## Generic Data Types {#generic-data-types}
 
 We use generics to create definitions for items like function signatures or
 structs, which we can then use with many different concrete data types. Let’s
 first look at how to define functions, structs, enums, and methods using
 generics. Then, we’ll discuss how generics affect code performance.
 
-### In Function Definitions
+### In Function Definitions {#in-function-definitions}
 
 When defining a function that uses generics, we place the generics in the
 signature of the function where we would usually specify the data types of the
@@ -79,7 +79,7 @@ In a language like C++ with [templates](https://en.cppreference.com/w/cpp/langua
 Additionally, unlike languages like Java where all objects have a set of core methods like [`Object.toString()`](https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#toString()), there are no core methods in Rust. Without restrictions, a generic type `T` has no capabilities: it cannot be printed, cloned, or mutated (although it can be dropped).
 <!-- END INTERVENTION -->
 
-### In Struct Definitions
+### In Struct Definitions {#in-struct-definitions}
 
 We can also define structs to use a generic type parameter in one or more
 fields using the `<>` syntax. Listing 10-6 defines a `Point<T>` struct to hold
@@ -140,7 +140,7 @@ your code hard to read. If you’re finding you need lots of generic types in
 your code, it could indicate that your code needs restructuring into smaller
 pieces.
 
-### In Enum Definitions
+### In Enum Definitions {#in-enum-definitions}
 
 As we did with structs, we can define enums to hold generic data types in their
 variants. Let’s take another look at the `Option<T>` enum that the standard
@@ -183,7 +183,7 @@ When you recognize situations in your code with multiple struct or enum
 definitions that differ only in the types of the values they hold, you can
 avoid duplication by using generic types instead.
 
-### In Method Definitions
+### In Method Definitions {#in-method-definitions}
 
 We can implement methods on structs and enums (as we did in Chapter 5) and use
 generic types in their definitions too. Listing 10-9 shows the `Point<T>`
@@ -263,7 +263,7 @@ definition. Here, the generic parameters `X1` and `Y1` are declared after
 and `Y2` are declared after `fn mixup` because they’re only relevant to the
 method.
 
-### Performance of Code Using Generics
+### Performance of Code Using Generics {#performance-of-code-using-generics}
 
 You might be wondering whether there is a runtime cost when using generic type
 parameters. The good news is that using generic types won’t make your program

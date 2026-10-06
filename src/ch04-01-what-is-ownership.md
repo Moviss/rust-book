@@ -1,8 +1,8 @@
-## What Is Ownership?
+## What Is Ownership? {#what-is-ownership}
 
 Ownership is a discipline for ensuring the **safety** of Rust programs. To understand ownership, we first need to understand what makes a Rust program safe (or unsafe).
 
-### Safety is the Absence of Undefined Behavior
+### Safety is the Absence of Undefined Behavior {#safety-is-the-absence-of-undefined-behavior}
 
 Let's start with an example. This program is safe to execute:
 
@@ -96,7 +96,7 @@ A secondary goal of Rust is to prevent undefined behavior at _compile-time_ inst
 
 Rust cannot prevent all bugs. If an application exposes a public and unauthenticated `/delete-production-database` endpoint, then a malicious actor doesn't need a suspicious if-statement to delete the database. But Rust's protections are still likely to make programs safer versus using a language with fewer protections, e.g. as found by [Google's Android team](https://security.googleblog.com/2022/12/memory-safe-languages-in-android-13.html).
 
-### Ownership as a Discipline for Memory Safety
+### Ownership as a Discipline for Memory Safety {#ownership-as-a-discipline-for-memory-safety}
 
 Since safety is the absence of undefined behavior, and since ownership is about safety, then we need to understand ownership in terms of the undefined behaviors it prevents. The Rust Reference maintains a large list of ["Behavior considered undefined"](https://doc.rust-lang.org/reference/behavior-considered-undefined.html). For now, we will focus on one category: operations on memory.
 
@@ -109,7 +109,7 @@ Both of these memory models are _valid_, but they are not _useful_ ways to think
 
 Rust provides a particular way to think about memory. Ownership is a discipline for safely using memory within that way of thinking. The rest of this chapter will explain the Rust model of memory.
 
-### Variables Live in the Stack
+### Variables Live in the Stack {#variables-live-in-the-stack}
 
 Here's a program like the one you saw in Section 3.3 that defines a number `n` and calls a function `plus_one` on `n`. Beneath the program is a new kind of diagram. This diagram visualizes the contents of memory during the program's execution at the three marked points.
 
@@ -147,7 +147,7 @@ b += 1;`[]`
 
 The value of `a` is copied into `b`, and `a` is left unchanged, even after changing `b`.
 
-### Boxes Live in the Heap
+### Boxes Live in the Heap {#boxes-live-in-the-heap}
 
 However, copying data can take up a lot of memory. For example, here's a slightly different program. This program copies an array with 1 million elements:
 
@@ -173,7 +173,7 @@ Observe that now, there is only ever a single array at a time. At L1, the value 
 
 {{#quiz ../quizzes/ch04-01-ownership-sec1-stackheap.toml}}
 
-### Rust Does Not Permit Manual Memory Management
+### Rust Does Not Permit Manual Memory Management {#rust-does-not-permit-manual-memory-management}
 
 Memory management is the process of allocating memory and deallocating memory. In other words, it's the process of finding unused memory and later returning that memory when it is no longer used. Stack frames are automatically managed by Rust. When a function is called, Rust allocates a stack frame for the called function. When the call ends, Rust deallocates the stack frame.
 
@@ -196,7 +196,7 @@ The undefined behavior happens when we try to *use* the pointer by reading `b[0]
 
 Rust does not allow programs to manually deallocate memory. That policy avoids the kinds of undefined behaviors shown above.
 
-### A Box's Owner Manages Deallocation
+### A Box's Owner Manages Deallocation {#a-boxs-owner-manages-deallocation}
 
 Instead, Rust _automatically_ frees a box's heap memory. Here is an _almost_ correct description of Rust's policy for freeing boxes:
 
@@ -235,7 +235,7 @@ To avoid this situation, we finally arrive at ownership. When `a` is bound to `B
 In the example above, `b` owns the boxed array. Therefore when the scope ends, Rust deallocates the box only once on behalf of `b`, not `a`.
 
 
-### Collections Use Boxes
+### Collections Use Boxes {#collections-use-boxes}
 
 Boxes are used by Rust data structures[^boxed-data-structures] like [`Vec`](https://doc.rust-lang.org/std/vec/struct.Vec.html), [`String`](https://doc.rust-lang.org/std/string/struct.String.html), and [`HashMap`](https://doc.rust-lang.org/std/collections/struct.HashMap.html) to hold a variable number of elements. For example, here's a program that creates, moves, and mutates a string:
 
@@ -260,7 +260,7 @@ This program is more involved, so make sure you follow each step:
 4. At L4, the frame for `add_suffix` is gone. This function returned `name`, transferring ownership of the string to `full`.
 
 
-### Variables Cannot Be Used After Being Moved
+### Variables Cannot Be Used After Being Moved {#variables-cannot-be-used-after-being-moved}
 
 The string program helps illustrate a key safety principle for ownership. Imagine that `first` was used in `main` after calling `add_suffix`. We can simulate such a program and see the undefined behavior that results:
 
@@ -301,7 +301,7 @@ So if you move a variable, Rust will stop you from using that variable later. Mo
 
 Now you should start to see the relationship between ownership, moves, and safety. Moving ownership of heap data avoids undefined behavior from reading deallocated memory.
 
-### Cloning Avoids Moves
+### Cloning Avoids Moves {#cloning-avoids-moves}
 
 One way to avoid moving data is to *clone* it using the `.clone()` method. For example, we can fix the safety issue in the previous program with a clone:
 
@@ -323,7 +323,7 @@ Observe that at L1, `first_clone` did not "shallow" copy the pointer in `first`,
 
 {{#quiz ../quizzes/ch04-01-ownership-sec2-moves.toml}}
 
-### Summary
+### Summary {#summary}
 
 Ownership is primarily a discipline of heap management:[^pointer-management]
 

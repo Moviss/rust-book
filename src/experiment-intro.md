@@ -1,4 +1,4 @@
-# What's Different About This Book?
+# What's Different About This Book? {#whats-different-about-this-book}
 
 <div style="display: flex; gap: 2em"> 
 
@@ -11,7 +11,7 @@ This book is an experimental fork of [*The Rust Programming Language*](http://do
 </div>
 
 
-## Interactive Mechanics
+## Interactive Mechanics {#interactive-mechanics}
 
 This book introduces mechanics for you to actively engage with Rust while learning. First, you'll see quizzes like the one below. Try it out by clicking "Start".
 
@@ -25,7 +25,7 @@ Second, you can also annotate any piece of text to record your thoughts about it
 
 > **Note:** your highlights will disappear if we change the content that you've highlighted. Also, your highlights are stored as a cookie. If you block cookies or change browsers, then you won't see your previous highlights.
 
-## Content Changes
+## Content Changes {#content-changes}
 
 This book's content is mostly similar to TRPL, and we synchronize the books every few months. The biggest difference is the chapter on [Understanding Ownership][understanding-ownership]. This book explains ownership using ideas and visualizations that our research has demonstrated can better improve your understanding of Rust compared to the original book. You will see many diagrams like the ones below, which visualize the compile-time and run-time behavior of Rust using [Aquascope][aquascope]:
 
@@ -43,7 +43,7 @@ Beyond ownership, we've made a number of small edits to the book to target misco
 _Interested in participating in other experiments about making Rust easier to learn and use? Please sign up here:_ <https://forms.gle/U3jEUkb2fGXykp1DA>
 
 
-## Publications
+## Publications {#publications}
 
 Thus far, this experiment has led to two open-access publications. Check them out if you're interested to see the academic research behind this book:
 
@@ -53,7 +53,7 @@ Thus far, this experiment has led to two open-access publications. Check them ou
 * ["A Grounded Conceptual Model for Ownership Types in Rust"](https://dl.acm.org/doi/10.1145/3622841) <br />
   [Will Crichton][will], [Gavin Gray][gavin], and [Shriram Krishnamurthi][shriram]. OOPSLA 2023. (SIGPLAN Research Highlight and Communications of the ACM Research Highlight.)
 
-## Acknowledgments
+## Acknowledgments {#acknowledgments}
 
 This work was partially supported by the DARPA under Agreement No. HR00112420354, partially supported by the NSF under Award No. CCF-2227863, and partially supported by Amazon Web Services. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not reflect the views of our funders. We are grateful to Carol Nichols and the Rust Foundation for helping publicize the experiment. TRPL is the product of many people's hard work before we started this experiment.
 

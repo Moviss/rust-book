@@ -1,4 +1,4 @@
-## Implementing an Object-Oriented Design Pattern
+## Implementing an Object-Oriented Design Pattern {#implementing-an-object-oriented-design-pattern}
 
 The _state pattern_ is an object-oriented design pattern. The crux of the
 pattern is that we define a set of states a value can have internally. The
@@ -40,7 +40,7 @@ should remain an unpublished draft.
 
 <a id="a-traditional-object-oriented-attempt"></a>
 
-### Attempting Traditional Object-Oriented Style
+### Attempting Traditional Object-Oriented Style {#attempting-traditional-object-oriented-style}
 
 There are infinite ways to structure code to solve the same problem, each with
 different trade-offs. This section’s implementation is more of a traditional
@@ -89,7 +89,7 @@ with the states, such as publishing a post before it’s reviewed.
 
 <a id="defining-post-and-creating-a-new-instance-in-the-draft-state"></a>
 
-#### Defining `Post` and Creating a New Instance
+#### Defining `Post` and Creating a New Instance {#defining-post-and-creating-a-new-instance}
 
 Let’s get started on the implementation of the library! We know we need a
 public `Post` struct that holds some content, so we’ll start with the
@@ -123,7 +123,7 @@ a draft. Because the `state` field of `Post` is private, there is no way to
 create a `Post` in any other state! In the `Post::new` function, we set the
 `content` field to a new, empty `String`.
 
-#### Storing the Text of the Post Content
+#### Storing the Text of the Post Content {#storing-the-text-of-the-post-content}
 
 We saw in Listing 18-11 that we want to be able to call a method named
 `add_text` and pass it a `&str` that is then added as the text content of the
@@ -153,7 +153,7 @@ support.
 
 <a id="ensuring-the-content-of-a-draft-post-is-empty"></a>
 
-#### Ensuring That the Content of a Draft Post Is Empty
+#### Ensuring That the Content of a Draft Post Is Empty {#ensuring-that-the-content-of-a-draft-post-is-empty}
 
 Even after we’ve called `add_text` and added some content to our post, we still
 want the `content` method to return an empty string slice because the post is
@@ -181,7 +181,7 @@ With this added `content` method, everything in Listing 18-11 through the first
 <a id="requesting-a-review-of-the-post-changes-its-state"></a>
 <a id="requesting-a-review-changes-the-posts-state"></a>
 
-#### Requesting a Review, Which Changes the Post’s State
+#### Requesting a Review, Which Changes the Post’s State {#requesting-a-review-which-changes-the-posts-state}
 
 Next, we need to add functionality to request a review of a post, which should
 change its state from `Draft` to `PendingReview`. Listing 18-15 shows this code.
@@ -241,7 +241,7 @@ Listing 18-11 now works up to the second `assert_eq!` call!
 <a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 <a id="adding-approve-to-change-the-behavior-of-content"></a>
 
-#### Adding `approve` to Change `content`'s Behavior
+#### Adding `approve` to Change `content`'s Behavior {#adding-approve-to-change-contents-behavior}
 
 The `approve` method will be similar to the `request_review` method: It will
 set `state` to the value that the current state says it should have when that
@@ -330,7 +330,7 @@ And we’re done—all of Listing 18-11 now works! We’ve implemented the state
 pattern with the rules of the blog post workflow. The logic related to the
 rules lives in the state objects rather than being scattered throughout `Post`.
 
-> ### Why Not An Enum?
+> ### Why Not An Enum? {#why-not-an-enum}
 >
 > You may have been wondering why we didn’t use an enum with the different
 > possible post states as variants. That’s certainly a possible solution; try it
@@ -343,7 +343,7 @@ rules lives in the state objects rather than being scattered throughout `Post`.
 
 <a id="trade-offs-of-the-state-pattern"></a>
 
-#### Evaluating the State Pattern
+#### Evaluating the State Pattern {#evaluating-the-state-pattern}
 
 We’ve shown that Rust is capable of implementing the object-oriented state
 pattern to encapsulate the different kinds of behavior a post should have in
@@ -402,7 +402,7 @@ languages, we’re not taking as full advantage of Rust’s strengths as we coul
 Let’s look at some changes we can make to the `blog` crate that can make
 invalid states and transitions into compile-time errors.
 
-### Encoding States and Behavior as Types
+### Encoding States and Behavior as Types {#encoding-states-and-behavior-as-types}
 
 We’ll show you how to rethink the state pattern to get a different set of
 trade-offs. Rather than encapsulating the states and transitions completely so
@@ -526,7 +526,7 @@ preventing some bugs at compile time. Object-oriented patterns won’t always be
 the best solution in Rust due to certain features, like ownership, that
 object-oriented languages don’t have.
 
-## Summary
+## Summary {#summary}
 
 Regardless of whether you think Rust is an object-oriented language after
 reading this chapter, you now know that you can use trait objects to get some

@@ -1,4 +1,4 @@
-## References and Borrowing
+## References and Borrowing {#references-and-borrowing}
 
 Ownership, boxes, and moves provide a foundation for safely programming with the heap. However, move-only APIs can be inconvenient to use. For example, say you want to read some strings twice:
 
@@ -41,7 +41,7 @@ fn greet(g1: String, g2: String) -> (String, String) {
 
 However, this style of program is quite verbose. Rust provides a concise style of reading and writing without moves through references.
 
-### References Are Non-Owning Pointers
+### References Are Non-Owning Pointers {#references-are-non-owning-pointers}
 
 A **reference** is a kind of pointer. Here's an example of a reference that rewrites our `greet` program in a more convenient manner:
 
@@ -70,7 +70,7 @@ While `m1` owns the heap data "Hello", `g1` does _not_ own either `m1` or "Hello
 
 References are **non-owning pointers**, because they do not own the data they point to.
 
-### Dereferencing a Pointer Accesses Its Data
+### Dereferencing a Pointer Accesses Its Data {#dereferencing-a-pointer-accesses-its-data}
 
 The previous examples using boxes and strings have not shown how Rust "follows" a pointer to its data. For example, the `println!` macro has mysteriously worked for both owned strings of type `String`, and for string references of type `&String`. The underlying mechanism is the **dereference** operator, written with an asterisk (`*`). For example, here's a program that uses dereferences in a few different ways:
 
@@ -123,7 +123,7 @@ We will say more about method calls and implicit conversions in later chapters. 
 
 {{#quiz ../quizzes/ch04-02-references-sec1-basics.toml}}
 
-### Rust Avoids Simultaneous Aliasing and Mutation
+### Rust Avoids Simultaneous Aliasing and Mutation {#rust-avoids-simultaneous-aliasing-and-mutation}
 
 Pointers are a powerful and dangerous feature because they enable **aliasing**. Aliasing is accessing the same data through different variables. On its own, aliasing is harmless. But combined with **mutation**, we have a recipe for disaster. One variable can "pull the rug out" from another variable in many ways, for example:
 
@@ -175,7 +175,7 @@ Data can be aliased. Data can be mutated. But data cannot be _both_ aliased _and
 
 However, because references are non-owning pointers, they need different rules than boxes to ensure the *Pointer Safety Principle*. By design, references are meant to temporarily create aliases. In the rest of this section, we will explain the basics of how Rust ensures the safety of references through the **borrow checker.**
 
-### References Change Permissions on Places
+### References Change Permissions on Places {#references-change-permissions-on-places}
 
 The core idea behind the borrow checker is that variables have three kinds of **permissions** on their data:
 
@@ -247,7 +247,7 @@ v.push(4);
 It's only a problem if you attempt to use `num` again *after* mutating `v`. Let's look at this in more detail.
 
 
-### The Borrow Checker Finds Permission Violations
+### The Borrow Checker Finds Permission Violations {#the-borrow-checker-finds-permission-violations}
 
 Recall the *Pointer Safety Principle*: data should not be aliased and mutated. The goal of these permissions is to ensure that data cannot be mutated if it is aliased. Creating a reference to data ("borrowing" it) causes that data to be temporarily read-only until the reference is no longer in use.
 
@@ -283,7 +283,7 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 The error message explains that `v` cannot be mutated while the reference `num` is in use. That's the surface-level reason &mdash; the underlying issue is that `num` could be invalidated by `push`. Rust catches that potential violation of memory safety.
 
 
-### Mutable References Provide Unique and Non-Owning Access to Data
+### Mutable References Provide Unique and Non-Owning Access to Data {#mutable-references-provide-unique-and-non-owning-access-to-data}
 
 The references we have seen so far are read-only **immutable references** (also called **shared references**). Immutable references permit aliasing but disallow mutation. However, it is also useful to temporarily provide mutable access to data without moving it.
 
@@ -326,7 +326,7 @@ println!("{} {}", *num, *num2);
 In this program, the borrow `&*num` removes the @Perm{write} permission from `*num` but _not_ the @Perm{read} permission, so `println!(..)` can read both `*num` and `*num2`.
 
 
-### Permissions Are Returned At The End of a Reference's Lifetime
+### Permissions Are Returned At The End of a Reference's Lifetime {#permissions-are-returned-at-the-end-of-a-references-lifetime}
 
 We said above that a reference changes permissions while it is "in use". The phrase "in use" is describing a reference's **lifetime**, or the range of code spanning from its birth (where the reference is created) to its death (the last time(s) the reference is used).
 
@@ -364,7 +364,7 @@ However, in the else-block, `c` is not used. `*v` immediately regains the @Perm{
 {{#quiz ../quizzes/ch04-02-references-sec2-perms.toml}}
 
 
-### Data Must Outlive All Of Its References
+### Data Must Outlive All Of Its References {#data-must-outlive-all-of-its-references}
 
 As a part of the *Pointer Safety Principle*, the borrow checker enforces that **data must outlive any references to it.** Rust enforces this property in two ways. The first way deals with references that are created and dropped within the scope of a single function. For example, say we tried to drop a string while holding a reference to it:
 
@@ -446,7 +446,7 @@ This program is unsafe because the reference `&s` will be invalidated when `retu
 {{#quiz ../quizzes/ch04-02-references-sec3-safety.toml}}
 
 
-### Summary
+### Summary {#summary}
 
 References provide the ability to read and write data without consuming ownership of it. References are created with borrows (`&` and `&mut`) and used with dereferences (`*`), often implicitly.
 

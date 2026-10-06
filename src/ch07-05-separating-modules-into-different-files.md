@@ -1,4 +1,4 @@
-## Separating Modules into Different Files
+## Separating Modules into Different Files {#separating-modules-into-different-files}
 
 So far, all the examples in this chapter defined multiple modules in one file.
 When modules get large, you might want to move their definitions to a separate
@@ -79,7 +79,7 @@ root and not declared as a child of the `front_of_house` module. The
 compiler’s rules for which files to check for which modules’ code mean the
 directories and files more closely match the module tree.
 
-> ### Alternate File Paths
+> ### Alternate File Paths {#alternate-file-paths}
 >
 > So far we’ve covered the most idiomatic file paths the Rust compiler uses,
 > but Rust also supports an older style of file path. For a module named
@@ -116,7 +116,7 @@ that module.
 
 {{#quiz ../quizzes/ch07-05-files.toml}}
 
-## Summary
+## Summary {#summary}
 
 Rust lets you split a package into multiple crates and a crate into modules so
 that you can refer to items defined in one module from another module. You can

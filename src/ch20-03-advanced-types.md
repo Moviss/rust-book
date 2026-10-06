@@ -1,4 +1,4 @@
-## Advanced Types
+## Advanced Types {#advanced-types}
 
 The Rust type system has some features that we’ve so far mentioned but haven’t
 yet discussed. We’ll start by discussing newtypes in general as we examine why
@@ -10,7 +10,7 @@ the `!` type and dynamically sized types.
 
 <a id="using-the-newtype-pattern-for-type-safety-and-abstraction"></a>
 
-### Type Safety and Abstraction with the Newtype Pattern
+### Type Safety and Abstraction with the Newtype Pattern {#type-safety-and-abstraction-with-the-newtype-pattern}
 
 This section assumes you’ve read the earlier section [“Implementing External
 Traits with the Newtype Pattern”][newtype]<!-- ignore -->. The newtype pattern
@@ -41,7 +41,7 @@ section in Chapter 18.
 
 <a id="creating-type-synonyms-with-type-aliases"></a>
 
-### Type Synonyms and Type Aliases
+### Type Synonyms and Type Aliases {#type-synonyms-and-type-aliases}
 
 Rust provides the ability to declare a _type alias_ to give an existing type
 another name. For this we use the `type` keyword. For example, we can create
@@ -136,7 +136,7 @@ us a consistent interface across all of `std::io`. Because it’s an alias, it�
 just another `Result<T, E>`, which means we can use any methods that work on
 `Result<T, E>` with it, as well as special syntax like the `?` operator.
 
-### The Never Type That Never Returns
+### The Never Type That Never Returns {#the-never-type-that-never-returns}
 
 Rust has a special type named `!` that’s known in type theory lingo as the
 _empty type_ because it has no values. We prefer to call it the _never type_
@@ -212,7 +212,7 @@ Here, the loop never ends, so `!` is the value of the expression. However, this
 wouldn’t be true if we included a `break`, because the loop would terminate
 when it got to the `break`.
 
-### Dynamically Sized Types and the `Sized` Trait
+### Dynamically Sized Types and the `Sized` Trait {#dynamically-sized-types-and-the-sized-trait}
 
 Rust needs to know certain details about its types, such as how much space to
 allocate for a value of a particular type. This leaves one corner of its type

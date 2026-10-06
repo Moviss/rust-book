@@ -1,4 +1,4 @@
-## Working with Environment Variables
+## Working with Environment Variables {#working-with-environment-variables}
 
 We’ll improve the `minigrep` binary by adding an extra feature: an option for
 case-insensitive searching that the user can turn on via an environment
@@ -10,7 +10,7 @@ and have all their searches be case insensitive in that terminal session.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="writing-a-failing-test-for-the-case-insensitive-search-function"></a>
 
-### Writing a Failing Test for Case-Insensitive Search
+### Writing a Failing Test for Case-Insensitive Search {#writing-a-failing-test-for-case-insensitive-search}
 
 We first add a new `search_case_insensitive` function to the `minigrep` library
 that will be called when the environment variable has a value. We’ll continue
@@ -43,7 +43,7 @@ the `search_case_insensitive` function. Feel free to add a skeleton
 implementation that always returns an empty vector, similar to the way we did
 for the `search` function in Listing 12-16 to see the test compile and fail.
 
-### Implementing the `search_case_insensitive` Function
+### Implementing the `search_case_insensitive` Function {#implementing-the-search_case_insensitive-function}
 
 The `search_case_insensitive` function, shown in Listing 12-21, will be almost
 the same as the `search` function. The only difference is that we’ll lowercase

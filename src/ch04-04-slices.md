@@ -1,4 +1,4 @@
-## The Slice Type
+## The Slice Type {#the-slice-type}
 
 *Slices* let you reference a contiguous sequence of elements in a [collection](ch08-00-common-collections.md) 
 rather than the whole collection. A slice is a kind of reference, so it is a non-owning pointer.
@@ -117,7 +117,7 @@ need to be kept in sync.
 
 Luckily, Rust has a solution to this problem: string slices.
 
-### String Slices
+### String Slices {#string-slices}
 
 A *string slice* is a reference to part of a `String`, and it looks like this:
 
@@ -168,7 +168,7 @@ fn main() {
 }
 ```
 
-#### Range syntax
+#### Range syntax {#range-syntax}
 
 With Rust’s `..` range syntax, if you want to start at index zero, you can drop
 the value before the two periods. In other words, these are equal:
@@ -211,7 +211,7 @@ let slice = &s[..];
 > more thorough discussion of UTF-8 handling is in the [“Storing UTF-8 Encoded
 > Text with Strings”][strings]<!-- ignore --> section of Chapter 8.
 
-#### Rewriting `first_word` with string slices
+#### Rewriting `first_word` with string slices {#rewriting-first_word-with-string-slices}
 
 With all this information in mind, let’s rewrite `first_word` to return a
 slice. The type that signifies “string slice” is written as `&str`:
@@ -284,7 +284,7 @@ reference in `clear` and the immutable reference in `word` from existing at the
 same time, and compilation fails. Not only has Rust made our API easier to use,
 but it has also eliminated an entire class of errors at compile time!
 
-#### String Literals Are Slices
+#### String Literals Are Slices {#string-literals-are-slices}
 
 Recall that we talked about string literals being stored inside the binary. Now
 that we know about slices, we can properly understand string literals:
@@ -297,7 +297,7 @@ The type of `s` here is `&str`: it’s a slice pointing to that specific point o
 the binary. This is also why string literals are immutable; `&str` is an
 immutable reference.
 
-#### String Slices as Parameters
+#### String Slices as Parameters {#string-slices-as-parameters}
 
 Knowing that you can take slices of literals and `String` values leads us to
 one more improvement on `first_word`, and that’s its signature:
@@ -332,7 +332,7 @@ makes our API more general and useful without losing any functionality:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}
 ```
 
-### Other Slices
+### Other Slices {#other-slices}
 
 String slices, as you might imagine, are specific to strings. But there’s a
 more general slice type, too. Consider this array:
@@ -359,7 +359,7 @@ detail when we talk about vectors in Chapter 8.
 
 {{#quiz ../quizzes/ch04-04-slices.toml}}
 
-## Summary
+## Summary {#summary}
 
 Slices are a special kind of reference that refer to sub-ranges of a sequence, like a 
 string or a vector. At runtime, a slice is represented as a "fat pointer" which contains

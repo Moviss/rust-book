@@ -60,7 +60,7 @@ pub fn rewrite(text: &str) -> String {
             }
 
             (StartingBlockquote(blockquote_events), Text(content)) => {
-                if content.starts_with("Note: ") {
+                if content.starts_with("Note: ") || content.starts_with("Uwaga: ") {
                     // This needs the "extra" `SoftBreak`s so that when the final rendering pass
                     // happens, it does not end up treating the internal content as inline *or*
                     // treating the HTML tags as inline tags:

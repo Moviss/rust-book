@@ -3,7 +3,7 @@
 <a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
 <a id="closures-anonymous-functions-that-capture-their-environment"></a>
 
-## Closures
+## Closures {#closures}
 
 Rust’s closures are anonymous functions you can save in a variable or pass as
 arguments to other functions. You can create the closure in one place and then
@@ -19,7 +19,7 @@ customization.
 <a id="refactoring-with-closures-to-store-code"></a>
 <a id="capturing-the-environment-with-closures"></a>
 
-### Capturing the Environment
+### Capturing the Environment {#capturing-the-environment}
 
 We’ll first examine how we can use closures to capture values from the
 environment they’re defined in for later use. Here’s the scenario: Every so
@@ -89,7 +89,7 @@ are not able to capture their environment in this way.
 
 <a id="closure-type-inference-and-annotation"></a>
 
-### Inferring and Annotating Closure Types
+### Inferring and Annotating Closure Types {#inferring-and-annotating-closure-types}
 
 There are more differences between functions and closures. Closures don’t
 usually require you to annotate the types of the parameters or the return value
@@ -175,7 +175,7 @@ error when we next try to use a different type with the same closure.
 
 {{#quiz ../quizzes/ch13-01-closures-sec1.toml}}
 
-### Capturing References or Moving Ownership
+### Capturing References or Moving Ownership {#capturing-references-or-moving-ownership}
 
 Closures can capture values from their environment in three ways, which
 directly map to the three ways a function can take a parameter: borrowing
@@ -275,7 +275,7 @@ errors you get!
 <a id="moving-captured-values-out-of-the-closure-and-the-fn-traits"></a>
 <a id="moving-captured-values-out-of-closures-and-the-fn-traits"></a>
 
-### Moving Captured Values Out of Closures
+### Moving Captured Values Out of Closures {#moving-captured-values-out-of-closures}
 
 Once a closure has captured a reference or captured ownership of a value from
 the environment where the closure is defined (thus affecting what, if anything,

@@ -1,4 +1,4 @@
-# Fundamentals of Asynchronous Programming: Async, Await, Futures, and Streams
+# Fundamentals of Asynchronous Programming: Async, Await, Futures, and Streams {#fundamentals-of-asynchronous-programming-async-await-futures-and-streams}
 
 Many operations we ask the computer to do can take a while to finish. It would
 be nice if we could do something else while we’re waiting for those
@@ -88,7 +88,7 @@ following topics:
 Before we see how async works in practice, though, we need to take a short
 detour to discuss the differences between parallelism and concurrency.
 
-## Parallelism and Concurrency
+## Parallelism and Concurrency {#parallelism-and-concurrency}
 
 We’ve treated parallelism and concurrency as mostly interchangeable so far. Now
 we need to distinguish between them more precisely, because the differences

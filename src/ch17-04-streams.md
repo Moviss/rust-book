@@ -2,7 +2,7 @@
 
 <a id="streams"></a>
 
-## Streams: Futures in Sequence
+## Streams: Futures in Sequence {#streams-futures-in-sequence}
 
 Recall how we used the receiver for our async channel earlier in this chapter
 in the [“Message Passing”][17-02-messages]<!-- ignore --> section. The async

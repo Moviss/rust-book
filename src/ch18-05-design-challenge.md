@@ -1,4 +1,4 @@
-# Design Trade-offs
+# Design Trade-offs {#design-trade-offs}
 
 This section is about **design trade-offs** in Rust. To be an effective Rust engineer, it's not enough just to know how Rust works. You have to decide which of Rust's many tools are appropriate for a given job. In this section, we will give you a sequence of quizzes about your understanding of design trade-offs in Rust.  After each quiz, we will explain in-depth our rationale for each question.
 
@@ -67,7 +67,7 @@ Now you try with the questions below! Each section contains a quiz focused on a 
 
 Along with each quiz, we have also provided links to popular Rust crates that served as inspiration for the quiz.
 
-## References
+## References {#references}
 
 *Inspiration:* [Bevy assets], [Petgraph node indices], [Cargo units]
 
@@ -78,7 +78,7 @@ Along with each quiz, we have also provided links to popular Rust crates that se
 [Petgraph node indices]: https://docs.rs/petgraph/0.6.4/petgraph/graph/struct.NodeIndex.html
 [Cargo units]: https://docs.rs/cargo/0.73.1/cargo/core/compiler/struct.Unit.html
 
-## Trait Trees
+## Trait Trees {#trait-trees}
 
 *Inspiration:* [Yew components], [Druid widgets]
 
@@ -87,7 +87,7 @@ Along with each quiz, we have also provided links to popular Rust crates that se
 [Yew components]: https://docs.rs/yew/0.20.0/yew/html/trait.Component.html
 [Druid widgets]: https://docs.rs/druid/0.8.3/druid/trait.Widget.html
 
-## Dispatch
+## Dispatch {#dispatch}
 
 *Inspiration:* [Bevy systems], [Diesel queries], [Axum handlers]
 
@@ -97,7 +97,7 @@ Along with each quiz, we have also provided links to popular Rust crates that se
 [Diesel queries]: https://docs.diesel.rs/2.1.x/diesel/query_dsl/trait.BelongingToDsl.html
 [Axum handlers]: https://docs.rs/axum/0.6.20/axum/handler/trait.Handler.html
 
-## Intermediates
+## Intermediates {#intermediates}
 
 *Inspiration:* [Serde] and [miniserde]
 

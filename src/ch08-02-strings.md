@@ -1,4 +1,4 @@
-## Storing UTF-8 Encoded Text with Strings
+## Storing UTF-8 Encoded Text with Strings {#storing-utf-8-encoded-text-with-strings}
 
 We talked about strings in Chapter 4, but we’ll look at them in more depth now.
 New Rustaceans commonly get stuck on strings for a combination of three
@@ -20,7 +20,7 @@ complicated by the differences between how people and computers interpret
 
 <a id="what-is-a-string"></a>
 
-### Defining Strings
+### Defining Strings {#defining-strings}
 
 We’ll first define what we mean by the term _string_. Rust has only one string
 type in the core language, which is the string slice `str` that is usually seen
@@ -37,7 +37,7 @@ of those types. Although this section is largely about `String`, both types are
 used heavily in Rust’s standard library, and both `String` and string slices
 are UTF-8 encoded.
 
-### Creating a New String
+### Creating a New String {#creating-a-new-string}
 
 Many of the same operations available with `Vec<T>` are available with `String`
 as well because `String` is actually implemented as a wrapper around a vector
@@ -100,7 +100,7 @@ data in them, as shown in Listing 8-14.
 
 All of these are valid `String` values.
 
-### Updating a String
+### Updating a String {#updating-a-string}
 
 A `String` can grow in size and its contents can change, just like the contents
 of a `Vec<T>`, if you push more data into it. In addition, you can conveniently
@@ -110,7 +110,7 @@ use the `+` operator or the `format!` macro to concatenate `String` values.
 
 <a id="appending-to-a-string-with-push_str-and-push"></a>
 
-#### Appending with `push_str` or `push`
+#### Appending with `push_str` or `push` {#appending-with-push_str-or-push}
 
 We can grow a `String` by using the `push_str` method to append a string slice,
 as shown in Listing 8-15.
@@ -157,7 +157,7 @@ As a result, `s` will contain `lol`.
 
 <a id="concatenation-with-the--operator-or-the-format-macro"></a>
 
-#### Concatenating with `+` or `format!`
+#### Concatenating with `+` or `format!` {#concatenating-with--or-format}
 
 Often, you’ll want to combine two existing strings. One way to do so is to use
 the `+` operator, as shown in Listing 8-18.
@@ -236,7 +236,7 @@ so that this call doesn’t take ownership of any of its parameters.
 
 {{#quiz ../quizzes/ch08-02-string-sec1.toml}}
 
-### Indexing into Strings
+### Indexing into Strings {#indexing-into-strings}
 
 In many other programming languages, accessing individual characters in a
 string by referencing them by index is a valid and common operation. However,
@@ -260,7 +260,7 @@ This code will result in the following error:
 The error tells the story: Rust strings don’t support indexing. But why not? To
 answer that question, we need to discuss how Rust stores strings in memory.
 
-#### Internal Representation
+#### Internal Representation {#internal-representation}
 
 A `String` is a wrapper over a `Vec<u8>`. Let’s look at some of our properly
 encoded UTF-8 example strings from Listing 8-14. First, this one:
@@ -307,7 +307,7 @@ at all and prevents misunderstandings early in the development process.
 
 <a id="bytes-and-scalar-values-and-grapheme-clusters-oh-my"></a>
 
-#### Bytes, Scalar Values, and Grapheme Clusters
+#### Bytes, Scalar Values, and Grapheme Clusters {#bytes-scalar-values-and-grapheme-clusters}
 
 Another point about UTF-8 is that there are actually three relevant ways to
 look at strings from Rust’s perspective: as bytes, scalar values, and grapheme
@@ -348,7 +348,7 @@ character is that indexing operations are expected to always take constant time
 because Rust would have to walk through the contents from the beginning to the
 index to determine how many valid characters there were.
 
-### Slicing Strings
+### Slicing Strings {#slicing-strings}
 
 Indexing into a string is often a bad idea because it’s not clear what the
 return type of the string-indexing operation should be: a byte value, a
@@ -383,7 +383,7 @@ so can crash your program.
 
 <a id="methods-for-iterating-over-strings"></a>
 
-### Iterating Over Strings
+### Iterating Over Strings {#iterating-over-strings}
 
 The best way to operate on pieces of strings is to be explicit about whether
 you want characters or bytes. For individual Unicode scalar values, use the
@@ -433,7 +433,7 @@ functionality you need.
 
 <a id="strings-are-not-so-simple"></a>
 
-### Handling the Complexities of Strings
+### Handling the Complexities of Strings {#handling-the-complexities-of-strings}
 
 To summarize, strings are complicated. Different programming languages make
 different choices about how to present this complexity to the programmer. Rust

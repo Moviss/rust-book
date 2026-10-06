@@ -2,14 +2,14 @@
 
 <a id="defining-modules-to-control-scope-and-privacy"></a>
 
-## Control Scope and Privacy with Modules
+## Control Scope and Privacy with Modules {#control-scope-and-privacy-with-modules}
 
 In this section, we’ll talk about modules and other parts of the module system,
 namely _paths_, which allow you to name items; the `use` keyword that brings a
 path into scope; and the `pub` keyword to make items public. We’ll also discuss
 the `as` keyword, external packages, and the glob operator.
 
-### Modules Cheat Sheet
+### Modules Cheat Sheet {#modules-cheat-sheet}
 
 Before we get to the details of modules and paths, here we provide a quick
 reference on how modules, paths, the `use` keyword, and the `pub` keyword work
@@ -95,7 +95,7 @@ included too. That code is:
 
 Now let’s get into the details of these rules and demonstrate them in action!
 
-### Grouping Related Code in Modules
+### Grouping Related Code in Modules {#grouping-related-code-in-modules}
 
 _Modules_ let us organize code within a crate for readability and easy reuse.
 Modules also allow us to control the _privacy_ of items because code within a

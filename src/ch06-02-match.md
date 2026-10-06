@@ -2,7 +2,7 @@
 
 <a id="the-match-control-flow-operator"></a>
 
-## The `match` Control Flow Construct
+## The `match` Control Flow Construct {#the-match-control-flow-construct}
 
 Rust has an extremely powerful control flow construct called `match` that
 allows you to compare a value against a series of patterns and then execute
@@ -65,7 +65,7 @@ still returns the last value of the block, `1`:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-08-match-arm-multiple-lines/src/main.rs:here}}
 ```
 
-### Patterns That Bind to Values
+### Patterns That Bind to Values {#patterns-that-bind-to-values}
 
 Another useful feature of match arms is that they can bind to the parts of the
 values that match the pattern. This is how we can extract values out of enum
@@ -111,7 +111,7 @@ state value out of the `Coin` enum variant for `Quarter`.
 
 <a id="matching-with-optiont"></a>
 
-### The `Option<T>` `match` Pattern
+### The `Option<T>` `match` Pattern {#the-optiont-match-pattern}
 
 
 In the previous section, we wanted to get the inner `T` value out of the `Some`
@@ -173,7 +173,7 @@ data inside, and then execute code based on it. It’s a bit tricky at first, bu
 once you get used to it, you’ll wish you had it in all languages. It’s
 consistently a user favorite.
 
-### Matches Are Exhaustive
+### Matches Are Exhaustive {#matches-are-exhaustive}
 
 There’s one other aspect of `match` we need to discuss: The arms’ patterns must
 cover all possibilities. Consider this version of our `plus_one` function,
@@ -198,7 +198,7 @@ possibility in order for the code to be valid. Especially in the case of
 `None` case, it protects us from assuming that we have a value when we might
 have null, thus making the billion-dollar mistake discussed earlier impossible.
 
-### Catch-All Patterns and the `_` Placeholder
+### Catch-All Patterns and the `_` Placeholder {#catch-all-patterns-and-the-_-placeholder}
 
 Using enums, we can also take special actions for a few particular values, but
 for all other values take one default action. Imagine we’re implementing a game
@@ -260,7 +260,7 @@ There’s more about patterns and matching that we’ll cover in [Chapter
 19][ch19-00-patterns]<!-- ignore -->.
 
 <!-- BEGIN INTERVENTION: 1e4f082c-ffa4-4d33-8726-2dbcd72e1aa2 -->
-### How Matches Interact with Ownership
+### How Matches Interact with Ownership {#how-matches-interact-with-ownership}
 
 If an enum contains non-copyable data like a String, then you should be careful with whether a match will move or borrow that data. For example, this program using an `Option<String>` will compile:
 

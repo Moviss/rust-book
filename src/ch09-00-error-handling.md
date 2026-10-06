@@ -1,4 +1,4 @@
-# Error Handling
+# Error Handling {#error-handling}
 
 Errors are a fact of life in software, so Rust has a number of features for
 handling situations in which something goes wrong. In many cases, Rust requires

@@ -1,4 +1,4 @@
-## Validating References with Lifetimes
+## Validating References with Lifetimes {#validating-references-with-lifetimes}
 
 Lifetimes are another kind of generic that we’ve already been using. Rather
 than ensuring that a type has the behavior we want, lifetimes ensure that
@@ -24,7 +24,7 @@ lifetime syntax so that you can get comfortable with the concept.
 
 <a id="preventing-dangling-references-with-lifetimes"></a>
 
-### Dangling References
+### Dangling References {#dangling-references}
 
 The main aim of lifetimes is to prevent dangling references, which, if they
 were allowed to exist, would cause a program to reference data other than the
@@ -75,7 +75,7 @@ referencing memory that was deallocated when `x` went out of scope, and
 anything we tried to do with `r` wouldn’t work correctly. So, how does Rust
 determine that this code is invalid? It uses a borrow checker.
 
-### The Borrow Checker Ensures Data Outlives Its References
+### The Borrow Checker Ensures Data Outlives Its References {#the-borrow-checker-ensures-data-outlives-its-references}
 
 The Rust compiler has a _borrow checker_ that compares scopes to determine
 whether all borrows are valid. Listing 10-17 shows the same code as Listing
@@ -115,7 +115,7 @@ Now that you know where the lifetimes of references are and how Rust analyzes
 lifetimes to ensure that references will always be valid, let’s explore generic
 lifetimes in function parameters and return values.
 
-### Generic Lifetimes in Functions
+### Generic Lifetimes in Functions {#generic-lifetimes-in-functions}
 
 We’ll write a function that returns the longer of two string slices. This
 function will take two string slices and return a single string slice. After
@@ -171,7 +171,7 @@ return value. To fix this error, we’ll add generic lifetime parameters that
 define the relationship between the references so that the borrow checker can
 perform its analysis.
 
-### Lifetime Annotation Syntax
+### Lifetime Annotation Syntax {#lifetime-annotation-syntax}
 
 Lifetime annotations don’t change how long any of the references live. Rather,
 they describe the relationships of the lifetimes of multiple references to each
@@ -204,7 +204,7 @@ relate to each other in the context of the `longest` function.
 
 <a id="lifetime-annotations-in-function-signatures"></a>
 
-### In Function Signatures
+### In Function Signatures {#in-function-signatures}
 
 To use lifetime annotations in function signatures, we need to declare the
 generic lifetime parameters inside angle brackets between the function name and
@@ -327,7 +327,7 @@ borrow checker before you compile; then, check to see if you’re right!
 
 <a id="thinking-in-terms-of-lifetimes"></a>
 
-### Relationships
+### Relationships {#relationships}
 
 The way in which you need to specify lifetime parameters depends on what your
 function is doing. For example, if we changed the implementation of the
@@ -389,7 +389,7 @@ would create dangling pointers or otherwise violate memory safety.
 
 <a id="lifetime-annotations-in-struct-definitions"></a>
 
-### In Struct Definitions
+### In Struct Definitions {#in-struct-definitions}
 
 So far, the structs we’ve defined all hold owned types. We can define structs
 to hold references, but in that case, we would need to add a lifetime
@@ -418,7 +418,7 @@ instance is created. In addition, `novel` doesn’t go out of scope until after
 the `ImportantExcerpt` goes out of scope, so the reference in the
 `ImportantExcerpt` instance is valid.
 
-### Lifetime Elision
+### Lifetime Elision {#lifetime-elision}
 
 You’ve learned that every reference has a lifetime and that you need to specify
 lifetime parameters for functions or structs that use references. However, we
@@ -549,7 +549,7 @@ annotate lifetimes in method signatures very often.
 
 <a id="lifetime-annotations-in-method-definitions"></a>
 
-### In Method Definitions
+### In Method Definitions {#in-method-definitions}
 
 When we implement methods on a struct with lifetimes, we use the same syntax as
 that of generic type parameters, as shown in Listing 10-11. Where we declare
@@ -588,7 +588,7 @@ and gives both `&self` and `announcement` their own lifetimes. Then, because
 one of the parameters is `&self`, the return type gets the lifetime of `&self`,
 and all lifetimes have been accounted for.
 
-### The Static Lifetime
+### The Static Lifetime {#the-static-lifetime}
 
 One special lifetime we need to discuss is `'static`, which denotes that the
 affected reference _can_ live for the entire duration of the program. All
@@ -613,7 +613,7 @@ is to fix those problems, not to specify the `'static` lifetime.
 
 <a id="generic-type-parameters-trait-bounds-and-lifetimes-together"></a>
 
-## Generic Type Parameters, Trait Bounds, and Lifetimes
+## Generic Type Parameters, Trait Bounds, and Lifetimes {#generic-type-parameters-trait-bounds-and-lifetimes}
 
 Let’s briefly look at the syntax of specifying generic type parameters, trait
 bounds, and lifetimes all in one function!
@@ -633,7 +633,7 @@ brackets after the function name.
 
 {{#quiz ../quizzes/ch10-03-lifetimes-sec2.toml}}
 
-### Summary
+### Summary {#summary}
 
 We covered a lot in this chapter! Now that you know about generic type
 parameters, traits and trait bounds, and generic lifetime parameters, you’re

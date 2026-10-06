@@ -1,4 +1,4 @@
-## Concise Control Flow with `if let` and `let...else`
+## Concise Control Flow with `if let` and `let...else` {#concise-control-flow-with-if-let-and-letelse}
 
 The `if let` syntax lets you combine `if` and `let` into a less verbose way to
 handle values that match one pattern while ignoring the rest. Consider the
@@ -62,7 +62,7 @@ Or we could use an `if let` and `else` expression, like this:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-14-count-and-announce-if-let-else/src/main.rs:here}}
 ```
 
-## Staying on the “Happy Path” with `let...else`
+## Staying on the “Happy Path” with `let...else` {#staying-on-the-happy-path-with-letelse}
 
 The common pattern is to perform some computation when a value is present and
 return a default value otherwise. Continuing with our example of coins with a
@@ -131,7 +131,7 @@ Rust toolbox as well.
 
 {{#quiz ../quizzes/ch06-03-if-let.toml}}
 
-## Summary
+## Summary {#summary}
 
 We’ve now covered how to use enums to create custom types that can be one of a
 set of enumerated values. We’ve shown how the standard library’s `Option<T>`

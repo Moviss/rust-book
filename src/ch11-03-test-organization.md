@@ -1,4 +1,4 @@
-## Test Organization
+## Test Organization {#test-organization}
 
 As mentioned at the start of the chapter, testing is a complex discipline, and
 different people use different terminology and organization. The Rust community
@@ -12,7 +12,7 @@ modules per test.
 Writing both kinds of tests is important to ensure that the pieces of your
 library are doing what you expect them to, separately and together.
 
-### Unit Tests
+### Unit Tests {#unit-tests}
 
 The purpose of unit tests is to test each unit of code in isolation from the
 rest of the code to quickly pinpoint where code is and isn’t working as
@@ -21,7 +21,7 @@ code that they’re testing. The convention is to create a module named `tests`
 in each file to contain the test functions and to annotate the module with
 `cfg(test)`.
 
-#### The `tests` Module and `#[cfg(test)]`
+#### The `tests` Module and `#[cfg(test)]` {#the-tests-module-and-cfgtest}
 
 The `#[cfg(test)]` annotation on the `tests` module tells Rust to compile and
 run the test code only when you run `cargo test`, not when you run `cargo
@@ -53,7 +53,7 @@ module, in addition to the functions annotated with `#[test]`.
 
 <a id="testing-private-functions"></a>
 
-#### Private Function Tests
+#### Private Function Tests {#private-function-tests}
 
 There’s debate within the testing community about whether or not private
 functions should be tested directly, and other languages make it difficult or
@@ -78,7 +78,7 @@ scope with `use super::*`, and then the test can call `internal_adder`. If you
 don’t think private functions should be tested, there’s nothing in Rust that
 will compel you to do so.
 
-### Integration Tests
+### Integration Tests {#integration-tests}
 
 In Rust, integration tests are entirely external to your library. They use your
 library in the same way any other code would, which means they can only call
@@ -88,7 +88,7 @@ work correctly on their own could have problems when integrated, so test
 coverage of the integrated code is important as well. To create integration
 tests, you first need a _tests_ directory.
 
-#### The _tests_ Directory
+#### The _tests_ Directory {#the-tests-directory}
 
 We create a _tests_ directory at the top level of our project directory, next
 to _src_. Cargo knows to look for integration test files in this directory. We
@@ -160,7 +160,7 @@ followed by the name of the file:
 
 This command runs only the tests in the _tests/integration_test.rs_ file.
 
-#### Submodules in Integration Tests
+#### Submodules in Integration Tests {#submodules-in-integration-tests}
 
 As you add more integration tests, you might want to make more files in the
 _tests_ directory to help organize them; for example, you can group the test
@@ -232,7 +232,7 @@ Note that the `mod common;` declaration is the same as the module declaration
 we demonstrated in Listing 7-21. Then, in the test function, we can call the
 `common::setup()` function.
 
-#### Integration Tests for Binary Crates
+#### Integration Tests for Binary Crates {#integration-tests-for-binary-crates}
 
 If our project is a binary crate that only contains a _src/main.rs_ file and
 doesn’t have a _src/lib.rs_ file, we can’t create integration tests in the
@@ -247,7 +247,7 @@ library crate with `use` to make the important functionality available. If the
 important functionality works, the small amount of code in the _src/main.rs_
 file will work as well, and that small amount of code doesn’t need to be tested.
 
-## Summary
+## Summary {#summary}
 
 Rust’s testing features provide a way to specify how code should function to
 ensure that it continues to work as you expect, even as you make changes. Unit

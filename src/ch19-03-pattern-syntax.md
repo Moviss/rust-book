@@ -1,9 +1,9 @@
-## Pattern Syntax
+## Pattern Syntax {#pattern-syntax}
 
 In this section, we gather all the syntax that is valid in patterns and discuss
 why and when you might want to use each one.
 
-### Matching Literals
+### Matching Literals {#matching-literals}
 
 As you saw in Chapter 6, you can match patterns against literals directly. The
 following code gives some examples:
@@ -16,7 +16,7 @@ This code prints `one` because the value in `x` is `1`. This syntax is useful
 when you want your code to take an action if it gets a particular concrete
 value.
 
-### Matching Named Variables
+### Matching Named Variables {#matching-named-variables}
 
 Named variables are irrefutable patterns that match any value, and we’ve used
 them many times in this book. However, there is a complication when you use
@@ -68,7 +68,7 @@ Guards”](#adding-conditionals-with-match-guards)<!-- ignore --> section.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="multiple-patterns"></a>
 
-### Matching Multiple Patterns
+### Matching Multiple Patterns {#matching-multiple-patterns}
 
 In `match` expressions, you can match multiple patterns using the `|` syntax,
 which is the pattern _or_ operator. For example, in the following code, we match
@@ -83,7 +83,7 @@ arm’s code will run:
 
 This code prints `one or two`.
 
-### Matching Ranges of Values with `..=`
+### Matching Ranges of Values with `..=` {#matching-ranges-of-values-with-}
 
 The `..=` syntax allows us to match to an inclusive range of values. In the
 following code, when a pattern matches any of the values within the given
@@ -112,7 +112,7 @@ Here is an example using ranges of `char` values:
 Rust can tell that `'c'` is within the first pattern’s range and prints `early
 ASCII letter`.
 
-### Destructuring to Break Apart Values
+### Destructuring to Break Apart Values {#destructuring-to-break-apart-values}
 
 We can also use patterns to destructure structs, enums, and tuples to use
 different parts of these values. Let’s walk through each value.
@@ -121,7 +121,7 @@ different parts of these values. Let’s walk through each value.
 
 <a id="destructuring-structs"></a>
 
-#### Structs
+#### Structs {#structs}
 
 Listing 19-12 shows a `Point` struct with two fields, `x` and `y`, that we can
 break apart using a pattern with a `let` statement.
@@ -195,7 +195,7 @@ and the `y` axis, this code would only print `On the x axis at 0`.
 
 <a id="destructuring-enums"></a>
 
-#### Enums
+#### Enums {#enums}
 
 We’ve destructured enums in this book (for example, Listing 6-5 in Chapter 6),
 but we haven’t yet explicitly discussed that the pattern to destructure an enum
@@ -234,7 +234,7 @@ matching.
 
 <a id="destructuring-nested-structs-and-enums"></a>
 
-#### Nested Structs and Enums
+#### Nested Structs and Enums {#nested-structs-and-enums}
 
 So far, our examples have all been matching structs or enums one level deep,
 but matching can work on nested items too! For example, we can refactor the
@@ -260,7 +260,7 @@ matches `Color::Hsv` instead. We can specify these complex conditions in one
 
 <a id="destructuring-structs-and-tuples"></a>
 
-#### Structs and Tuples
+#### Structs and Tuples {#structs-and-tuples}
 
 We can mix, match, and nest destructuring patterns in even more complex ways.
 The following example shows a complicated destructure where we nest structs and
@@ -276,7 +276,7 @@ use the values we’re interested in separately.
 Destructuring with patterns is a convenient way to use pieces of values, such
 as the value from each field in a struct, separately from each other.
 
-### Ignoring Values in a Pattern
+### Ignoring Values in a Pattern {#ignoring-values-in-a-pattern}
 
 You’ve seen that it’s sometimes useful to ignore values in a pattern, such as
 in the last arm of a `match`, to get a catch-all that doesn’t actually do
@@ -290,7 +290,7 @@ parts of a value. Let’s explore how and why to use each of these patterns.
 
 <a id="ignoring-an-entire-value-with-_"></a>
 
-#### An Entire Value with `_`
+#### An Entire Value with `_` {#an-entire-value-with-_}
 
 We’ve used the underscore as a wildcard pattern that will match any value but
 not bind to the value. This is especially useful as the last arm in a `match`
@@ -320,7 +320,7 @@ you would if you used a name instead.
 
 <a id="ignoring-parts-of-a-value-with-a-nested-_"></a>
 
-#### Parts of a Value with a Nested `_`
+#### Parts of a Value with a Nested `_` {#parts-of-a-value-with-a-nested-_}
 
 We can also use `_` inside another pattern to ignore just part of a value, for
 example, when we want to test for only part of a value but have no use for the
@@ -367,7 +367,7 @@ be ignored.
 
 <a id="ignoring-an-unused-variable-by-starting-its-name-with-_"></a>
 
-#### An Unused Variable by Starting Its Name with `_`
+#### An Unused Variable by Starting Its Name with `_` {#an-unused-variable-by-starting-its-name-with-_}
 
 If you create a variable but don’t use it anywhere, Rust will usually issue a
 warning because an unused variable could be a bug. However, sometimes it’s
@@ -418,7 +418,7 @@ This code works just fine because we never bind `s` to anything; it isn’t move
 
 <a id="ignoring-remaining-parts-of-a-value-with-"></a>
 
-#### Remaining Parts of a Value with `..`
+#### Remaining Parts of a Value with `..` {#remaining-parts-of-a-value-with-}
 
 With values that have many parts, we can use the `..` syntax to use specific
 parts and ignore the rest, avoiding the need to list underscores for each
@@ -486,7 +486,7 @@ compiler error because using `..` in two places like this is ambiguous.
 
 <a id="extra-conditionals-with-match-guards"></a>
 
-### Adding Conditionals with Match Guards
+### Adding Conditionals with Match Guards {#adding-conditionals-with-match-guards}
 
 A _match guard_ is an additional `if` condition, specified after the pattern in
 a `match` arm, that must also match for that arm to be chosen. Match guards are
@@ -591,7 +591,7 @@ were applied only to the final value in the list of values specified using the
 
 <a id="-bindings"></a>
 
-### Using `@` Bindings
+### Using `@` Bindings {#using--bindings}
 
 The _at_ operator `@` lets us create a variable that holds a value at the same
 time we’re testing that value for a pattern match. In Listing 19-29, we want to
@@ -628,7 +628,7 @@ Using `@` lets us test a value and save it in a variable within one pattern.
 
 {{#quiz ../quizzes/ch18-03-pattern-syntax.toml}}
 
-## Summary
+## Summary {#summary}
 
 Rust’s patterns are very useful in distinguishing between different kinds of
 data. When used in `match` expressions, Rust ensures that your patterns cover

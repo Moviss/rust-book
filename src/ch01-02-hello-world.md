@@ -1,4 +1,4 @@
-## Hello, World!
+## Hello, World! {#hello-world}
 
 Now that you’ve installed Rust, it’s time to write your first Rust program.
 It’s traditional when learning a new language to write a little program that
@@ -15,7 +15,7 @@ prints the text `Hello, world!` to the screen, so we’ll do the same here!
 <!-- Old headings. Do not remove or links may break. -->
 <a id="creating-a-project-directory"></a>
 
-### Project Directory Setup
+### Project Directory Setup {#project-directory-setup}
 
 You’ll start by making a directory to store your Rust code. It doesn’t matter
 to Rust where your code lives, but for the exercises and projects in this book,
@@ -46,7 +46,7 @@ For Windows CMD, enter this:
 <!-- Old headings. Do not remove or links may break. -->
 <a id="writing-and-running-a-rust-program"></a>
 
-### Rust Program Basics
+### Rust Program Basics {#rust-program-basics}
 
 Next, make a new source file and call it _main.rs_. Rust files always end with
 the _.rs_ extension. If you’re using more than one word in your filename, the
@@ -95,7 +95,7 @@ program. That makes you a Rust programmer—welcome!
 
 <a id="anatomy-of-a-rust-program"></a>
 
-### The Anatomy of a Rust Program
+### The Anatomy of a Rust Program {#the-anatomy-of-a-rust-program}
 
 Let’s review this “Hello, world!” program in detail. Here’s the first piece of
 the puzzle:
@@ -148,7 +148,7 @@ end with a semicolon.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="compiling-and-running-are-separate-steps"></a>
 
-### Compilation and Execution
+### Compilation and Execution {#compilation-and-execution}
 
 You’ve just run a newly created program, so let’s examine each step in the
 process.

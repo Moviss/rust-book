@@ -1,4 +1,4 @@
-## Defining and Instantiating Structs
+## Defining and Instantiating Structs {#defining-and-instantiating-structs}
 
 Structs are similar to tuples, discussed in [“The Tuple Type”][tuples]<!--
 ignore --> section, in that both hold multiple related values. Like tuples, the
@@ -99,7 +99,7 @@ would get even more annoying. Luckily, there’s a convenient shorthand!
 
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
-### Using the Field Init Shorthand
+### Using the Field Init Shorthand {#using-the-field-init-shorthand}
 
 Because the parameter names and the struct field names are exactly the same in
 Listing 5-4, we can use the _field init shorthand_ syntax to rewrite
@@ -124,7 +124,7 @@ than `email: email`.
 
 <a id="creating-instances-from-other-instances-with-struct-update-syntax"></a>
 
-### Creating Instances with Struct Update Syntax
+### Creating Instances with Struct Update Syntax {#creating-instances-with-struct-update-syntax}
 
 It’s often useful to create a new instance of a struct that includes most of
 the values from another instance of the same type, but changes some of them.
@@ -195,7 +195,7 @@ types that implement the `Copy` trait, so the behavior we discussed in the
 
 <a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
 
-### Creating Different Types with Tuple Structs
+### Creating Different Types with Tuple Structs {#creating-different-types-with-tuple-structs}
 
 Rust also supports structs that look similar to tuples, called _tuple structs_.
 Tuple structs have the added meaning the struct name provides but don’t have
@@ -238,7 +238,7 @@ values in the `origin` point into variables named `x`, `y`, and `z`.
 
 <a id="unit-like-structs-without-any-fields"></a>
 
-### Defining Unit-Like Structs
+### Defining Unit-Like Structs {#defining-unit-like-structs}
 
 You can also define structs that don’t have any fields! These are called
 _unit-like structs_ because they behave similarly to `()`, the unit type that
@@ -266,7 +266,7 @@ have a known result for testing purposes. We wouldn’t need any data to
 implement that behavior! You’ll see in Chapter 10 how to define traits and
 implement them on any type, including unit-like structs.
 
-> ### Ownership of Struct Data
+> ### Ownership of Struct Data {#ownership-of-struct-data}
 >
 > In the `User` struct definition in Listing 5-1, we used the owned `String`
 > type rather than the `&str` string slice type. This is a deliberate choice
@@ -344,7 +344,7 @@ implement them on any type, including unit-like structs.
 > references in structs, but for now, we’ll fix errors like these using owned
 > types like `String` instead of references like `&str`.
 
-### Borrowing Fields of a Struct
+### Borrowing Fields of a Struct {#borrowing-fields-of-a-struct}
 
 Similar to our discussion in ["Different Tuple Fields"][differentfields], Rust's borrow checker will track ownership permissions
 at both the struct-level and field-level. For example, if we borrow a field `x` of a `Point` structure, then both `p` and `p.x` temporarily lose their permissions (but not `p.y`):

@@ -2,7 +2,7 @@
 
 <a id="using-message-passing-to-transfer-data-between-threads"></a>
 
-## Transfer Data Between Threads with Message Passing
+## Transfer Data Between Threads with Message Passing {#transfer-data-between-threads-with-message-passing}
 
 One increasingly popular approach to ensuring safe concurrency is message
 passing, where threads or actors communicate by sending each other messages
@@ -135,7 +135,7 @@ Perfect!
 
 <a id="channels-and-ownership-transference"></a>
 
-### Transferring Ownership Through Channels
+### Transferring Ownership Through Channels {#transferring-ownership-through-channels}
 
 The ownership rules play a vital role in message sending because they help you
 write safe, concurrent code. Preventing errors in concurrent programming is the
@@ -173,7 +173,7 @@ after sending it; the ownership system checks that everything is okay.
 
 <a id="sending-multiple-values-and-seeing-the-receiver-waiting"></a>
 
-### Sending Multiple Values
+### Sending Multiple Values {#sending-multiple-values}
 
 The code in Listing 16-8 compiled and ran, but it didn’t clearly show us that
 two separate threads were talking to each other over the channel.
@@ -221,7 +221,7 @@ the spawned thread.
 
 <a id="creating-multiple-producers-by-cloning-the-transmitter"></a>
 
-### Creating Multiple Producers
+### Creating Multiple Producers {#creating-multiple-producers}
 
 Earlier we mentioned that `mpsc` was an acronym for _multiple producer, single
 consumer_. Let’s put `mpsc` to use and expand the code in Listing 16-10 to

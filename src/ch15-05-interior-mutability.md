@@ -1,4 +1,4 @@
-## `RefCell<T>` and the Interior Mutability Pattern
+## `RefCell<T>` and the Interior Mutability Pattern {#refcellt-and-the-interior-mutability-pattern}
 
 _Interior mutability_ is a design pattern in Rust that allows you to mutate
 data even when there are immutable references to that data; normally, this
@@ -20,7 +20,7 @@ interior mutability pattern.
 
 <a id="enforcing-borrowing-rules-at-runtime-with-refcellt"></a>
 
-### Enforcing Borrowing Rules at Runtime
+### Enforcing Borrowing Rules at Runtime {#enforcing-borrowing-rules-at-runtime}
 
 Unlike `Rc<T>`, the `RefCell<T>` type represents single ownership over the data
 it holds. So, what makes `RefCell<T>` different from a type like `Box<T>`?
@@ -81,7 +81,7 @@ examine how it’s possible.
 
 <a id="interior-mutability-a-mutable-borrow-to-an-immutable-value"></a>
 
-### Using Interior Mutability
+### Using Interior Mutability {#using-interior-mutability}
 
 A consequence of the borrowing rules is that when you have an immutable value,
 you can’t borrow it mutably. For example, this code won’t compile:
@@ -112,7 +112,7 @@ an immutable value and see why that is useful.
 
 <a id="a-use-case-for-interior-mutability-mock-objects"></a>
 
-#### Testing with Mock Objects
+#### Testing with Mock Objects {#testing-with-mock-objects}
 
 Sometimes during testing a programmer will use a type in place of another type,
 in order to observe particular behavior and assert that it’s implemented
@@ -240,7 +240,7 @@ Now that you’ve seen how to use `RefCell<T>`, let’s dig into how it works!
 
 <a id="keeping-track-of-borrows-at-runtime-with-refcellt"></a>
 
-#### Tracking Borrows at Runtime
+#### Tracking Borrows at Runtime {#tracking-borrows-at-runtime}
 
 When creating immutable and mutable references, we use the `&` and `&mut`
 syntax, respectively. With `RefCell<T>`, we use the `borrow` and `borrow_mut`
@@ -301,7 +301,7 @@ provide.
 <a id="having-multiple-owners-of-mutable-data-by-combining-rc-t-and-ref-cell-t"></a>
 <a id="allowing-multiple-owners-of-mutable-data-with-rct-and-refcellt"></a>
 
-### Allowing Multiple Owners of Mutable Data
+### Allowing Multiple Owners of Mutable Data {#allowing-multiple-owners-of-mutable-data}
 
 A common way to use `RefCell<T>` is in combination with `Rc<T>`. Recall that
 `Rc<T>` lets you have multiple owners of some data, but it only gives immutable

@@ -1,4 +1,4 @@
-## Futures and the Async Syntax
+## Futures and the Async Syntax {#futures-and-the-async-syntax}
 
 The key elements of asynchronous programming in Rust are _futures_ and Rust’s
 `async` and `await` keywords.
@@ -39,7 +39,7 @@ them concurrently, and return the result of whichever one finishes first. This
 example will have a fair bit of new syntax, but don’t worry—we’ll explain
 everything you need to know as we go.
 
-## Our First Async Program
+## Our First Async Program {#our-first-async-program}
 
 To keep the focus of this chapter on learning async rather than juggling parts
 of the ecosystem, we’ve created the `trpl` crate (`trpl` is short for “The Rust
@@ -72,7 +72,7 @@ program. We’ll build a little command line tool that fetches two web pages,
 pulls the `<title>` element from each, and prints out the title of whichever
 page finishes that whole process first.
 
-### Defining the page_title Function
+### Defining the page_title Function {#defining-the-page_title-function}
 
 Let’s start by writing a function that takes one page URL as a parameter, makes
 a request to it, and returns the text of the `<title>` element (see Listing
@@ -195,7 +195,7 @@ Now we can call `page_title` in `main`.
 
 <a id ="determining-a-single-pages-title"></a>
 
-### Executing an Async Function with a Runtime
+### Executing an Async Function with a Runtime {#executing-an-async-function-with-a-runtime}
 
 To start, we’ll get the title for a single page, shown in Listing 17-3.
 Unfortunately, this code doesn’t compile yet.
@@ -336,7 +336,7 @@ Now let’s put these pieces together and see how we can write concurrent code.
 
 <a id="racing-our-two-urls-against-each-other"></a>
 
-### Racing Two URLs Against Each Other Concurrently
+### Racing Two URLs Against Each Other Concurrently {#racing-two-urls-against-each-other-concurrently}
 
 In Listing 17-5, we call `page_title` with two different URLs passed in from the
 command line and race them by selecting whichever future finishes first.

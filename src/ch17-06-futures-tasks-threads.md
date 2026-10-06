@@ -1,4 +1,4 @@
-## Putting It All Together: Futures, Tasks, and Threads
+## Putting It All Together: Futures, Tasks, and Threads {#putting-it-all-together-futures-tasks-and-threads}
 
 As we saw in [Chapter 16][ch16]<!-- ignore -->, threads provide one approach to
 concurrency. We’ve seen another approach in this chapter: using async with
@@ -84,7 +84,7 @@ compute-bound) but notifying the UI that those operations are done with an
 async channel. There are countless examples of these kinds of combinations in
 real-world use cases.
 
-## Summary
+## Summary {#summary}
 
 This isn’t the last you’ll see of concurrency in this book. The project in
 [Chapter 21][ch21]<!-- ignore --> will apply these concepts in a more realistic

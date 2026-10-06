@@ -19,7 +19,7 @@ fn main() {}
     assert_eq!(
         &result.unwrap(),
         r##"<figure class="listing" id="listing-1-2">
-<span class="file-name">Filename: src/main.rs</span>
+<span class="file-name">Plik: src/main.rs</span>
 
 ````rust
 fn main() {}
@@ -118,7 +118,7 @@ Save the file and go back to your terminal window"#,
         r##"Now open the *main.rs* file you just created and enter the code in Listing 1-1.
 
 <figure class="listing" id="listing-1-1">
-<span class="file-name">Filename: main.rs</span>
+<span class="file-name">Plik: main.rs</span>
 
 ````rust
 fn main() {
@@ -185,7 +185,7 @@ fn main() {}
     assert_eq!(
         result.unwrap(),
         r#"<figure class="listing">
-<span class="file-name">Filename: src/main.rs</span>
+<span class="file-name">Plik: src/main.rs</span>
 
 ````rust
 fn main() {}

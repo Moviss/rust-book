@@ -1,4 +1,4 @@
-## Data Types
+## Data Types {#data-types}
 
 Every value in Rust is of a certain _data type_, which tells Rust what kind of
 data is being specified so that it knows how to work with that data. We’ll look
@@ -26,13 +26,13 @@ information from us to know which type we want to use:
 
 You’ll see different type annotations for other data types.
 
-### Scalar Types
+### Scalar Types {#scalar-types}
 
 A _scalar_ type represents a single value. Rust has four primary scalar types:
 integers, floating-point numbers, Booleans, and characters. You may recognize
 these from other programming languages. Let’s jump into how they work in Rust.
 
-#### Integer Types
+#### Integer Types {#integer-types}
 
 An _integer_ is a number without a fractional component. We used one integer
 type in Chapter 2, the `u32` type. This type declaration indicates that the
@@ -93,7 +93,7 @@ defaults are generally good places to start: Integer types default to `i32`.
 The primary situation in which you’d use `isize` or `usize` is when indexing
 some sort of collection.
 
-> ##### Integer Overflow
+> ##### Integer Overflow {#integer-overflow}
 >
 > Let’s say you have a variable of type `u8` that can hold values between 0 and
 > 255. If you try to change the variable to a value outside that range, such as
@@ -124,7 +124,7 @@ some sort of collection.
 > - Saturate at the value’s minimum or maximum values with the `saturating_*`
 >   methods.
 
-#### Floating-Point Types
+#### Floating-Point Types {#floating-point-types}
 
 Rust also has two primitive types for _floating-point numbers_, which are
 numbers with decimal points. Rust’s floating-point types are `f32` and `f64`,
@@ -142,7 +142,7 @@ Here’s an example that shows floating-point numbers in action:
 
 Floating-point numbers are represented according to the IEEE-754 standard.
 
-#### Numeric Operations
+#### Numeric Operations {#numeric-operations}
 
 Rust supports the basic mathematical operations you’d expect for all the number
 types: addition, subtraction, multiplication, division, and remainder. Integer
@@ -160,7 +160,7 @@ to a single value, which is then bound to a variable. [Appendix
 B][appendix_b]<!-- ignore --> contains a list of all operators that Rust
 provides.
 
-#### The Boolean Type
+#### The Boolean Type {#the-boolean-type}
 
 As in most other programming languages, a Boolean type in Rust has two possible
 values: `true` and `false`. Booleans are one byte in size. The Boolean type in
@@ -176,7 +176,7 @@ The main way to use Boolean values is through conditionals, such as an `if`
 expression. We’ll cover how `if` expressions work in Rust in the [“Control
 Flow”][control-flow]<!-- ignore --> section.
 
-#### The Character Type
+#### The Character Type {#the-character-type}
 
 Rust’s `char` type is the language’s most primitive alphabetic type. Here are
 some examples of declaring `char` values:
@@ -200,12 +200,12 @@ Encoded Text with Strings”][strings]<!-- ignore --> in Chapter 8.
 
 {{#quiz ../quizzes/ch03-02-data-types-sec1-scalar.toml}}
 
-### Compound Types
+### Compound Types {#compound-types}
 
 _Compound types_ can group multiple values into one type. Rust has two
 primitive compound types: tuples and arrays.
 
-#### The Tuple Type
+#### The Tuple Type {#the-tuple-type}
 
 A _tuple_ is a general way of grouping together a number of values with a
 variety of types into one compound type. Tuples have a fixed length: Once
@@ -271,7 +271,7 @@ fn main() {
 This program sets the first element to zero and adds five to the second element.
 The final value of `x` is `(0, 7)`.
 
-#### The Array Type
+#### The Array Type {#the-array-type}
 
 Another way to have a collection of multiple values is with an _array_. Unlike
 a tuple, every element of an array must have the same type. Unlike arrays in
@@ -331,7 +331,7 @@ more concise way.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="accessing-array-elements"></a>
 
-#### Array Element Access
+#### Array Element Access {#array-element-access}
 
 An array is a single chunk of memory of a known, fixed size that can be
 allocated on the stack. You can access elements of an array using indexing,
@@ -347,7 +347,7 @@ In this example, the variable named `first` will get the value `1` because that
 is the value at index `[0]` in the array. The variable named `second` will get
 the value `2` from index `[1]` in the array.
 
-#### Invalid Array Element Access
+#### Invalid Array Element Access {#invalid-array-element-access}
 
 Let’s see what happens if you try to access an element of an array that is past
 the end of the array. Say you run this code, similar to the guessing game in

@@ -1,4 +1,4 @@
-## Recoverable Errors with `Result`
+## Recoverable Errors with `Result` {#recoverable-errors-with-result}
 
 Most errors aren’t serious enough to require the program to stop entirely.
 Sometimes when a function fails, it’s for a reason that you can easily interpret
@@ -87,7 +87,7 @@ code, we’ll see the following output from the `panic!` macro:
 
 As usual, this output tells us exactly what has gone wrong.
 
-### Matching on Different Errors
+### Matching on Different Errors {#matching-on-different-errors}
 
 The code in Listing 9-4 will `panic!` no matter why `File::open` failed.
 However, we want to take different actions for different failure reasons. If
@@ -125,7 +125,7 @@ file can’t be created, a different error message is printed. The second arm of
 the outer `match` stays the same, so the program panics on any error besides
 the missing file error.
 
-> #### Alternatives to Using `match` with `Result<T, E>`
+> #### Alternatives to Using `match` with `Result<T, E>` {#alternatives-to-using-match-with-resultt-e}
 >
 > That’s a lot of `match`! The `match` expression is very useful but also very
 > much a primitive. In Chapter 13, you’ll learn about closures, which are used
@@ -166,7 +166,7 @@ the missing file error.
 
 <a id="shortcuts-for-panic-on-error-unwrap-and-expect"></a>
 
-#### Shortcuts for Panic on Error
+#### Shortcuts for Panic on Error {#shortcuts-for-panic-on-error}
 
 Using `match` works well enough, but it can be a bit verbose and doesn’t always
 communicate intent well. The `Result<T, E>` type has many helper methods
@@ -232,7 +232,7 @@ In production-quality code, most Rustaceans choose `expect` rather than
 succeed. That way, if your assumptions are ever proven wrong, you have more
 information to use in debugging.
 
-### Propagating Errors
+### Propagating Errors {#propagating-errors}
 
 When a function’s implementation calls something that might fail, instead of
 handling the error within the function itself, you can return the error to the
@@ -312,7 +312,7 @@ question mark operator `?` to make this easier.
 
 <a id="a-shortcut-for-propagating-errors-the--operator"></a>
 
-#### The `?` Operator Shortcut
+#### The `?` Operator Shortcut {#the--operator-shortcut}
 
 Listing 9-7 shows an implementation of `read_username_from_file` that has the
 same functionality as in Listing 9-6, but this implementation uses the `?`
@@ -411,7 +411,7 @@ the longer way first.
 
 <a id="where-the--operator-can-be-used"></a>
 
-#### Where to Use the `?` Operator
+#### Where to Use the `?` Operator {#where-to-use-the--operator}
 
 The `?` operator can only be used in functions whose return type is compatible
 with the value the `?` is used on. This is because the `?` operator is defined

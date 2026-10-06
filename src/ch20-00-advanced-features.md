@@ -1,4 +1,4 @@
-# Advanced Features
+# Advanced Features {#advanced-features}
 
 By now, you’ve learned the most commonly used parts of the Rust programming
 language. Before we do one more project, in Chapter 21, we’ll look at a few

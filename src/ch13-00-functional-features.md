@@ -1,4 +1,4 @@
-# Functional Language Features: Iterators and Closures
+# Functional Language Features: Iterators and Closures {#functional-language-features-iterators-and-closures}
 
 Rust’s design has taken inspiration from many existing languages and
 techniques, and one significant influence is _functional programming_.

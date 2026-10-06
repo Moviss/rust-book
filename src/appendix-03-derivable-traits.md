@@ -1,4 +1,4 @@
-## Appendix C: Derivable Traits
+## Appendix C: Derivable Traits {#appendix-c-derivable-traits}
 
 In various places in the book, we’ve discussed the `derive` attribute, which
 you can apply to a struct or enum definition. The `derive` attribute generates
@@ -36,7 +36,7 @@ traits you can use `derive` with truly open ended. Implementing `derive`
 involves using a procedural macro, which is covered in the [“Custom `derive`
 Macros”][custom-derive-macros]<!-- ignore --> section in Chapter 20.
 
-### `Debug` for Programmer Output
+### `Debug` for Programmer Output {#debug-for-programmer-output}
 
 The `Debug` trait enables debug formatting in format strings, which you
 indicate by adding `:?` within `{}` placeholders.
@@ -50,7 +50,7 @@ macro. This macro prints the values of instances given as arguments if the
 equality assertion fails so that programmers can see why the two instances
 weren’t equal.
 
-### `PartialEq` and `Eq` for Equality Comparisons
+### `PartialEq` and `Eq` for Equality Comparisons {#partialeq-and-eq-for-equality-comparisons}
 
 The `PartialEq` trait allows you to compare instances of a type to check for
 equality and enables use of the `==` and `!=` operators.
@@ -74,7 +74,7 @@ instances of the not-a-number (`NaN`) value are not equal to each other.
 An example of when `Eq` is required is for keys in a `HashMap<K, V>` so that
 the `HashMap<K, V>` can tell whether two keys are the same.
 
-### `PartialOrd` and `Ord` for Ordering Comparisons
+### `PartialOrd` and `Ord` for Ordering Comparisons {#partialord-and-ord-for-ordering-comparisons}
 
 The `PartialOrd` trait allows you to compare instances of a type for sorting
 purposes. A type that implements `PartialOrd` can be used with the `<`, `>`,
@@ -108,7 +108,7 @@ implementation for `partial_cmp` does with `PartialOrd`.
 An example of when `Ord` is required is when storing values in a `BTreeSet<T>`,
 a data structure that stores data based on the sort order of the values.
 
-### `Clone` and `Copy` for Duplicating Values
+### `Clone` and `Copy` for Duplicating Values {#clone-and-copy-for-duplicating-values}
 
 The `Clone` trait allows you to explicitly create a deep copy of a value, and
 the duplication process might involve running arbitrary code and copying heap
@@ -143,7 +143,7 @@ the code more concise.
 Everything possible with `Copy` you can also accomplish with `Clone`, but the
 code might be slower or have to use `clone` in places.
 
-### `Hash` for Mapping a Value to a Value of Fixed Size
+### `Hash` for Mapping a Value to a Value of Fixed Size {#hash-for-mapping-a-value-to-a-value-of-fixed-size}
 
 The `Hash` trait allows you to take an instance of a type of arbitrary size and
 map that instance to a value of fixed size using a hash function. Deriving
@@ -154,7 +154,7 @@ meaning all fields or values must also implement `Hash` to derive `Hash`.
 An example of when `Hash` is required is in storing keys in a `HashMap<K, V>`
 to store data efficiently.
 
-### `Default` for Default Values
+### `Default` for Default Values {#default-for-default-values}
 
 The `Default` trait allows you to create a default value for a type. Deriving
 `Default` implements the `default` function. The derived implementation of the

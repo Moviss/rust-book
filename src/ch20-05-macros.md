@@ -1,4 +1,4 @@
-## Macros
+## Macros {#macros}
 
 We’ve used macros like `println!` throughout this book, but we haven’t fully
 explored what a macro is and how it works. The term _macro_ refers to a family
@@ -14,7 +14,7 @@ procedural macros:
 We’ll talk about each of these in turn, but first, let’s look at why we even
 need macros when we already have functions.
 
-### The Difference Between Macros and Functions
+### The Difference Between Macros and Functions {#the-difference-between-macros-and-functions}
 
 Fundamentally, macros are a way of writing code that writes other code, which
 is known as _metaprogramming_. In Appendix C, we discuss the `derive`
@@ -48,7 +48,7 @@ opposed to functions you can define anywhere and call anywhere.
 
 <a id="declarative-macros-with-macro_rules-for-general-metaprogramming"></a>
 
-### Declarative Macros for General Metaprogramming
+### Declarative Macros for General Metaprogramming {#declarative-macros-for-general-metaprogramming}
 
 The most widely used form of macros in Rust is the _declarative macro_. These
 are also sometimes referred to as “macros by example,” “`macro_rules!` macros,”
@@ -153,7 +153,7 @@ To learn more about how to write macros, consult the online documentation or
 other resources, such as [“The Little Book of Rust Macros”][tlborm] started by
 Daniel Keep and continued by Lukas Wirth.
 
-### Procedural Macros for Generating Code from Attributes
+### Procedural Macros for Generating Code from Attributes {#procedural-macros-for-generating-code-from-attributes}
 
 The second form of macros is the procedural macro, which acts more like a
 function (and is a type of procedure). _Procedural macros_ accept some code as
@@ -197,7 +197,7 @@ other forms different.
 
 <a id="how-to-write-a-custom-derive-macro"></a>
 
-### Custom `derive` Macros
+### Custom `derive` Macros {#custom-derive-macros}
 
 Let’s create a crate named `hello_macro` that defines a trait named
 `HelloMacro` with one associated function named `hello_macro`. Rather than
@@ -449,7 +449,7 @@ trait implementation.
 Next, let’s explore how the other kinds of procedural macros differ from custom
 `derive` macros.
 
-### Attribute-Like Macros
+### Attribute-Like Macros {#attribute-like-macros}
 
 Attribute-like macros are similar to custom `derive` macros, but instead of
 generating code for the `derive` attribute, they allow you to create new
@@ -480,7 +480,7 @@ Other than that, attribute-like macros work the same way as custom `derive`
 macros: You create a crate with the `proc-macro` crate type and implement a
 function that generates the code you want!
 
-### Function-Like Macros
+### Function-Like Macros {#function-like-macros}
 
 Function-like macros define macros that look like function calls. Similarly to
 `macro_rules!` macros, they’re more flexible than functions; for example, they
@@ -511,7 +511,7 @@ generate.
 
 {{#quiz ../quizzes/ch19-06-macros.toml}}
 
-## Summary
+## Summary {#summary}
 
 Whew! Now you have some Rust features in your toolbox that you likely won’t use
 often, but you’ll know they’re available in very particular circumstances.

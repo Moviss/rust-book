@@ -2,7 +2,7 @@
 
 <a id="comparing-performance-loops-vs-iterators"></a>
 
-## Performance in Loops vs. Iterators
+## Performance in Loops vs. Iterators {#performance-in-loops-vs-iterators}
 
 To determine whether to use loops or iterators, you need to know which
 implementation is faster: the version of the `search` function with an explicit
@@ -44,7 +44,7 @@ Now that you know this, you can use iterators and closures without fear! They
 make code seem like it’s higher level but don’t impose a runtime performance
 penalty for doing so.
 
-## Summary
+## Summary {#summary}
 
 Closures and iterators are Rust features inspired by functional programming
 language ideas. They contribute to Rust’s capability to clearly express

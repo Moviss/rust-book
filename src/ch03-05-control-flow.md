@@ -1,4 +1,4 @@
-## Control Flow
+## Control Flow {#control-flow}
 
 The ability to run some code depending on whether a condition is `true` and the
 ability to run some code repeatedly while a condition is `true` are basic
@@ -6,7 +6,7 @@ building blocks in most programming languages. The most common constructs that
 let you control the flow of execution of Rust code are `if` expressions and
 loops.
 
-### `if` Expressions
+### `if` Expressions {#if-expressions}
 
 An `if` expression allows you to branch your code depending on conditions. You
 provide a condition and then state, “If this condition is met, run this block
@@ -87,7 +87,7 @@ expression to the following:
 
 Running this code will print `number was something other than zero`.
 
-#### Handling Multiple Conditions with `else if`
+#### Handling Multiple Conditions with `else if` {#handling-multiple-conditions-with-else-if}
 
 You can use multiple conditions by combining `if` and `else` in an `else if`
 expression. For example:
@@ -116,7 +116,7 @@ Using too many `else if` expressions can clutter your code, so if you have more
 than one, you might want to refactor your code. Chapter 6 describes a powerful
 Rust branching construct called `match` for these cases.
 
-#### Using `if` in a `let` Statement
+#### Using `if` in a `let` Statement {#using-if-in-a-let-statement}
 
 Because `if` is an expression, we can use it on the right side of a `let`
 statement to assign the outcome to a variable, as in Listing 3-2.
@@ -169,7 +169,7 @@ to keep track of multiple hypothetical types for any variable.
 
 {{#quiz ../quizzes/ch03-05-control-flow-sec1-if.toml}}
 
-### Repetition with Loops
+### Repetition with Loops {#repetition-with-loops}
 
 It’s often useful to execute a block of code more than once. For this task,
 Rust provides several _loops_, which will run through the code inside the loop
@@ -178,7 +178,7 @@ with loops, let’s make a new project called _loops_.
 
 Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one.
 
-#### Repeating Code with `loop`
+#### Repeating Code with `loop` {#repeating-code-with-loop}
 
 The `loop` keyword tells Rust to execute a block of code over and over again
 either forever or until you explicitly tell it to stop.
@@ -231,7 +231,7 @@ We also used `continue` in the guessing game, which in a loop tells the program
 to skip over any remaining code in this iteration of the loop and go to the
 next iteration.
 
-#### Returning Values from Loops
+#### Returning Values from Loops {#returning-values-from-loops}
 
 One of the uses of a `loop` is to retry an operation you know might fail, such
 as checking whether a thread has completed its job. You might also need to pass
@@ -263,7 +263,7 @@ loop, `return` always exits the current function.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="loop-labels-to-disambiguate-between-multiple-loops"></a>
 
-#### Disambiguating with Loop Labels
+#### Disambiguating with Loop Labels {#disambiguating-with-loop-labels}
 
 If you have loops within loops, `break` and `continue` apply to the innermost
 loop at that point. You can optionally specify a _loop label_ on a loop that
@@ -287,7 +287,7 @@ doesn’t specify a label will exit the inner loop only. The `break
 <!-- Old headings. Do not remove or links may break. -->
 <a id="conditional-loops-with-while"></a>
 
-#### Streamlining Conditional Loops with while
+#### Streamlining Conditional Loops with while {#streamlining-conditional-loops-with-while}
 
 A program will often need to evaluate a condition within a loop. While the
 condition is `true`, the loop runs. When the condition ceases to be `true`, the
@@ -310,7 +310,7 @@ This construct eliminates a lot of nesting that would be necessary if you used
 `loop`, `if`, `else`, and `break`, and it’s clearer. While a condition
 evaluates to `true`, the code runs; otherwise, it exits the loop.
 
-#### Looping Through a Collection with `for`
+#### Looping Through a Collection with `for` {#looping-through-a-collection-with-for}
 
 You can also use the `while` construct to loop over the elements of a
 collection, such as an array. For example, the loop in Listing 3-4 prints each
@@ -387,7 +387,7 @@ This code is a bit nicer, isn’t it?
 
 {{#quiz ../quizzes/ch03-05-control-flow-sec2-loops.toml}}
 
-## Summary
+## Summary {#summary}
 
 You made it! This was a sizable chapter: You learned about variables, scalar
 and compound data types, functions, comments, `if` expressions, and loops! To

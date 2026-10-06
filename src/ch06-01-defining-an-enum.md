@@ -1,4 +1,4 @@
-## Defining an Enum
+## Defining an Enum {#defining-an-enum}
 
 Where structs give you a way of grouping together related fields and data, like
 a `Rectangle` with its `width` and `height`, enums give you a way of saying a
@@ -30,7 +30,7 @@ variants of the enum:
 
 `IpAddrKind` is now a custom data type that we can use elsewhere in our code.
 
-### Enum Values
+### Enum Values {#enum-values}
 
 We can create instances of each of the two variants of `IpAddrKind` like this:
 
@@ -225,7 +225,7 @@ useful: `Option`.
 
 <a id="the-option-enum-and-its-advantages-over-null-values"></a>
 
-### The `Option` Enum
+### The `Option` Enum {#the-option-enum}
 
 This section explores a case study of `Option`, which is another enum defined
 by the standard library. The `Option` type encodes the very common scenario in

@@ -1,4 +1,4 @@
-## Accepting Command Line Arguments
+## Accepting Command Line Arguments {#accepting-command-line-arguments}
 
 Let’s create a new project with, as always, `cargo new`. We’ll call our project
 `minigrep` to distinguish it from the `grep` tool that you might already have
@@ -25,7 +25,7 @@ give it. Some existing libraries on [crates.io](https://crates.io/) can help
 with writing a program that accepts command line arguments, but because you’re
 just learning this concept, let’s implement this capability ourselves.
 
-### Reading the Argument Values
+### Reading the Argument Values {#reading-the-argument-values}
 
 To enable `minigrep` to read the values of command line arguments we pass to
 it, we’ll need the `std::env::args` function provided in Rust’s standard
@@ -57,7 +57,7 @@ from `std::env`. It’s also less ambiguous than adding `use std::env::args` and
 then calling the function with just `args`, because `args` might easily be
 mistaken for a function that’s defined in the current module.
 
-> ### The `args` Function and Invalid Unicode
+> ### The `args` Function and Invalid Unicode {#the-args-function-and-invalid-unicode}
 >
 > Note that `std::env::args` will panic if any argument contains invalid
 > Unicode. If your program needs to accept arguments containing invalid
@@ -93,7 +93,7 @@ print it in messages or change the behavior of the program based on what
 command line alias was used to invoke the program. But for the purposes of this
 chapter, we’ll ignore it and save only the two arguments we need.
 
-### Saving the Argument Values in Variables
+### Saving the Argument Values in Variables {#saving-the-argument-values-in-variables}
 
 The program is currently able to access the values specified as command line
 arguments. Now we need to save the values of the two arguments in variables so

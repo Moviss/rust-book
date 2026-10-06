@@ -1,4 +1,4 @@
-## Ownership Inventory #3
+## Ownership Inventory #3 {#ownership-inventory-3}
 
 The Ownership Inventory is a series of quizzes that test your understanding of ownership in real-world scenarios. These scenarios are inspired by common StackOverflow questions about Rust.
 

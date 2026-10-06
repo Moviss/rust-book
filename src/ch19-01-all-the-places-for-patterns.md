@@ -1,10 +1,10 @@
-## All the Places Patterns Can Be Used
+## All the Places Patterns Can Be Used {#all-the-places-patterns-can-be-used}
 
 Patterns pop up in a number of places in Rust, and you’ve been using them a lot
 without realizing it! This section discusses all the places where patterns are
 valid.
 
-### `match` Arms
+### `match` Arms {#match-arms}
 
 As discussed in Chapter 6, we use patterns in the arms of `match` expressions.
 Formally, `match` expressions are defined as the keyword `match`, a value to
@@ -47,7 +47,7 @@ useful when you want to ignore any value not specified, for example. We’ll
 cover the `_` pattern in more detail in [“Ignoring Values in a
 Pattern”][ignoring-values-in-a-pattern]<!-- ignore --> later in this chapter.
 
-### `let` Statements
+### `let` Statements {#let-statements}
 
 Prior to this chapter, we had only explicitly discussed using patterns with
 `match` and `if let`, but in fact, we’ve used patterns in other places as well,
@@ -122,7 +122,7 @@ is that we have too many variables in the pattern, the solution is to make the
 types match by removing variables so that the number of variables equals the
 number of elements in the tuple.
 
-### Conditional `if let` Expressions
+### Conditional `if let` Expressions {#conditional-if-let-expressions}
 
 In Chapter 6, we discussed how to use `if let` expressions mainly as a shorter
 way to write the equivalent of a `match` that only matches one case.
@@ -172,7 +172,7 @@ for exhaustiveness, whereas with `match` expressions it does. If we omitted the
 last `else` block and therefore missed handling some cases, the compiler would
 not alert us to the possible logic bug.
 
-### `while let` Conditional Loops
+### `while let` Conditional Loops {#while-let-conditional-loops}
 
 Similar in construction to `if let`, the `while let` conditional loop allows a
 `while` loop to run for as long as a pattern continues to match. In Listing
@@ -195,7 +195,7 @@ though, we can also use `while let`, because the `recv` method returns an `Ok`
 each time a message arrives, as long as the sender exists, and then produces an
 `Err` once the sender side disconnects.
 
-### `for` Loops
+### `for` Loops {#for-loops}
 
 In a `for` loop, the value that directly follows the keyword `for` is a
 pattern. For example, in `for x in y`, the `x` is the pattern. Listing 19-5
@@ -225,7 +225,7 @@ value)`, index will be `0` and value will be `'a'`, printing the first line of
 the output.
 
 
-### Function Parameters
+### Function Parameters {#function-parameters}
 
 Function parameters can also be patterns. The code in Listing 19-6, which
 declares a function named `foo` that takes one parameter named `x` of type

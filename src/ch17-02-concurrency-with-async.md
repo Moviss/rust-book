@@ -2,7 +2,7 @@
 
 <a id="concurrency-with-async"></a>
 
-## Applying Concurrency with Async
+## Applying Concurrency with Async {#applying-concurrency-with-async}
 
 In this section, we’ll apply async to some of the same concurrency challenges
 we tackled with threads in Chapter 16. Because we already talked about a lot of
@@ -19,7 +19,7 @@ characteristics.
 
 <a id="counting"></a>
 
-### Creating a New Task with `spawn_task`
+### Creating a New Task with `spawn_task` {#creating-a-new-task-with-spawn_task}
 
 The first operation we tackled in the [“Creating a New Thread with
 `spawn`”][thread-spawn]<!-- ignore --> section in Chapter 16 was counting up on
@@ -185,7 +185,7 @@ each case _before_ running the code!
 <a id="message-passing"></a>
 <a id="counting-up-on-two-tasks-using-message-passing"></a>
 
-### Sending Data Between Two Tasks Using Message Passing
+### Sending Data Between Two Tasks Using Message Passing {#sending-data-between-two-tasks-using-message-passing}
 
 Sharing data between futures will also be familiar: we’ll use message passing
 again, but this time with async versions of the types and functions. We’ll take
@@ -279,7 +279,7 @@ seconds (2,000 milliseconds) after we start the program. For another, this
 program also never exits! Instead, it waits forever for new messages. You will
 need to shut it down using <kbd>ctrl</kbd>-<kbd>C</kbd>.
 
-#### Code Within One Async Block Executes Linearly
+#### Code Within One Async Block Executes Linearly {#code-within-one-async-block-executes-linearly}
 
 Let’s start by examining why the messages come in all at once after the full
 delay, rather than coming in with delays between each one. Within a given async
@@ -313,7 +313,7 @@ what we’re trying _not_ to do.
 With the updated code in Listing 17-11, the messages get printed at
 500-millisecond intervals, rather than all in a rush after 2 seconds.
 
-#### Moving Ownership Into an Async Block
+#### Moving Ownership Into an Async Block {#moving-ownership-into-an-async-block}
 
 The program still never exits, though, because of the way the `while let` loop
 interacts with `trpl::join`:
@@ -359,7 +359,7 @@ When we run _this_ version of the code, it shuts down gracefully after the last
 message is sent and received. Next, let’s see what would need to change to send
 data from more than one future.
 
-#### Joining a Number of Futures with the `join!` Macro
+#### Joining a Number of Futures with the `join!` Macro {#joining-a-number-of-futures-with-the-join-macro}
 
 This async channel is also a multiple-producer channel, so we can call `clone`
 on `tx` if we want to send messages from multiple futures, as shown in Listing

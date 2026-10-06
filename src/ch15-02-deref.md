@@ -3,7 +3,7 @@
 <a id="treating-smart-pointers-like-regular-references-with-the-deref-trait"></a>
 <a id="treating-smart-pointers-like-regular-references-with-deref"></a>
 
-## Treating Smart Pointers Like Regular References
+## Treating Smart Pointers Like Regular References {#treating-smart-pointers-like-regular-references}
 
 Implementing the `Deref` trait allows you to customize the behavior of the
 _dereference operator_ `*` (not to be confused with the multiplication or glob
@@ -24,7 +24,7 @@ smart pointers.
 <a id="following-the-pointer-to-the-value-with-the-dereference-operator"></a>
 <a id="following-the-pointer-to-the-value"></a>
 
-### Following the Reference to the Value
+### Following the Reference to the Value {#following-the-reference-to-the-value}
 
 A regular reference is a type of pointer, and one way to think of a pointer is
 as an arrow to a value stored somewhere else. In Listing 15-6, we create a
@@ -57,7 +57,7 @@ Comparing a number and a reference to a number isn’t allowed because they’re
 different types. We must use the dereference operator to follow the reference
 to the value it’s pointing to.
 
-### Using `Box<T>` Like a Reference
+### Using `Box<T>` Like a Reference {#using-boxt-like-a-reference}
 
 We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a
 reference; the dereference operator used on the `Box<T>` in Listing 15-7
@@ -79,7 +79,7 @@ dereference operator to follow the box’s pointer in the same way that we did
 when `y` was a reference. Next, we’ll explore what is special about `Box<T>`
 that enables us to use the dereference operator by defining our own box type.
 
-### Defining Our Own Smart Pointer
+### Defining Our Own Smart Pointer {#defining-our-own-smart-pointer}
 
 Let’s build a wrapper type similar to the `Box<T>` type provided by the
 standard library to experience how smart pointer types behave differently from
@@ -135,7 +135,7 @@ implement the `Deref` trait.
 
 <a id="treating-a-type-like-a-reference-by-implementing-the-deref-trait"></a>
 
-### Implementing the `Deref` Trait
+### Implementing the `Deref` Trait {#implementing-the-deref-trait}
 
 As discussed in [“Implementing a Trait on a Type”][impl-trait]<!-- ignore --> in
 Chapter 10, to implement a trait we need to provide implementations for the
@@ -200,7 +200,7 @@ Listing 15-9.
 <a id="implicit-deref-coercions-with-functions-and-methods"></a>
 <a id="using-deref-coercions-in-functions-and-methods"></a>
 
-### Using Deref Coercion in Functions and Methods
+### Using Deref Coercion in Functions and Methods {#using-deref-coercion-in-functions-and-methods}
 
 _Deref coercion_ converts a reference to a type that implements the `Deref`
 trait into a reference to another type. For example, deref coercion can convert
@@ -278,7 +278,7 @@ advantage of deref coercion!
 
 <a id="how-deref-coercion-interacts-with-mutability"></a>
 
-### Handling Deref Coercion with Mutable References
+### Handling Deref Coercion with Mutable References {#handling-deref-coercion-with-mutable-references}
 
 Similar to how you use the `Deref` trait to override the `*` operator on
 immutable references, you can use the `DerefMut` trait to override the `*`

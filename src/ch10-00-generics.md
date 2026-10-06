@@ -1,4 +1,4 @@
-# Generic Types, Traits, and Lifetimes
+# Generic Types, Traits, and Lifetimes {#generic-types-traits-and-lifetimes}
 
 Every programming language has tools for effectively handling the duplication
 of concepts. In Rust, one such tool is _generics_: abstract stand-ins for
@@ -28,7 +28,7 @@ us to give the compiler enough information about borrowed values so that it can
 ensure that references will be valid in more situations than it could without
 our help.
 
-## Removing Duplication by Extracting a Function
+## Removing Duplication by Extracting a Function {#removing-duplication-by-extracting-a-function}
 
 Generics allow us to replace specific types with a placeholder that represents
 multiple types to remove code duplication. Before diving into generics syntax,

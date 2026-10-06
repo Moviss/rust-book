@@ -1,4 +1,4 @@
-## Paths for Referring to an Item in the Module Tree
+## Paths for Referring to an Item in the Module Tree {#paths-for-referring-to-an-item-in-the-module-tree}
 
 To show Rust where to find an item in a module tree, we use a path in the same
 way we use a path when navigating a filesystem. To call a function, we need to
@@ -97,7 +97,7 @@ inner code you can change without breaking the outer code. However, Rust does
 give you the option to expose inner parts of child modules’ code to outer
 ancestor modules by using the `pub` keyword to make an item public.
 
-### Exposing Paths with the `pub` Keyword
+### Exposing Paths with the `pub` Keyword {#exposing-paths-with-the-pub-keyword}
 
 Let’s return to the error in Listing 7-4 that told us the `hosting` module is
 private. We want the `eat_at_restaurant` function in the parent module to have
@@ -176,7 +176,7 @@ managing changes to your public API to make it easier for people to depend on
 your crate. These considerations are beyond the scope of this book; if you’re
 interested in this topic, see [the Rust API Guidelines][api-guidelines].
 
-> #### Best Practices for Packages with a Binary and a Library
+> #### Best Practices for Packages with a Binary and a Library {#best-practices-for-packages-with-a-binary-and-a-library}
 >
 > We mentioned that a package can contain both a _src/main.rs_ binary crate
 > root as well as a _src/lib.rs_ library crate root, and both crates will have
@@ -199,7 +199,7 @@ interested in this topic, see [the Rust API Guidelines][api-guidelines].
 
 {{#quiz ../quizzes/ch07-03-paths-sec1.toml}}
 
-### Starting Relative Paths with `super`
+### Starting Relative Paths with `super` {#starting-relative-paths-with-super}
 
 We can construct relative paths that begin in the parent module, rather than
 the current module or the crate root, by using `super` at the start of the
@@ -232,7 +232,7 @@ together should we decide to reorganize the crate’s module tree. Therefore, we
 used `super` so that we’ll have fewer places to update code in the future if
 this code gets moved to a different module.
 
-### Making Structs and Enums Public
+### Making Structs and Enums Public {#making-structs-and-enums-public}
 
 We can also use `pub` to designate structs and enums as public, but there are a
 few extra details to the usage of `pub` with structs and enums. If we use `pub`

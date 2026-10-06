@@ -1,4 +1,4 @@
-## Refutability: Whether a Pattern Might Fail to Match
+## Refutability: Whether a Pattern Might Fail to Match {#refutability-whether-a-pattern-might-fail-to-match}
 
 Patterns come in two forms: refutable and irrefutable. Patterns that will match
 for any possible value passed are _irrefutable_. An example would be `x` in the

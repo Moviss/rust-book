@@ -1,4 +1,4 @@
-## Methods
+## Methods {#methods}
 
 Methods are similar to functions: We declare them with the `fn` keyword and a
 name, they can have parameters and a return value, and they contain some code
@@ -13,7 +13,7 @@ called on.
 
 <a id="defining-methods"></a>
 
-### Method Syntax
+### Method Syntax {#method-syntax}
 
 Let’s change the `area` function that has a `Rectangle` instance as a parameter
 and instead make an `area` method defined on the `Rectangle` struct, as shown
@@ -92,7 +92,7 @@ field as part of the type’s public API. We will discuss what public and privat
 are and how to designate a field or method as public or private in [Chapter
 7][public]<!-- ignore -->.
 
-### Methods with More Parameters
+### Methods with More Parameters {#methods-with-more-parameters}
 
 Let’s practice using methods by implementing a second method on the `Rectangle`
 struct. This time we want an instance of `Rectangle` to take another instance
@@ -146,7 +146,7 @@ signature after the `self` parameter, and those parameters work just like
 parameters in functions.
 
 
-### Associated Functions
+### Associated Functions {#associated-functions}
 
 All functions defined within an `impl` block are called _associated functions_
 because they’re associated with the type named after the `impl`. We can define
@@ -179,7 +179,7 @@ the struct: The `::` syntax is used for both associated functions and
 namespaces created by modules. We’ll discuss modules in [Chapter
 7][modules]<!-- ignore -->.
 
-### Multiple `impl` Blocks
+### Multiple `impl` Blocks {#multiple-impl-blocks}
 
 Each struct is allowed to have multiple `impl` blocks. For example, Listing
 5-15 is equivalent to the code shown in Listing 5-16, which has each method in
@@ -197,7 +197,7 @@ There’s no reason to separate these methods into multiple `impl` blocks here,
 but this is valid syntax. We’ll see a case in which multiple `impl` blocks are
 useful in Chapter 10, where we discuss generic types and traits.
 
-### Method Calls are Syntactic Sugar for Function Calls
+### Method Calls are Syntactic Sugar for Function Calls {#method-calls-are-syntactic-sugar-for-function-calls}
 
 Using the concepts we've discussed so far, we can now see how method calls are syntactic sugar for function calls. For example, let's say we have a rectangle struct with an `area` method and a `set_width` method:
 
@@ -289,7 +289,7 @@ Rust will add two dereferences (once for the mutable reference, once for the box
 {{#quiz ../quizzes/ch05-03-method-syntax-sec1.toml}}
 
 
-### Methods and Ownership
+### Methods and Ownership {#methods-and-ownership}
 
 Like we discussed in Chapter 4.2 ["References and Borrowing"](ch04-02-references-and-borrowing.html), methods must be called on structs that have the necessary permissions. As a running example, we will use these three methods that take `&self`, `&mut self`, and `self`, respectively.
 
@@ -312,7 +312,7 @@ impl Rectangle {
 }
 ```
 
-#### Reads and Writes with `&self` and `&mut self`
+#### Reads and Writes with `&self` and `&mut self` {#reads-and-writes-with-self-and-mut-self}
 
 If we make an owned rectangle with `let rect = Rectangle { ... }`, then `rect` has @Perm{read} and @Perm{own} permissions. With those permissions, it is permissible to call the `area` and `max` methods:
 
@@ -436,7 +436,7 @@ rect_ref.set_width(2);`{}` // but this is still not ok
 #}
 ```
 
-#### Moves with `self`
+#### Moves with `self` {#moves-with-self}
 
 Calling a method that expects `self` will move the input struct (unless the struct implements `Copy`). For example, we cannot use a `Rectangle` after passing it to `max`:
 
@@ -538,7 +538,7 @@ error[E0507]: cannot move out of `*self` which is behind a mutable reference
 
 This is the same kind of error we discussed in Chapter 4.3 ["Copying vs. Moving Out of a Collection"](ch04-03-fixing-ownership-errors.html#fixing-an-unsafe-program-copying-vs-moving-out-of-a-collection).
 
-#### Good Moves and Bad Moves
+#### Good Moves and Bad Moves {#good-moves-and-bad-moves}
 
 You might wonder: why does it matter if we move out of `*self`? In fact, for the case of `Rectangle`, it actually is safe to move out of `*self`, even though Rust doesn't let you do it. For example, if we simulate a program that calls the rejected `set_to_max`, you can see how nothing unsafe occurs:
 
@@ -647,7 +647,7 @@ Therefore when we do `*self = max`, we encounter undefined behavior. When we ove
 So remember: when you see an error like "cannot move out of `*self`", that's usually because you're trying to call a `self` method on a reference like `&self` or `&mut self`. Rust is protecting you from a double-free.
 
 
-## Summary
+## Summary {#summary}
 
 Structs let you create custom types that are meaningful for your domain. By
 using structs, you can keep associated pieces of data connected to each other

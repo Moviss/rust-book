@@ -1,4 +1,4 @@
-## Fixing Ownership Errors
+## Fixing Ownership Errors {#fixing-ownership-errors}
 
 Learning how to fix an ownership error is a core Rust skill. When the borrow checker rejects your code, how should you respond? In this section, we will discuss several case studies of common ownership errors. Each case study will present a function rejected by the compiler. Then we will explain why Rust rejects the function, and show several ways to fix it.
 
@@ -6,7 +6,7 @@ A common theme will be understanding whether a function is *actually* safe or un
 
 <!-- The last two sections have shown how a Rust program can be **unsafe** if it triggers undefined behavior. The ownership guarantee is that Rust will reject all unsafe programs. However, Rust will also reject *some* safe programs. Fixing an ownership error will depend on whether your program is *actually* safe or unsafe. -->
 
-### Fixing an Unsafe Program: Returning a Reference to the Stack
+### Fixing an Unsafe Program: Returning a Reference to the Stack {#fixing-an-unsafe-program-returning-a-reference-to-the-stack}
 
 Our first case study is about returning a reference to the stack, just like we discussed last section in ["Data Must Outlive All Of Its References"](ch04-02-references-and-borrowing.html#data-must-outlive-all-of-its-references). Here's the function we looked at:
 
@@ -61,7 +61,7 @@ With this strategy, the caller is responsible for creating space for the string.
 Which strategy is most appropriate will depend on your application. But the key idea is to recognize the root issue underlying the surface-level ownership error. How long should my string live? Who should be in charge of deallocating it? Once you have a clear answer to those questions, then it's a matter of changing your API to match.
 
 
-### Fixing an Unsafe Program: Not Enough Permissions
+### Fixing an Unsafe Program: Not Enough Permissions {#fixing-an-unsafe-program-not-enough-permissions}
 
 Another common issue is trying to mutate read-only data, or trying to drop data behind a reference. For example, let's say we tried to write a function `stringify_name_with_title`. This function is supposed to create a person's full name from a vector of name parts, including an extra title.
 
@@ -144,7 +144,7 @@ In general, writing Rust functions is a careful balance of asking for the *right
 
 {{#quiz ../quizzes/ch04-03-fixing-ownership-errors-sec1-idioms.toml}}
 
-### Fixing an Unsafe Program: Aliasing and Mutating a Data Structure
+### Fixing an Unsafe Program: Aliasing and Mutating a Data Structure {#fixing-an-unsafe-program-aliasing-and-mutating-a-data-structure}
 
 Another unsafe operation is using a reference to heap data that gets deallocated by another alias. For example, here's a function that gets a reference to the largest string in a vector, and then uses it while mutating the vector:
 
@@ -208,7 +208,7 @@ fn add_big_strings(dst: &mut Vec<String>, src: &[String]) {
 
 These solutions all share in common the key idea: shortening the lifetime of borrows on `dst` to not overlap with a mutation to `dst`.
 
-### Fixing an Unsafe Program: Copying vs. Moving Out of a Collection
+### Fixing an Unsafe Program: Copying vs. Moving Out of a Collection {#fixing-an-unsafe-program-copying-vs-moving-out-of-a-collection}
 
 A common confusion for Rust learners happens when copying data out of a collection, like a vector. For example, here's a safe program that copies a number out of a vector:
 
@@ -315,7 +315,7 @@ assert!(v.len() == 0);
 ```
 
 
-### Fixing a Safe Program: Mutating Different Tuple Fields
+### Fixing a Safe Program: Mutating Different Tuple Fields {#fixing-a-safe-program-mutating-different-tuple-fields}
 
 The above examples are cases where a program is unsafe. Rust may also reject safe programs. One common issue is that Rust tries to track permissions at a fine-grained level. However, Rust may conflate two different places as the same place. 
  
@@ -373,7 +373,7 @@ The problem is that Rust doesn't look at the implementation of `get_first` when 
 
 Remember, the key idea is that **the program above is safe.** It has no undefined behavior! A future version of Rust may be smart enough to let it compile, but for today, it gets rejected. So how should we work around the borrow checker today? One possibility is to inline the expression `&name.0`, like in the original program. Another possibility is to defer borrow checking to runtime with [cells], which we will discuss in future chapters.
 
-### Fixing a Safe Program: Mutating Different Array Elements
+### Fixing a Safe Program: Mutating Different Array Elements {#fixing-a-safe-program-mutating-different-array-elements}
 
 A similar kind of problem arises when we borrow elements of an array. For example, observe what places are borrowed when we take a mutable reference to an array:
 
@@ -448,7 +448,7 @@ Unsafe code is sometimes necessary to work around the limitations of the borrow 
 
 {{#quiz ../quizzes/ch04-03-fixing-ownership-errors-sec2-safety.toml}}
 
-### Summary
+### Summary {#summary}
 
 When fixing an ownership error, you should ask yourself: is my program actually unsafe? If yes, then you need to understand the root cause of the unsafety. If no, then you need to understand the limitations of the borrow checker to work around them.
 

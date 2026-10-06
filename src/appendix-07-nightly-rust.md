@@ -1,9 +1,9 @@
-## Appendix G - How Rust is Made and “Nightly Rust”
+## Appendix G - How Rust is Made and “Nightly Rust” {#appendix-g---how-rust-is-made-and-nightly-rust}
 
 This appendix is about how Rust is made and how that affects you as a Rust
 developer.
 
-### Stability Without Stagnation
+### Stability Without Stagnation {#stability-without-stagnation}
 
 As a language, Rust cares a _lot_ about the stability of your code. We want
 Rust to be a rock-solid foundation you can build on, and if things were
@@ -16,7 +16,7 @@ and our guiding principle is this: you should never have to fear upgrading to a
 new version of stable Rust. Each upgrade should be painless, but should also
 bring you new features, fewer bugs, and faster compile times.
 
-### Choo, Choo! Release Channels and Riding the Trains
+### Choo, Choo! Release Channels and Riding the Trains {#choo-choo-release-channels-and-riding-the-trains}
 
 Rust development operates on a _train schedule_. That is, all development is
 done in the main branch of the Rust repository. Releases follow a software
@@ -114,13 +114,13 @@ work as expected, you can report it to the team and get it fixed before the
 next stable release happens! Breakage in a beta release is relatively rare, but
 `rustc` is still a piece of software, and bugs do exist.
 
-### Maintenance time
+### Maintenance time {#maintenance-time}
 
 The Rust project supports the most recent stable version. When a new stable
 version is released, the old version reaches its end of life (EOL). This means
 each version is supported for six weeks.
 
-### Unstable Features
+### Unstable Features {#unstable-features}
 
 There’s one more catch with this release model: unstable features. Rust uses a
 technique called “feature flags” to determine what features are enabled in a
@@ -141,7 +141,7 @@ features are still changing, and surely they’ll be different between when this
 book was written and when they get enabled in stable builds. You can find
 documentation for nightly-only features online.
 
-### Rustup and the Role of Rust Nightly
+### Rustup and the Role of Rust Nightly {#rustup-and-the-role-of-rust-nightly}
 
 Rustup makes it easy to change between different release channels of Rust, on a
 global or per-project basis. By default, you’ll have stable Rust installed. To
@@ -178,7 +178,7 @@ _~/projects/needs-nightly_, `rustup` will make sure that you are using nightly
 Rust, rather than your default of stable Rust. This comes in handy when you
 have a lot of Rust projects!
 
-### The RFC Process and Teams
+### The RFC Process and Teams {#the-rfc-process-and-teams}
 
 So how do you learn about these new features? Rust’s development model follows
 a _Request For Comments (RFC) process_. If you’d like an improvement in Rust,

@@ -2,7 +2,7 @@
 
 <a id="managing-growing-projects-with-packages-crates-and-modules"></a>
 
-# Packages, Crates, and Modules
+# Packages, Crates, and Modules {#packages-crates-and-modules}
 
 As you write large programs, organizing your code will become increasingly
 important. By grouping related functionality and separating code with distinct

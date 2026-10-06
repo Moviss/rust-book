@@ -1,4 +1,4 @@
-## To `panic!` or Not to `panic!`
+## To `panic!` or Not to `panic!` {#to-panic-or-not-to-panic}
 
 So, how do you decide when you should call `panic!` and when you should return
 `Result`? When code panics, there’s no way to recover. You could call `panic!`
@@ -17,7 +17,7 @@ explore why, then discuss situations in which the compiler can’t tell that
 failure is impossible, but you as a human can. The chapter will conclude with
 some general guidelines on how to decide whether to panic in library code.
 
-### Examples, Prototype Code, and Tests
+### Examples, Prototype Code, and Tests {#examples-prototype-code-and-tests}
 
 When you’re writing an example to illustrate some concept, also including
 robust error-handling code can make the example less clear. In examples, it’s
@@ -39,7 +39,7 @@ happen.
 
 <a id="cases-in-which-you-have-more-information-than-the-compiler"></a>
 
-### When You Have More Information Than the Compiler
+### When You Have More Information Than the Compiler {#when-you-have-more-information-than-the-compiler}
 
 It would also be appropriate to call `expect` when you have some other logic
 that ensures that the `Result` will have an `Ok` value, but the logic isn’t
@@ -68,7 +68,7 @@ Mentioning the assumption that this IP address is hardcoded will prompt us to
 change `expect` to better error-handling code if, in the future, we need to get
 the IP address from some other source instead.
 
-### Guidelines for Error Handling
+### Guidelines for Error Handling {#guidelines-for-error-handling}
 
 It’s advisable to have your code panic when it’s possible that your code could
 end up in a bad state. In this context, a _bad state_ is when some assumption,
@@ -132,7 +132,7 @@ case at runtime. Another example is using an unsigned integer type such as
 
 <a id="creating-custom-types-for-validation"></a>
 
-### Custom Types for Validation
+### Custom Types for Validation {#custom-types-for-validation}
 
 Let’s take the idea of using Rust’s type system to ensure that we have a valid
 value one step further and look at creating a custom type for validation.
@@ -220,7 +220,7 @@ then declare in its signature that it takes or returns a `Guess` rather than an
 
 {{#quiz ../quizzes/ch09-03-panic-or-not.toml}}
 
-## Summary
+## Summary {#summary}
 
 Rust’s error-handling features are designed to help you write more robust code.
 The `panic!` macro signals that your program is in a state it can’t handle and

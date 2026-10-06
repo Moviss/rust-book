@@ -1,4 +1,4 @@
-# More About Cargo and Crates.io
+# More About Cargo and Crates.io {#more-about-cargo-and-cratesio}
 
 So far, we’ve used only the most basic features of Cargo to build, run, and
 test our code, but it can do a lot more. In this chapter, we’ll discuss some of

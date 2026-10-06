@@ -1,4 +1,4 @@
-# Smart Pointers
+# Smart Pointers {#smart-pointers}
 
 A pointer is a general concept for a variable that contains an address in
 memory. This address refers to, or “points at,” some other data. The most

@@ -1,4 +1,4 @@
-## Shared-State Concurrency
+## Shared-State Concurrency {#shared-state-concurrency}
 
 Message passing is a fine way to handle concurrency, but it’s not the only way.
 Another method would be for multiple threads to access the same shared data.
@@ -22,7 +22,7 @@ for shared memory.
 
 <a id="using-mutexes-to-allow-access-to-data-from-one-thread-at-a-time"></a>
 
-### Controlling Access with Mutexes
+### Controlling Access with Mutexes {#controlling-access-with-mutexes}
 
 _Mutex_ is an abbreviation for _mutual exclusion_, as in a mutex allows only
 one thread to access some data at any given time. To access the data in a
@@ -51,7 +51,7 @@ Management of mutexes can be incredibly tricky to get right, which is why so
 many people are enthusiastic about channels. However, thanks to Rust’s type
 system and ownership rules, you can’t get locking and unlocking wrong.
 
-#### The API of `Mutex<T>`
+#### The API of `Mutex<T>` {#the-api-of-mutext}
 
 As an example of how to use a mutex, let’s start by using a mutex in a
 single-threaded context, as shown in Listing 16-12.
@@ -95,7 +95,7 @@ to change the inner `i32` to `6`.
 
 <a id="sharing-a-mutext-between-multiple-threads"></a>
 
-#### Shared Access to `Mutex<T>`
+#### Shared Access to `Mutex<T>` {#shared-access-to-mutext}
 
 Now let’s try to share a value between multiple threads using `Mutex<T>`. We’ll
 spin up 10 threads and have them each increment a counter value by 1, so the
@@ -135,7 +135,7 @@ iteration of the loop. Rust is telling us that we can’t move the ownership of
 lock `counter` into multiple threads. Let’s fix the compiler error with the
 multiple-ownership method we discussed in Chapter 15.
 
-#### Multiple Ownership with Multiple Threads
+#### Multiple Ownership with Multiple Threads {#multiple-ownership-with-multiple-threads}
 
 In Chapter 15, we gave a value to multiple owners by using the smart pointer
 `Rc<T>` to create a reference-counted value. Let’s do the same here and see
@@ -173,7 +173,7 @@ could in turn lead to memory leaks or a value being dropped before we’re done
 with it. What we need is a type that is exactly like `Rc<T>`, but that makes
 changes to the reference count in a thread-safe way.
 
-#### Atomic Reference Counting with `Arc<T>`
+#### Atomic Reference Counting with `Arc<T>` {#atomic-reference-counting-with-arct}
 
 Fortunately, `Arc<T>` _is_ a type like `Rc<T>` that is safe to use in
 concurrent situations. The _a_ stands for _atomic_, meaning it’s an _atomically
@@ -229,7 +229,7 @@ type for this example so that we could concentrate on how `Mutex<T>` works.
 
 <a id="similarities-between-refcelltrct-and-mutextarct"></a>
 
-### Comparing `RefCell<T>`/`Rc<T>` and `Mutex<T>`/`Arc<T>`
+### Comparing `RefCell<T>`/`Rc<T>` and `Mutex<T>`/`Arc<T>` {#comparing-refcelltrct-and-mutextarct}
 
 You might have noticed that `counter` is immutable but that we could get a
 mutable reference to the value inside it; this means `Mutex<T>` provides

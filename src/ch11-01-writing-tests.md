@@ -1,4 +1,4 @@
-## How to Write Tests
+## How to Write Tests {#how-to-write-tests}
 
 _Tests_ are Rust functions that verify that the non-test code is functioning in
 the expected manner. The bodies of test functions typically perform these three
@@ -16,7 +16,7 @@ take these actions, which include the `test` attribute, a few macros, and the
 
 <a id="the-anatomy-of-a-test-function"></a>
 
-### Structuring Test Functions
+### Structuring Test Functions {#structuring-test-functions}
 
 At its simplest, a test in Rust is a function that’s annotated with the `test`
 attribute. Attributes are metadata about pieces of Rust code; one example is
@@ -186,7 +186,7 @@ let’s look at some macros other than `panic!` that are useful in tests.
 
 <a id="checking-results-with-the-assert-macro"></a>
 
-### Checking Results with `assert!`
+### Checking Results with `assert!` {#checking-results-with-assert}
 
 The `assert!` macro, provided by the standard library, is useful when you want
 to ensure that some condition in a test evaluates to `true`. We give the
@@ -279,7 +279,7 @@ less than 5.
 
 <a id="testing-equality-with-the-assert_eq-and-assert_ne-macros"></a>
 
-### Testing Equality with `assert_eq!` and `assert_ne!`
+### Testing Equality with `assert_eq!` and `assert_ne!` {#testing-equality-with-assert_eq-and-assert_ne}
 
 A common way to verify functionality is to test for equality between the result
 of the code under test and the value you expect the code to return. You could
@@ -363,7 +363,7 @@ Listing 5-12 in Chapter 5, this is usually as straightforward as adding the
 Appendix C, [“Derivable Traits,”][derivable-traits]<!-- ignore --> for more
 details about these and other derivable traits.
 
-### Adding Custom Failure Messages
+### Adding Custom Failure Messages {#adding-custom-failure-messages}
 
 You can also add a custom message to be printed with the failure message as
 optional arguments to the `assert!`, `assert_eq!`, and `assert_ne!` macros. Any
@@ -422,7 +422,7 @@ Now when we run the test, we’ll get a more informative error message:
 We can see the value we actually got in the test output, which would help us
 debug what happened instead of what we were expecting to happen.
 
-### Checking for Panics with `should_panic`
+### Checking for Panics with `should_panic` {#checking-for-panics-with-should_panic}
 
 In addition to checking return values, it’s important to check that our code
 handles error conditions as we expect. For example, consider the `Guess` type
@@ -517,7 +517,7 @@ to 100`. The panic message that we did get in this case was `Guess value must
 be greater than or equal to 1, got 200`. Now we can start figuring out where
 our bug is!
 
-### Using `Result<T, E>` in Tests
+### Using `Result<T, E>` in Tests {#using-resultt-e-in-tests}
 
 All of our tests so far panic when they fail. We can also write tests that use
 `Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use `Result<T,

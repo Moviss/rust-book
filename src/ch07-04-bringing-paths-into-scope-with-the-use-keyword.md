@@ -1,4 +1,4 @@
-## Bringing Paths into Scope with the `use` Keyword
+## Bringing Paths into Scope with the `use` Keyword {#bringing-paths-into-scope-with-the-use-keyword}
 
 Having to write out the paths to call functions can feel inconvenient and
 repetitive. In Listing 7-7, whether we chose the absolute or relative path to
@@ -51,7 +51,7 @@ fix this problem, move the `use` within the `customer` module too, or reference
 the shortcut in the parent module with `super::hosting` within the child
 `customer` module.
 
-### Creating Idiomatic `use` Paths
+### Creating Idiomatic `use` Paths {#creating-idiomatic-use-paths}
 
 In Listing 7-11, you might have wondered why we specified `use
 crate::front_of_house::hosting` and then called `hosting::add_to_waitlist` in
@@ -108,7 +108,7 @@ If instead we specified `use std::fmt::Result` and `use std::io::Result`, we’d
 have two `Result` types in the same scope, and Rust wouldn’t know which one we
 meant when we used `Result`.
 
-### Providing New Names with the `as` Keyword
+### Providing New Names with the `as` Keyword {#providing-new-names-with-the-as-keyword}
 
 There’s another solution to the problem of bringing two types of the same name
 into the same scope with `use`: After the path, we can specify `as` and a new
@@ -128,7 +128,7 @@ In the second `use` statement, we chose the new name `IoResult` for the
 that we’ve also brought into scope. Listing 7-15 and Listing 7-16 are
 considered idiomatic, so the choice is up to you!
 
-### Re-exporting Names with `pub use`
+### Re-exporting Names with `pub use` {#re-exporting-names-with-pub-use}
 
 When we bring a name into scope with the `use` keyword, the name is private to
 the scope into which we imported it. To enable code outside that scope to refer
@@ -166,7 +166,7 @@ and programmers calling the library. We’ll look at another example of `pub use
 and how it affects your crate’s documentation in [“Exporting a Convenient Public
 API”][ch14-pub-use]<!-- ignore --> in Chapter 14.
 
-### Using External Packages
+### Using External Packages {#using-external-packages}
 
 In Chapter 2, we programmed a guessing game project that used an external
 package called `rand` to get random numbers. To use `rand` in our project, we
@@ -222,7 +222,7 @@ crate.
 
 <a id="using-nested-paths-to-clean-up-large-use-lists"></a>
 
-### Using Nested Paths to Clean Up `use` Lists
+### Using Nested Paths to Clean Up `use` Lists {#using-nested-paths-to-clean-up-use-lists}
 
 If we’re using multiple items defined in the same crate or same module, listing
 each item on its own line can take up a lot of vertical space in our files. For
@@ -285,7 +285,7 @@ This line brings `std::io` and `std::io::Write` into scope.
 
 <a id="the-glob-operator"></a>
 
-### Importing Items with the Glob Operator
+### Importing Items with the Glob Operator {#importing-items-with-the-glob-operator}
 
 If we want to bring _all_ public items defined in a path into scope, we can
 specify that path followed by the `*` glob operator:

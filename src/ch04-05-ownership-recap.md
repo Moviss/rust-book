@@ -1,9 +1,9 @@
-## Ownership Recap
+## Ownership Recap {#ownership-recap}
 
 This chapter introduced a lot of new concepts like ownership, borrowing, and slices.
 If you aren't familiar with systems programming, this chapter also introduced new concepts like memory allocation, the stack vs. the heap, pointers, and undefined behavior. Before we move on to the rest of Rust, let's first stop and take a breath. We'll review and practice with the key concepts from this chapter.
 
-### Ownership versus Garbage Collection
+### Ownership versus Garbage Collection {#ownership-versus-garbage-collection}
 
 To put ownership into context, we should talk about **garbage collection**.
 Most programming languages use a garbage collector to manage memory, such as in Python, Javascript, Java, and Go. A garbage collector works at runtime adjacent to a running program (a tracing collector, at least). The collector scans through memory to find data that's no longer used &mdash; that is, the running program can no longer reach that data from a function-local variable. Then the collector deallocates the unused memory for later use.
@@ -90,11 +90,11 @@ fn main() {
 
 The point of this example is to say: if Rust is not your first language, then you already have experience working with memory and pointers! Rust just makes those concepts explicit. This has the dual benefit of (1) improving runtime performance by avoiding garbage collection, and (2) improving predictability by preventing accidental "leaks" of data.
 
-### The Concepts of Ownership
+### The Concepts of Ownership {#the-concepts-of-ownership}
 
 Next, let's review the concepts of ownership. This review will be quick &mdash; the goal is to remind you of the relevant concepts. If you realize you forgot or didn't understand a concept, then we will link you to the relevant chapters which you can review.
 
-#### Ownership at Runtime
+#### Ownership at Runtime {#ownership-at-runtime}
 
 We'll start by reviewing how Rust uses memory at runtime: 
 * Rust allocates local variables in stack frames, which are allocated when a function is called and deallocated when the call ends. 
@@ -140,7 +140,7 @@ fn main() {
 If you want to review slices, re-read [Chapter 4.4][ch04-04].
 
 
-#### Ownership at Compile-time
+#### Ownership at Compile-time {#ownership-at-compile-time}
 
 Rust tracks @Perm{read} (read), @Perm{write} (write), and @Perm{own} (own) permissions on each variable. Rust requires that a variable has appropriate permissions to perform a given operation. As a basic example, if a variable is not declared as `let mut`, then it is missing the @Perm{write} permission and cannot be mutated:
 
@@ -235,7 +235,7 @@ s_ref.push_str(" world");
 
 If you want to review permissions and references, re-read [Chapter 4.2][ch04-02].
 
-#### Connecting Ownership between Compile-time and Runtime
+#### Connecting Ownership between Compile-time and Runtime {#connecting-ownership-between-compile-time-and-runtime}
 
 Rust's permissions are designed to prevent undefined behavior. For example, one kind of undefined behavior is a **use-after-free** where freed memory is read or written. Immutable borrows remove the @Perm{write} permission to avoid use-after-free, like in this case:
 
@@ -263,7 +263,7 @@ drop(v);`[]`
 If you want to review undefined behavior, re-read [Chapter 4.1][ch04-01] and [Chapter 4.3][ch04-03].
 
 
-### The Rest of Ownership
+### The Rest of Ownership {#the-rest-of-ownership}
 
 As we introduce additional features like structs, enums, and traits, those features will have specific interactions with ownership. This chapter provides the essential foundation for understanding those interactions &mdash; the concepts of memory, pointers, undefined behavior, and permissions will help us talk about the more advanced parts of Rust in future chapters.
 

@@ -1,4 +1,4 @@
-## Appendix A: Keywords
+## Appendix A: Keywords {#appendix-a-keywords}
 
 The following lists contain keywords that are reserved for current or future
 use by the Rust language. As such, they cannot be used as identifiers (except
@@ -9,7 +9,7 @@ macros, static values, attributes, types, traits, or lifetimes.
 
 [raw-identifiers]: #raw-identifiers
 
-### Keywords Currently in Use
+### Keywords Currently in Use {#keywords-currently-in-use}
 
 The following is a list of keywords currently in use, with their functionality
 described.
@@ -61,7 +61,7 @@ described.
 
 [union]: https://doc.rust-lang.org/reference/items/unions.html
 
-### Keywords Reserved for Future Use
+### Keywords Reserved for Future Use {#keywords-reserved-for-future-use}
 
 The following keywords do not yet have any functionality but are reserved by
 Rust for potential future use:
@@ -81,7 +81,7 @@ Rust for potential future use:
 - `virtual`
 - `yield`
 
-### Raw Identifiers
+### Raw Identifiers {#raw-identifiers}
 
 _Raw identifiers_ are the syntax that lets you use keywords where they wouldn’t
 normally be allowed. You use a raw identifier by prefixing a keyword with `r#`.

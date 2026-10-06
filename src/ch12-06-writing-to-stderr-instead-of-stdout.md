@@ -2,7 +2,7 @@
 
 <a id="writing-error-messages-to-standard-error-instead-of-standard-output"></a>
 
-## Redirecting Errors to Standard Error
+## Redirecting Errors to Standard Error {#redirecting-errors-to-standard-error}
 
 At the moment, we’re writing all of our output to the terminal using the
 `println!` macro. In most terminals, there are two kinds of output: _standard
@@ -14,7 +14,7 @@ screen.
 The `println!` macro is only capable of printing to standard output, so we have
 to use something else to print to standard error.
 
-### Checking Where Errors Are Written
+### Checking Where Errors Are Written {#checking-where-errors-are-written}
 
 First, let’s observe how the content printed by `minigrep` is currently being
 written to standard output, including any error messages we want to write to
@@ -50,7 +50,7 @@ Yup, our error message is being printed to standard output. It’s much more
 useful for error messages like this to be printed to standard error so that
 only data from a successful run ends up in the file. We’ll change that.
 
-### Printing Errors to Standard Error
+### Printing Errors to Standard Error {#printing-errors-to-standard-error}
 
 We’ll use the code in Listing 12-24 to change how error messages are printed.
 Because of the refactoring we did earlier in this chapter, all the code that
@@ -98,7 +98,7 @@ How dreary to be somebody!
 This demonstrates that we’re now using standard output for successful output
 and standard error for error output as appropriate.
 
-## Summary
+## Summary {#summary}
 
 This chapter recapped some of the major concepts you’ve learned so far and
 covered how to perform common I/O operations in Rust. By using command line

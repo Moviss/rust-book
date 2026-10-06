@@ -1,4 +1,4 @@
-## Characteristics of Object-Oriented Languages
+## Characteristics of Object-Oriented Languages {#characteristics-of-object-oriented-languages}
 
 There is no consensus in the programming community about what features a
 language must have to be considered object oriented. Rust is influenced by many
@@ -8,7 +8,7 @@ share certain common characteristics—namely, objects, encapsulation, and
 inheritance. Let’s look at what each of those characteristics means and whether
 Rust supports it.
 
-### Objects Contain Data and Behavior
+### Objects Contain Data and Behavior {#objects-contain-data-and-behavior}
 
 The book _Design Patterns: Elements of Reusable Object-Oriented Software_ by
 Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wesley,
@@ -24,7 +24,7 @@ and `impl` blocks provide methods on structs and enums. Even though structs and
 enums with methods aren’t _called_ objects, they provide the same
 functionality, according to the Gang of Four’s definition of objects.
 
-### Encapsulation That Hides Implementation Details
+### Encapsulation That Hides Implementation Details {#encapsulation-that-hides-implementation-details}
 
 Another aspect commonly associated with OOP is the idea of _encapsulation_,
 which means that the implementation details of an object aren’t accessible to
@@ -92,7 +92,7 @@ If encapsulation is a required aspect for a language to be considered object
 oriented, then Rust meets that requirement. The option to use `pub` or not for
 different parts of code enables encapsulation of implementation details.
 
-### Inheritance as a Type System and as Code Sharing
+### Inheritance as a Type System and as Code Sharing {#inheritance-as-a-type-system-and-as-code-sharing}
 
 _Inheritance_ is a mechanism whereby an object can inherit elements from
 another object’s definition, thus gaining the parent object’s data and behavior
@@ -124,7 +124,7 @@ child type to be used in the same places as the parent type. This is also
 called _polymorphism_, which means that you can substitute multiple objects for
 each other at runtime if they share certain characteristics.
 
-> ### Polymorphism
+> ### Polymorphism {#polymorphism}
 >
 > To many people, polymorphism is synonymous with inheritance. But it’s
 > actually a more general concept that refers to code that can work with data of

@@ -1,4 +1,4 @@
-## Graceful Shutdown and Cleanup
+## Graceful Shutdown and Cleanup {#graceful-shutdown-and-cleanup}
 
 The code in Listing 21-20 is responding to requests asynchronously through the
 use of a thread pool, as we intended. We get some warnings about the `workers`,
@@ -19,7 +19,7 @@ One thing to notice as we go: None of this affects the parts of the code that
 handle executing the closures, so everything here would be the same if we were
 using a thread pool for an async runtime.
 
-### Implementing the `Drop` Trait on `ThreadPool`
+### Implementing the `Drop` Trait on `ThreadPool` {#implementing-the-drop-trait-on-threadpool}
 
 Let’s start with implementing `Drop` on our thread pool. When the pool is
 dropped, our threads should all join to make sure they finish their work.
@@ -87,7 +87,7 @@ could also panic and cause a double panic, which immediately crashes the
 program and ends any cleanup in progress. This is fine for an example program,
 but it isn’t recommended for production code.
 
-### Signaling to the Threads to Stop Listening for Jobs
+### Signaling to the Threads to Stop Listening for Jobs {#signaling-to-the-threads-to-stop-listening-for-jobs}
 
 With all the changes we’ve made, our code compiles without any warnings.
 However, the bad news is that this code doesn’t function the way we want it to
@@ -229,7 +229,7 @@ some ideas:
   similar web server using the crate instead. Then, compare its API and
   robustness to the thread pool we implemented.
 
-## Summary
+## Summary {#summary}
 
 Well done! You’ve made it to the end of the book! We want to thank you for
 joining us on this tour of Rust. You’re now ready to implement your own Rust

@@ -1,4 +1,4 @@
-## Controlling How Tests Are Run
+## Controlling How Tests Are Run {#controlling-how-tests-are-run}
 
 Just as `cargo run` compiles your code and then runs the resultant binary,
 `cargo test` compiles your code in test mode and runs the resultant test
@@ -18,7 +18,7 @@ section of _The `rustc` Book_][tests].
 
 [tests]: https://doc.rust-lang.org/rustc/tests/index.html
 
-### Running Tests in Parallel or Consecutively
+### Running Tests in Parallel or Consecutively {#running-tests-in-parallel-or-consecutively}
 
 When you run multiple tests, by default they run in parallel using threads,
 meaning they finish running more quickly and you get feedback sooner. Because
@@ -50,7 +50,7 @@ parallelism. Running the tests using one thread will take longer than running
 them in parallel, but the tests won’t interfere with each other if they share
 state.
 
-### Showing Function Output
+### Showing Function Output {#showing-function-output}
 
 By default, if a test passes, Rust’s test library captures anything printed to
 standard output. For example, if we call `println!` in a test and the test
@@ -94,7 +94,7 @@ see the following output:
 {{#include ../listings/ch11-writing-automated-tests/output-only-01-show-output/output.txt}}
 ```
 
-### Running a Subset of Tests by Name
+### Running a Subset of Tests by Name {#running-a-subset-of-tests-by-name}
 
 Running a full test suite can sometimes take a long time. If you’re working on
 code in a particular area, you might want to run only the tests pertaining to
@@ -119,7 +119,7 @@ tests will run in parallel:
 {{#include ../listings/ch11-writing-automated-tests/listing-11-11/output.txt}}
 ```
 
-#### Running Single Tests
+#### Running Single Tests {#running-single-tests}
 
 We can pass the name of any test function to `cargo test` to run only that test:
 
@@ -134,7 +134,7 @@ displaying `2 filtered out` at the end.
 We can’t specify the names of multiple tests in this way; only the first value
 given to `cargo test` will be used. But there is a way to run multiple tests.
 
-#### Filtering to Run Multiple Tests
+#### Filtering to Run Multiple Tests {#filtering-to-run-multiple-tests}
 
 We can specify part of a test name, and any test whose name matches that value
 will be run. For example, because two of our tests’ names contain `add`, we can
@@ -153,7 +153,7 @@ on the module’s name.
 
 <a id="ignoring-some-tests-unless-specifically-requested"></a>
 
-### Ignoring Tests Unless Specifically Requested
+### Ignoring Tests Unless Specifically Requested {#ignoring-tests-unless-specifically-requested}
 
 Sometimes a few specific tests can be very time-consuming to execute, so you
 might want to exclude them during most runs of `cargo test`. Rather than

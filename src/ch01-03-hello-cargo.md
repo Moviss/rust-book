@@ -1,4 +1,4 @@
-## Hello, Cargo!
+## Hello, Cargo! {#hello-cargo}
 
 Cargo is Rust’s build system and package manager. Most Rustaceans use this tool
 to manage their Rust projects because Cargo handles a lot of tasks for you,
@@ -27,7 +27,7 @@ If you see a version number, you have it! If you see an error, such as `command
 not found`, look at the documentation for your method of installation to
 determine how to install Cargo separately.
 
-### Creating a Project with Cargo
+### Creating a Project with Cargo {#creating-a-project-with-cargo}
 
 Let’s create a new project using Cargo and look at how it differs from our
 original “Hello, world!” project. Navigate back to your _projects_ directory
@@ -114,7 +114,7 @@ project code into the _src_ directory and create an appropriate _Cargo.toml_
 file. One easy way to get that _Cargo.toml_ file is to run `cargo init`, which
 will create it for you automatically.
 
-### Building and Running a Cargo Project
+### Building and Running a Cargo Project {#building-and-running-a-cargo-project}
 
 Now let’s look at what’s different when we build and run the “Hello, world!”
 program with Cargo! From your _hello_cargo_ directory, build your project by
@@ -203,7 +203,7 @@ An additional advantage of using Cargo is that the commands are the same no
 matter which operating system you’re working on. So, at this point, we’ll no
 longer provide specific instructions for Linux and macOS versus Windows.
 
-### Building for Release
+### Building for Release {#building-for-release}
 
 When your project is finally ready for release, you can use `cargo build
 --release` to compile it with optimizations. This command will create an
@@ -219,7 +219,7 @@ the executable in _target/release_.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="cargo-as-convention"></a>
 
-### Leveraging Cargo’s Conventions
+### Leveraging Cargo’s Conventions {#leveraging-cargos-conventions}
 
 With simple projects, Cargo doesn’t provide a lot of value over just using
 `rustc`, but it will prove its worth as your programs become more intricate.
@@ -242,7 +242,7 @@ For more information about Cargo, check out [its documentation][cargo].
 {{#quiz ../quizzes/ch01-03-hello-cargo.toml}}
 
 
-## Summary
+## Summary {#summary}
 
 You’re already off to a great start on your Rust journey! In this chapter, you
 learned how to:

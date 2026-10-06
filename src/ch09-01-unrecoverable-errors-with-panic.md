@@ -1,4 +1,4 @@
-## Unrecoverable Errors with `panic!`
+## Unrecoverable Errors with `panic!` {#unrecoverable-errors-with-panic}
 
 Sometimes bad things happen in your code, and there’s nothing you can do about
 it. In these cases, Rust has the `panic!` macro. There are two ways to cause a
@@ -9,7 +9,7 @@ print a failure message, unwind, clean up the stack, and quit. Via an
 environment variable, you can also have Rust display the call stack when a
 panic occurs to make it easier to track down the source of the panic.
 
-> ### Unwinding the Stack or Aborting in Response to a Panic
+> ### Unwinding the Stack or Aborting in Response to a Panic {#unwinding-the-stack-or-aborting-in-response-to-a-panic}
 >
 > By default, when a panic occurs, the program starts _unwinding_, which means
 > Rust walks back up the stack and cleans up the data from each function it

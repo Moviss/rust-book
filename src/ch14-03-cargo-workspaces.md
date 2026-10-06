@@ -1,4 +1,4 @@
-## Cargo Workspaces
+## Cargo Workspaces {#cargo-workspaces}
 
 In Chapter 12, we built a package that included a binary crate and a library
 crate. As your project develops, you might find that the library crate
@@ -6,7 +6,7 @@ continues to get bigger and you want to split your package further into
 multiple library crates. Cargo offers a feature called _workspaces_ that can
 help manage multiple related packages that are developed in tandem.
 
-### Creating a Workspace
+### Creating a Workspace {#creating-a-workspace}
 
 A _workspace_ is a set of packages that share the same _Cargo.lock_ and output
 directory. Let’s make a project using a workspace—we’ll use trivial code so
@@ -85,7 +85,7 @@ to recompile each of the other crates in the workspace to place the artifacts
 in its own _target_ directory. By sharing one _target_ directory, the crates
 can avoid unnecessary rebuilding.
 
-### Creating the Second Package in the Workspace
+### Creating the Second Package in the Workspace {#creating-the-second-package-in-the-workspace}
 
 Next, let’s create another member package in the workspace and call it
 `add_one`. Generate a new library crate named `add_one`:
@@ -201,7 +201,7 @@ This runs the code in _adder/src/main.rs_, which depends on the `add_one` crate.
 
 <a id="depending-on-an-external-package-in-a-workspace"></a>
 
-### Depending on an External Package
+### Depending on an External Package {#depending-on-an-external-package}
 
 Notice that the workspace has only one _Cargo.lock_ file at the top level,
 rather than having a _Cargo.lock_ in each crate’s directory. This ensures that
@@ -299,7 +299,7 @@ so both crates will depend on 0.8.1 (or potentially a more recent patch, like 0.
 one crate depends on `rand` 0.7.0 and another on `rand` 0.8.0, those versions are semver-incompatible.
 Therefore, Cargo will use a different version of `rand` for each crate.
 
-### Adding a Test to a Workspace
+### Adding a Test to a Workspace {#adding-a-test-to-a-workspace}
 
 For another enhancement, let’s add a test of the `add_one::add_one` function
 within the `add_one` crate:
