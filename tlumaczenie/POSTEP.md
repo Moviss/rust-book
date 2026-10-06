@@ -106,20 +106,20 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | gotowe | ad855890 | 1 |  |  |
 | ch12-05-working-with-environment-variables.md | 12 | 1302 | — | gotowe | ad855890 | 1 |  |  |
 | ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | gotowe | ad855890 | 1 |  |  |
-| ch13-00-functional-features.md | 13 | 191 | — | przegląd | a877a99a | 1 |  |  |
-| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | przegląd | a877a99a | 1 |  |  |
-| ch13-02-iterators.md | 13 | 1473 | ch13-02-iterators | przegląd | a877a99a | 1 |  |  |
-| ch13-03-improving-our-io-project.md | 13 | 1271 | — | przegląd | a877a99a | 1 |  |  |
-| ch13-04-performance.md | 13 | 427 | — | przegląd | a877a99a | 1 |  |  |
+| ch13-00-functional-features.md | 13 | 191 | — | gotowe | a877a99a | 1 |  |  |
+| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | gotowe | a877a99a | 1 |  |  |
+| ch13-02-iterators.md | 13 | 1473 | ch13-02-iterators | gotowe | a877a99a | 1 |  |  |
+| ch13-03-improving-our-io-project.md | 13 | 1271 | — | gotowe | a877a99a | 1 |  |  |
+| ch13-04-performance.md | 13 | 427 | — | gotowe | a877a99a | 1 |  |  |
 | ch14-00-more-about-cargo.md | 14 | 110 | — | przetłumaczone | abc93145 | 1 |  |  |
 | ch14-01-release-profiles.md | 14 | 413 | ch14-01-release-profiles | przetłumaczone | abc93145 | 1 |  |  |
 | ch14-02-publishing-to-crates-io.md | 14 | 2926 | ch14-02-publishing-to-crates-io-sec1, ch14-02-publishing-to-crates-io-sec2 | tłumaczenie | afb88a38 | 1 |  |  |
 | ch14-03-cargo-workspaces.md | 14 | 1574 | ch14-03-cargo-workspaces | tłumaczenie | a4bb58d7 | 1 |  |  |
 | ch14-04-installing-binaries.md | 14 | 282 | — | przetłumaczone | abc93145 | 1 |  |  |
 | ch14-05-extending-cargo.md | 14 | 161 | — | przetłumaczone | abc93145 | 1 |  |  |
-| ch15-00-smart-pointers.md | 15 | 438 | — | do zrobienia | | 0 | | |
-| ch15-01-box.md | 15 | 2097 | ch15-01-box | do zrobienia | | 0 | | |
-| ch15-02-deref.md | 15 | 2107 | ch15-02-deref | do zrobienia | | 0 | | |
+| ch15-00-smart-pointers.md | 15 | 438 | — | tłumaczenie | abb1bb01 | 1 |  |  |
+| ch15-01-box.md | 15 | 2097 | ch15-01-box | tłumaczenie | abb1bb01 | 1 |  |  |
+| ch15-02-deref.md | 15 | 2107 | ch15-02-deref | tłumaczenie | aba46fae | 1 |  |  |
 | ch15-03-drop.md | 15 | 1071 | ch15-03-drop | do zrobienia | | 0 | | |
 | ch15-04-rc.md | 15 | 1416 | ch15-04-rc | do zrobienia | | 0 | | |
 | ch15-05-interior-mutability.md | 15 | 2790 | ch15-05-interior-mutability | do zrobienia | | 0 | | |

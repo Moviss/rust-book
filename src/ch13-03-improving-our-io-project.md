@@ -1,19 +1,19 @@
-## Improving Our I/O Project {#improving-our-io-project}
+## Ulepszanie naszego projektu wejścia/wyjścia {#improving-our-io-project}
 
-With this new knowledge about iterators, we can improve the I/O project in
-Chapter 12 by using iterators to make places in the code clearer and more
-concise. Let’s look at how iterators can improve our implementation of the
-`Config::build` function and the `search` function.
+Dzięki nowej wiedzy o iteratorach możemy ulepszyć projekt wejścia/wyjścia z
+rozdziału 12: użyjemy iteratorów, aby fragmenty kodu stały się czytelniejsze i
+bardziej zwięzłe. Zobaczmy, jak iteratory mogą ulepszyć naszą implementację
+funkcji `Config::build` i funkcji `search`.
 
-### Removing a `clone` Using an Iterator {#removing-a-clone-using-an-iterator}
+### Usuwanie `clone` za pomocą iteratora {#removing-a-clone-using-an-iterator}
 
-In Listing 12-6, we added code that took a slice of `String` values and created
-an instance of the `Config` struct by indexing into the slice and cloning the
-values, allowing the `Config` struct to own those values. In Listing 13-17,
-we’ve reproduced the implementation of the `Config::build` function as it was
-in Listing 12-23.
+W listingu 12-6 dodaliśmy kod, który przyjmował wycinek (*slice*) wartości
+`String` i tworzył instancję struktury (*struct*) `Config`, indeksując wycinek i
+klonując wartości, tak aby struktura `Config` była właścicielem tych wartości.
+W listingu 13-17 odtworzyliśmy implementację funkcji `Config::build` w postaci
+z listingu 12-23.
 
-<Listing number="13-17" file-name="src/main.rs" caption="Reproduction of the `Config::build` function from Listing 12-23">
+<Listing number="13-17" file-name="src/main.rs" caption="Odtworzenie funkcji `Config::build` z listingu 12-23">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch13-functional-features/listing-12-23-reproduced/src/main.rs:ch13}}
@@ -21,40 +21,43 @@ in Listing 12-23.
 
 </Listing>
 
-At the time, we said not to worry about the inefficient `clone` calls because
-we would remove them in the future. Well, that time is now!
+Wtedy napisaliśmy, żeby nie przejmować się nieefektywnymi wywołaniami `clone`,
+bo w przyszłości je usuniemy. Cóż, ten moment właśnie nadszedł!
 
-We needed `clone` here because we have a slice with `String` elements in the
-parameter `args`, but the `build` function doesn’t own `args`. To return
-ownership of a `Config` instance, we had to clone the values from the `query`
-and `file_path` fields of `Config` so that the `Config` instance can own its
-values.
+Potrzebowaliśmy tu `clone`, ponieważ w parametrze `args` mamy wycinek z
+elementami `String`, a funkcja `build` nie jest właścicielem `args`. Aby zwrócić
+własność (*ownership*) instancji `Config`, musieliśmy sklonować wartości z pól
+`query` i `file_path` struktury `Config`, tak aby instancja `Config` mogła być
+właścicielem swoich wartości.
 
-With our new knowledge about iterators, we can change the `build` function to
-take ownership of an iterator as its argument instead of borrowing a slice.
-We’ll use the iterator functionality instead of the code that checks the length
-of the slice and indexes into specific locations. This will clarify what the
-`Config::build` function is doing because the iterator will access the values.
+Dzięki nowej wiedzy o iteratorach możemy zmienić funkcję `build` tak, aby
+zamiast pożyczania (*borrowing*) wycinka przejmowała jako argument własność
+iteratora. Zamiast kodu, który sprawdza długość wycinka i odwołuje się do
+konkretnych pozycji przez indeks, użyjemy możliwości iteratora. Dzięki temu
+będzie jaśniejsze, co robi funkcja `Config::build`, bo dostęp do wartości
+zapewni iterator.
 
-Once `Config::build` takes ownership of the iterator and stops using indexing
-operations that borrow, we can move the `String` values from the iterator into
-`Config` rather than calling `clone` and making a new allocation.
+Gdy `Config::build` przejmie własność iteratora i przestanie używać operacji
+indeksowania, które pożyczają wartości, będziemy mogli przenieść (*move*)
+wartości `String` z iteratora do `Config`, zamiast wywoływać `clone` i
+wykonywać nową alokację.
 
-#### Using the Returned Iterator Directly {#using-the-returned-iterator-directly}
+#### Bezpośrednie używanie zwróconego iteratora {#using-the-returned-iterator-directly}
 
-Open your I/O project’s _src/main.rs_ file, which should look like this:
+Otwórz plik _src/main.rs_ swojego projektu wejścia/wyjścia. Powinien wyglądać
+tak:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch13-functional-features/listing-12-24-reproduced/src/main.rs:ch13}}
 ```
 
-We’ll first change the start of the `main` function that we had in Listing
-12-24 to the code in Listing 13-18, which this time uses an iterator. This
-won’t compile until we update `Config::build` as well.
+Najpierw zmienimy początek funkcji `main` z listingu 12-24 na kod z listingu
+13-18, który tym razem używa iteratora. Nie skompiluje się on, dopóki nie
+zaktualizujemy również `Config::build`.
 
-<Listing number="13-18" file-name="src/main.rs" caption="Passing the return value of `env::args` to `Config::build`">
+<Listing number="13-18" file-name="src/main.rs" caption="Przekazywanie wartości zwracanej przez `env::args` do `Config::build`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-18/src/main.rs:here}}
@@ -62,16 +65,16 @@ won’t compile until we update `Config::build` as well.
 
 </Listing>
 
-The `env::args` function returns an iterator! Rather than collecting the
-iterator values into a vector and then passing a slice to `Config::build`, now
-we’re passing ownership of the iterator returned from `env::args` to
-`Config::build` directly.
+Funkcja `env::args` zwraca iterator! Zamiast zbierać wartości iteratora do
+wektora (*vector*), a potem przekazywać wycinek do `Config::build`, przekazujemy
+teraz własność iteratora zwróconego przez `env::args` bezpośrednio do
+`Config::build`.
 
-Next, we need to update the definition of `Config::build`. Let’s change the
-signature of `Config::build` to look like Listing 13-19. This still won’t
-compile, because we need to update the function body.
+Następnie musimy zaktualizować definicję `Config::build`. Zmieńmy sygnaturę
+`Config::build` tak, aby wyglądała jak w listingu 13-19. Kod nadal się nie
+skompiluje, bo musimy jeszcze zaktualizować ciało funkcji.
 
-<Listing number="13-19" file-name="src/main.rs" caption="Updating the signature of `Config::build` to expect an iterator">
+<Listing number="13-19" file-name="src/main.rs" caption="Aktualizowanie sygnatury `Config::build` tak, aby oczekiwała iteratora">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/main.rs:here}}
@@ -79,32 +82,34 @@ compile, because we need to update the function body.
 
 </Listing>
 
-The standard library documentation for the `env::args` function shows that the
-type of the iterator it returns is `std::env::Args`, and that type implements
-the `Iterator` trait and returns `String` values.
+Dokumentacja biblioteki standardowej dla funkcji `env::args` pokazuje, że typem
+zwracanego przez nią iteratora jest `std::env::Args` i że ten typ implementuje
+*trait* (cecha typu, zbliżona do interfejsu) `Iterator` oraz zwraca wartości
+`String`.
 
-We’ve updated the signature of the `Config::build` function so that the
-parameter `args` has a generic type with the trait bounds `impl Iterator<Item =
-String>` instead of `&[String]`. This usage of the `impl Trait` syntax we
-discussed in the [“Using Traits as Parameters”][impl-trait]<!-- ignore -->
-section of Chapter 10 means that `args` can be any type that implements the
-`Iterator` trait and returns `String` items.
+Zaktualizowaliśmy sygnaturę funkcji `Config::build` tak, że parametr `args` ma
+typ generyczny (*generic type*) z ograniczeniami traitu (*trait bounds*)
+`impl Iterator<Item = String>` zamiast `&[String]`. To użycie składni
+`impl Trait`, którą omówiliśmy w podrozdziale
+[„Używanie traitów jako parametrów”][impl-trait]<!-- ignore --> w rozdziale 10,
+oznacza, że `args` może być dowolnym typem, który implementuje
+trait `Iterator` i zwraca elementy typu `String`.
 
-Because we’re taking ownership of `args` and we’ll be mutating `args` by
-iterating over it, we can add the `mut` keyword into the specification of the
-`args` parameter to make it mutable.
+Ponieważ przejmujemy własność `args` i będziemy modyfikować `args`, iterując po
+nim, możemy dodać słowo kluczowe (*keyword*) `mut` do specyfikacji parametru
+`args`, aby uczynić go mutowalnym (*mutable*).
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-iterator-trait-methods-instead-of-indexing"></a>
 
-#### Using `Iterator` Trait Methods {#using-iterator-trait-methods}
+#### Używanie metod traitu `Iterator` {#using-iterator-trait-methods}
 
-Next, we’ll fix the body of `Config::build`. Because `args` implements the
-`Iterator` trait, we know we can call the `next` method on it! Listing 13-20
-updates the code from Listing 12-23 to use the `next` method.
+Teraz poprawimy ciało `Config::build`. Ponieważ `args` implementuje trait
+`Iterator`, wiemy, że możemy wywołać na nim metodę `next`! Listing 13-20
+aktualizuje kod z listingu 12-23 tak, aby używał metody `next`.
 
-<Listing number="13-20" file-name="src/main.rs" caption="Changing the body of `Config::build` to use iterator methods">
+<Listing number="13-20" file-name="src/main.rs" caption="Zmiana ciała `Config::build` tak, aby używało metod iteratora">
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/main.rs:here}}
@@ -112,24 +117,25 @@ updates the code from Listing 12-23 to use the `next` method.
 
 </Listing>
 
-Remember that the first value in the return value of `env::args` is the name of
-the program. We want to ignore that and get to the next value, so first we call
-`next` and do nothing with the return value. Then, we call `next` to get the
-value we want to put in the `query` field of `Config`. If `next` returns
-`Some`, we use a `match` to extract the value. If it returns `None`, it means
-not enough arguments were given, and we return early with an `Err` value. We do
-the same thing for the `file_path` value.
+Pamiętaj, że pierwszą wartością w wyniku `env::args` jest nazwa programu.
+Chcemy ją pominąć i przejść do następnej wartości, więc najpierw wywołujemy
+`next` i nic nie robimy z wartością zwracaną. Potem wywołujemy `next`, aby
+uzyskać wartość, którą chcemy umieścić w polu `query` struktury `Config`. Jeśli
+`next` zwróci `Some`, używamy `match`, aby wydobyć wartość. Jeśli zwróci
+`None`, oznacza to, że podano za mało argumentów, i wykonujemy wczesny powrót z
+wartością `Err`. To samo robimy dla wartości `file_path`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="making-code-clearer-with-iterator-adapters"></a>
 
-### Clarifying Code with Iterator Adapters {#clarifying-code-with-iterator-adapters}
+### Poprawianie czytelności kodu za pomocą adapterów iteratora {#clarifying-code-with-iterator-adapters}
 
-We can also take advantage of iterators in the `search` function in our I/O
-project, which is reproduced here in Listing 13-21 as it was in Listing 12-19.
+Iteratory możemy wykorzystać także w funkcji `search` naszego projektu
+wejścia/wyjścia. Odtworzyliśmy ją tutaj w listingu 13-21 w postaci z listingu
+12-19.
 
-<Listing number="13-21" file-name="src/lib.rs" caption="The implementation of the `search` function from Listing 12-19">
+<Listing number="13-21" file-name="src/lib.rs" caption="Implementacja funkcji `search` z listingu 12-19">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-19/src/lib.rs:ch13}}
@@ -137,14 +143,15 @@ project, which is reproduced here in Listing 13-21 as it was in Listing 12-19.
 
 </Listing>
 
-We can write this code in a more concise way using iterator adapter methods.
-Doing so also lets us avoid having a mutable intermediate `results` vector. The
-functional programming style prefers to minimize the amount of mutable state to
-make code clearer. Removing the mutable state might enable a future enhancement
-to make searching happen in parallel because we wouldn’t have to manage
-concurrent access to the `results` vector. Listing 13-22 shows this change.
+Ten kod możemy napisać zwięźlej, używając metod będących adapterami iteratora
+(*iterator adapters*). Pozwala to też uniknąć mutowalnego wektora pośredniego
+`results`. Styl programowania funkcyjnego preferuje minimalizowanie ilości
+mutowalnego stanu, aby kod był czytelniejszy. Usunięcie mutowalnego stanu może
+w przyszłości umożliwić ulepszenie polegające na równoległym wyszukiwaniu, bo
+nie musielibyśmy zarządzać współbieżnym dostępem do wektora `results`. Listing
+13-22 pokazuje tę zmianę.
 
-<Listing number="13-22" file-name="src/lib.rs" caption="Using iterator adapter methods in the implementation of the `search` function">
+<Listing number="13-22" file-name="src/lib.rs" caption="Używanie metod będących adapterami iteratora w implementacji funkcji `search`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-22/src/lib.rs:here}}
@@ -152,42 +159,43 @@ concurrent access to the `results` vector. Listing 13-22 shows this change.
 
 </Listing>
 
-Recall that the purpose of the `search` function is to return all lines in
-`contents` that contain the `query`. Similar to the `filter` example in Listing
-13-16, this code uses the `filter` adapter to keep only the lines for which
-`line.contains(query)` returns `true`. We then collect the matching lines into
-another vector with `collect`. Much simpler! Feel free to make the same change
-to use iterator methods in the `search_case_insensitive` function as well.
+Przypomnij sobie, że celem funkcji `search` jest zwrócenie wszystkich wierszy z
+`contents`, które zawierają `query`. Podobnie jak przykład z `filter` w
+listingu 13-16, ten kod używa adaptera `filter`, aby zachować tylko te wiersze,
+dla których `line.contains(query)` zwraca `true`. Następnie za pomocą `collect`
+zbieramy pasujące wiersze do innego wektora. Znacznie prościej! Możesz
+wprowadzić analogiczną zmianę, aby używać metod iteratora również w funkcji
+`search_case_insensitive`.
 
-For a further improvement, return an iterator from the `search` function by
-removing the call to `collect` and changing the return type to `impl
-Iterator<Item = &'a str>` so that the function becomes an iterator adapter.
-Note that you’ll also need to update the tests! Search through a large file
-using your `minigrep` tool before and after making this change to observe the
-difference in behavior. Before this change, the program won’t print any results
-until it has collected all of the results, but after the change, the results
-will be printed as each matching line is found because the `for` loop in the
-`run` function is able to take advantage of the laziness of the iterator.
+Jako dalsze ulepszenie zwracaj iterator z funkcji `search`: usuń wywołanie
+`collect` i zmień typ zwracany na `impl Iterator<Item = &'a str>`, tak aby
+funkcja stała się adapterem iteratora. Pamiętaj, że trzeba będzie też
+zaktualizować testy! Przeszukaj duży plik za pomocą narzędzia `minigrep` przed
+tą zmianą i po niej, aby zaobserwować różnicę w zachowaniu. Przed zmianą
+program nie wypisze żadnych wyników, dopóki nie zbierze ich wszystkich, ale po
+zmianie wyniki będą wypisywane w miarę znajdowania kolejnych pasujących
+wierszy, bo pętla `for` w funkcji `run` może skorzystać z leniwości iteratora.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="choosing-between-loops-or-iterators"></a>
 
-### Choosing Between Loops and Iterators {#choosing-between-loops-and-iterators}
+### Wybór między pętlami a iteratorami {#choosing-between-loops-and-iterators}
 
-The next logical question is which style you should choose in your own code and
-why: the original implementation in Listing 13-21 or the version using
-iterators in Listing 13-22 (assuming we’re collecting all the results before
-returning them rather than returning the iterator). Most Rust programmers
-prefer to use the iterator style. It’s a bit tougher to get the hang of at
-first, but once you get a feel for the various iterator adapters and what they
-do, iterators can be easier to understand. Instead of fiddling with the various
-bits of looping and building new vectors, the code focuses on the high-level
-objective of the loop. This abstracts away some of the commonplace code so that
-it’s easier to see the concepts that are unique to this code, such as the
-filtering condition each element in the iterator must pass.
+Następne logiczne pytanie brzmi: który styl wybrać we własnym kodzie i
+dlaczego – oryginalną implementację z listingu 13-21 czy wersję z iteratorami z
+listingu 13-22 (zakładając, że zbieramy wszystkie wyniki przed ich zwróceniem,
+a nie zwracamy iteratora)? Większość programistów Rusta woli styl
+iteratorowy. Na początku trochę trudniej go opanować, ale gdy już wyczujesz
+różne adaptery iteratora i to, co robią, iteratory mogą okazać się łatwiejsze
+do zrozumienia. Zamiast majstrować przy różnych elementach pętli i budowaniu
+nowych wektorów, kod skupia się na wysokopoziomowym celu pętli. Pozwala to
+ukryć część rutynowego kodu, dzięki czemu łatwiej dostrzec koncepcje
+charakterystyczne dla tego kodu, takie jak warunek filtrowania, który musi
+spełnić każdy element iteratora.
 
-But are the two implementations truly equivalent? The intuitive assumption
-might be that the lower-level loop will be faster. Let’s talk about performance.
+Czy jednak obie implementacje są naprawdę równoważne? Intuicja może
+podpowiadać, że niskopoziomowa pętla będzie szybsza. Porozmawiajmy o
+wydajności.
 
 [impl-trait]: ch10-02-traits.html#traits-as-parameters

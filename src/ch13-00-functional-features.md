@@ -1,24 +1,27 @@
-# Functional Language Features: Iterators and Closures {#functional-language-features-iterators-and-closures}
+# Mechanizmy funkcyjne: iteratory i domknięcia {#functional-language-features-iterators-and-closures}
 
-Rust’s design has taken inspiration from many existing languages and
-techniques, and one significant influence is _functional programming_.
-Programming in a functional style often includes using functions as values by
-passing them in arguments, returning them from other functions, assigning them
-to variables for later execution, and so forth.
+Projektując Rusta, czerpano inspirację z wielu istniejących języków i technik,
+a jednym z istotnych wpływów jest _programowanie funkcyjne_. Programowanie w
+stylu funkcyjnym często polega na używaniu funkcji jako wartości: przekazywaniu
+ich w argumentach, zwracaniu z innych funkcji, przypisywaniu do zmiennych w celu
+późniejszego wykonania i tak dalej.
 
-In this chapter, we won’t debate the issue of what functional programming is or
-isn’t but will instead discuss some features of Rust that are similar to
-features in many languages often referred to as functional.
+W tym rozdziale nie będziemy rozstrzygać, czym programowanie funkcyjne jest, a
+czym nie jest. Zamiast tego omówimy kilka mechanizmów Rusta podobnych do
+mechanizmów wielu języków, które często nazywa się funkcyjnymi.
 
-More specifically, we’ll cover:
+Dokładniej rzecz biorąc, omówimy:
 
-- _Closures_, a function-like construct you can store in a variable
-- _Iterators_, a way of processing a series of elements
-- How to use closures and iterators to improve the I/O project in Chapter 12
-- The performance of closures and iterators (spoiler alert: They’re faster than
-  you might think!)
+- _domknięcia_ (*closures*), czyli konstrukcje podobne do funkcji, które można
+  przechowywać w zmiennej;
+- _iteratory_, czyli sposób przetwarzania ciągu elementów;
+- sposób użycia domknięć i iteratorów do ulepszenia projektu wejścia/wyjścia z
+  rozdziału 12;
+- wydajność domknięć i iteratorów (uwaga, spoiler: są szybsze, niż mogłoby się
+  wydawać!).
 
-We’ve already covered some other Rust features, such as pattern matching and
-enums, that are also influenced by the functional style. Because mastering
-closures and iterators is an important part of writing fast, idiomatic, Rust
-code, we’ll devote this entire chapter to them.
+Omówiliśmy już kilka innych mechanizmów Rusta, takich jak dopasowywanie wzorców
+(*pattern matching*) i *enumy* (typy wyliczeniowe), na które również wpłynął
+styl funkcyjny. Ponieważ opanowanie domknięć i iteratorów jest ważną częścią
+pisania szybkiego, idiomatycznego kodu w Ruście, poświęcimy im cały ten
+rozdział.

@@ -12,7 +12,7 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 5
 context = """
-`add_suffix` mutably borrows `s` between its definition and use, so the `println` (a read of `s`) is invalid.
+`add_suffix` pożycza `s` mutowalnie między swoją definicją a użyciem, więc `println` (odczyt `s`) jest niedozwolone.
 """
 
 [[questions]]
@@ -29,14 +29,14 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "Hello"
 context = """
-Because `add_suffix` does not capture `s`, it is fine to read `s` before mutating it with `add_suffix`.
+Ponieważ `add_suffix` nie przechwytuje `s`, można odczytać `s` przed zmodyfikowaniem go za pomocą `add_suffix`.
 """
 
 [[questions]]
 id = "0f298680-d870-47a1-962c-1c668f75cb68"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider the following API:
+Rozważ następujące API:
 
 ```rust
 /// Executes a function with a mutable reference to each element of a vector
@@ -47,12 +47,12 @@ fn for_each_mut<T, F: ___(&mut T)>(v: &mut Vec<T>, mut f: F) {
 }
 ```
 
-Which of the following function traits is most appropriate to fill in the blank?
+Który z poniższych traitów funkcyjnych najlepiej pasuje w puste miejsce?
 """
 answer.answer = "`FnMut`"
 prompt.distractors = ["`Fn`", "`FnOnce`"]
 context = """
-`f` is called multiple times so `FnOnce` is not appropriate. Both `Fn` and `FnMut` can work, and `FnMut` is less restrictive, so `FnMut` is most appropriate.
+`f` jest wywoływane wiele razy, więc `FnOnce` się nie nadaje. Zadziałają zarówno `Fn`, jak i `FnMut`, ale `FnMut` jest mniej restrykcyjny, więc `FnMut` pasuje najlepiej.
 """
 
 
@@ -60,7 +60,7 @@ context = """
 id = "65f574b1-b418-4abe-852e-8b14d88368a7"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider the following API:
+Rozważ następujące API:
 
 ```rust
 pub struct Analyzer<F> {
@@ -76,12 +76,12 @@ impl<F: ___(i32) -> i32> Analyzer<F> {
 }
 ```
 
-Which of the following function traits is most appropriate to fill in the blank?
+Który z poniższych traitów funkcyjnych najlepiej pasuje w puste miejsce?
 """
 answer.answer = "`Fn`"
 prompt.distractors = ["`FnMut`", "`FnOnce`"]
 context = """
-`pipeline` could be called multiple times, so `FnOnce` is not appropriate.
-`pipeline` takes an immutable reference to `self`, if `postprocess` were `FnMut`, it could not be called within `pipeline`.
-Therefore `Fn` is most appropriate here.
+`pipeline` może zostać wywołane wiele razy, więc `FnOnce` się nie nadaje.
+`pipeline` przyjmuje niemutowalną referencję do `self`, więc gdyby `postprocess` było `FnMut`, nie dałoby się go wywołać wewnątrz `pipeline`.
+Dlatego najlepiej pasuje tu `Fn`.
 """

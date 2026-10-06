@@ -291,3 +291,5 @@ recenzent.
 | subcommand | podpolecenie | — | | |
 | optimization level | poziom optymalizacji | — | | |
 | development profile | profil deweloperski | — | | |
+| generic type | typ generyczny | typ generyczny (*generic type*) | | liczba pojedyncza; l.mn. → typy generyczne (*generics*) |
+| toilet closure | „domknięcie-toaleta” | — | | |

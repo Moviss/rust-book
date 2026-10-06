@@ -2,56 +2,59 @@
 
 <a id="comparing-performance-loops-vs-iterators"></a>
 
-## Performance in Loops vs. Iterators {#performance-in-loops-vs-iterators}
+## Wydajność pętli i iteratorów {#performance-in-loops-vs-iterators}
 
-To determine whether to use loops or iterators, you need to know which
-implementation is faster: the version of the `search` function with an explicit
-`for` loop or the version with iterators.
+Aby zdecydować, czy używać pętli, czy iteratorów, musisz wiedzieć, która
+implementacja jest szybsza: wersja funkcji `search` z jawną pętlą `for` czy
+wersja z iteratorami.
 
-We ran a benchmark by loading the entire contents of _The Adventures of
-Sherlock Holmes_ by Sir Arthur Conan Doyle into a `String` and looking for the
-word _the_ in the contents. Here are the results of the benchmark on the
-version of `search` using the `for` loop and the version using iterators:
+Przeprowadziliśmy test wydajności (*benchmark*), wczytując całą treść _Przygód
+Sherlocka Holmesa_ sir Arthura Conana Doyle’a do wartości `String` i szukając w
+niej słowa _the_. Oto wyniki testu wydajności dla wersji `search` z pętlą `for`
+i wersji z iteratorami:
 
 ```text
 test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)
 test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
 ```
 
-The two implementations have similar performance! We won’t explain the
-benchmark code here because the point is not to prove that the two versions
-are equivalent but to get a general sense of how these two implementations
-compare performance-wise.
+Obie implementacje mają podobną wydajność! Nie będziemy tu objaśniać kodu testu
+wydajności, bo nie chodzi o to, by udowodnić, że obie wersje są równoważne, ale
+by zorientować się ogólnie, jak te dwie implementacje wypadają pod względem
+wydajności.
 
-For a more comprehensive benchmark, you should check using various texts of
-various sizes as the `contents`, different words and words of different lengths
-as the `query`, and all kinds of other variations. The point is this:
-Iterators, although a high-level abstraction, get compiled down to roughly the
-same code as if you’d written the lower-level code yourself. Iterators are one
-of Rust’s _zero-cost abstractions_, by which we mean that using the abstraction
-imposes no additional runtime overhead. This is analogous to how Bjarne
-Stroustrup, the original designer and implementor of C++, defines
-zero-overhead in his 2012 ETAPS keynote presentation “Foundations of C++”:
+W bardziej wszechstronnym teście wydajności warto sprawdzić różne teksty o
+różnych rozmiarach jako `contents`, różne słowa i słowa o różnej długości jako
+`query` oraz wszelkie inne warianty. Chodzi o to, że iteratory, choć są
+wysokopoziomową abstrakcją, kompilują się do mniej więcej takiego samego kodu,
+jaki napisałbyś samodzielnie na niższym poziomie. Iteratory to jedna z
+_abstrakcji o zerowym koszcie_ (*zero-cost abstractions*) w Ruście, co oznacza,
+że użycie tej abstrakcji nie nakłada żadnego dodatkowego narzutu w czasie
+działania. Jest to analogiczne do tego, jak Bjarne Stroustrup, pierwotny
+projektant i twórca implementacji C++, definiuje zasadę zerowego narzutu
+(*zero-overhead*) w swoim wykładzie „Foundations of C++” wygłoszonym na
+konferencji ETAPS w 2012 roku:
 
-> In general, C++ implementations obey the zero-overhead principle: What you
-> don’t use, you don’t pay for. And further: What you do use, you couldn’t hand
-> code any better.
+> Ogólnie implementacje C++ przestrzegają zasady zerowego narzutu: za to, czego
+> nie używasz, nie płacisz. A ponadto: tego, czego używasz, nie dałoby się
+> lepiej napisać ręcznie.
 
-In many cases, Rust code using iterators compiles to the same assembly you’d
-write by hand. Optimizations such as loop unrolling and eliminating bounds
-checking on array access apply and make the resultant code extremely efficient.
-Now that you know this, you can use iterators and closures without fear! They
-make code seem like it’s higher level but don’t impose a runtime performance
-penalty for doing so.
+W wielu przypadkach kod w Ruście używający iteratorów kompiluje się do takiego
+samego kodu asemblera, jaki napisałbyś ręcznie. Optymalizacje takie jak
+rozwijanie pętli i eliminowanie sprawdzania granic przy dostępie do tablicy
+zostają zastosowane i sprawiają, że wynikowy kod jest niezwykle wydajny. Skoro
+już to wiesz, możesz bez obaw używać iteratorów i domknięć (*closures*)!
+Sprawiają, że kod wygląda na bardziej wysokopoziomowy, ale nie wiąże się to z
+utratą wydajności w czasie działania.
 
-## Summary {#summary}
+## Podsumowanie {#summary}
 
-Closures and iterators are Rust features inspired by functional programming
-language ideas. They contribute to Rust’s capability to clearly express
-high-level ideas at low-level performance. The implementations of closures and
-iterators are such that runtime performance is not affected. This is part of
-Rust’s goal to strive to provide zero-cost abstractions.
+Domknięcia i iteratory to mechanizmy Rusta inspirowane ideami z funkcyjnych
+języków programowania. Przyczyniają się do tego, że Rust potrafi jasno wyrażać
+wysokopoziomowe idee przy wydajności typowej dla kodu niskopoziomowego.
+Domknięcia i iteratory są zaimplementowane tak, by nie wpływały na wydajność w
+czasie działania. To część dążenia Rusta do zapewniania abstrakcji o zerowym
+koszcie.
 
-Now that we’ve improved the expressiveness of our I/O project, let’s look at
-some more features of `cargo` that will help us share the project with the
-world.
+Skoro poprawiliśmy wyrazistość naszego projektu wejścia/wyjścia, przyjrzyjmy
+się kolejnym mechanizmom `cargo`, które pomogą nam udostępnić projekt światu.
