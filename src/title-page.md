@@ -1,23 +1,23 @@
-# The Rust Programming Language {#the-rust-programming-language}
+# Język programowania Rust {#the-rust-programming-language}
 
-*by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community*
+*Steve Klabnik, Carol Nichols i Chris Krycho, przy współpracy społeczności Rusta*
 
-*(and with experimental modifications!)*
+*(oraz z eksperymentalnymi modyfikacjami!)*
 
-This version of the text assumes you’re using Rust 1.90.0 (released 2025-09-18)
-or later with `edition = "2024"` in the *Cargo.toml* file of all projects to
-configure them to use Rust 2024 Edition idioms. See the [“Installation” section
-of Chapter 1][install]<!-- ignore --> for instructions on installing or
-updating Rust, and see [Appendix E][appendix-e]<!-- ignore --> for information
-on editions.
+Ta wersja tekstu zakłada, że używasz Rusta 1.90.0 (wydanego 18.09.2025) lub
+nowszego, a w pliku *Cargo.toml* każdego projektu masz ustawione
+`edition = "2024"`, dzięki czemu projekty korzystają z idiomów edycji
+(*edition*) Rust 2024. Instrukcje instalacji i aktualizacji Rusta znajdziesz w
+[podrozdziale „Instalacja” w rozdziale 1][install]<!-- ignore -->, a informacje
+o edycjach w [dodatku E][appendix-e]<!-- ignore -->.
 
-The experimental version is only available online and in English. 
-The non-experimental version is available offline with installations of Rust made with `rustup`; run `rustup doc
---book` to open.
+To jest polskie tłumaczenie wersji eksperymentalnej, dostępnej wyłącznie online.
+Wersja nieeksperymentalna jest dostępna offline razem z instalacją Rusta wykonaną za pomocą `rustup`; aby ją otworzyć, uruchom `rustup doc
+--book`.
 
-Several community [translations] of the non-experimental version are also available.
-The non-experimental text is available in [paperback and ebook format from No Starch
-Press][nsprust].
+Dostępnych jest też kilka [tłumaczeń][translations] wersji nieeksperymentalnej przygotowanych przez społeczność.
+Tekst wersji nieeksperymentalnej jest dostępny [w formie drukowanej i jako e-book
+w wydawnictwie No Starch Press][nsprust].
 
 [install]: ch01-01-installation.html
 [appendix-e]: appendix-05-editions.html

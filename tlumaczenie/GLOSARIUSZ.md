@@ -101,3 +101,21 @@ recenzent.
 | mutate | modyfikować | — | | „mutowalny” tylko dla *mutable* |
 | endpoint | endpoint | — | | |
 | segmentation fault | błąd segmentacji | — | | |
+| dependency manager / build tool | menedżer zależności / narzędzie do budowania | — | | |
+| nightly Rust | Rust nightly | — | | kanały: stable, beta, nightly |
+| task (async) | zadanie | — | | |
+| legacy code | zastany kod | — | | |
+| open source / fork / code review | open source / fork / przegląd kodu | — | | |
+| Rust Foundation / Rust Project | Rust Foundation / Projekt Rust | — | | nazwy własne |
+| keyword | słowo kluczowe | słowo kluczowe (*keyword*) | | |
+| control flow | przepływ sterowania | przepływ sterowania (*control flow*) | | |
+| constant | stała | stała (*constant*) | | constant expression → wyrażenie stałe |
+| unit type | typ jednostkowy | typ jednostkowy (*unit type*) | | wartość `()` jako kod |
+| parameter / argument | parametr / argument | — | | |
+| function signature | sygnatura funkcji | — | | |
+| return value / return type | wartość zwracana / typ zwracany | — | | |
+| binding (let) | wiązanie | — | | „zmienna jest związana z wartością” |
+| evaluate to | dawać (wartość), obliczać się do | — | | „wyrażenie daje wartość 6” |
+| format string | łańcuch formatujący | — | | |
+| hardcoded | wpisany na sztywno | — | | |
+| snake case | *snake case* | — | | nazwa stylu, bez tłumaczenia |

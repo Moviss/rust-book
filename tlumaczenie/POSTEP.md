@@ -23,8 +23,8 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F2.1 Pilot: tłumaczenie
 - [x] F2.2 Pilot: przegląd, bramki
 - [x] F2.3 Autoreview pilota
-- [ ] F2.4 Push i weryfikacja strony
-- [ ] F3.1 Strony otwierające
+- [x] F2.4 Push i weryfikacja strony
+- [x] F3.1 Strony otwierające
 - [ ] F3.2 Rozdziały 2–21
 - [ ] F3.3 Dodatki
 - [ ] F4.1 `SUMMARY.md`
@@ -45,21 +45,21 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 
 | plik | rozdz. | słowa EN | quizy | status | agent | próby | G5 | uwagi |
 |---|---|---|---|---|---|---|---|---|
-| experiment-intro.md | 0 | 550 | example-quiz | do zrobienia | | 0 | | |
-| title-page.md | 0 | 145 | — | do zrobienia | | 0 | | |
-| foreword.md | 0 | 448 | — | do zrobienia | | 0 | | |
-| ch00-00-introduction.md | 0 | 1611 | — | do zrobienia | | 0 | | |
+| experiment-intro.md | 0 | 550 | example-quiz | gotowe | afe257bc | 1 |  |  |
+| title-page.md | 0 | 145 | — | gotowe | afe257bc | 1 |  |  |
+| foreword.md | 0 | 448 | — | gotowe | afe257bc | 1 |  |  |
+| ch00-00-introduction.md | 0 | 1611 | — | gotowe | afe257bc | 1 |  |  |
 | ch01-00-getting-started.md | 1 | 49 | — | gotowe | a26173e7 | 1 |  |  |
 | ch01-01-installation.md | 1 | 926 | ch01-01-installation | gotowe | a26173e7 | 1 |  |  |
 | ch01-02-hello-world.md | 1 | 1137 | ch01-02-hello-world | gotowe | a26173e7 | 1 |  |  |
 | ch01-03-hello-cargo.md | 1 | 1612 | ch01-03-hello-cargo | gotowe | a26173e7 | 1 | 1 (tytuł Hello, Cargo!) |  |
-| ch02-00-guessing-game-tutorial.md | 2 | 5469 | — | do zrobienia | | 0 | | |
-| ch03-00-common-programming-concepts.md | 3 | 201 | — | do zrobienia | | 0 | | |
-| ch03-01-variables-and-mutability.md | 3 | 1337 | ch03-01-variables-and-mutability-sec1-variables, ch03-01-variables-and-mutability-sec2-constants, ch03-01-variables-and-mutability-sec3-shadowing | do zrobienia | | 0 | | |
-| ch03-02-data-types.md | 3 | 2535 | ch03-02-data-types-sec1-scalar, ch03-02-data-types-sec2-compound | do zrobienia | | 0 | | |
-| ch03-03-how-functions-work.md | 3 | 1412 | ch03-03-functions-sec1-parameters, ch03-03-functions-sec2-expressions | do zrobienia | | 0 | | |
+| ch02-00-guessing-game-tutorial.md | 2 | 5469 | — | tłumaczenie | a1b31fd5 | 1 |  |  |
+| ch03-00-common-programming-concepts.md | 3 | 201 | — | przetłumaczone | acc6bce4 | 1 |  |  |
+| ch03-01-variables-and-mutability.md | 3 | 1337 | ch03-01-variables-and-mutability-sec1-variables, ch03-01-variables-and-mutability-sec2-constants, ch03-01-variables-and-mutability-sec3-shadowing | przetłumaczone | a20c977c | 1 |  |  |
+| ch03-02-data-types.md | 3 | 2535 | ch03-02-data-types-sec1-scalar, ch03-02-data-types-sec2-compound | tłumaczenie | a8dd65bb | 1 |  |  |
+| ch03-03-how-functions-work.md | 3 | 1412 | ch03-03-functions-sec1-parameters, ch03-03-functions-sec2-expressions | przetłumaczone | ab9b00ac | 1 |  |  |
 | ch03-04-comments.md | 3 | 167 | — | do zrobienia | | 0 | | |
-| ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | do zrobienia | | 0 | | |
+| ch03-05-control-flow.md | 3 | 2436 | ch03-05-control-flow-sec1-if, ch03-05-control-flow-sec2-loops | tłumaczenie | a127bc9c | 1 |  |  |
 | ch04-00-understanding-ownership.md | 4 | 64 | — | do zrobienia | | 0 | | |
 | ch04-01-what-is-ownership.md | 4 | 2764 | ch04-01-ownership-sec1-stackheap, ch04-01-ownership-sec2-moves | gotowe | a172b206 | 1 |  |  |
 | ch04-02-references-and-borrowing.md | 4 | 3293 | ch04-02-references-sec1-basics, ch04-02-references-sec2-perms, ch04-02-references-sec3-safety | do zrobienia | | 0 | | |
@@ -156,7 +156,7 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch21-01-single-threaded.md | 21 | 3273 | — | do zrobienia | | 0 | | |
 | ch21-02-multithreaded.md | 21 | 4855 | — | do zrobienia | | 0 | | |
 | ch21-03-graceful-shutdown-and-cleanup.md | 21 | 1497 | — | do zrobienia | | 0 | | |
-| end-of-experiment.md | 0 | 47 | — | do zrobienia | | 0 | | |
+| end-of-experiment.md | 0 | 47 | — | gotowe | afe257bc | 1 |  |  |
 | appendix-00.md | dod. | 17 | — | do zrobienia | | 0 | | |
 | appendix-01-keywords.md | dod. | 743 | — | do zrobienia | | 0 | | |
 | appendix-02-operators.md | dod. | 1779 | — | do zrobienia | | 0 | | |
@@ -176,3 +176,4 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F1.1: KONWENCJE uzupełnione o zasadę zachowania łamania linii oryginału (rozdziały Brown mają akapity w jednej linii) i o zakaz linii zaczynających się od znaków Markdownu po zawinięciu.
 - F2: glosariusz uzupełniony o terminy z raportów pilota przed recenzją (rustowcy, box, ramka stosu, wartość wskazywana, …); KONWENCJE: listy, rodzaj gramatyczny, „Hello, world!”. `glosariusz_lint.py` pomija angielskie odpowiedniki w nawiasie `(*...*)` (forma D4). G5 ignoruje `{#id}` i dyrektywy.
 - F2.3 autoreview pilota: jakość dobra (bez błędów merytorycznych); poprawiono listy w ch04-01 (fragmenty zdań małą literą ze średnikami), „dokumentacja API” w ch01-01. Wszystkie propozycje „?” w glosariuszu zatwierdzone bez zmian. Dodano: zwalnianie (*freeing* lub *dropping*), modyfikować (*mutate*), endpoint, błąd segmentacji.
+- F2.4: wdrożony pilot (9113fa4a) zweryfikowany: notatka „Uwaga:” w `<section class="note">`, aquascope i quizy na ch04-01.

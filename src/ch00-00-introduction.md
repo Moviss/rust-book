@@ -1,201 +1,209 @@
-# Introduction {#introduction}
+# Wprowadzenie {#introduction}
 
-> Note: This edition of the book is the same as [The Rust Programming
-> Language][nsprust] available in print and ebook format from [No Starch
-> Press][nsp].
+> Uwaga: To wydanie książki jest takie samo jak książka
+> [The Rust Programming Language][nsprust] dostępna w wersji drukowanej i jako
+> e-book w wydawnictwie [No Starch Press][nsp].
 
 [nsprust]: https://nostarch.com/rust-programming-language-3rd-edition
 [nsp]: https://nostarch.com/
 
-Welcome to _The Rust Programming Language_, an introductory book about Rust.
-The Rust programming language helps you write faster, more reliable software.
-High-level ergonomics and low-level control are often at odds in programming
-language design; Rust challenges that conflict. Through balancing powerful
-technical capacity and a great developer experience, Rust gives you the option
-to control low-level details (such as memory usage) without all the hassle
-traditionally associated with such control.
+Witaj w _The Rust Programming Language_, wprowadzającej książce o Ruście. Język
+programowania Rust pomaga pisać szybsze i bardziej niezawodne oprogramowanie.
+Wysokopoziomowa ergonomia i niskopoziomowa kontrola często stoją ze sobą
+w sprzeczności przy projektowaniu języków programowania; Rust rzuca wyzwanie tej
+sprzeczności. Dzięki zrównoważeniu dużych możliwości technicznych z wygodą pracy
+programisty Rust daje ci kontrolę nad szczegółami niskiego poziomu (takimi jak
+użycie pamięci) bez całego kłopotu, który tradycyjnie wiąże się z taką
+kontrolą.
 
-## Who Rust Is For {#who-rust-is-for}
+## Dla kogo jest Rust {#who-rust-is-for}
 
-Rust is ideal for many people for a variety of reasons. Let’s look at a few of
-the most important groups.
+Rust jest idealny dla wielu osób z różnych powodów. Przyjrzyjmy się kilku
+najważniejszym grupom.
 
-### Teams of Developers {#teams-of-developers}
+### Zespoły programistów {#teams-of-developers}
 
-Rust is proving to be a productive tool for collaborating among large teams of
-developers with varying levels of systems programming knowledge. Low-level code
-is prone to various subtle bugs, which in most other languages can only be
-caught through extensive testing and careful code review by experienced
-developers. In Rust, the compiler plays a gatekeeper role by refusing to
-compile code with these elusive bugs, including concurrency bugs. By working
-alongside the compiler, the team can spend its time focusing on the program’s
-logic rather than chasing down bugs.
+Rust okazuje się produktywnym narzędziem do współpracy w dużych zespołach
+programistów o różnym poziomie wiedzy z zakresu programowania systemowego. Kod
+niskiego poziomu jest podatny na rozmaite subtelne błędy, które w większości
+innych języków można wychwycić tylko dzięki rozbudowanym testom i starannemu
+przeglądowi kodu przez doświadczonych programistów. W Ruście kompilator pełni
+rolę strażnika: odmawia skompilowania kodu z takimi trudnymi do wykrycia
+błędami, w tym z błędami współbieżności (*concurrency*). Współpracując
+z kompilatorem, zespół może poświęcić czas na logikę programu, zamiast tropić
+błędy.
 
-Rust also brings contemporary developer tools to the systems programming world:
+Rust wnosi też do świata programowania systemowego nowoczesne narzędzia dla
+programistów:
 
-- Cargo, the included dependency manager and build tool, makes adding,
-  compiling, and managing dependencies painless and consistent across the Rust
-  ecosystem.
-- The `rustfmt` formatting tool ensures a consistent coding style across
-  developers.
-- The Rust Language Server powers integrated development environment (IDE)
-  integration for code completion and inline error messages.
+- Cargo, dołączony menedżer zależności i narzędzie do budowania, sprawia, że
+  dodawanie, kompilowanie i zarządzanie zależnościami jest bezbolesne i spójne
+  w całym ekosystemie Rusta.
+- Narzędzie do formatowania `rustfmt` zapewnia spójny styl kodu u wszystkich
+  programistów.
+- Rust Language Server zapewnia integrację ze zintegrowanymi środowiskami
+  programistycznymi (IDE), dostarczając podpowiedzi kodu i komunikaty o błędach
+  bezpośrednio w edytorze.
 
-By using these and other tools in the Rust ecosystem, developers can be
-productive while writing systems-level code.
+Dzięki tym i innym narzędziom z ekosystemu Rusta programiści mogą pracować
+produktywnie, pisząc kod na poziomie systemowym.
 
-### Students {#students}
+### Studenci {#students}
 
-Rust is for students and those who are interested in learning about systems
-concepts. Using Rust, many people have learned about topics like operating
-systems development. The community is very welcoming and happy to answer
-students’ questions. Through efforts such as this book, the Rust teams want to
-make systems concepts more accessible to more people, especially those new to
-programming.
+Rust jest dla studentów i wszystkich, którzy chcą poznać zagadnienia
+systemowe. Z pomocą Rusta wiele osób zgłębiło takie tematy jak tworzenie
+systemów operacyjnych. Społeczność jest bardzo przyjazna i chętnie odpowiada na
+pytania studentów. Poprzez inicjatywy takie jak ta książka zespoły Rusta chcą
+udostępnić zagadnienia systemowe większej liczbie osób, zwłaszcza tym, które
+dopiero zaczynają programować.
 
-### Companies {#companies}
+### Firmy {#companies}
 
-Hundreds of companies, large and small, use Rust in production for a variety of
-tasks, including command line tools, web services, DevOps tooling, embedded
-devices, audio and video analysis and transcoding, cryptocurrencies,
-bioinformatics, search engines, Internet of Things applications, machine
-learning, and even major parts of the Firefox web browser.
+Setki firm, dużych i małych, używają Rusta produkcyjnie do rozmaitych zadań,
+w tym do narzędzi wiersza poleceń, usług sieciowych, narzędzi DevOps, urządzeń
+wbudowanych, analizy i transkodowania audio i wideo, kryptowalut,
+bioinformatyki, wyszukiwarek, aplikacji Internetu rzeczy, uczenia maszynowego,
+a nawet dużych części przeglądarki Firefox.
 
-### Open Source Developers {#open-source-developers}
+### Twórcy open source {#open-source-developers}
 
-Rust is for people who want to build the Rust programming language, community,
-developer tools, and libraries. We’d love to have you contribute to the Rust
-language.
+Rust jest dla osób, które chcą rozwijać język programowania Rust, jego
+społeczność, narzędzia programistyczne i biblioteki. Chętnie przyjmiemy twój
+wkład w rozwój języka Rust.
 
-### People Who Value Speed and Stability {#people-who-value-speed-and-stability}
+### Osoby, które cenią szybkość i stabilność {#people-who-value-speed-and-stability}
 
-Rust is for people who crave speed and stability in a language. By speed, we
-mean both how quickly Rust code can run and the speed at which Rust lets you
-write programs. The Rust compiler’s checks ensure stability through feature
-additions and refactoring. This is in contrast to the brittle legacy code in
-languages without these checks, which developers are often afraid to modify. By
-striving for zero-cost abstractions—higher-level features that compile to
-lower-level code as fast as code written manually—Rust endeavors to make safe
-code be fast code as well.
+Rust jest dla osób, które oczekują od języka szybkości i stabilności. Przez
+szybkość rozumiemy zarówno to, jak szybko może działać kod w Ruście, jak i to,
+jak szybko Rust pozwala pisać programy. Mechanizmy sprawdzające kompilatora
+Rusta zapewniają stabilność przy dodawaniu nowych funkcji i refaktoryzacji. To
+przeciwieństwo kruchego, zastanego kodu w językach bez takich mechanizmów, którego
+programiści często boją się modyfikować. Dążąc do abstrakcji o zerowym koszcie
+(*zero-cost abstractions*) – funkcji wyższego poziomu, które kompilują się do
+kodu niższego poziomu równie szybkiego jak kod napisany ręcznie – Rust stara
+się, by bezpieczny kod był zarazem szybkim kodem.
 
-The Rust language hopes to support many other users as well; those mentioned
-here are merely some of the biggest stakeholders. Overall, Rust’s greatest
-ambition is to eliminate the trade-offs that programmers have accepted for
-decades by providing safety _and_ productivity, speed _and_ ergonomics. Give
-Rust a try, and see if its choices work for you.
+Rust chce służyć również wielu innym użytkownikom; wymienione
+tu grupy to tylko niektórzy z największych interesariuszy. Ogólnie rzecz
+biorąc, największą ambicją Rusta jest wyeliminowanie kompromisów, które
+programiści akceptowali od dziesięcioleci, przez zapewnienie bezpieczeństwa _i_
+produktywności, szybkości _i_ ergonomii. Wypróbuj Rusta i sprawdź, czy jego
+rozwiązania ci odpowiadają.
 
-## Who This Book Is For {#who-this-book-is-for}
+## Dla kogo jest ta książka {#who-this-book-is-for}
 
-This book assumes that you’ve written code in another programming language, but
-it doesn’t make any assumptions about which one. We’ve tried to make the
-material broadly accessible to those from a wide variety of programming
-backgrounds. We don’t spend a lot of time talking about what programming _is_
-or how to think about it. If you’re entirely new to programming, you would be
-better served by reading a book that specifically provides an introduction to
-programming.
+Ta książka zakłada, że masz już za sobą pisanie kodu w innym języku
+programowania, ale nie zakłada, w którym. Staraliśmy się, aby materiał był
+przystępny dla osób o bardzo różnym doświadczeniu programistycznym. Nie
+poświęcamy wiele czasu na omawianie tego, czym _jest_ programowanie ani jak
+o nim myśleć. Jeśli programowanie jest dla ciebie zupełną nowością, lepiej
+sięgnąć po książkę, która stanowi wprowadzenie do programowania.
 
-## How to Use This Book {#how-to-use-this-book}
+## Jak korzystać z tej książki {#how-to-use-this-book}
 
-In general, this book assumes that you’re reading it in sequence from front to
-back. Later chapters build on concepts in earlier chapters, and earlier
-chapters might not delve into details on a particular topic but will revisit
-the topic in a later chapter.
+Ogólnie ta książka zakłada, że czytasz ją po kolei, od początku do końca.
+Późniejsze rozdziały opierają się na pojęciach z wcześniejszych, a wcześniejsze
+rozdziały mogą nie zagłębiać się w szczegóły danego tematu, tylko wrócić do
+niego w którymś z późniejszych rozdziałów.
 
-You’ll find two kinds of chapters in this book: concept chapters and project
-chapters. In concept chapters, you’ll learn about an aspect of Rust. In project
-chapters, we’ll build small programs together, applying what you’ve learned so
-far. Chapter 2, Chapter 12, and Chapter 21 are project chapters; the rest are
-concept chapters.
+W tej książce znajdziesz dwa rodzaje rozdziałów: rozdziały koncepcyjne
+i rozdziały projektowe. W rozdziałach koncepcyjnych poznasz jakiś aspekt Rusta.
+W rozdziałach projektowych wspólnie napiszemy małe programy, stosując to, czego
+udało ci się do tej pory nauczyć. Rozdziały 2, 12 i 21 są projektowe; pozostałe
+są koncepcyjne.
 
-**Chapter 1** explains how to install Rust, how to write a “Hello, world!”
-program, and how to use Cargo, Rust’s package manager and build tool. **Chapter
-2** is a hands-on introduction to writing a program in Rust, having you build
-up a number-guessing game. Here, we cover concepts at a high level, and later
-chapters will provide additional detail. If you want to get your hands dirty
-right away, Chapter 2 is the place for that. If you’re a particularly
-meticulous learner who prefers to learn every detail before moving on to the
-next, you might want to skip Chapter 2 and go straight to **Chapter 3**, which
-covers Rust features that are similar to those of other programming languages;
-then, you can return to Chapter 2 when you’d like to work on a project applying
-the details you’ve learned.
+**Rozdział 1** wyjaśnia, jak zainstalować Rusta, jak napisać program
+„Hello, world!” i jak używać Cargo, menedżera pakietów i systemu budowania
+Rusta. **Rozdział 2** to praktyczne wprowadzenie do pisania programu w Ruście,
+w którym zbudujesz grę w zgadywanie liczby. Omawiamy tam pojęcia ogólnie,
+a późniejsze rozdziały dostarczą więcej szczegółów. Jeśli chcesz od razu
+zakasać rękawy, rozdział 2 jest do tego właściwym miejscem. Jeśli zaś należysz
+do szczególnie skrupulatnych osób, które wolą poznać każdy szczegół, zanim
+przejdą dalej, możesz pominąć rozdział 2 i przejść od razu do **rozdziału 3**,
+który omawia te elementy Rusta, które są podobne do elementów innych języków
+programowania; potem możesz wrócić do rozdziału 2, gdy zechcesz popracować nad
+projektem, stosując poznane szczegóły.
 
-In **Chapter 4**, you’ll learn about Rust’s ownership system. **Chapter 5**
-discusses structs and methods. **Chapter 6** covers enums, `match` expressions,
-and the `if let` and `let...else` control flow constructs. You’ll use structs
-and enums to make custom types.
+W **rozdziale 4** poznasz system własności (*ownership*) w Ruście. **Rozdział
+5** omawia struktury (*struct*) i metody. **Rozdział 6** obejmuje *enum* (typ
+wyliczeniowy), wyrażenia `match` oraz konstrukcje sterujące `if let`
+i `let...else`. Struktur i enumów będziesz używać do tworzenia własnych typów.
 
-In **Chapter 7**, you’ll learn about Rust’s module system and about privacy
-rules for organizing your code and its public application programming interface
-(API). **Chapter 8** discusses some common collection data structures that the
-standard library provides: vectors, strings, and hash maps. **Chapter 9**
-explores Rust’s error-handling philosophy and techniques.
+W **rozdziale 7** poznasz system modułów Rusta oraz zasady prywatności służące
+do organizowania kodu i jego publicznego interfejsu programistycznego
+aplikacji (API). **Rozdział 8** omawia kilka popularnych struktur danych typu
+kolekcja, które dostarcza biblioteka standardowa: wektory, łańcuchy znaków
+(*string*) i mapy haszujące (*hash map*). **Rozdział 9** przedstawia filozofię
+i techniki obsługi błędów w Ruście.
 
-**Chapter 10** digs into generics, traits, and lifetimes, which give you the
-power to define code that applies to multiple types. **Chapter 11** is all
-about testing, which even with Rust’s safety guarantees is necessary to ensure
-that your program’s logic is correct. In **Chapter 12**, we’ll build our own
-implementation of a subset of functionality from the `grep` command line tool
-that searches for text within files. For this, we’ll use many of the concepts
-we discussed in the previous chapters.
+**Rozdział 10** zagłębia się w typy generyczne (*generics*), *traity* (cechy
+typów, zbliżone do interfejsów) i czasy życia (*lifetime*), które pozwalają
+definiować kod działający dla wielu typów. **Rozdział 11** w całości dotyczy
+testowania, które nawet przy gwarancjach bezpieczeństwa Rusta jest niezbędne,
+by upewnić się, że logika programu jest poprawna. W **rozdziale 12** napiszemy
+własną implementację części funkcjonalności narzędzia wiersza poleceń `grep`,
+które wyszukuje tekst w plikach. Wykorzystamy w tym celu wiele pojęć omówionych
+w poprzednich rozdziałach.
 
-**Chapter 13** explores closures and iterators: features of Rust that come from
-functional programming languages. In **Chapter 14**, we’ll examine Cargo in
-more depth and talk about best practices for sharing your libraries with
-others. **Chapter 15** discusses smart pointers that the standard library
-provides and the traits that enable their functionality.
+**Rozdział 13** omawia domknięcia (*closure*) i iteratory: elementy Rusta
+wywodzące się z funkcyjnych języków programowania. W **rozdziale 14** przyjrzymy
+się dokładniej Cargo i omówimy dobre praktyki udostępniania bibliotek innym.
+**Rozdział 15** omawia inteligentne wskaźniki (*smart pointer*) dostarczane
+przez bibliotekę standardową oraz traity, które umożliwiają ich działanie.
 
-In **Chapter 16**, we’ll walk through different models of concurrent
-programming and talk about how Rust helps you program in multiple threads
-fearlessly. In **Chapter 17**, we build on that by exploring Rust’s async and
-await syntax, along with tasks, futures, and streams, and the lightweight
-concurrency model they enable.
+W **rozdziale 16** przejdziemy przez różne modele programowania współbieżnego
+i omówimy, jak Rust pomaga bez obaw programować z użyciem wielu wątków.
+W **rozdziale 17** rozwijamy ten temat, omawiając składnię async i await
+w Ruście, a także zadania, *future* (wartość, która będzie gotowa później),
+strumienie (*stream*) i lekki model współbieżności, który umożliwiają.
 
-**Chapter 18** looks at how Rust idioms compare to object-oriented programming
-principles you might be familiar with. **Chapter 19** is a reference on
-patterns and pattern matching, which are powerful ways of expressing ideas
-throughout Rust programs. **Chapter 20** contains a smorgasbord of advanced
-topics of interest, including unsafe Rust, macros, and more about lifetimes,
-traits, types, functions, and closures.
+**Rozdział 18** pokazuje, jak idiomy Rusta mają się do znanych ci być może zasad
+programowania obiektowego. **Rozdział 19** to kompendium wiedzy o wzorcach
+i dopasowywaniu wzorców (*pattern matching*), czyli potężnych sposobach
+wyrażania idei w programach w Ruście. **Rozdział 20** zawiera mieszankę
+interesujących zagadnień zaawansowanych, w tym niebezpieczny Rust (*unsafe
+Rust*), makra oraz więcej informacji o czasach życia, traitach, typach,
+funkcjach i domknięciach.
 
-In **Chapter 21**, we’ll complete a project in which we’ll implement a
-low-level multithreaded web server!
+W **rozdziale 21** zrealizujemy projekt, w którym zaimplementujemy
+niskopoziomowy, wielowątkowy serwer WWW!
 
-Finally, some appendixes contain useful information about the language in a
-more reference-like format. **Appendix A** covers Rust’s keywords, **Appendix
-B** covers Rust’s operators and symbols, **Appendix C** covers derivable traits
-provided by the standard library, **Appendix D** covers some useful development
-tools, and **Appendix E** explains Rust editions. In **Appendix F**, you can
-find translations of the book, and in **Appendix G** we’ll cover how Rust is
-made and what nightly Rust is.
+Na koniec kilka dodatków zawiera przydatne informacje o języku w formie
+bardziej zbliżonej do dokumentacji. **Dodatek A** omawia słowa kluczowe Rusta,
+**dodatek B** – operatory i symbole Rusta, **dodatek C** – traity, które można
+wyprowadzić (*derive*), dostarczane przez bibliotekę standardową, **dodatek D**
+– kilka przydatnych narzędzi programistycznych, a **dodatek E** wyjaśnia, czym
+są edycje (*edition*) Rusta. W **dodatku F** znajdziesz tłumaczenia książki,
+a w **dodatku G** opiszemy, jak powstaje Rust i czym jest Rust nightly.
 
-There is no wrong way to read this book: If you want to skip ahead, go for it!
-You might have to jump back to earlier chapters if you experience any
-confusion. But do whatever works for you.
+Nie ma złego sposobu czytania tej książki: jeśli chcesz przeskoczyć dalej,
+śmiało! Jeśli coś okaże się niejasne, być może trzeba będzie wrócić do
+wcześniejszych rozdziałów. Rób jednak to, co ci odpowiada.
 
 <span id="ferris"></span>
 
-An important part of the process of learning Rust is learning how to read the
-error messages the compiler displays: These will guide you toward working code.
-As such, we’ll provide many examples that don’t compile along with the error
-message the compiler will show you in each situation. Know that if you enter
-and run a random example, it may not compile! Make sure you read the
-surrounding text to see whether the example you’re trying to run is meant to
-error. In most situations, we’ll lead you to the correct version of any code
-that doesn’t compile. Ferris will also help you distinguish code that isn’t
-meant to work:
+Ważną częścią nauki Rusta jest nauczenie się czytania komunikatów o błędach
+wyświetlanych przez kompilator: to one poprowadzą cię do działającego kodu.
+Dlatego pokażemy wiele przykładów, które się nie kompilują, razem z komunikatem
+o błędzie, jaki kompilator wyświetli w każdej z tych sytuacji. Pamiętaj, że
+jeśli wpiszesz i uruchomisz losowy przykład, może się on nie skompilować!
+Koniecznie przeczytaj otaczający tekst, aby sprawdzić, czy przykład, który
+próbujesz uruchomić, ma kończyć się błędem. W większości przypadków
+doprowadzimy cię do poprawnej wersji każdego kodu, który się nie kompiluje.
+Ferris pomoże ci też odróżnić kod, który nie ma działać:
 
-| Ferris                                                                                                           | Meaning                                          |
+| Ferris                                                                                                           | Znaczenie                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris with a question mark"/>            | This code does not compile!                      |
-| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris throwing up their hands"/>                   | This code panics!                                |
-| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris with one claw up, shrugging"/> | This code does not produce the desired behavior. |
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris ze znakiem zapytania"/>            | Ten kod się nie kompiluje!                       |
+| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris wyrzucający ręce w górę"/>                   | Ten kod panikuje!                                |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris z jednymi szczypcami w górze, wzruszający ramionami"/> | Ten kod nie działa zgodnie z oczekiwaniami. |
 
-In most situations, we’ll lead you to the correct version of any code that
-doesn’t compile.
+W większości przypadków doprowadzimy cię do poprawnej wersji każdego kodu,
+który się nie kompiluje.
 
-## Source Code {#source-code}
+## Kod źródłowy {#source-code}
 
-The source files from which this book is generated can be found on
-[GitHub][book].
+Pliki źródłowe, z których generowana jest ta książka, znajdziesz na
+[GitHubie][book].
 
 [book]: https://github.com/rust-lang/book/tree/main/src
