@@ -48,7 +48,7 @@ recenzent.
 | refutable / irrefutable | odrzucalny / nieodrzucalny | wzorzec odrzucalny (*refutable*) | | |
 | closure | domknięcie | domknięcie (*closure*) | | nie „zamknięcie” (zarezerwowane m.in. dla zamykania kanału) |
 | iterator / iterator adapter | iterator / adapter iteratora | adapter iteratora (*iterator adapter*) | | consuming adapter → adapter konsumujący |
-| crate | crate | *crate* (jednostka kompilacji w Ruście) | `\bskrzyn\w*` | odmiana: crate’a, crate’y, crate’ów |
+| crate | crate | *crate* (jednostka kompilacji w Ruście) | `\bskrzyn\w*` | odmiana: crate’a, crate’owi, w crate’cie, crate’y, crate’ów |
 | package | pakiet | pakiet (*package*) | | |
 | module / module tree | moduł / drzewo modułów | — | | |
 | path | ścieżka | — | | |
@@ -203,3 +203,23 @@ recenzent.
 | binding mode | tryb wiązania | — | | |
 | dangling pointer | wiszący wskaźnik | — | | |
 | clone-on-write | klonowanie przy zapisie | — | | |
+| map | mapa | mapa (*map*) | | |
+| vector | wektor | wektor (*vector*) | | |
+| backtrace | ślad stosu | ślad stosu (*backtrace*) | | |
+| unwinding / aborting | zwijanie stosu / przerwanie | zwijanie stosu (*unwinding*) | | |
+| exception | wyjątek | — | | |
+| call stack | stos wywołań | — | | |
+| bug | błąd (bug, gdy trzeba odróżnić od *error*) | — | | |
+| grapheme cluster | klaster grafemów | — | | |
+| Unicode scalar value | wartość skalarna Unicode | — | | |
+| wrapper | opakowanie | — | | |
+| concatenate | łączyć | — | | |
+| buffer overflow / overread | przepełnienie bufora / odczyt poza buforem | — | | |
+| hashing function / hasher | funkcja haszująca / *hasher* | funkcja haszująca (*hashing function*) | | |
+| hash table | tablica haszująca | — | | |
+| key-value pair | para klucz–wartość | — | | |
+| entry (mapa) | wpis | — | | |
+| extract a function | wyodrębnić funkcję | — | | |
+| duplication | powielanie kodu | — | | |
+| feature (języka/narzędzia) | mechanizm / funkcjonalność | — | | nie „funkcja” (koliduje z *function*) |
+| line (kodu) | wiersz | — | | „linia” tylko dla wyjścia programu |

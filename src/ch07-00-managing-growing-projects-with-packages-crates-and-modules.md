@@ -2,51 +2,58 @@
 
 <a id="managing-growing-projects-with-packages-crates-and-modules"></a>
 
-# Packages, Crates, and Modules {#packages-crates-and-modules}
+# Pakiety, crate’y i moduły {#packages-crates-and-modules}
 
-As you write large programs, organizing your code will become increasingly
-important. By grouping related functionality and separating code with distinct
-features, you’ll clarify where to find code that implements a particular
-feature and where to go to change how a feature works.
+Im większe programy piszesz, tym ważniejsza staje się organizacja kodu.
+Grupując powiązaną funkcjonalność i oddzielając kod odpowiedzialny za różne
+funkcjonalności, jasno pokazujesz, gdzie szukać kodu implementującego daną
+funkcjonalność i gdzie zajrzeć, żeby zmienić jej działanie.
 
-The programs we’ve written so far have been in one module in one file. As a
-project grows, you should organize code by splitting it into multiple modules
-and then multiple files. A package can contain multiple binary crates and
-optionally one library crate. As a package grows, you can extract parts into
-separate crates that become external dependencies. This chapter covers all
-these techniques. For very large projects comprising a set of interrelated
-packages that evolve together, Cargo provides workspaces, which we’ll cover in
-[“Cargo Workspaces”][workspaces]<!-- ignore --> in Chapter 14.
+Programy, które do tej pory napisaliśmy, mieściły się w jednym module w jednym
+pliku. Gdy projekt rośnie, warto uporządkować kod, dzieląc go na wiele modułów,
+a następnie na wiele plików. Pakiet (*package*) może zawierać wiele crate’ów
+binarnych i opcjonalnie jeden crate biblioteczny (*crate* – jednostka
+kompilacji w Ruście). W miarę rozrostu pakietu możesz wydzielać jego części do
+osobnych crate’ów, które staną się zależnościami zewnętrznymi. Ten rozdział
+omawia wszystkie te techniki. Dla bardzo dużych projektów, składających się z
+zestawu powiązanych pakietów rozwijanych razem, Cargo udostępnia przestrzenie
+robocze (*workspaces*), które omówimy w podrozdziale
+[„Przestrzenie robocze Cargo”][workspaces]<!-- ignore --> w rozdziale 14.
 
-We’ll also discuss encapsulating implementation details, which lets you reuse
-code at a higher level: Once you’ve implemented an operation, other code can
-call your code via its public interface without having to know how the
-implementation works. The way you write code defines which parts are public for
-other code to use and which parts are private implementation details that you
-reserve the right to change. This is another way to limit the amount of detail
-you have to keep in your head.
+Omówimy też hermetyzację szczegółów implementacji, która pozwala ponownie
+wykorzystywać kod na wyższym poziomie: gdy już zaimplementujesz jakąś operację,
+inny kod może wywoływać twój kod przez jego publiczny interfejs, nie wiedząc,
+jak działa implementacja. To, jak piszesz kod, określa, które jego części są
+publiczne i dostępne dla innego kodu, a które są prywatnymi szczegółami
+implementacji, które zastrzegasz sobie prawo zmieniać. To kolejny sposób na
+ograniczenie liczby szczegółów, które musisz trzymać w głowie.
 
-A related concept is scope: The nested context in which code is written has a
-set of names that are defined as “in scope.” When reading, writing, and
-compiling code, programmers and compilers need to know whether a particular
-name at a particular spot refers to a variable, function, struct, enum, module,
-constant, or other item and what that item means. You can create scopes and
-change which names are in or out of scope. You can’t have two items with the
-same name in the same scope; tools are available to resolve name conflicts.
+Pokrewnym pojęciem jest zasięg (*scope*): zagnieżdżony kontekst, w którym
+piszesz kod, ma zbiór nazw zdefiniowanych jako „w zasięgu”. Podczas czytania,
+pisania i kompilowania kodu programiści i kompilatory muszą wiedzieć, czy dana
+nazwa w danym miejscu odnosi się do zmiennej, funkcji, struktury, enuma,
+modułu, stałej czy innego elementu i co ten element oznacza. Możesz tworzyć
+zasięgi i zmieniać, które nazwy są w zasięgu, a które poza nim. Nie można mieć
+dwóch elementów o tej samej nazwie w tym samym zasięgu; istnieją narzędzia do
+rozwiązywania konfliktów nazw.
 
-Rust has a number of features that allow you to manage your code’s
-organization, including which details are exposed, which details are private,
-and what names are in each scope in your programs. These features, sometimes
-collectively referred to as the _module system_, include:
+Rust ma wiele mechanizmów, które pozwalają zarządzać organizacją kodu, m.in. tym,
+które szczegóły są udostępniane, które są prywatne i jakie nazwy są w każdym
+zasięgu w twoich programach. Do tych mechanizmów, nazywanych czasem łącznie
+_systemem modułów_ (*module system*), należą:
 
-* **Packages**: A Cargo feature that lets you build, test, and share crates
-* **Crates**: A tree of modules that produces a library or executable
-* **Modules and use**: Let you control the organization, scope, and privacy of
-paths
-* **Paths**: A way of naming an item, such as a struct, function, or module
+* **pakiety**: mechanizm Cargo, który pozwala budować, testować i udostępniać
+  crate’y;
+* **crate’y**: drzewo modułów, z którego powstaje biblioteka lub plik
+  wykonywalny;
+* **moduły i use**: pozwalają kontrolować organizację, zasięg i prywatność
+  ścieżek;
+* **ścieżki**: sposób nazywania elementu, takiego jak struktura, funkcja czy
+  moduł.
 
-In this chapter, we’ll cover all these features, discuss how they interact, and
-explain how to use them to manage scope. By the end, you should have a solid
-understanding of the module system and be able to work with scopes like a pro!
+W tym rozdziale omówimy wszystkie te mechanizmy, pokażemy, jak ze sobą
+współdziałają, i wyjaśnimy, jak za ich pomocą zarządzać zasięgiem. Po jego
+lekturze system modułów nie będzie miał przed tobą tajemnic, a z zasięgami
+poradzisz sobie jak zawodowiec!
 
 [workspaces]: ch14-03-cargo-workspaces.html

@@ -75,24 +75,24 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch06-02-match.md | 6 | 2072 | ch06-02-match | gotowe | ac18a18c | 1 | 2 (`match` jako kod, uzasadnione) |  |
 | ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | gotowe | ac18a18c | 1 |  |  |
 | ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | gotowe | ac18a18c | 1 |  |  |
-| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | przegląd | a854e603 | 1 |  |  |
-| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | przegląd | a854e603 | 1 |  |  |
-| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | przegląd | a854e603 | 1 |  |  |
-| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | przegląd | a854e603 | 1 |  |  |
-| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | przegląd | a854e603 | 1 |  |  |
-| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | przegląd | a854e603 | 1 |  |  |
-| ch08-00-common-collections.md | 8 | 218 | — | tłumaczenie | aa61e28d | 1 |  |  |
-| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | tłumaczenie | aa61e28d | 1 |  |  |
-| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | tłumaczenie | a80765db | 1 |  |  |
-| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | tłumaczenie | ad515200 | 1 |  |  |
-| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | tłumaczenie | ad515200 | 1 |  |  |
-| ch09-00-error-handling.md | 9 | 221 | — | tłumaczenie | a761342d | 1 |  |  |
-| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | tłumaczenie | a761342d | 1 |  |  |
-| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | do zrobienia | | 0 | | |
-| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | do zrobienia | | 0 | | |
-| ch10-00-generics.md | 10 | 898 | — | do zrobienia | | 0 | | |
-| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | do zrobienia | | 0 | | |
-| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | do zrobienia | | 0 | | |
+| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | gotowe | a854e603 | 1 |  |  |
+| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | gotowe | a854e603 | 1 |  |  |
+| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | gotowe | a854e603 | 1 |  |  |
+| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | gotowe | a854e603 | 1 |  |  |
+| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | gotowe | a854e603 | 1 |  |  |
+| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | gotowe | a854e603 | 1 |  |  |
+| ch08-00-common-collections.md | 8 | 218 | — | przegląd | aadc4d0e | 1 |  |  |
+| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | przegląd | aadc4d0e | 1 |  |  |
+| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | przegląd | aadc4d0e | 1 |  |  |
+| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | przegląd | aadc4d0e | 1 |  |  |
+| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | przegląd | aadc4d0e | 1 |  |  |
+| ch09-00-error-handling.md | 9 | 221 | — | przetłumaczone | a761342d | 1 |  |  |
+| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | przetłumaczone | a761342d | 1 |  |  |
+| ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | tłumaczenie | a2969649 | 1 |  |  |
+| ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | tłumaczenie | a51e2957 | 1 |  |  |
+| ch10-00-generics.md | 10 | 898 | — | przetłumaczone | aedc1c38 | 1 |  |  |
+| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | tłumaczenie | adf66e87 | 1 |  |  |
+| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | tłumaczenie | af5a9eb9 | 1 |  |  |
 | ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | do zrobienia | | 0 | | |
 | ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | do zrobienia | | 0 | | |
 | ch11-00-testing.md | 11 | 340 | — | do zrobienia | | 0 | | |

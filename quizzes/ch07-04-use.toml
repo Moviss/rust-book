@@ -1,15 +1,15 @@
 [[questions]]
 id = "a162c2c8-aadf-4963-a997-02a1035f2459"
 type = "MultipleChoice"
-prompt.prompt = "Which of the following statements best describes the function of the `use` keyword?"
-answer.answer = "`use` reduces the verbosity of referring to items in the used path"
+prompt.prompt = "Które z poniższych stwierdzeń najlepiej opisuje działanie słowa kluczowego `use`?"
+answer.answer = "`use` skraca odwołania do elementów ze wskazanej ścieżki"
 prompt.distractors = [
-  "`use` copies the contents of an item from one module to another",
-  "`use` allows access to items that circumvents normal privacy rules",
-  "`use` indicates to the compiler that an item will be used and should be optimized"
+  "`use` kopiuje zawartość elementu z jednego modułu do drugiego",
+  "`use` daje dostęp do elementów z pominięciem zwykłych reguł prywatności",
+  "`use` informuje kompilator, że element będzie używany i należy go zoptymalizować"
 ]
 context = """
-`use` allows references to items in the used path that are shorter than without the `use`, reducing the verbosity of reference.
+`use` pozwala odwoływać się do elementów ze wskazanej ścieżki krócej niż bez `use`, dzięki czemu odwołania są mniej rozwlekłe.
 """
 
 
@@ -17,7 +17,7 @@ context = """
 id = "eccc2099-9880-4628-8474-f1d55e2a4a4a"
 type = "ShortAnswer"
 prompt.prompt = """
-Consider this module and `use` statement:
+Rozważ poniższy moduł i instrukcję `use`:
 
 ```
 pub mod parent {
@@ -34,11 +34,11 @@ fn main() {
 }
 ```
 
-Inside `main`, what is the total number of paths that can refer to `a`, `b`, or `c` (not including those that use `self`, `super`, or `crate`)?
-Write your answer as a digit such as 0 or 1. For example, if the only two valid paths were `a` and `parent::b`, then the answer would be 2.
+Ile łącznie ścieżek wewnątrz `main` może odwoływać się do `a`, `b` lub `c` (nie licząc tych, które używają `self`, `super` lub `crate`)?
+Wpisz odpowiedź jako cyfrę, np. 0 lub 1. Na przykład gdyby jedynymi poprawnymi ścieżkami były `a` i `parent::b`, odpowiedzią byłoby 2.
 """
 answer.answer = "5"
 context = """
-There are two paths to `a`: `parent::a` and `a`. There are no paths to `b`, because it is private. There are three paths to `c`:
+Do `a` prowadzą dwie ścieżki: `parent::a` i `a`. Do `b` nie prowadzi żadna ścieżka, ponieważ jest prywatna. Do `c` prowadzą trzy ścieżki:
 `parent::child::c`, `child::c`, `alias::c`.
 """
