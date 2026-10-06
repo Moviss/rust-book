@@ -1,49 +1,54 @@
-# Fearless Concurrency {#fearless-concurrency}
+# Nieustraszona współbieżność {#fearless-concurrency}
 
-Handling concurrent programming safely and efficiently is another of Rust’s
-major goals. _Concurrent programming_, in which different parts of a program
-execute independently, and _parallel programming_, in which different parts of
-a program execute at the same time, are becoming increasingly important as more
-computers take advantage of their multiple processors. Historically,
-programming in these contexts has been difficult and error-prone. Rust hopes to
-change that.
+Bezpieczna i wydajna obsługa programowania współbieżnego to kolejny z głównych
+celów Rusta. _Programowanie współbieżne_ (*concurrent programming*), w którym
+różne części programu wykonują się niezależnie od siebie, oraz _programowanie
+równoległe_ (*parallel programming*), w którym różne części programu wykonują
+się w tym samym czasie, zyskują na znaczeniu, w miarę jak coraz więcej
+komputerów korzysta z wielu procesorów. Programowanie w tych warunkach było
+dotąd trudne i podatne na błędy. Rust ma nadzieję to zmienić.
 
-Initially, the Rust team thought that ensuring memory safety and preventing
-concurrency problems were two separate challenges to be solved with different
-methods. Over time, the team discovered that the ownership and type systems are
-a powerful set of tools to help manage memory safety _and_ concurrency
-problems! By leveraging ownership and type checking, many concurrency errors
-are compile-time errors in Rust rather than runtime errors. Therefore, rather
-than making you spend lots of time trying to reproduce the exact circumstances
-under which a runtime concurrency bug occurs, incorrect code will refuse to
-compile and present an error explaining the problem. As a result, you can fix
-your code while you’re working on it rather than potentially after it has been
-shipped to production. We’ve nicknamed this aspect of Rust _fearless
-concurrency_. Fearless concurrency allows you to write code that is free of
-subtle bugs and is easy to refactor without introducing new bugs.
+Początkowo zespół Rusta uważał, że zapewnienie bezpieczeństwa pamięci i
+zapobieganie problemom ze współbieżnością (*concurrency*) to dwa odrębne
+wyzwania, które trzeba rozwiązywać różnymi metodami. Z czasem zespół odkrył, że
+systemy własności (*ownership*) i typów stanowią potężny zestaw narzędzi
+pomagających radzić sobie z problemami zarówno bezpieczeństwa pamięci, _jak i_
+współbieżności! Dzięki wykorzystaniu własności i sprawdzania typów wiele błędów
+współbieżności w Ruście to błędy wykrywane w czasie kompilacji (*compile-time*),
+a nie w czasie działania. Nie musisz więc spędzać mnóstwa czasu na próbach
+odtworzenia dokładnych okoliczności, w których występuje błąd współbieżności w
+czasie działania: niepoprawny kod po prostu się nie skompiluje, a kompilator
+wyświetli błąd wyjaśniający problem. W rezultacie możesz poprawić kod jeszcze w
+trakcie pracy nad nim, a nie dopiero po wdrożeniu go na produkcję. Ten aspekt
+Rusta nazwaliśmy _nieustraszoną współbieżnością_ (*fearless concurrency*).
+Nieustraszona współbieżność pozwala pisać kod wolny od subtelnych błędów i łatwy
+do refaktoryzacji bez wprowadzania nowych błędów.
 
-> Note: For simplicity’s sake, we’ll refer to many of the problems as
-> _concurrent_ rather than being more precise by saying _concurrent and/or
-> parallel_. For this chapter, please mentally substitute _concurrent and/or
-> parallel_ whenever we use _concurrent_. In the next chapter, where the
-> distinction matters more, we’ll be more specific.
+> Uwaga: dla uproszczenia wiele problemów będziemy nazywać _współbieżnymi_,
+> zamiast precyzyjniej mówić _współbieżne i/lub równoległe_. W tym rozdziale w
+> myślach zastępuj słowo _współbieżny_ wyrażeniem _współbieżny i/lub
+> równoległy_. W następnym rozdziale, w którym to rozróżnienie ma większe
+> znaczenie, będziemy bardziej precyzyjni.
 
-Many languages are dogmatic about the solutions they offer for handling
-concurrent problems. For example, Erlang has elegant functionality for
-message-passing concurrency but has only obscure ways to share state between
-threads. Supporting only a subset of possible solutions is a reasonable
-strategy for higher-level languages because a higher-level language promises
-benefits from giving up some control to gain abstractions. However, lower-level
-languages are expected to provide the solution with the best performance in any
-given situation and have fewer abstractions over the hardware. Therefore, Rust
-offers a variety of tools for modeling problems in whatever way is appropriate
-for your situation and requirements.
+Wiele języków dogmatycznie podchodzi do oferowanych rozwiązań problemów
+współbieżności. Na przykład Erlang ma eleganckie mechanizmy współbieżności
+opartej na przekazywaniu komunikatów (*message passing*), ale tylko mało
+przejrzyste sposoby współdzielenia stanu między wątkami. Obsługa tylko
+podzbioru możliwych rozwiązań to rozsądna strategia dla języków wyższego
+poziomu, ponieważ język wyższego poziomu obiecuje korzyści płynące z oddania
+części kontroli w zamian za abstrakcje. Od języków niższego poziomu oczekuje
+się jednak, że w każdej sytuacji zapewnią rozwiązanie o najlepszej wydajności i
+będą miały mniej abstrakcji nad sprzętem. Dlatego Rust oferuje różnorodne
+narzędzia do modelowania problemów w sposób odpowiedni dla twojej sytuacji i
+wymagań.
 
-Here are the topics we’ll cover in this chapter:
+Oto tematy, które omówimy w tym rozdziale:
 
-- How to create threads to run multiple pieces of code at the same time
-- _Message-passing_ concurrency, where channels send messages between threads
-- _Shared-state_ concurrency, where multiple threads have access to some piece
-  of data
-- The `Sync` and `Send` traits, which extend Rust’s concurrency guarantees to
-  user-defined types as well as types provided by the standard library
+- tworzenie wątków, aby uruchamiać wiele fragmentów kodu jednocześnie;
+- współbieżność oparta na _przekazywaniu komunikatów_, w której kanały
+  przesyłają komunikaty między wątkami;
+- współbieżność ze _współdzielonym stanem_ (*shared state*), w której wiele
+  wątków ma dostęp do tych samych danych;
+- *traity* (cechy typów, zbliżone do interfejsów) `Sync` i `Send`, które
+  rozszerzają gwarancje współbieżności Rusta na typy zdefiniowane przez
+  użytkownika, a także na typy z biblioteki standardowej.

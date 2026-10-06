@@ -3,104 +3,107 @@
 <a id="extensible-concurrency-with-the-sync-and-send-traits"></a>
 <a id="extensible-concurrency-with-the-send-and-sync-traits"></a>
 
-## Extensible Concurrency with `Send` and `Sync` {#extensible-concurrency-with-send-and-sync}
+## Rozszerzalna współbieżność dzięki `Send` i `Sync` {#extensible-concurrency-with-send-and-sync}
 
-Interestingly, almost every concurrency feature we’ve talked about so far in
-this chapter has been part of the standard library, not the language. Your
-options for handling concurrency are not limited to the language or the
-standard library; you can write your own concurrency features or use those
-written by others.
+Co ciekawe, niemal każdy omówiony dotąd w tym rozdziale mechanizm współbieżności
+(*concurrency*) był częścią biblioteki standardowej, a nie samego języka. Twoje
+możliwości obsługi współbieżności nie ograniczają się do języka ani biblioteki
+standardowej: możesz pisać własne mechanizmy współbieżności albo korzystać z
+tych napisanych przez innych.
 
-However, among the key concurrency concepts that are embedded in the language
-rather than the standard library are the `std::marker` traits `Send` and `Sync`.
+Do kluczowych pojęć współbieżności wbudowanych w sam język, a nie w bibliotekę
+standardową, należą jednak *traity* (cechy typów, zbliżone do interfejsów)
+`Send` i `Sync` z modułu `std::marker`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="allowing-transference-of-ownership-between-threads-with-send"></a>
 
-### Transferring Ownership Between Threads {#transferring-ownership-between-threads}
+### Przekazywanie własności między wątkami {#transferring-ownership-between-threads}
 
-The `Send` marker trait indicates that ownership of values of the type
-implementing `Send` can be transferred between threads. Almost every Rust type
-implements `Send`, but there are some exceptions, including `Rc<T>`: This
-cannot implement `Send` because if you cloned an `Rc<T>` value and tried to
-transfer ownership of the clone to another thread, both threads might update
-the reference count at the same time. For this reason, `Rc<T>` is implemented
-for use in single-threaded situations where you don’t want to pay the
-thread-safe performance penalty.
+Trait znacznikowy (*marker trait*) `Send` wskazuje, że własność (*ownership*)
+wartości typu implementującego `Send` można przekazywać między wątkami. Niemal
+każdy typ w Ruście implementuje `Send`, ale są wyjątki, w tym `Rc<T>`: ten typ
+nie może implementować `Send`, ponieważ gdyby sklonować wartość `Rc<T>` i
+spróbować przekazać własność klonu do innego wątku, oba wątki mogłyby
+jednocześnie aktualizować licznik referencji. Z tego powodu `Rc<T>` jest
+przeznaczony do użycia w sytuacjach jednowątkowych, w których nie chcesz płacić
+wydajnościowej ceny za bezpieczeństwo wątkowe.
 
-Therefore, Rust’s type system and trait bounds ensure that you can never
-accidentally send an `Rc<T>` value across threads unsafely. When we tried to do
-this in Listing 16-14, we got the error `` the trait `Send` is not implemented
-for `Rc<Mutex<i32>>` ``. When we switched to `Arc<T>`, which does implement
-`Send`, the code compiled.
+System typów Rusta i ograniczenia traitów (*trait bounds*) gwarantują więc, że
+nigdy przypadkiem nie prześlesz wartości `Rc<T>` między wątkami w niebezpieczny
+sposób. Gdy próbowaliśmy to zrobić w listingu 16-14, otrzymaliśmy błąd
+`` the trait `Send` is not implemented for `Rc<Mutex<i32>>` ``. Kiedy
+przeszliśmy na `Arc<T>`, który implementuje `Send`, kod się skompilował.
 
-Any type composed entirely of `Send` types is automatically marked as `Send` as
-well. Almost all primitive types are `Send`, aside from raw pointers, which
-we’ll discuss in Chapter 20.
+Każdy typ złożony wyłącznie z typów `Send` również jest automatycznie oznaczany
+jako `Send`. Niemal wszystkie typy prymitywne są `Send`, z wyjątkiem surowych
+wskaźników (*raw pointers*), które omówimy w rozdziale 20.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="allowing-access-from-multiple-threads-with-sync"></a>
 
-### Accessing from Multiple Threads {#accessing-from-multiple-threads}
+### Dostęp z wielu wątków {#accessing-from-multiple-threads}
 
-The `Sync` marker trait indicates that it is safe for the type implementing
-`Sync` to be referenced from multiple threads. In other words, any type `T`
-implements `Sync` if `&T` (an immutable reference to `T`) implements `Send`,
-meaning the reference can be sent safely to another thread. Similar to `Send`,
-primitive types all implement `Sync`, and types composed entirely of types that
-implement `Sync` also implement `Sync`.
+Trait znacznikowy `Sync` wskazuje, że do typu implementującego `Sync` można
+bezpiecznie odwoływać się z wielu wątków. Innymi słowy, dowolny typ `T`
+implementuje `Sync`, jeśli `&T`, czyli niemutowalna (*immutable*) referencja
+(*reference*) do `T`, implementuje `Send`, co oznacza, że referencję można
+bezpiecznie przesłać do innego wątku. Podobnie jak w przypadku `Send`, wszystkie
+typy prymitywne implementują `Sync`, a typy złożone wyłącznie z typów
+implementujących `Sync` również implementują `Sync`.
 
 <!-- BEGIN INTERVENTION: 43081862-aac8-4e18-9c55-1107ea4c7cc1 -->
 
-`Sync` is the most similar concept in Rust to the colloquial meaning of the phrase "thread-safe", i.e. that a particular piece of data can be safely used by multiple concurrent threads. The reason for having separate `Send` and `Sync` traits is that a type can sometimes be one, or both, or neither. For example:
-*  The smart pointer `Rc<T>` is also neither `Send` nor `Sync`, for reasons described above.
-* The `RefCell<T>` type (which we talked about in Chapter 15) and the
-family of related `Cell<T>` types are `Send` (if `T: Send`), but they are not `Sync`. A `RefCell` can be sent across a thread boundary, but not accessed concurrently because the implementation of borrow checking that `RefCell<T>` does at runtime is not thread-safe. 
-* The smart pointer `Mutex<T>` is `Send` and `Sync`, and can be used to share access with multiple threads as you saw in the [“Sharing a `Mutex<T>` Between Multiple Threads”][sharing-a-mutext-between-multiple-threads]<!-- ignore --> section.
-* The type `MutexGuard<'a, T>` that is returned by `Mutex::lock` is `Sync` (if `T: Sync`) but not `Send`. It is specifically not `Send` because [some platforms mandate that mutexes are unlocked by the same thread that locked them][mutex-guards-are-not-send].
+`Sync` to w Ruście pojęcie najbliższe potocznemu znaczeniu określenia „bezpieczny wątkowo”, czyli tego, że z danego fragmentu danych może bezpiecznie korzystać wiele współbieżnych wątków. Osobne traity `Send` i `Sync` istnieją dlatego, że typ może być czasem jednym z nich, obydwoma albo żadnym. Na przykład:
+*  Inteligentny wskaźnik (*smart pointer*) `Rc<T>` nie jest ani `Send`, ani `Sync` z opisanych wyżej powodów.
+* Typ `RefCell<T>` (o którym mówiliśmy w rozdziale 15) oraz
+rodzina pokrewnych typów `Cell<T>` są `Send` (jeśli `T: Send`), ale nie są `Sync`. `RefCell` można przesłać przez granicę wątku, ale nie można z niego korzystać współbieżnie, ponieważ sprawdzanie pożyczeń, które `RefCell<T>` wykonuje w czasie działania programu, nie jest zaimplementowane w sposób bezpieczny wątkowo. 
+* Inteligentny wskaźnik `Mutex<T>` jest `Send` i `Sync`, więc można go używać do współdzielenia dostępu między wieloma wątkami, jak widać było w podrozdziale [„Współdzielony dostęp do `Mutex<T>`”][sharing-a-mutext-between-multiple-threads]<!-- ignore -->.
+* Typ `MutexGuard<'a, T>` zwracany przez `Mutex::lock` jest `Sync` (jeśli `T: Sync`), ale nie jest `Send`. Nie jest `Send` właśnie dlatego, że [niektóre platformy wymagają, by mutex odblokował ten sam wątek, który go zablokował][mutex-guards-are-not-send].
 
 <!-- END INTERVENTION: 43081862-aac8-4e18-9c55-1107ea4c7cc1 -->
 
 
 
-### Implementing `Send` and `Sync` Manually Is Unsafe {#implementing-send-and-sync-manually-is-unsafe}
+### Ręczna implementacja `Send` i `Sync` jest niebezpieczna {#implementing-send-and-sync-manually-is-unsafe}
 
-Because types composed entirely of other types that implement the `Send` and
-`Sync` traits also automatically implement `Send` and `Sync`, we don’t have to
-implement those traits manually. As marker traits, they don’t even have any
-methods to implement. They’re just useful for enforcing invariants related to
-concurrency.
+Ponieważ typy złożone wyłącznie z innych typów implementujących traity `Send` i
+`Sync` same automatycznie implementują `Send` i `Sync`, nie musimy
+implementować tych traitów ręcznie. Jako traity znacznikowe nie mają one nawet
+żadnych metod do zaimplementowania. Przydają się jedynie do egzekwowania
+niezmienników związanych ze współbieżnością.
 
-Manually implementing these traits involves implementing unsafe Rust code.
-We’ll talk about using unsafe Rust code in Chapter 20; for now, the important
-information is that building new concurrent types not made up of `Send` and
-`Sync` parts requires careful thought to uphold the safety guarantees. [“The
-Rustonomicon”][nomicon] has more information about these guarantees and how to
-uphold them.
+Ręczna implementacja tych traitów wymaga pisania kodu w niebezpiecznym Ruście
+(*unsafe Rust*). O używaniu niebezpiecznego Rusta opowiemy w rozdziale 20; na
+razie ważne jest to, że budowanie nowych typów współbieżnych, które nie składają
+się z części `Send` i `Sync`, wymaga starannego przemyślenia, by zachować
+gwarancje bezpieczeństwa. [„The Rustonomicon”][nomicon] zawiera więcej
+informacji o tych gwarancjach i o tym, jak ich dotrzymać.
 
-## Summary {#summary}
+## Podsumowanie {#summary}
 
-This isn’t the last you’ll see of concurrency in this book: The next chapter
-focuses on async programming, and the project in Chapter 21 will use the
-concepts in this chapter in a more realistic situation than the smaller
-examples discussed here.
+To nie ostatnie spotkanie ze współbieżnością w tej książce: następny rozdział
+poświęcony jest programowaniu asynchronicznemu, a projekt z rozdziału 21
+wykorzysta pojęcia z tego rozdziału w bardziej realistycznej sytuacji niż
+omawiane tutaj mniejsze przykłady.
 
-As mentioned earlier, because very little of how Rust handles concurrency is
-part of the language, many concurrency solutions are implemented as crates.
-These evolve more quickly than the standard library, so be sure to search
-online for the current, state-of-the-art crates to use in multithreaded
-situations.
+Jak wspomnieliśmy wcześniej, ponieważ bardzo niewiele z tego, jak Rust obsługuje
+współbieżność, jest częścią języka, wiele rozwiązań współbieżnych
+zaimplementowano jako *crate’y* (jednostki kompilacji w Ruście). Rozwijają się
+one szybciej niż biblioteka standardowa, więc koniecznie poszukaj w sieci
+aktualnych, najnowocześniejszych crate’ów do użycia w sytuacjach wielowątkowych.
 
-The Rust standard library provides channels for message passing and smart
-pointer types, such as `Mutex<T>` and `Arc<T>`, that are safe to use in
-concurrent contexts. The type system and the borrow checker ensure that the
-code using these solutions won’t end up with data races or invalid references.
-Once you get your code to compile, you can rest assured that it will happily
-run on multiple threads without the kinds of hard-to-track-down bugs common in
-other languages. Concurrent programming is no longer a concept to be afraid of:
-Go forth and make your programs concurrent, fearlessly!
+Biblioteka standardowa Rusta udostępnia kanały do przekazywania komunikatów
+(*message passing*) oraz typy inteligentnych wskaźników, takie jak `Mutex<T>` i
+`Arc<T>`, których można bezpiecznie używać w kontekstach współbieżnych. System
+typów i *borrow checker* (mechanizm sprawdzania pożyczeń) gwarantują, że kod
+korzystający z tych rozwiązań nie będzie zawierał wyścigów danych ani
+nieprawidłowych referencji. Gdy już uda ci się skompilować kod, możesz mieć pewność, że będzie
+bez problemu działał w wielu wątkach, bez trudnych do wytropienia błędów
+typowych dla innych języków. Programowanie współbieżne nie jest już czymś, czego
+trzeba się bać: ruszaj w świat i czyń swoje programy współbieżnymi – bez lęku!
 
 {{#quiz ../quizzes/ch16-04-extensible-concurrency-send-and-sync.toml}}
 

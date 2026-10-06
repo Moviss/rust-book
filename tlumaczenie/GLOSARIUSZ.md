@@ -340,3 +340,21 @@ recenzent.
 | future (l.mn.) | future’y | — | | |
 | subtask | podzadanie | — | | |
 | parallelism | równoległość | równoległość (*parallelism*) | | |
+| polling / poll | odpytywanie | odpytywanie (*polling*) | | |
+| await (future) | oczekiwać na future’a | — | | `await` jako kod |
+| await point | punkt oczekiwania | punkt oczekiwania (*await point*) | | |
+| executor | egzekutor | egzekutor (*executor*) | | |
+| state machine | maszyna stanów | — | | |
+| async block / function | blok async / funkcja asynchroniczna | — | | „blok `async`”, gdy oryginał ma kod inline; nie „punkt await”, lecz „punkt oczekiwania” |
+| starvation | zagłodzenie | — | | |
+| yield control | oddawać sterowanie | — | | |
+| cooperative multitasking | wielozadaniowość kooperacyjna | wielozadaniowość kooperacyjna (*cooperative multitasking*) | | |
+| timeout | limit czasu | — | | |
+| fair / fairness | sprawiedliwy / sprawiedliwość | — | | |
+| bounded / unbounded channel | kanał ograniczony / nieograniczony | — | | |
+| spawn (task) | utworzyć zadanie | — | | |
+| shared-memory concurrency | współbieżność ze współdzieloną pamięcią | — | | |
+| guard (mutex) | strzec | — | | |
+| work stealing | kradzież pracy | kradzież pracy (*work stealing*) | | |
+| fire and forget | „odpal i zapomnij” | — | | |
+| embedded system | system wbudowany | — | | |

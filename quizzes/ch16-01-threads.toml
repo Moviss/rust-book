@@ -19,15 +19,15 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "2"
 context = """
-The `move` keyword causes `n` to be copied into the closure, so the assignments
-`n = n + 1` within `thread::spawn` have no effect on the outer `n`.
+Słowo kluczowe `move` sprawia, że `n` zostaje skopiowane do domknięcia, więc
+przypisania `n = n + 1` wewnątrz `thread::spawn` nie mają wpływu na zewnętrzne `n`.
 """
 
 [[questions]]
 id = "c2a84e6d-8143-4944-bf20-b00e49144ac9"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider this example from the text where a vector is improperly captured by a thread:
+Rozważ ten przykład z tekstu, w którym wątek niepoprawnie przechwytuje wektor:
 
 ```
 use std::thread;
@@ -43,7 +43,7 @@ fn main() {
 }
 ```
 
-The Rust compiler includes this diagnostic:
+Kompilator Rusta wyświetla m.in. taki komunikat diagnostyczny:
 
 ```text
 note: function requires argument type to outlive `'static`
@@ -56,18 +56,18 @@ note: function requires argument type to outlive `'static`
   | |______^
 ```
 
-Recall that `'static` is the lifetime of references that are valid for the entire program's duration.
+Przypomnij sobie, że `'static` to czas życia referencji, które są poprawne przez cały czas działania programu.
 
-Which of the following best describes the note "function requires argument type to outlive `'static`"?
+Które z poniższych zdań najlepiej opisuje uwagę „function requires argument type to outlive `'static`”?
 """
-answer.answer = "Rust doesn't know how long a thread will run, so the thread's captures must live forever"
+answer.answer = "Rust nie wie, jak długo wątek będzie działał, więc wartości przechwycone przez wątek muszą żyć wiecznie"
 prompt.distractors = [
-    "The closure passed to `thread::spawn` is not allowed to take any arguments",
-    "The vector `v` contains values that do not outlive `'static`",
-    "A closure may only capture string constants of type `&'static str`"
+    "Domknięcie przekazane do `thread::spawn` nie może przyjmować żadnych argumentów",
+    "Wektor `v` zawiera wartości, które nie żyją dłużej niż `'static`",
+    "Domknięcie może przechwytywać tylko stałe łańcuchowe typu `&'static str`"
 ]
 context = """
-If a closure captures a reference to a value that lived less than `'static`, it's possible that the thread would live 
-longer than the value and violate memory safety. Note that [`thread::scope`](https://doc.rust-lang.org/std/thread/fn.scope.html) 
-can be used to allow threads to capture non-static references by statically limiting the lifetime of the thread.
+Jeśli domknięcie przechwytuje referencję do wartości żyjącej krócej niż `'static`, wątek mógłby żyć dłużej niż ta
+wartość i naruszyć bezpieczeństwo pamięci. Zwróć uwagę, że [`thread::scope`](https://doc.rust-lang.org/std/thread/fn.scope.html)
+pozwala wątkom przechwytywać niestatyczne referencje dzięki statycznemu ograniczeniu czasu życia wątku.
 """

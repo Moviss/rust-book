@@ -2,41 +2,45 @@
 
 <a id="using-message-passing-to-transfer-data-between-threads"></a>
 
-## Transfer Data Between Threads with Message Passing {#transfer-data-between-threads-with-message-passing}
+## Przesyłanie danych między wątkami za pomocą przekazywania komunikatów {#transfer-data-between-threads-with-message-passing}
 
-One increasingly popular approach to ensuring safe concurrency is message
-passing, where threads or actors communicate by sending each other messages
-containing data. Here’s the idea in a slogan from [the Go language documentation](https://golang.org/doc/effective_go.html#concurrency):
-“Do not communicate by sharing memory; instead, share memory by communicating.”
+Coraz popularniejszym sposobem zapewnienia bezpiecznej współbieżności
+(*concurrency*) jest przekazywanie komunikatów (*message passing*): wątki lub
+aktorzy komunikują się, wysyłając sobie nawzajem komunikaty zawierające dane.
+Oto ta idea ujęta w hasło z [dokumentacji języka Go](https://golang.org/doc/effective_go.html#concurrency):
+„Nie komunikuj się przez współdzielenie pamięci; zamiast tego współdziel pamięć
+przez komunikację”.
 
-To accomplish message-sending concurrency, Rust’s standard library provides an
-implementation of channels. A _channel_ is a general programming concept by
-which data is sent from one thread to another.
+Aby umożliwić współbieżność opartą na wysyłaniu komunikatów, biblioteka
+standardowa Rusta dostarcza implementację kanałów. *Kanał* to ogólne pojęcie
+programistyczne oznaczające mechanizm, za pomocą którego dane są przesyłane z
+jednego wątku do drugiego.
 
-You can imagine a channel in programming as being like a directional channel of
-water, such as a stream or a river. If you put something like a rubber duck
-into a river, it will travel downstream to the end of the waterway.
+Kanał w programowaniu możesz sobie wyobrazić jako kanał wodny o określonym
+kierunku przepływu, na przykład strumień albo rzekę. Jeśli wrzucisz do rzeki
+coś takiego jak gumową kaczuszkę, popłynie ona z prądem aż do końca drogi
+wodnej.
 
-A channel has two halves: a transmitter and a receiver. The transmitter half is
-the upstream location where you put the rubber duck into the river, and the
-receiver half is where the rubber duck ends up downstream. One part of your
-code calls methods on the transmitter with the data you want to send, and
-another part checks the receiving end for arriving messages. A channel is said
-to be _closed_ if either the transmitter or receiver half is dropped.
+Kanał ma dwie połówki: nadajnik i odbiornik. Nadajnik to miejsce w górze rzeki,
+w którym wrzucasz gumową kaczuszkę do wody, a odbiornik to miejsce w dole
+rzeki, do którego kaczuszka w końcu dopływa. Jedna część twojego kodu wywołuje
+metody nadajnika z danymi, które chcesz wysłać, a inna sprawdza, czy po stronie
+odbiorczej pojawiły się komunikaty. Mówimy, że kanał jest *zamknięty*, jeśli
+nadajnik albo odbiornik zostanie zwolniony (*drop*).
 
-Here, we’ll work up to a program that has one thread to generate values and
-send them down a channel, and another thread that will receive the values and
-print them out. We’ll be sending simple values between threads using a channel
-to illustrate the feature. Once you’re familiar with the technique, you could
-use channels for any threads that need to communicate with each other, such as
-a chat system or a system where many threads perform parts of a calculation and
-send the parts to one thread that aggregates the results.
+Stopniowo napiszemy program, w którym jeden wątek generuje wartości i wysyła je
+kanałem, a drugi wątek je odbiera i wypisuje. Aby zilustrować ten mechanizm,
+będziemy przesyłać między wątkami proste wartości. Gdy już poznasz tę technikę,
+możesz używać kanałów dla dowolnych wątków, które muszą się ze sobą
+komunikować, na przykład w systemie czatu albo w systemie, w którym wiele
+wątków wykonuje części obliczeń i wysyła wyniki częściowe do jednego wątku,
+który je agreguje.
 
-First, in Listing 16-6, we’ll create a channel but not do anything with it.
-Note that this won’t compile yet because Rust can’t tell what type of values we
-want to send over the channel.
+Najpierw w listingu 16-6 utworzymy kanał, ale nic z nim nie zrobimy. Zauważ,
+że ten kod jeszcze się nie skompiluje, bo Rust nie wie, jakiego typu wartości
+chcemy wysyłać kanałem.
 
-<Listing number="16-6" file-name="src/main.rs" caption="Creating a channel and assigning the two halves to `tx` and `rx`">
+<Listing number="16-6" file-name="src/main.rs" caption="Tworzenie kanału i przypisanie jego dwóch połówek do `tx` i `rx`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-06/src/main.rs}}
@@ -44,31 +48,32 @@ want to send over the channel.
 
 </Listing>
 
-We create a new channel using the `mpsc::channel` function; `mpsc` stands for
-_multiple producer, single consumer_. In short, the way Rust’s standard library
-implements channels means a channel can have multiple _sending_ ends that
-produce values but only one _receiving_ end that consumes those values. Imagine
-multiple streams flowing together into one big river: Everything sent down any
-of the streams will end up in one river at the end. We’ll start with a single
-producer for now, but we’ll add multiple producers when we get this example
-working.
+Nowy kanał tworzymy za pomocą funkcji `mpsc::channel`; `mpsc` to skrót od
+*multiple producer, single consumer* (wielu producentów, jeden konsument).
+Krótko mówiąc, sposób, w jaki biblioteka standardowa Rusta implementuje kanały,
+sprawia, że kanał może mieć wiele końców *wysyłających*, które produkują
+wartości, ale tylko jeden koniec *odbierający*, który te wartości konsumuje.
+Wyobraź sobie wiele strumieni wpływających do jednej dużej rzeki: wszystko, co
+zostanie wysłane którymkolwiek ze strumieni, trafi na końcu do jednej rzeki. Na
+razie zaczniemy od jednego producenta, ale gdy ten przykład zacznie działać,
+dodamy kolejnych.
 
-The `mpsc::channel` function returns a tuple, the first element of which is the
-sending end—the transmitter—and the second element of which is the receiving
-end—the receiver. The abbreviations `tx` and `rx` are traditionally used in
-many fields for _transmitter_ and _receiver_, respectively, so we name our
-variables as such to indicate each end. We’re using a `let` statement with a
-pattern that destructures the tuples; we’ll discuss the use of patterns in
-`let` statements and destructuring in Chapter 19. For now, know that using a
-`let` statement in this way is a convenient approach to extract the pieces of
-the tuple returned by `mpsc::channel`.
+Funkcja `mpsc::channel` zwraca krotkę (*tuple*), której pierwszy element to
+koniec wysyłający – nadajnik – a drugi to koniec odbierający – odbiornik. Skróty
+`tx` i `rx` są tradycyjnie używane w wielu dziedzinach odpowiednio dla
+*transmitter* (nadajnik) i *receiver* (odbiornik), więc tak nazywamy nasze
+zmienne, aby wskazać każdy z końców. Używamy instrukcji (*statement*) `let` ze
+wzorcem, który destrukturyzuje krotkę; użycie wzorców w instrukcjach `let` i
+destrukturyzację omówimy w rozdziale 19. Na razie wystarczy wiedzieć, że takie
+użycie instrukcji `let` to wygodny sposób na wyciągnięcie poszczególnych części
+krotki zwracanej przez `mpsc::channel`.
 
-Let’s move the transmitting end into a spawned thread and have it send one
-string so that the spawned thread is communicating with the main thread, as
-shown in Listing 16-7. This is like putting a rubber duck in the river upstream
-or sending a chat message from one thread to another.
+Przenieśmy koniec wysyłający do nowego wątku i każmy mu wysłać jeden łańcuch
+znaków (*string*), tak aby nowy wątek komunikował się z wątkiem głównym, jak pokazano w listingu 16-7. Przypomina to wrzucenie gumowej
+kaczuszki do rzeki w jej górnym biegu albo wysłanie wiadomości na czacie z
+jednego wątku do drugiego.
 
-<Listing number="16-7" file-name="src/main.rs" caption='Moving `tx` to a spawned thread and sending `"hi"`'>
+<Listing number="16-7" file-name="src/main.rs" caption='Przeniesienie `tx` do nowego wątku i wysłanie `"hi"`'>
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-07/src/main.rs}}
@@ -76,23 +81,23 @@ or sending a chat message from one thread to another.
 
 </Listing>
 
-Again, we’re using `thread::spawn` to create a new thread and then using `move`
-to move `tx` into the closure so that the spawned thread owns `tx`. The spawned
-thread needs to own the transmitter to be able to send messages through the
-channel.
+Ponownie używamy `thread::spawn`, aby utworzyć nowy wątek, a następnie `move`,
+aby przenieść (*move*) `tx` do domknięcia (*closure*), dzięki czemu nowy
+wątek staje się właścicielem `tx`. Nowy wątek musi być właścicielem
+nadajnika, aby móc wysyłać komunikaty przez kanał.
 
-The transmitter has a `send` method that takes the value we want to send. The
-`send` method returns a `Result<T, E>` type, so if the receiver has already
-been dropped and there’s nowhere to send a value, the send operation will
-return an error. In this example, we’re calling `unwrap` to panic in case of an
-error. But in a real application, we would handle it properly: Return to
-Chapter 9 to review strategies for proper error handling.
+Nadajnik ma metodę `send`, która przyjmuje wartość, którą chcemy wysłać. Metoda
+`send` zwraca typ `Result<T, E>`, więc jeśli odbiornik został już zwolniony i
+nie ma dokąd wysłać wartości, operacja wysyłania zwróci błąd. W tym przykładzie
+wywołujemy `unwrap`, aby w razie błędu wywołać panikę (*panic*). W prawdziwej
+aplikacji obsłużylibyśmy go jednak porządnie: wróć do rozdziału 9, aby
+przypomnieć sobie strategie właściwej obsługi błędów.
 
-In Listing 16-8, we’ll get the value from the receiver in the main thread. This
-is like retrieving the rubber duck from the water at the end of the river or
-receiving a chat message.
+W listingu 16-8 odbierzemy wartość z odbiornika w wątku głównym. Przypomina to
+wyłowienie gumowej kaczuszki z wody u ujścia rzeki albo odebranie wiadomości na
+czacie.
 
-<Listing number="16-8" file-name="src/main.rs" caption='Receiving the value `"hi"` in the main thread and printing it'>
+<Listing number="16-8" file-name="src/main.rs" caption='Odebranie wartości `"hi"` w wątku głównym i wypisanie jej'>
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-08/src/main.rs}}
@@ -100,26 +105,26 @@ receiving a chat message.
 
 </Listing>
 
-The receiver has two useful methods: `recv` and `try_recv`. We’re using `recv`,
-short for _receive_, which will block the main thread’s execution and wait
-until a value is sent down the channel. Once a value is sent, `recv` will
-return it in a `Result<T, E>`. When the transmitter closes, `recv` will return
-an error to signal that no more values will be coming.
+Odbiornik ma dwie przydatne metody: `recv` i `try_recv`. Używamy `recv` (skrót
+od *receive*, czyli „odbierz”), która zablokuje wykonywanie wątku głównego i
+będzie czekać, aż kanałem zostanie wysłana jakaś wartość. Gdy wartość zostanie
+wysłana, `recv` zwróci ją opakowaną w `Result<T, E>`. Gdy nadajnik zostanie
+zamknięty, `recv` zwróci błąd, sygnalizując, że więcej wartości już nie
+nadejdzie.
 
-The `try_recv` method doesn’t block, but will instead return a `Result<T, E>`
-immediately: an `Ok` value holding a message if one is available and an `Err`
-value if there aren’t any messages this time. Using `try_recv` is useful if
-this thread has other work to do while waiting for messages: We could write a
-loop that calls `try_recv` every so often, handles a message if one is
-available, and otherwise does other work for a little while until checking
-again.
+Metoda `try_recv` nie blokuje, lecz od razu zwraca `Result<T, E>`: wartość
+`Ok` zawierającą komunikat, jeśli jakiś jest dostępny, albo wartość `Err`,
+jeśli w tej chwili nie ma żadnych komunikatów. Użycie `try_recv` przydaje się,
+gdy ten wątek ma inną pracę do wykonania podczas oczekiwania na komunikaty:
+moglibyśmy napisać pętlę, która co jakiś czas wywołuje `try_recv`, obsługuje
+komunikat, jeśli jest dostępny, a w przeciwnym razie przez chwilę zajmuje się
+czymś innym, zanim sprawdzi ponownie.
 
-We’ve used `recv` in this example for simplicity; we don’t have any other work
-for the main thread to do other than wait for messages, so blocking the main
-thread is appropriate.
+W tym przykładzie dla prostoty użyliśmy `recv`; wątek główny nie ma nic innego
+do roboty poza czekaniem na komunikaty, więc zablokowanie go jest właściwe.
 
-When we run the code in Listing 16-8, we’ll see the value printed from the main
-thread:
+Po uruchomieniu kodu z listingu 16-8 zobaczymy wartość wypisaną przez wątek
+główny:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -129,23 +134,23 @@ changes in the compiler -->
 Got: hi
 ```
 
-Perfect!
+Doskonale!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="channels-and-ownership-transference"></a>
 
-### Transferring Ownership Through Channels {#transferring-ownership-through-channels}
+### Przekazywanie własności przez kanały {#transferring-ownership-through-channels}
 
-The ownership rules play a vital role in message sending because they help you
-write safe, concurrent code. Preventing errors in concurrent programming is the
-advantage of thinking about ownership throughout your Rust programs. Let’s do
-an experiment to show how channels and ownership work together to prevent
-problems: We’ll try to use a `val` value in the spawned thread _after_ we’ve
-sent it down the channel. Try compiling the code in Listing 16-9 to see why
-this code isn’t allowed.
+Reguły własności (*ownership*) odgrywają kluczową rolę w wysyłaniu komunikatów,
+ponieważ pomagają pisać bezpieczny kod współbieżny. Zapobieganie błędom w
+programowaniu współbieżnym to właśnie korzyść z myślenia o własności w całym
+programie w Ruście. Przeprowadźmy eksperyment, który pokaże, jak kanały i
+własność współpracują, aby zapobiegać problemom: spróbujemy użyć wartości `val`
+w nowym wątku *po* wysłaniu jej kanałem. Spróbuj skompilować kod z listingu
+16-9, aby zobaczyć, dlaczego ten kod jest niedozwolony.
 
-<Listing number="16-9" file-name="src/main.rs" caption="Attempting to use `val` after we’ve sent it down the channel">
+<Listing number="16-9" file-name="src/main.rs" caption="Próba użycia `val` po wysłaniu jej kanałem">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-09/src/main.rs}}
@@ -153,36 +158,38 @@ this code isn’t allowed.
 
 </Listing>
 
-Here, we try to print `val` after we’ve sent it down the channel via `tx.send`.
-Allowing this would be a bad idea: Once the value has been sent to another
-thread, that thread could modify or drop it before we try to use the value
-again. Potentially, the other thread’s modifications could cause errors or
-unexpected results due to inconsistent or nonexistent data. However, Rust gives
-us an error if we try to compile the code in Listing 16-9:
+Tutaj próbujemy wypisać `val` po wysłaniu jej kanałem za pomocą `tx.send`.
+Dopuszczenie tego byłoby złym pomysłem: gdy wartość zostanie wysłana do innego
+wątku, ten wątek mógłby ją zmodyfikować albo zwolnić, zanim spróbujemy jej
+ponownie użyć. Modyfikacje dokonane przez inny wątek mogłyby potencjalnie
+prowadzić do błędów lub nieoczekiwanych wyników z powodu niespójnych albo
+nieistniejących danych. Rust zgłasza nam jednak błąd, gdy próbujemy skompilować
+kod z listingu 16-9:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-09/output.txt}}
 ```
 
-Our concurrency mistake has caused a compile-time error. The `send` function
-takes ownership of its parameter, and when the value is moved the receiver
-takes ownership of it. This stops us from accidentally using the value again
-after sending it; the ownership system checks that everything is okay.
+Nasza pomyłka związana ze współbieżnością spowodowała błąd w czasie kompilacji
+(*compile-time*). Funkcja `send` przejmuje własność swojego parametru, a gdy
+wartość zostaje przeniesiona, jej właścicielem staje się odbiornik. To
+chroni nas przed przypadkowym ponownym użyciem wartości po jej wysłaniu; system
+własności sprawdza, czy wszystko jest w porządku.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="sending-multiple-values-and-seeing-the-receiver-waiting"></a>
 
-### Sending Multiple Values {#sending-multiple-values}
+### Wysyłanie wielu wartości {#sending-multiple-values}
 
-The code in Listing 16-8 compiled and ran, but it didn’t clearly show us that
-two separate threads were talking to each other over the channel.
+Kod z listingu 16-8 skompilował się i zadziałał, ale nie pokazał wyraźnie, że
+dwa odrębne wątki rozmawiają ze sobą przez kanał.
 
-In Listing 16-10, we’ve made some modifications that will prove the code in
-Listing 16-8 is running concurrently: The spawned thread will now send multiple
-messages and pause for a second between each message.
+W listingu 16-10 wprowadziliśmy kilka zmian, które udowodnią, że kod z listingu
+16-8 działa współbieżnie: nowy wątek będzie teraz wysyłał wiele komunikatów i
+robił sekundową przerwę między kolejnymi komunikatami.
 
-<Listing number="16-10" file-name="src/main.rs" caption="Sending multiple messages and pausing between each one">
+<Listing number="16-10" file-name="src/main.rs" caption="Wysyłanie wielu komunikatów z przerwami między nimi">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-10/src/main.rs}}
@@ -190,17 +197,17 @@ messages and pause for a second between each message.
 
 </Listing>
 
-This time, the spawned thread has a vector of strings that we want to send to
-the main thread. We iterate over them, sending each individually, and pause
-between each by calling the `thread::sleep` function with a `Duration` value of
-one second.
+Tym razem nowy wątek ma wektor (*vector*) łańcuchów, które chcemy wysłać do
+wątku głównego. Iterujemy po nich, wysyłając każdy osobno, i między kolejnymi
+wysłaniami robimy przerwę, wywołując funkcję `thread::sleep` z wartością
+`Duration` równą jednej sekundzie.
 
-In the main thread, we’re not calling the `recv` function explicitly anymore:
-Instead, we’re treating `rx` as an iterator. For each value received, we’re
-printing it. When the channel is closed, iteration will end.
+W wątku głównym nie wywołujemy już jawnie funkcji `recv`: zamiast tego
+traktujemy `rx` jak iterator. Każdą odebraną wartość wypisujemy. Gdy kanał
+zostanie zamknięty, iteracja się zakończy.
 
-When running the code in Listing 16-10, you should see the following output
-with a one-second pause in between each line:
+Po uruchomieniu kodu z listingu 16-10 powinno się pojawić następujące wyjście,
+z sekundową przerwą między kolejnymi liniami:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -213,22 +220,22 @@ Got: the
 Got: thread
 ```
 
-Because we don’t have any code that pauses or delays in the `for` loop in the
-main thread, we can tell that the main thread is waiting to receive values from
-the spawned thread.
+Ponieważ w pętli `for` w wątku głównym nie ma żadnego kodu, który robiłby
+przerwy albo opóźnienia, widać, że to wątek główny czeka na odebranie wartości
+od nowego wątku.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="creating-multiple-producers-by-cloning-the-transmitter"></a>
 
-### Creating Multiple Producers {#creating-multiple-producers}
+### Tworzenie wielu producentów {#creating-multiple-producers}
 
-Earlier we mentioned that `mpsc` was an acronym for _multiple producer, single
-consumer_. Let’s put `mpsc` to use and expand the code in Listing 16-10 to
-create multiple threads that all send values to the same receiver. We can do so
-by cloning the transmitter, as shown in Listing 16-11.
+Wspomnieliśmy wcześniej, że `mpsc` to akronim od *multiple producer, single
+consumer*. Wykorzystajmy `mpsc` i rozszerzmy kod z listingu 16-10 tak, aby
+utworzyć wiele wątków, które wysyłają wartości do tego samego odbiornika.
+Możemy to zrobić, klonując nadajnik, jak pokazano w listingu 16-11.
 
-<Listing number="16-11" file-name="src/main.rs" caption="Sending multiple messages from multiple producers">
+<Listing number="16-11" file-name="src/main.rs" caption="Wysyłanie wielu komunikatów od wielu producentów">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-11/src/main.rs:here}}
@@ -236,12 +243,13 @@ by cloning the transmitter, as shown in Listing 16-11.
 
 </Listing>
 
-This time, before we create the first spawned thread, we call `clone` on the
-transmitter. This will give us a new transmitter we can pass to the first
-spawned thread. We pass the original transmitter to a second spawned thread.
-This gives us two threads, each sending different messages to the one receiver.
+Tym razem, zanim utworzymy pierwszy nowy wątek, wywołujemy `clone` na
+nadajniku. Otrzymujemy w ten sposób nowy nadajnik, który możemy przekazać do
+pierwszego nowego wątku. Oryginalny nadajnik przekazujemy do drugiego nowego
+wątku. Mamy więc dwa wątki, z których każdy wysyła inne komunikaty do
+jednego odbiornika.
 
-When you run the code, your output should look something like this:
+Po uruchomieniu kodu wyjście powinno wyglądać mniej więcej tak:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -258,12 +266,13 @@ Got: thread
 Got: you
 ```
 
-You might see the values in another order, depending on your system. This is
-what makes concurrency interesting as well as difficult. If you experiment with
-`thread::sleep`, giving it various values in the different threads, each run
-will be more nondeterministic and create different output each time.
+W zależności od systemu wartości mogą pojawić się w innej kolejności. To
+właśnie sprawia, że współbieżność jest zarówno interesująca, jak i trudna. Jeśli
+poeksperymentujesz z `thread::sleep`, podając różne wartości w różnych wątkach,
+każde uruchomienie będzie jeszcze bardziej niedeterministyczne i za każdym
+razem da inne wyjście.
 
-Now that we’ve looked at how channels work, let’s look at a different method of
-concurrency.
+Skoro już wiemy, jak działają kanały, przyjrzyjmy się innej metodzie
+współbieżności.
 
 {{#quiz ../quizzes/ch16-02-message-passing.toml}}
