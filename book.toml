@@ -22,7 +22,8 @@ additional-js = [
   "js-extensions/packages/feedback/dist/index.js",
 ]
 
-git-repository-url = "https://github.com/cognitive-engineering-lab/rust-book"
+git-repository-url = "https://github.com/Moviss/rust-book"
+site-url = "/rust-book/"
 
 [preprocessor.quiz]
 fullscreen = true
