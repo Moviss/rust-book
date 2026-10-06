@@ -66,6 +66,9 @@ jobs:
     - name: Build mdbook
       run: mdbook build
 
+    - name: Translate widget UI into Polish
+      run: python3 tlumaczenie/narzedzia/spolszcz_widgety.py book
+
     - uses: actions/upload-pages-artifact@v3
       with:
         path: ./book

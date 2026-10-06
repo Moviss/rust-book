@@ -188,3 +188,4 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F5.5: `mdbook test` pominięty (opcjonalny; kod nie był zmieniany).
 - F5: dodatkowe ujednolicenia: mała litera po „Uwaga:” (6 miejsc), „wiersz” zamiast „linia” dla kodu (2 miejsca), link do „Zrozumieć własność” na stronie startowej.
 - F5.6: CI zielone (run 37530348114, 6fbc8008); strona: `lang="pl"`, tytuł „Język programowania Rust”, notka na stronie startowej; ch02/ch04-02/ch06-02/ch15-05/ch19-03 renderują notatki, listingi, quizy i aquascope.
+- Po F5: interfejs widżetu quizów i szablonu mdBooka spolszczany po buildzie przez `narzedzia/spolszcz_widgety.py` (krok w `pages.yml`); aquascope celowo bez zmian (litery R/W/O użyte w tekście rozdziału 4).

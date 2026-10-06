@@ -72,4 +72,5 @@ The book has been translated into Polish in place (`src/`, `quizzes/`, `SUMMARY.
 - `tlumaczenie/KONWENCJE.md` takes precedence over `style-guide.md` and the Title Case / hard-wrap rules above for translated text (Polish uses sentence-case headings).
 - `tag pl-base` = upstream commit the translation is based on; `tag pl-source` = English source with pinned anchors, the reference all gates compare against (`sprawdz.py --ref pl-source`).
 - **Do not sync `nostarch/book.toml`** with `book.toml`, despite the comment in `book.toml`.
+- UI strings of the quiz widget and mdBook theme are compiled into their binaries; `tlumaczenie/narzedzia/spolszcz_widgety.py book` patches them in the build output (run in `pages.yml` after `mdbook build`). It fails if any expected string is missing, so after bumping `MDBOOK_VERSION` / `MDBOOK_QUIZ_VERSION` update its replacement table.
 - Local builds skip aquascope: `MDBOOK_PREPROCESSOR__AQUASCOPE__OPTIONAL=true mdbook build -d tmp/book-pl`; CI does the full build.
