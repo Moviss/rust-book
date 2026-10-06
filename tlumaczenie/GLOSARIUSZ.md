@@ -407,3 +407,8 @@ recenzent.
 | fully qualified syntax | w pełni kwalifikowana składnia | — | | |
 | supertrait | supertrait | — | | |
 | function pointer | wskaźnik na funkcję | — | | |
+| operator overloading | przeciążanie operatorów | — | | |
+| associated items | elementy powiązane | — | | |
+| bounded parametric polymorphism | ograniczony polimorfizm parametryczny | — | | |
+| single inheritance | dziedziczenie pojedyncze | — | | |
+| struct field shorthand (wzorce) | skrócony zapis pól | — | | |

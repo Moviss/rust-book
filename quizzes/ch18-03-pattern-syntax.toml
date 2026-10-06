@@ -14,22 +14,22 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "B"
 context = """
-The first branch matches `y = 1`, which means `y != 0`, so the pattern fails.
-The second branch requires that `x == 0`, which is true, so the pattern succeeds.
+Pierwsze ramię dopasowuje `y = 1`, co oznacza, że `y != 0`, więc wzorzec nie pasuje.
+Drugie ramię wymaga, aby `x == 0`, co jest prawdą, więc wzorzec pasuje.
 """
 
 [[questions]]
 id = "ac0045c7-981a-46cb-baeb-adaa533804ad"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider the following program:
+Rozważ następujący program:
 
 ```
 let a = [(0, 1)];
 let ?? = a;
 ```
 
-Which of the following are valid patterns that could replace the `??` placeholder?
+Które z poniższych są poprawnymi wzorcami, którymi można zastąpić symbol zastępczy `??`?
 """
 answer.answer = [
     "`_`",
@@ -40,7 +40,7 @@ prompt.distractors = [
     "`(_, n)`"
 ]
 context = """ 
-The pattern `(_, n)` is not valid because `a` is an array of tuples, not a tuple itself.
+Wzorzec `(_, n)` jest niepoprawny, ponieważ `a` jest tablicą krotek, a nie krotką.
 """
 
 [[questions]]
@@ -59,15 +59,15 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 4
 context = """
-It is not valid to use `..` on both sides of a value, since it is ambiguous which
-array element is being referred to.
+Nie można użyć `..` po obu stronach wartości, ponieważ nie wiadomo jednoznacznie,
+o który element tablicy chodzi.
 """
 
 [[questions]]
 id = "a7d38ffa-66b2-472a-90a5-b026b28ad3df"
 type = "MultipleChoice"
 prompt.prompt = """
-Say we have a `Point` type with the following definition:
+Załóżmy, że mamy typ `Point` z następującą definicją:
 
 ```
 struct Point {
@@ -76,13 +76,13 @@ struct Point {
 }
 ```
 
-Given the following pattern:
+Dany jest następujący wzorzec:
 
 ```
 Point { x: x @ 0 ..= 5, y } if x + y != 0
 ```
 
-Which of the following values will match this pattern?
+Które z poniższych wartości pasują do tego wzorca?
 """
 answer.answer = [
     "`Point { x: 5, y: -4 }`",
@@ -93,6 +93,6 @@ prompt.distractors = [
     "`Point { x: 3, y: -3 }`"
 ]
 context = """
-This pattern specifies that `x` must be between 0 and 5 (inclusive), and that `x + y != 0`.
-Therefore `(5, -4)` and `(0, 1)` are valid, while `(-1, 2)` and `(3, -3)` are not.
+Ten wzorzec określa, że `x` musi mieścić się w przedziale od 0 do 5 (włącznie) oraz że `x + y != 0`.
+Dlatego `(5, -4)` i `(0, 1)` pasują, a `(-1, 2)` i `(3, -3)` nie.
 """

@@ -142,13 +142,13 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch18-03-oo-design-patterns.md | 18 | 4285 | ch17-03-oo-design-patterns | gotowe | af0a919a | 1 |  |  |
 | ch18-04-inventory.md | 18 | 34 | ch17-04-inventory | gotowe | aea152b3 | 1 |  |  |
 | ch18-05-design-challenge.md | 18 | 598 | ch17-05-design-challenge-references, ch17-05-design-challenge-trait-trees, ch17-05-design-challenge-dispatch, ch17-05-design-challenge-intermediates | gotowe | aea152b3 | 1 |  |  |
-| ch19-00-patterns.md | 19 | 239 | — | przegląd | a8eeb640 | 1 |  |  |
-| ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | przegląd | a8eeb640 | 1 |  |  |
-| ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | przegląd | a8eeb640 | 1 |  |  |
-| ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | przegląd | a8eeb640 | 1 |  |  |
+| ch19-00-patterns.md | 19 | 239 | — | gotowe | a8eeb640 | 1 |  |  |
+| ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | gotowe | a8eeb640 | 1 |  |  |
+| ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | gotowe | a8eeb640 | 1 |  |  |
+| ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | gotowe | a8eeb640 | 1 |  |  |
 | ch20-00-advanced-features.md | 20 | 198 | — | przetłumaczone | aeb351d4 | 1 |  |  |
 | ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | przetłumaczone | aeb351d4 | 1 |  |  |
-| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | tłumaczenie | af37da15 | 1 |  |  |
+| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | przetłumaczone | af37da15 | 1 |  |  |
 | ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | do zrobienia | | 0 | | |
 | ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | do zrobienia | | 0 | | |
 | ch20-05-macros.md | 20 | 3550 | ch19-06-macros | do zrobienia | | 0 | | |

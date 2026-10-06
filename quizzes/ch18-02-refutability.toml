@@ -2,30 +2,30 @@
 id = "35e59c95-3d83-4277-8d88-a1986f4086d7"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider pattern-matching on an expression of some type `T`.
-Which of these statements best describes the difference between a refutable and an irrefutable pattern?
+Rozważ dopasowywanie wzorców do wyrażenia pewnego typu `T`.
+Które z tych stwierdzeń najlepiej opisuje różnicę między wzorcem odrzucalnym a nieodrzucalnym?
 """
-answer.answer = "Refutable patterns do not match some value of type `T`, while irrefutable patterns match all values of type `T`"
+answer.answer = "Wzorce odrzucalne nie pasują do pewnej wartości typu `T`, a wzorce nieodrzucalne pasują do wszystkich wartości typu `T`"
 prompt.distractors = [
-    "Refutable patterns match some values of a different type `S`, while irrefutable patterns only match values of type `T`",
-    "Refutable patterns do not match any values of type `T`, while irrefutable patterns match some values of type `T`",
-    "Refutable patterns are patterns where `T` is an enum, while irrefutable patterns are patterns where `T` is not an enum"
+    "Wzorce odrzucalne pasują do niektórych wartości innego typu `S`, a wzorce nieodrzucalne pasują tylko do wartości typu `T`",
+    "Wzorce odrzucalne nie pasują do żadnej wartości typu `T`, a wzorce nieodrzucalne pasują do niektórych wartości typu `T`",
+    "Wzorce odrzucalne to wzorce, w których `T` jest enumem, a wzorce nieodrzucalne to wzorce, w których `T` nie jest enumem"
 ]
 context = """
-A pattern is refutable if there exists some value of the expected type that isn't matched by the pattern.
+Wzorzec jest odrzucalny, jeśli istnieje jakaś wartość oczekiwanego typu, która do niego nie pasuje.
 """
 
 [[questions]]
 id = "3c29eb2d-cbe9-4a2c-99b8-aa5c6467c8b4"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider the following program:
+Rozważ następujący program:
 
 ```
 let x: &[(i32, i32)] = &[(0, 1)];
 ```
 
-Which of the following are **refutable** patterns for `x`?
+Które z poniższych wzorców są **odrzucalne** dla `x`?
 """
 answer.answer = [
     "`&[(x, y)]`",
@@ -36,6 +36,6 @@ prompt.distractors = [
     "`_`"
 ]
 context = """ 
-A slice does not have a fixed length, so any pattern which asserts that
-`x` must have at least one element is refutable.
+Wycinek nie ma stałej długości, więc każdy wzorzec, który zakłada, że
+`x` musi mieć co najmniej jeden element, jest odrzucalny.
 """

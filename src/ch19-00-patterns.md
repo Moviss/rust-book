@@ -1,29 +1,32 @@
-# Patterns and Matching {#patterns-and-matching}
+# Wzorce i dopasowywanie {#patterns-and-matching}
 
-Patterns are a special syntax in Rust for matching against the structure of
-types, both complex and simple. Using patterns in conjunction with `match`
-expressions and other constructs gives you more control over a program’s
-control flow. A pattern consists of some combination of the following:
+Wzorce to w Ruście specjalna składnia służąca do dopasowywania struktury typów,
+zarówno złożonych, jak i prostych. Używanie wzorców razem z wyrażeniami
+(*expressions*) `match` i innymi konstrukcjami daje większą kontrolę nad
+przepływem sterowania (*control flow*) programu. Wzorzec składa się z jakiejś
+kombinacji następujących elementów:
 
-- Literals
-- Destructured arrays, enums, structs, or tuples
-- Variables
-- Wildcards
-- Placeholders
+- literałów;
+- destrukturyzowanych tablic, *enumów* (typów wyliczeniowych), struktur
+  (*structs*) lub krotek (*tuples*);
+- zmiennych;
+- symboli wieloznacznych;
+- symboli zastępczych (*placeholders*).
 
-Some example patterns include `x`, `(a, 3)`, and `Some(Color::Red)`. In the
-contexts in which patterns are valid, these components describe the shape of
-data. Our program then matches values against the patterns to determine whether
-it has the correct shape of data to continue running a particular piece of code.
+Przykładowe wzorce to `x`, `(a, 3)` i `Some(Color::Red)`. W kontekstach, w
+których wzorce są dozwolone, te elementy opisują kształt danych. Program
+dopasowuje następnie wartości do wzorców, aby ustalić, czy dane mają właściwy
+kształt, by kontynuować wykonywanie określonego fragmentu kodu.
 
-To use a pattern, we compare it to some value. If the pattern matches the
-value, we use the value parts in our code. Recall the `match` expressions in
-Chapter 6 that used patterns, such as the coin-sorting machine example. If the
-value fits the shape of the pattern, we can use the named pieces. If it
-doesn’t, the code associated with the pattern won’t run.
+Aby użyć wzorca, porównujemy go z jakąś wartością. Jeśli wzorzec pasuje do
+wartości, używamy części tej wartości w naszym kodzie. Przypomnij sobie
+wyrażenia `match` z rozdziału 6, które korzystały ze wzorców, choćby w
+przykładzie z maszyną sortującą monety. Jeśli wartość pasuje do kształtu wzorca,
+możemy używać nazwanych fragmentów. Jeśli nie pasuje, kod powiązany ze wzorcem
+się nie wykona.
 
-This chapter is a reference on all things related to patterns. We’ll cover the
-valid places to use patterns, the difference between refutable and irrefutable
-patterns, and the different kinds of pattern syntax that you might see. By the
-end of the chapter, you’ll know how to use patterns to express many concepts in
-a clear way.
+Ten rozdział to kompendium wszystkiego, co dotyczy wzorców. Omówimy miejsca, w
+których można używać wzorców, różnicę między wzorcami odrzucalnymi
+(*refutable*) i nieodrzucalnymi (*irrefutable*) oraz różne rodzaje składni
+wzorców, które możesz spotkać. Pod koniec rozdziału będziesz wiedzieć, jak
+używać wzorców, by w przejrzysty sposób wyrażać wiele koncepcji.

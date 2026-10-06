@@ -1,37 +1,39 @@
-## Refutability: Whether a Pattern Might Fail to Match {#refutability-whether-a-pattern-might-fail-to-match}
+## Odrzucalność: czy wzorzec może nie pasować {#refutability-whether-a-pattern-might-fail-to-match}
 
-Patterns come in two forms: refutable and irrefutable. Patterns that will match
-for any possible value passed are _irrefutable_. An example would be `x` in the
-statement `let x = 5;` because `x` matches anything and therefore cannot fail
-to match. Patterns that can fail to match for some possible value are
-_refutable_. Here are some examples:
+Wzorce występują w dwóch postaciach: odrzucalnej (*refutable*) i
+nieodrzucalnej (*irrefutable*). Wzorce, które pasują do każdej możliwej
+przekazanej wartości, są _nieodrzucalne_. Przykładem jest `x` w instrukcji
+(*statement*) `let x = 5;`, ponieważ `x` pasuje do wszystkiego, a więc nie może
+nie pasować. Wzorce, które dla jakiejś możliwej wartości mogą nie pasować, są
+_odrzucalne_. Oto kilka przykładów:
 
 <!-- BEGIN INTERVENTION: 3c29eb2d-cbe9-4a2c-99b8-aa5c6467c8b4 -->
-* In the expression `if let Some(x) = a_value`, then `Some(x)` is refutable. If the value in the `a_value` variable is `None` rather than
-`Some`, the `Some(x)` pattern will not match. 
-* In the expression `if let &[x, ..] = a_slice`, then `&[x, ..]` is refutable. If the value in the `a_slice` variable has zero elements, the `&[x, ..]` pattern will not match.
+* W wyrażeniu (*expression*) `if let Some(x) = a_value` wzorzec `Some(x)` jest odrzucalny. Jeśli wartością zmiennej `a_value` jest `None`, a nie
+`Some`, wzorzec `Some(x)` nie zostanie dopasowany. 
+* W wyrażeniu `if let &[x, ..] = a_slice` wzorzec `&[x, ..]` jest odrzucalny. Jeśli wartość w zmiennej `a_slice` nie ma żadnych elementów, wzorzec `&[x, ..]` nie zostanie dopasowany.
 <!-- END INTERVENTION: 3c29eb2d-cbe9-4a2c-99b8-aa5c6467c8b4 -->
 
-Function parameters, `let` statements, and `for` loops can only accept
-irrefutable patterns because the program cannot do anything meaningful when
-values don’t match. The `if let` and `while let` expressions and the
-`let...else` statement accept refutable and irrefutable patterns, but the
-compiler warns against irrefutable patterns because, by definition, they’re
-intended to handle possible failure: The functionality of a conditional is in
-its ability to perform differently depending on success or failure.
+Parametry funkcji, instrukcje `let` i pętle `for` mogą przyjmować tylko wzorce
+nieodrzucalne, ponieważ program nie jest w stanie zrobić nic sensownego, gdy
+wartości nie pasują. Wyrażenia `if let` i `while let` oraz instrukcja
+`let...else` przyjmują wzorce odrzucalne i nieodrzucalne, ale kompilator
+ostrzega przed wzorcami nieodrzucalnymi, ponieważ z definicji konstrukcje te
+służą do obsługi możliwej porażki: sens instrukcji warunkowej polega na tym, że
+może ona działać różnie w zależności od powodzenia lub porażki.
 
-In general, you shouldn’t have to worry about the distinction between refutable
-and irrefutable patterns; however, you do need to be familiar with the concept
-of refutability so that you can respond when you see it in an error message. In
-those cases, you’ll need to change either the pattern or the construct you’re
-using the pattern with, depending on the intended behavior of the code.
+Zasadniczo nie musisz przejmować się rozróżnieniem między wzorcami odrzucalnymi
+i nieodrzucalnymi. Musisz jednak znać pojęcie odrzucalności, aby umieć
+zareagować, gdy zobaczysz je w komunikacie o błędzie. W takich przypadkach
+trzeba będzie zmienić albo wzorzec, albo konstrukcję, w której go używasz, w
+zależności od zamierzonego działania kodu.
 
-Let’s look at an example of what happens when we try to use a refutable pattern
-where Rust requires an irrefutable pattern and vice versa. Listing 19-8 shows a
-`let` statement, but for the pattern, we’ve specified `Some(x)`, a refutable
-pattern. As you might expect, this code will not compile.
+Przyjrzyjmy się przykładowi tego, co się dzieje, gdy próbujemy użyć wzorca
+odrzucalnego tam, gdzie Rust wymaga wzorca nieodrzucalnego, i odwrotnie.
+Listing 19-8 pokazuje instrukcję `let`, w której jako wzorzec podaliśmy
+`Some(x)`, czyli wzorzec odrzucalny. Jak można się spodziewać, ten kod się nie
+skompiluje.
 
-<Listing number="19-8" caption="Attempting to use a refutable pattern with `let`">
+<Listing number="19-8" caption="Próba użycia wzorca odrzucalnego z `let`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-08/src/main.rs:here}}
@@ -39,26 +41,26 @@ pattern. As you might expect, this code will not compile.
 
 </Listing>
 
-If `some_option_value` were a `None` value, it would fail to match the pattern
-`Some(x)`, meaning the pattern is refutable. However, the `let` statement can
-only accept an irrefutable pattern because there is nothing valid the code can
-do with a `None` value. At compile time, Rust will complain that we’ve tried to
-use a refutable pattern where an irrefutable pattern is required:
+Gdyby `some_option_value` miało wartość `None`, nie pasowałoby do wzorca
+`Some(x)`, co oznacza, że wzorzec jest odrzucalny. Instrukcja `let` przyjmuje
+jednak tylko wzorce nieodrzucalne, ponieważ kod nie może zrobić nic poprawnego
+z wartością `None`. W czasie kompilacji (*compile-time*) Rust zgłosi, że
+próbowaliśmy użyć wzorca odrzucalnego tam, gdzie wymagany jest wzorzec
+nieodrzucalny:
 
 ```console
 {{#include ../listings/ch19-patterns-and-matching/listing-19-08/output.txt}}
 ```
 
-Because we didn’t cover (and couldn’t cover!) every valid value with the
-pattern `Some(x)`, Rust rightfully produces a compiler error.
+Ponieważ wzorzec `Some(x)` nie obejmuje (i nie mógłby objąć!) wszystkich
+poprawnych wartości, Rust słusznie zgłasza błąd kompilatora.
 
-If we have a refutable pattern where an irrefutable pattern is needed, we can
-fix it by changing the code that uses the pattern: Instead of using `let`, we
-can use `let...else`. Then, if the pattern doesn’t match, the code in the curly
-brackets will handle the value. Listing 19-9 shows how to fix the code in
-Listing 19-8.
+Jeśli mamy wzorzec odrzucalny tam, gdzie potrzebny jest nieodrzucalny, możemy
+to naprawić, zmieniając kod, który używa wzorca: zamiast `let` możemy użyć
+`let...else`. Wtedy, jeśli wzorzec nie pasuje, wartością zajmie się kod w
+nawiasach klamrowych. Listing 19-9 pokazuje, jak poprawić kod z listingu 19-8.
 
-<Listing number="19-9" caption="Using `let...else` and a block with refutable patterns instead of `let`">
+<Listing number="19-9" caption="Użycie `let...else` i bloku z wzorcami odrzucalnymi zamiast `let`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-09/src/main.rs:here}}
@@ -66,12 +68,12 @@ Listing 19-8.
 
 </Listing>
 
-We’ve given the code an out! This code is perfectly valid, although it means we
-cannot use an irrefutable pattern without receiving a warning. If we give
-`let...else` a pattern that will always match, such as `x`, as shown in Listing
-19-10, the compiler will give a warning.
+Daliśmy kodowi wyjście awaryjne! Ten kod jest całkowicie poprawny, choć oznacza
+to, że nie możemy użyć wzorca nieodrzucalnego bez otrzymania ostrzeżenia. Jeśli
+przekażemy `let...else` wzorzec, który zawsze pasuje, na przykład `x`, jak w
+listingu 19-10, kompilator zgłosi ostrzeżenie.
 
-<Listing number="19-10" caption="Attempting to use an irrefutable pattern with `let...else`">
+<Listing number="19-10" caption="Próba użycia wzorca nieodrzucalnego z `let...else`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-10/src/main.rs:here}}
@@ -79,21 +81,19 @@ cannot use an irrefutable pattern without receiving a warning. If we give
 
 </Listing>
 
-Rust complains that it doesn’t make sense to use `let...else` with an
-irrefutable pattern:
+Rust zgłasza, że używanie `let...else` z wzorcem nieodrzucalnym nie ma sensu:
 
 ```console
 {{#include ../listings/ch19-patterns-and-matching/listing-19-10/output.txt}}
 ```
 
-For this reason, match arms must use refutable patterns, except for the last
-arm, which should match any remaining values with an irrefutable pattern. Rust
-allows us to use an irrefutable pattern in a `match` with only one arm, but
-this syntax isn’t particularly useful and could be replaced with a simpler
-`let` statement.
+Z tego powodu ramiona (*arms*) dopasowania muszą używać wzorców odrzucalnych, z
+wyjątkiem ostatniego ramienia, które powinno dopasowywać wszystkie pozostałe
+wartości wzorcem nieodrzucalnym. Rust pozwala użyć wzorca nieodrzucalnego w
+`match` z tylko jednym ramieniem, ale taka składnia nie jest szczególnie
+przydatna i można by ją zastąpić prostszą instrukcją `let`.
 
-Now that you know where to use patterns and the difference between refutable
-and irrefutable patterns, let’s cover all the syntax we can use to create
-patterns.
+Teraz, gdy wiesz, gdzie używać wzorców i czym różnią się wzorce odrzucalne od
+nieodrzucalnych, omówmy całą składnię, za pomocą której możemy tworzyć wzorce.
 
 {{#quiz ../quizzes/ch18-02-refutability.toml}}
