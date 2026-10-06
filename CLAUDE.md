@@ -59,3 +59,17 @@ Formatting: `rustfmt` (max_width 80) for Rust, `dprint fmt <file>` for Markdown/
 
 - Edit only `src/`, `quizzes/`, `listings/`, and tooling. **Do not edit `nostarch/`** (print snapshots), nor the frozen `first-edition/`, `second-edition/`, `2018-edition/`, `redirects/`.
 - Prose style (`style-guide.md`): title-case headings, hard-wrap at 80 chars, italics (not quotes) for introduced terms, method names without `()` in prose, relative links for intra-book and std docs.
+
+## Polish translation
+
+The book is being translated into Polish in place (`src/`, `quizzes/`); file names and URLs stay unchanged. Plan, progress, conventions and glossary live in `tlumaczenie/` (`PLAN.md`, `POSTEP.md`, `KONWENCJE.md`, `GLOSARIUSZ.md`); gate scripts and their self-tests are in `tlumaczenie/narzedzia/` (`python3 tlumaczenie/narzedzia/testy/uruchom.py`).
+
+- **Code is untouched byte for byte** — code blocks, inline code, comments inside code, `aquascope` blocks, `@Perm{...}` markers, `listings/`, `output.txt`.
+- **Heading anchors are pinned** to the original English ids with `{#id}` (e.g. `## Stos i sterta {#the-stack-and-the-heap}`). Keep them on every heading; add one to any new heading.
+- **Quiz fields that stay unchanged:** `id`, `type`, `multipart` keys, `prompt.program`, `answer.doesCompile`, `answer.lineNumber`, `answer.stdout`, `prompt.answerIndex`, `prompt.sortAnswers`, ShortAnswer `answer.answer`/`answer.alternatives`, code-only MultipleChoice options, and code in any field.
+- **Commits** are in English with no AI attribution trailers (no `Co-Authored-By`). One commit per chapter; stage explicit paths (`git add src quizzes tlumaczenie ...`), never `git add -A` (local `pnpm` dirties `js-extensions/pnpm-lock.yaml`).
+- **Subagents** translating or reviewing must not use git except `git show`, and edit only their assigned files.
+- `tlumaczenie/KONWENCJE.md` takes precedence over `style-guide.md` and the Title Case / hard-wrap rules above for translated text (Polish uses sentence-case headings).
+- `tag pl-base` = upstream commit the translation is based on; `tag pl-source` = English source with pinned anchors, the reference all gates compare against (`sprawdz.py --ref pl-source`).
+- **Do not sync `nostarch/book.toml`** with `book.toml`, despite the comment in `book.toml`.
+- Local builds skip aquascope: `MDBOOK_PREPROCESSOR__AQUASCOPE__OPTIONAL=true mdbook build -d tmp/book-pl`; CI does the full build.

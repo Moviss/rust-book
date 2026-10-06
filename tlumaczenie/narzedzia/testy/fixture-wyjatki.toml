@@ -1,0 +1,5 @@
+["tlumaczenie/narzedzia/testy/fixture-tekst.md"]
+glosariusz = [
+  { tekst = "kopca", uzasadnienie = "test: zaakceptowane trafienie" },
+  { tekst = "posiadaniem", uzasadnienie = "test: zaakceptowane trafienie" },
+]
