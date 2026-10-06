@@ -32,13 +32,13 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F4.3 `ferris.js`
 - [x] F4.4 Notka D12
 - [x] F4.5 Commit
-- [ ] F5.1 Glosariusz na całej książce
-- [ ] F5.2 Spójność odwołań
-- [ ] F5.3 Raport G5
-- [ ] F5.4 Pełny build, linki, `sprawdz.py`
-- [ ] F5.5 `mdbook test` (opcjonalnie)
+- [x] F5.1 Glosariusz na całej książce
+- [x] F5.2 Spójność odwołań
+- [x] F5.3 Raport G5
+- [x] F5.4 Pełny build, linki, `sprawdz.py`
+- [x] F5.5 (pominięty, opcjonalny) `mdbook test` (opcjonalnie)
 - [ ] F5.6 Push, CI, weryfikacja strony
-- [ ] F5.7 `CLAUDE.md` końcowy
+- [x] F5.7 `CLAUDE.md` końcowy
 - [ ] F5.8 Raport końcowy
 
 ## Pliki
@@ -181,3 +181,9 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F3: `sprawdz.py` – `<code>` w HTML liczone po usunięciu komentarzy HTML (fałszywy alarm w ch17-05).
 - F4.1: tytuły w SUMMARY = przetłumaczone H1; różnice względem H1 jak w oryginale: ch17-03 „Praca z dowolną liczbą future’ów”, ch17-06 „Future’y, zadania i wątki”, dodatki „A – …”. `postep.py --summary` poprawiony (pierwszy nagłówek poza kodem).
 - F4.4: notka D12 jako cytat na górze `experiment-intro.md` i `title-page.md` (linki: oryginał Brown, oficjalna książka, repozytorium tłumaczenia); sekcja w README.md.
+- F5.1: `glosariusz_lint.py` na całej książce: 0 trafień (17 reguł), wyjątki w `wyjatki.toml` niepotrzebne.
+- F5.2: raport tekstów linków: 3 realne rozbieżności poprawione (ch03-02, ch04-04, ch08-03); skróty tytułów w ch05 cytują końcówkę nagłówka jak oryginał; linki w quizach zgodne.
+- F5.3: `sprawdz.py` na 121 plikach + 93 quizach: 0 błędów, 6 ostrzeżeń, wszystkie uzasadnione (nazwy języków w dodatku F; `match`/`Iterator` jako kod; scalone `x` w ch04-02).
+- F5.4: build lokalny zielony, G4: 0 nowych zepsutych kotwic, autotesty 28/28.
+- F5.5: `mdbook test` pominięty (opcjonalny; kod nie był zmieniany).
+- F5: dodatkowe ujednolicenia: mała litera po „Uwaga:” (6 miejsc), „wiersz” zamiast „linia” dla kodu (2 miejsca), link do „Zrozumieć własność” na stronie startowej.

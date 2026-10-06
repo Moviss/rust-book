@@ -62,7 +62,7 @@ Formatting: `rustfmt` (max_width 80) for Rust, `dprint fmt <file>` for Markdown/
 
 ## Polish translation
 
-The book is being translated into Polish in place (`src/`, `quizzes/`); file names and URLs stay unchanged. Plan, progress, conventions and glossary live in `tlumaczenie/` (`PLAN.md`, `POSTEP.md`, `KONWENCJE.md`, `GLOSARIUSZ.md`); gate scripts and their self-tests are in `tlumaczenie/narzedzia/` (`python3 tlumaczenie/narzedzia/testy/uruchom.py`).
+The book has been translated into Polish in place (`src/`, `quizzes/`, `SUMMARY.md`, `book.toml` title/`language = "pl"`, `ferris.js` tooltips); file names and URLs stay unchanged. Translation status: complete (all 120 files reviewed). New or changed upstream content must be translated following `tlumaczenie/PLAN.md` phase 6. Plan, progress, conventions and glossary live in `tlumaczenie/` (`PLAN.md`, `POSTEP.md`, `KONWENCJE.md`, `GLOSARIUSZ.md`); gate scripts and their self-tests are in `tlumaczenie/narzedzia/` (`python3 tlumaczenie/narzedzia/testy/uruchom.py`).
 
 - **Code is untouched byte for byte** — code blocks, inline code, comments inside code, `aquascope` blocks, `@Perm{...}` markers, `listings/`, `output.txt`.
 - **Heading anchors are pinned** to the original English ids with `{#id}` (e.g. `## Stos i sterta {#the-stack-and-the-heap}`). Keep them on every heading; add one to any new heading.

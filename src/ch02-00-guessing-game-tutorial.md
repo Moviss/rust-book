@@ -146,7 +146,7 @@ let apples = 5; // immutable
 let mut bananas = 5; // mutable
 ```
 
-> Uwaga: Składnia `//` rozpoczyna komentarz, który trwa do końca linii. Rust
+> Uwaga: składnia `//` rozpoczyna komentarz, który trwa do końca wiersza. Rust
 > ignoruje całą zawartość komentarzy. Komentarze omówimy dokładniej w
 > [rozdziale 3][comments]<!-- ignore -->.
 
@@ -544,7 +544,7 @@ zakresu, którego tu używamy, ma postać `start..=end` i obejmuje zarówno doln
 jak i górną granicę, więc aby zażądać liczby od 1 do 100, musimy podać
 `1..=100`.
 
-> Uwaga: Nie będziesz z góry wiedzieć, których traitów użyć ani które metody i
+> Uwaga: nie będziesz z góry wiedzieć, których traitów użyć ani które metody i
 > funkcje wywołać z danego crate’a, dlatego każdy crate ma dokumentację z
 > instrukcjami użycia. Kolejną przydatną funkcją Cargo jest to, że uruchomienie
 > polecenia `cargo doc --open` zbuduje lokalnie dokumentację dostarczaną przez

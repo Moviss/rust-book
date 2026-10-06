@@ -1,6 +1,6 @@
 # Wprowadzenie {#introduction}
 
-> Uwaga: To wydanie książki jest takie samo jak książka
+> Uwaga: to wydanie książki jest takie samo jak książka
 > [The Rust Programming Language][nsprust] dostępna w wersji drukowanej i jako
 > e-book w wydawnictwie [No Starch Press][nsp].
 

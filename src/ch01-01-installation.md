@@ -4,7 +4,7 @@ Pierwszym krokiem jest instalacja Rusta. Pobierzemy go za pomocą `rustup` –
 narzędzia wiersza poleceń do zarządzania wersjami Rusta i powiązanymi
 narzędziami. Do pobrania potrzebne będzie połączenie z internetem.
 
-> Uwaga: Jeśli z jakiegoś powodu wolisz nie używać `rustup`, zajrzyj na
+> Uwaga: jeśli z jakiegoś powodu wolisz nie używać `rustup`, zajrzyj na
 > [stronę z innymi metodami instalacji Rusta][otherinstall], gdzie znajdziesz
 > więcej możliwości.
 

@@ -207,7 +207,7 @@ Skalarne wartości Unicode mieszczą się w zakresach od `U+0000` do `U+D7FF` i 
 w Unicode, więc twoje intuicyjne wyobrażenie o tym, czym jest „znak”, może nie
 pokrywać się z tym, czym jest `char` w Ruście. Szczegółowo omówimy ten temat w
 sekcji
-[„Przechowywanie tekstu w UTF-8 za pomocą łańcuchów znaków”][strings]<!-- ignore -->
+[„Przechowywanie tekstu zakodowanego w UTF-8 w łańcuchach znaków”][strings]<!-- ignore -->
 w rozdziale 8.
 
 {{#quiz ../quizzes/ch03-02-data-types-sec1-scalar.toml}}

@@ -108,7 +108,7 @@ Jeśli wstawimy do mapy haszującej referencje (*references*) do wartości, same
 wartości nie zostaną do niej przeniesione. Wartości, na które wskazują
 referencje, muszą być prawidłowe co najmniej tak długo, jak prawidłowa jest
 mapa haszująca. Więcej o tych zagadnieniach powiemy w podrozdziale
-[„Walidacja referencji za pomocą czasów życia”][validating-references-with-lifetimes]<!-- ignore -->
+[„Sprawdzanie poprawności referencji za pomocą czasów życia”][validating-references-with-lifetimes]<!-- ignore -->
 w rozdziale 10.
 
 ### Aktualizowanie mapy haszującej {#updating-a-hash-map}

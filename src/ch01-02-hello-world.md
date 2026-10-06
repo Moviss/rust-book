@@ -4,7 +4,7 @@ Masz już zainstalowanego Rusta, więc czas napisać pierwszy program w tym
 języku. Ucząc się nowego języka, tradycyjnie pisze się mały program, który
 wypisuje na ekranie tekst `Hello, world!`, więc zrobimy tu to samo!
 
-> Uwaga: Ta książka zakłada podstawową znajomość wiersza poleceń. Rust nie
+> Uwaga: ta książka zakłada podstawową znajomość wiersza poleceń. Rust nie
 > stawia żadnych szczególnych wymagań co do edytora, narzędzi ani miejsca, w
 > którym przechowujesz kod, więc jeśli wolisz zamiast wiersza poleceń używać
 > IDE, śmiało korzystaj ze swojego ulubionego. Wiele IDE w jakimś stopniu
@@ -117,7 +117,7 @@ Ciało funkcji jest otoczone przez `{}`. Rust wymaga nawiasów klamrowych wokó�
 ciała każdej funkcji. Dobrym stylem jest umieszczanie otwierającego nawiasu
 klamrowego w tej samej linii co deklaracja funkcji, z jedną spacją pomiędzy.
 
-> Uwaga: Jeśli chcesz trzymać się standardowego stylu we wszystkich projektach w
+> Uwaga: jeśli chcesz trzymać się standardowego stylu we wszystkich projektach w
 > Ruście, możesz użyć narzędzia do automatycznego formatowania o nazwie
 > `rustfmt`, które sformatuje twój kod w określonym stylu (więcej o `rustfmt` w
 > [dodatku D][devtools]<!-- ignore -->). Zespół Rusta dołączył to narzędzie do

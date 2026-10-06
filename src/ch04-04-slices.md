@@ -218,7 +218,7 @@ let slice = &s[..];
 > znaku wielobajtowego, program zakończy się błędem. Na potrzeby wprowadzenia
 > wycinków łańcuchów zakładamy w tej sekcji wyłącznie znaki ASCII; dokładniejsze
 > omówienie obsługi UTF-8 znajdziesz w podrozdziale
-> [„Przechowywanie tekstu zakodowanego w UTF-8 w łańcuchach”][strings]<!-- ignore -->
+> [„Przechowywanie tekstu zakodowanego w UTF-8 w łańcuchach znaków”][strings]<!-- ignore -->
 > w rozdziale 8.
 
 #### Przepisanie `first_word` z użyciem wycinków łańcuchów {#rewriting-first_word-with-string-slices}

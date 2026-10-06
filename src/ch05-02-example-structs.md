@@ -201,7 +201,7 @@ przyjmuje referencję (*reference*), makro to przejmuje własność wyrażenia
 wywołanie `dbg!`, wraz z wynikową wartością tego wyrażenia, a następnie oddaje
 własność tej wartości.
 
-> Uwaga: Wywołanie makra `dbg!` wypisuje dane do standardowego strumienia błędów
+> Uwaga: wywołanie makra `dbg!` wypisuje dane do standardowego strumienia błędów
 > konsoli (`stderr`), w przeciwieństwie do `println!`, które wypisuje do
 > standardowego strumienia wyjścia konsoli (`stdout`). Więcej o `stderr` i
 > `stdout` powiemy w podrozdziale
@@ -227,7 +227,7 @@ tego przykładu:
 Widzimy, że pierwsza część wyjścia pochodzi z linii 10 pliku _src/main.rs_, w
 której debugujemy wyrażenie `30 * scale`, a jego wynikowa wartość to `60`
 (formatowanie `Debug` zaimplementowane dla liczb całkowitych wypisuje tylko ich
-wartość). Wywołanie `dbg!` w linii 14 pliku _src/main.rs_ wypisuje wartość
+wartość). Wywołanie `dbg!` w wierszu 14 pliku _src/main.rs_ wypisuje wartość
 `&rect1`, czyli strukturę `Rectangle`. To wyjście korzysta z czytelnego
 formatowania `Debug` typu `Rectangle`. Makro `dbg!` potrafi bardzo pomóc, gdy
 próbujesz ustalić, co robi twój kod!

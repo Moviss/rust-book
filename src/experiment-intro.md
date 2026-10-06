@@ -36,7 +36,7 @@ Po drugie, możesz dodawać adnotacje do dowolnego fragmentu tekstu, aby zapisa�
 
 ## Zmiany w treści {#content-changes}
 
-Treść tej książki jest w większości podobna do TRPL, a obie książki synchronizujemy co kilka miesięcy. Największa różnica dotyczy rozdziału [Zrozumienie własności][understanding-ownership]. Ta książka wyjaśnia własność (*ownership*) za pomocą pojęć i wizualizacji, które – jak wykazały nasze badania – lepiej niż oryginalna książka pomagają zrozumieć Rusta. Zobaczysz wiele diagramów takich jak poniższe, które za pomocą narzędzia [Aquascope][aquascope] przedstawiają zachowanie Rusta w czasie kompilacji (*compile-time*) i w czasie działania (*run-time*):
+Treść tej książki jest w większości podobna do TRPL, a obie książki synchronizujemy co kilka miesięcy. Największa różnica dotyczy rozdziału [„Zrozumieć własność”][understanding-ownership]. Ta książka wyjaśnia własność (*ownership*) za pomocą pojęć i wizualizacji, które – jak wykazały nasze badania – lepiej niż oryginalna książka pomagają zrozumieć Rusta. Zobaczysz wiele diagramów takich jak poniższe, które za pomocą narzędzia [Aquascope][aquascope] przedstawiają zachowanie Rusta w czasie kompilacji (*compile-time*) i w czasie działania (*run-time*):
 
 ```aquascope,interpreter,horizontal
 #fn main() {
