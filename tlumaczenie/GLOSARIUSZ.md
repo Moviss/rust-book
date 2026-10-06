@@ -251,3 +251,22 @@ recenzent.
 | environment variable | zmienna środowiskowa | — | | |
 | robust / reliable | solidny / niezawodny | — | | rozróżniamy |
 | recover (from error) | obsłużyć błąd i kontynuować | — | | |
+| lifetime annotation | adnotacja czasu życia | — | | |
+| lifetime elision rules | reguły pomijania czasów życia | reguły pomijania czasów życia (*lifetime elision rules*) | | |
+| input / output lifetime | wejściowy / wyjściowy czas życia | wejściowe czasy życia (*input lifetimes*) | | |
+| static lifetime | statyczny czas życia | — | | |
+| angle brackets | nawiasy ostre | — | | |
+| doc test | test dokumentacyjny | — | | nie „test dokumentacji” |
+| test coverage | pokrycie testami | — | | |
+| helper function | funkcja pomocnicza | — | | |
+| test runner / test harness | program uruchamiający testy / środowisko testowe | program uruchamiający testy (*test runner*) | | |
+| test passes / fails | test przechodzi / kończy się niepowodzeniem | — | | |
+| separation of concerns | rozdzielanie odpowiedzialności | rozdzielanie odpowiedzialności (*separation of concerns*) | | |
+| side effect | efekt uboczny | — | | |
+| exit status | kod wyjścia | — | | |
+| parse / parser | parsować / parser | — | | |
+| maintainer | osoba utrzymująca kod | — | | |
+| test-driven development | programowanie sterowane testami (TDD) | programowanie sterowane testami (*test-driven development*, TDD) | | |
+| poem (w rozdz. 12) | utwór | — | | „wiersz” zarezerwowany dla *line* |
+| correctness | poprawność | — | | |
+| filtering (testów) | filtrowanie | — | | |

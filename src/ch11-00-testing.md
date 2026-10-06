@@ -1,34 +1,35 @@
-# Writing Automated Tests {#writing-automated-tests}
+# Pisanie testów automatycznych {#writing-automated-tests}
 
-In his 1972 essay “The Humble Programmer,” Edsger W. Dijkstra said that “program
-testing can be a very effective way to show the presence of bugs, but it is
-hopelessly inadequate for showing their absence.” That doesn’t mean we shouldn’t
-try to test as much as we can!
+W eseju „The Humble Programmer” z 1972 roku Edsger W. Dijkstra stwierdził, że
+„testowanie programów może być bardzo skutecznym sposobem wykazania obecności
+błędów, ale jest beznadziejnie niewystarczające do wykazania ich braku”. Nie
+znaczy to, że nie powinniśmy starać się testować tak dużo, jak tylko możemy!
 
-_Correctness_ in our programs is the extent to which our code does what we
-intend it to do. Rust is designed with a high degree of concern about the
-correctness of programs, but correctness is complex and not easy to prove.
-Rust’s type system shoulders a huge part of this burden, but the type system
-cannot catch everything. As such, Rust includes support for writing automated
-software tests.
+_Poprawność_ (*correctness*) programu to stopień, w jakim nasz kod robi to, co
+zamierzamy. Rust został zaprojektowany z dużą troską o poprawność programów,
+ale poprawność jest złożona i niełatwo jej dowieść. System typów Rusta dźwiga
+ogromną część tego ciężaru, ale nie jest w stanie wychwycić wszystkiego.
+Dlatego Rust ma wbudowaną obsługę pisania automatycznych testów
+oprogramowania.
 
-Say we write a function `add_two` that adds 2 to whatever number is passed to
-it. This function’s signature accepts an integer as a parameter and returns an
-integer as a result. When we implement and compile that function, Rust does all
-the type checking and borrow checking that you’ve learned so far to ensure
-that, for instance, we aren’t passing a `String` value or an invalid reference
-to this function. But Rust _can’t_ check that this function will do precisely
-what we intend, which is return the parameter plus 2 rather than, say, the
-parameter plus 10 or the parameter minus 50! That’s where tests come in.
+Załóżmy, że piszemy funkcję `add_two`, która dodaje 2 do dowolnej przekazanej
+jej liczby. Sygnatura tej funkcji przyjmuje jako parametr liczbę całkowitą i
+zwraca jako wynik liczbę całkowitą. Gdy implementujemy i kompilujemy tę
+funkcję, Rust przeprowadza całe sprawdzanie typów i pożyczeń, które już
+znasz, aby upewnić się na przykład, że nie przekazujemy do tej funkcji wartości
+typu `String` ani nieprawidłowej referencji. Rust _nie jest_ jednak w stanie
+sprawdzić, czy ta funkcja zrobi dokładnie to, co zamierzamy, czyli zwróci
+parametr powiększony o 2, a nie, powiedzmy, parametr powiększony o 10 albo
+pomniejszony o 50! Tu właśnie przydają się testy.
 
-We can write tests that assert, for example, that when we pass `3` to the
-`add_two` function, the returned value is `5`. We can run these tests whenever
-we make changes to our code to make sure any existing correct behavior has not
-changed.
+Możemy napisać testy, które sprawdzają na przykład, że gdy przekażemy `3` do
+funkcji `add_two`, zwrócona wartość wynosi `5`. Możemy uruchamiać te testy po
+każdej zmianie w kodzie, aby upewnić się, że dotychczasowe poprawne zachowanie
+się nie zmieniło.
 
-Testing is a complex skill: Although we can’t cover in one chapter every detail
-about how to write good tests, in this chapter we will discuss the mechanics of
-Rust’s testing facilities. We’ll talk about the annotations and macros
-available to you when writing your tests, the default behavior and options
-provided for running your tests, and how to organize tests into unit tests and
-integration tests.
+Testowanie to złożona umiejętność. Choć w jednym rozdziale nie omówimy
+wszystkich szczegółów pisania dobrych testów, w tym rozdziale przyjrzymy się
+mechanizmom testowania dostępnym w Ruście. Omówimy adnotacje i makra, z
+których możesz korzystać przy pisaniu testów, domyślne zachowanie i opcje
+uruchamiania testów oraz sposób podziału testów na testy jednostkowe i testy
+integracyjne.

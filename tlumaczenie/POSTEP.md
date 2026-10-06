@@ -90,24 +90,24 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | gotowe | aba68c9b | 1 |  |  |
 | ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | gotowe | aba68c9b | 1 |  |  |
 | ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | gotowe | aba68c9b | 1 |  |  |
-| ch10-00-generics.md | 10 | 898 | — | przetłumaczone | aedc1c38 | 1 |  |  |
-| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | przetłumaczone | adf66e87 | 1 |  |  |
-| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | przetłumaczone | af5a9eb9 | 1 |  |  |
-| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | tłumaczenie | abcfb357 | 1 |  |  |
-| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | przetłumaczone | a62a61a6 | 1 |  |  |
-| ch11-00-testing.md | 11 | 340 | — | przetłumaczone | a62a61a6 | 1 |  |  |
-| ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | tłumaczenie | a31ffa3b | 1 |  |  |
-| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | przetłumaczone | a0489cf3 | 1 |  |  |
-| ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | tłumaczenie | ab3ea7d9 | 1 |  |  |
-| ch12-00-an-io-project.md | 12 | 386 | — | tłumaczenie | aa57fab2 | 1 |  |  |
-| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | tłumaczenie | aa57fab2 | 1 |  |  |
-| ch12-02-reading-a-file.md | 12 | 342 | — | tłumaczenie | aa57fab2 | 1 |  |  |
-| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | tłumaczenie | a2034a8f | 1 |  |  |
-| ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | do zrobienia | | 0 | | |
-| ch12-05-working-with-environment-variables.md | 12 | 1302 | — | do zrobienia | | 0 | | |
-| ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | do zrobienia | | 0 | | |
-| ch13-00-functional-features.md | 13 | 191 | — | do zrobienia | | 0 | | |
-| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | do zrobienia | | 0 | | |
+| ch10-00-generics.md | 10 | 898 | — | przegląd | a7841011 | 1 |  |  |
+| ch10-01-syntax.md | 10 | 2324 | ch10-01-generics | przegląd | a7841011 | 1 |  |  |
+| ch10-02-traits.md | 10 | 2577 | ch10-02-traits-sec1, ch10-02-traits-sec2 | przegląd | a7841011 | 1 |  |  |
+| ch10-03-lifetime-syntax.md | 10 | 4540 | ch10-03-lifetimes-sec1, ch10-03-lifetimes-sec2 | przegląd | a03441c0 | 1 |  |  |
+| ch10-04-inventory.md | 10 | 34 | ch10-04-inventory | przegląd | a03441c0 | 1 |  |  |
+| ch11-00-testing.md | 11 | 340 | — | gotowe | a0133458 | 1 |  |  |
+| ch11-01-writing-tests.md | 11 | 3461 | ch11-01-writing-tests | gotowe | a0133458 | 1 |  |  |
+| ch11-02-running-tests.md | 11 | 1201 | ch11-02-running-tests | gotowe | a0133458 | 1 |  |  |
+| ch11-03-test-organization.md | 11 | 1808 | ch11-03-test-organization | gotowe | a0133458 | 1 |  |  |
+| ch12-00-an-io-project.md | 12 | 386 | — | przetłumaczone | aa57fab2 | 1 |  |  |
+| ch12-01-accepting-command-line-arguments.md | 12 | 906 | — | przetłumaczone | aa57fab2 | 1 |  |  |
+| ch12-02-reading-a-file.md | 12 | 342 | — | przetłumaczone | aa57fab2 | 1 |  |  |
+| ch12-03-improving-error-handling-and-modularity.md | 12 | 3777 | — | przetłumaczone | a2034a8f | 1 |  |  |
+| ch12-04-testing-the-librarys-functionality.md | 12 | 1363 | — | przetłumaczone | aff7c1ee | 1 |  |  |
+| ch12-05-working-with-environment-variables.md | 12 | 1302 | — | tłumaczenie | a28bc1ea | 1 |  |  |
+| ch12-06-writing-to-stderr-instead-of-stdout.md | 12 | 639 | — | tłumaczenie | a28bc1ea | 1 |  |  |
+| ch13-00-functional-features.md | 13 | 191 | — | tłumaczenie | a92dbfe2 | 1 |  |  |
+| ch13-01-closures.md | 13 | 3006 | ch13-01-closures-sec1, ch13-01-closures-sec2 | tłumaczenie | a92dbfe2 | 1 |  |  |
 | ch13-02-iterators.md | 13 | 1473 | ch13-02-iterators | do zrobienia | | 0 | | |
 | ch13-03-improving-our-io-project.md | 13 | 1271 | — | do zrobienia | | 0 | | |
 | ch13-04-performance.md | 13 | 427 | — | do zrobienia | | 0 | | |
