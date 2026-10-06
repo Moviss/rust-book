@@ -21,7 +21,7 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "5"
 context = """ 
-Each match is tried from top to bottom. Both the second and third pattern are applicable, so the second one is used.
+Wzorce są sprawdzane od góry do dołu. Pasują zarówno drugi, jak i trzeci wzorzec, więc użyty zostaje drugi.
 """
 
 
@@ -29,7 +29,7 @@ Each match is tried from top to bottom. Both the second and third pattern are ap
 id = "f7c361e0-733a-4d48-9809-736e3c1e2b67"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider this method implemented for the `Option` type:
+Rozważ tę metodę zaimplementowaną dla typu `Option`:
 
 ```
 impl<T> Option<T> {
@@ -42,17 +42,17 @@ impl<T> Option<T> {
 }
 ```
 
-Which sentence best describes the behavior of this function?
+Które zdanie najlepiej opisuje działanie tej funkcji?
 """
-answer.answer = "Returns the object inside `self` if it exists, and `other` otherwise"
+answer.answer = "Zwraca obiekt wewnątrz `self`, jeśli istnieje, a w przeciwnym razie `other`"
 prompt.distractors = [
-  "Returns a new option containing the object inside `self` if it exists, and `other` otherwise",
-  "Inserts `other` into `self` if `self` does not already contain a value",
-  "Returns a reference to the object inside `self` if it exists, and `other` otherwise"
+  "Zwraca nową opcję zawierającą obiekt wewnątrz `self`, jeśli istnieje, a w przeciwnym razie `other`",
+  "Wstawia `other` do `self`, jeśli `self` nie zawiera jeszcze wartości",
+  "Zwraca referencję do obiektu wewnątrz `self`, jeśli istnieje, a w przeciwnym razie `other`"
 ]
 context = """
-This function "unwraps" the option by consuming ownership of it and retrieving the value inside, but if no value exists then it falls back by returning `other`.
-This is a real function in the standard library!
+Ta funkcja „rozpakowuje” opcję: przejmuje ją na własność i wydobywa wartość ze środka, a jeśli wartości nie ma, awaryjnie zwraca `other`.
+To prawdziwa funkcja z biblioteki standardowej!
 """
 
 
@@ -78,7 +78,7 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 13
 context = """
-The match arm `Either::Right(s)` moves the field `s`, so `x` cannot be used in the `println`.
+Ramię `Either::Right(s)` przenosi pole `s`, więc `x` nie można użyć w `println`.
 """
 
 
@@ -86,7 +86,7 @@ The match arm `Either::Right(s)` moves the field `s`, so `x` cannot be used in t
 id = "6e012d34-5c59-443e-85d9-385f0d7dee13"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider these two implementations of a function to decrement an unsigned number twice.
+Rozważ dwie implementacje funkcji, która dwukrotnie zmniejsza o 1 liczbę bez znaku.
 
 ```
 fn decr_twice_v1(n: u32) -> Option<u32> {
@@ -108,10 +108,10 @@ fn decr_twice_v2(n: u32) -> Option<u32> {
 }
 ```
 
-The functions have the same behavior for:
+Funkcje zachowują się tak samo dla:
 """
-answer.answer = "All inputs"
-prompt.distractors = [ "No inputs", "Some, but not all inputs" ]
+answer.answer = "wszystkich danych wejściowych"
+prompt.distractors = [ "żadnych danych wejściowych", "niektórych, ale nie wszystkich danych wejściowych" ]
 context = """
-The `match` and `if` perform the same function here. A match is like a specialized `if` that checks for equality of the matched object.
+`match` i `if` pełnią tu tę samą funkcję. `match` jest jak wyspecjalizowane `if`, które sprawdza równość dopasowywanego obiektu.
 """

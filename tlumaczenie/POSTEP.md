@@ -70,24 +70,24 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | gotowe | ab2fdd3d | 1 |  |  |
 | ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | gotowe | ab2fdd3d | 1 |  |  |
 | ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | gotowe | ab2fdd3d | 1 |  |  |
-| ch06-00-enums.md | 6 | 113 | — | przegląd | ac18a18c | 1 |  |  |
-| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | przegląd | ac18a18c | 1 |  |  |
-| ch06-02-match.md | 6 | 2072 | ch06-02-match | przegląd | ac18a18c | 1 | 2 (`match` jako kod, uzasadnione) |  |
-| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | przegląd | ac18a18c | 1 |  |  |
-| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | przegląd | ac18a18c | 1 |  |  |
-| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | przetłumaczone | afe1270a | 1 |  |  |
-| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | przetłumaczone | afe1270a | 1 |  |  |
-| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | przetłumaczone | a1fd5f96 | 1 |  |  |
-| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | tłumaczenie | abad4f8f | 1 |  |  |
-| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | tłumaczenie | a5fa872c | 1 |  |  |
-| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | tłumaczenie | ab48837f | 1 |  |  |
+| ch06-00-enums.md | 6 | 113 | — | gotowe | ac18a18c | 1 |  |  |
+| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | gotowe | ac18a18c | 1 |  |  |
+| ch06-02-match.md | 6 | 2072 | ch06-02-match | gotowe | ac18a18c | 1 | 2 (`match` jako kod, uzasadnione) |  |
+| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | gotowe | ac18a18c | 1 |  |  |
+| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | gotowe | ac18a18c | 1 |  |  |
+| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | przegląd | a854e603 | 1 |  |  |
+| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | przegląd | a854e603 | 1 |  |  |
+| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | przegląd | a854e603 | 1 |  |  |
+| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | przegląd | a854e603 | 1 |  |  |
+| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | przegląd | a854e603 | 1 |  |  |
+| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | przegląd | a854e603 | 1 |  |  |
 | ch08-00-common-collections.md | 8 | 218 | — | tłumaczenie | aa61e28d | 1 |  |  |
 | ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | tłumaczenie | aa61e28d | 1 |  |  |
-| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | do zrobienia | | 0 | | |
-| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | do zrobienia | | 0 | | |
-| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | do zrobienia | | 0 | | |
-| ch09-00-error-handling.md | 9 | 221 | — | do zrobienia | | 0 | | |
-| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | do zrobienia | | 0 | | |
+| ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | tłumaczenie | a80765db | 1 |  |  |
+| ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | tłumaczenie | ad515200 | 1 |  |  |
+| ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | tłumaczenie | ad515200 | 1 |  |  |
+| ch09-00-error-handling.md | 9 | 221 | — | tłumaczenie | a761342d | 1 |  |  |
+| ch09-01-unrecoverable-errors-with-panic.md | 9 | 1152 | ch09-01-panic | tłumaczenie | a761342d | 1 |  |  |
 | ch09-02-recoverable-errors-with-result.md | 9 | 3996 | ch09-02-recoverable-errors-sec1, ch09-02-recoverable-errors-sec2 | do zrobienia | | 0 | | |
 | ch09-03-to-panic-or-not-to-panic.md | 9 | 2213 | ch09-03-panic-or-not | do zrobienia | | 0 | | |
 | ch10-00-generics.md | 10 | 898 | — | do zrobienia | | 0 | | |

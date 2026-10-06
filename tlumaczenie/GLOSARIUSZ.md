@@ -194,3 +194,12 @@ recenzent.
 | build script | skrypt budowania | — | | |
 | method syntax | składnia metod | składnia metod (*method syntax*) | | |
 | receiver (metody) | odbiorca metody | — | | |
+| absolute / relative path | ścieżka bezwzględna / względna | ścieżka bezwzględna (*absolute path*) | | |
+| make public | upublicznić | — | | |
+| ancestor module | przodek | — | | |
+| re-export | reeksportować / reeksportowanie | reeksportowanie (*re-exporting*) | | |
+| nested path | ścieżka zagnieżdżona | — | | |
+| idiomatic | idiomatyczny | — | | |
+| binding mode | tryb wiązania | — | | |
+| dangling pointer | wiszący wskaźnik | — | | |
+| clone-on-write | klonowanie przy zapisie | — | | |

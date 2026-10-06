@@ -1,63 +1,63 @@
-## Defining an Enum {#defining-an-enum}
+## Definiowanie enuma {#defining-an-enum}
 
-Where structs give you a way of grouping together related fields and data, like
-a `Rectangle` with its `width` and `height`, enums give you a way of saying a
-value is one of a possible set of values. For example, we may want to say that
-`Rectangle` is one of a set of possible shapes that also includes `Circle` and
-`Triangle`. To do this, Rust allows us to encode these possibilities as an enum.
+Struktury (*struct*) pozwalają grupować powiązane pola i dane, jak `Rectangle`
+z polami `width` i `height`, a enumy (*enum*, typy wyliczeniowe) pozwalają
+powiedzieć, że wartość jest jedną z możliwego zbioru wartości. Na przykład
+możemy chcieć wyrazić, że `Rectangle` to jeden z możliwych kształtów, do których
+należą też `Circle` i `Triangle`. Rust pozwala zapisać te możliwości jako enum.
 
-Let’s look at a situation we might want to express in code and see why enums
-are useful and more appropriate than structs in this case. Say we need to work
-with IP addresses. Currently, two major standards are used for IP addresses:
-version four and version six. Because these are the only possibilities for an
-IP address that our program will come across, we can _enumerate_ all possible
-variants, which is where enumeration gets its name.
+Przyjrzyjmy się sytuacji, którą moglibyśmy chcieć wyrazić w kodzie, i zobaczmy,
+dlaczego enumy są w niej przydatne i lepiej się nadają niż struktury. Załóżmy,
+że musimy pracować z adresami IP. Obecnie używa się dwóch głównych standardów
+adresów IP: wersji czwartej i wersji szóstej. Ponieważ to jedyne rodzaje adresów
+IP, z jakimi zetknie się nasz program, możemy _wyliczyć_ wszystkie możliwe
+warianty – i właśnie od tego pochodzi nazwa typu wyliczeniowego.
 
-Any IP address can be either a version four or a version six address, but not
-both at the same time. That property of IP addresses makes the enum data
-structure appropriate because an enum value can only be one of its variants.
-Both version four and version six addresses are still fundamentally IP
-addresses, so they should be treated as the same type when the code is handling
-situations that apply to any kind of IP address.
+Każdy adres IP może być adresem w wersji czwartej albo szóstej, ale nie obiema
+naraz. Ta właściwość adresów IP sprawia, że enum jest odpowiednią strukturą
+danych, bo wartość enuma może być tylko jednym z jego wariantów. Adresy w wersji
+czwartej i szóstej to wciąż w gruncie rzeczy adresy IP, więc kod obsługujący
+sytuacje dotyczące dowolnego rodzaju adresu IP powinien traktować je jako ten
+sam typ.
 
-We can express this concept in code by defining an `IpAddrKind` enumeration and
-listing the possible kinds an IP address can be, `V4` and `V6`. These are the
-variants of the enum:
+Możemy wyrazić tę koncepcję w kodzie, definiując enum `IpAddrKind` i wymieniając
+możliwe rodzaje adresu IP: `V4` i `V6`. To są warianty tego enuma:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:def}}
 ```
 
-`IpAddrKind` is now a custom data type that we can use elsewhere in our code.
+`IpAddrKind` jest teraz własnym typem danych, którego możemy używać w innych
+miejscach kodu.
 
-### Enum Values {#enum-values}
+### Wartości enumów {#enum-values}
 
-We can create instances of each of the two variants of `IpAddrKind` like this:
+Instancje każdego z dwóch wariantów `IpAddrKind` możemy utworzyć tak:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:instance}}
 ```
 
-Note that the variants of the enum are namespaced under its identifier, and we
-use a double colon to separate the two. This is useful because now both values
-`IpAddrKind::V4` and `IpAddrKind::V6` are of the same type: `IpAddrKind`. We
-can then, for instance, define a function that takes any `IpAddrKind`:
+Zwróć uwagę, że warianty enuma należą do przestrzeni nazw (*namespace*) jego
+identyfikatora i oddzielamy je od niego podwójnym dwukropkiem. To przydatne, bo
+teraz obie wartości, `IpAddrKind::V4` i `IpAddrKind::V6`, mają ten sam typ:
+`IpAddrKind`. Możemy więc na przykład zdefiniować funkcję, która przyjmuje
+dowolny `IpAddrKind`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:fn}}
 ```
 
-And we can call this function with either variant:
+I możemy wywołać tę funkcję z dowolnym wariantem:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:fn_call}}
 ```
 
-Using enums has even more advantages. Thinking more about our IP address type,
-at the moment we don’t have a way to store the actual IP address _data_; we
-only know what _kind_ it is. Given that you just learned about structs in
-Chapter 5, you might be tempted to tackle this problem with structs as shown in
-Listing 6-1.
+Enumy mają jeszcze więcej zalet. Zastanówmy się dłużej nad naszym typem adresu
+IP: na razie nie mamy jak przechować faktycznych _danych_ adresu IP, wiemy tylko,
+jakiego jest _rodzaju_. Skoro struktury znasz już z rozdziału 5, możesz mieć
+ochotę rozwiązać ten problem za ich pomocą, jak w listingu 6-1.
 
 ```aquascope,interpreter
 #fn main() {
@@ -83,19 +83,18 @@ let loopback = IpAddr {
 #}
 ```
 
-Here, we’ve defined a struct `IpAddr` that has two fields: a `kind` field that
-is of type `IpAddrKind` (the enum we defined previously) and an `address` field
-of type `String`. We have two instances of this struct. The first is `home`,
-and it has the value `IpAddrKind::V4` as its `kind` with associated address
-data of `127.0.0.1`. The second instance is `loopback`. It has the other
-variant of `IpAddrKind` as its `kind` value, `V6`, and has address `::1`
-associated with it. We’ve used a struct to bundle the `kind` and `address`
-values together, so now the variant is associated with the value.
+Zdefiniowaliśmy tu strukturę `IpAddr` z dwoma polami: polem `kind` typu
+`IpAddrKind` (enuma, którego zdefiniowaliśmy wcześniej) i polem `address` typu
+`String`. Mamy dwie instancje tej struktury. Pierwsza to `home` – jej `kind` ma
+wartość `IpAddrKind::V4`, a powiązane z nią dane adresu to `127.0.0.1`. Druga
+instancja to `loopback`. Jej wartością `kind` jest drugi wariant `IpAddrKind`,
+czyli `V6`, a powiązany z nią adres to `::1`. Użyliśmy struktury, żeby połączyć
+wartości `kind` i `address`, więc teraz wariant jest powiązany z wartością.
 
-However, representing the same concept using just an enum is more concise:
-Rather than an enum inside a struct, we can put data directly into each enum
-variant. This new definition of the `IpAddr` enum says that both `V4` and `V6`
-variants will have associated `String` values:
+Tę samą koncepcję można jednak wyrazić zwięźlej za pomocą samego enuma: zamiast
+umieszczać enum w strukturze, możemy umieścić dane bezpośrednio w każdym
+wariancie enuma. Ta nowa definicja enuma `IpAddr` mówi, że oba warianty, `V4` i
+`V6`, będą miały powiązane wartości `String`:
 
 ```aquascope,interpreter
 #fn main() {    
@@ -110,20 +109,19 @@ let loopback = IpAddr::V6(String::from("::1"));`[]`
 #}
 ```
 
-We attach data to each variant of the enum directly, so there is no need for an
-extra struct. Here, it’s also easier to see another detail of how enums work:
-The name of each enum variant that we define also becomes a function that
-constructs an instance of the enum. That is, `IpAddr::V4()` is a function call
-that takes a `String` argument and returns an instance of the `IpAddr` type. We
-automatically get this constructor function defined as a result of defining the
-enum.
+Dołączamy dane bezpośrednio do każdego wariantu enuma, więc dodatkowa struktura
+nie jest potrzebna. Łatwiej tu też dostrzec inny szczegół działania enumów: nazwa
+każdego zdefiniowanego wariantu enuma staje się zarazem funkcją, która tworzy
+instancję enuma. Innymi słowy, `IpAddr::V4()` to wywołanie funkcji, która
+przyjmuje argument typu `String` i zwraca instancję typu `IpAddr`. Tę funkcję
+konstruującą dostajemy automatycznie w wyniku zdefiniowania enuma.
 
-There’s another advantage to using an enum rather than a struct: Each variant
-can have different types and amounts of associated data. Version four IP
-addresses will always have four numeric components that will have values
-between 0 and 255. If we wanted to store `V4` addresses as four `u8` values but
-still express `V6` addresses as one `String` value, we wouldn’t be able to with
-a struct. Enums handle this case with ease:
+Enum ma nad strukturą jeszcze jedną przewagę: każdy wariant może mieć powiązane
+dane innego typu i w innej ilości. Adresy IP w wersji czwartej zawsze składają
+się z czterech liczb o wartościach od 0 do 255. Gdybyśmy chcieli przechowywać
+adresy `V4` jako cztery wartości `u8`, a adresy `V6` nadal wyrażać jako jedną
+wartość `String`, nie dalibyśmy rady zrobić tego za pomocą struktury. Enumy
+radzą sobie z tym bez trudu:
 
 ```aquascope,interpreter
 #fn main() {
@@ -139,14 +137,14 @@ let loopback = IpAddr::V6(String::from("::1"));`[]`
 
 ```
 
-We’ve shown several different ways to define data structures to store version
-four and version six IP addresses. However, as it turns out, wanting to store
-IP addresses and encode which kind they are is so common that [the standard
-library has a definition we can use!][IpAddr]<!-- ignore --> Let’s look at how
-the standard library defines `IpAddr`. It has the exact enum and variants that
-we’ve defined and used, but it embeds the address data inside the variants in
-the form of two different structs, which are defined differently for each
-variant:
+Pokazaliśmy kilka sposobów definiowania struktur danych do przechowywania adresów
+IP w wersji czwartej i szóstej. Okazuje się jednak, że przechowywanie adresów IP
+wraz z informacją o ich rodzaju jest tak powszechne, że
+[biblioteka standardowa ma definicję, której możemy użyć!][IpAddr]<!-- ignore -->
+Zobaczmy, jak biblioteka standardowa definiuje `IpAddr`. Ma dokładnie taki enum
+i takie warianty, jakie zdefiniowaliśmy i jakich użyliśmy, ale dane adresu
+umieszcza w wariantach w postaci dwóch różnych struktur, zdefiniowanych inaczej
+dla każdego wariantu:
 
 ```rust
 struct Ipv4Addr {
@@ -163,20 +161,20 @@ enum IpAddr {
 }
 ```
 
-This code illustrates that you can put any kind of data inside an enum variant:
-strings, numeric types, or structs, for example. You can even include another
-enum! Also, standard library types are often not much more complicated than
-what you might come up with.
+Ten kod pokazuje, że w wariancie enuma można umieścić dane dowolnego rodzaju, na
+przykład łańcuchy znaków (*string*), typy liczbowe albo struktury. Można nawet
+umieścić w nim inny enum! Poza tym typy z biblioteki standardowej często nie są
+dużo bardziej skomplikowane od tego, co można by wymyślić samodzielnie.
 
-Note that even though the standard library contains a definition for `IpAddr`,
-we can still create and use our own definition without conflict because we
-haven’t brought the standard library’s definition into our scope. We’ll talk
-more about bringing types into scope in Chapter 7.
+Zwróć uwagę, że choć biblioteka standardowa zawiera definicję `IpAddr`, wciąż
+możemy bez konfliktu utworzyć i używać własnej definicji, bo nie wprowadziliśmy
+definicji z biblioteki standardowej do naszego zasięgu (*scope*). Więcej o
+wprowadzaniu typów do zasięgu powiemy w rozdziale 7.
 
-Let’s look at another example of an enum in Listing 6-2: This one has a wide
-variety of types embedded in its variants.
+Przyjrzyjmy się kolejnemu przykładowi enuma w listingu 6-2: ten ma w swoich
+wariantach osadzone wartości bardzo różnych typów.
 
-<Listing number="6-2" caption="A `Message` enum whose variants each store different amounts and types of values">
+<Listing number="6-2" caption="Enum `Message`, którego warianty przechowują wartości różnych typów w różnej liczbie">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-02/src/main.rs:here}}
@@ -184,90 +182,92 @@ variety of types embedded in its variants.
 
 </Listing>
 
-This enum has four variants with different types:
+Ten enum ma cztery warianty różnych typów:
 
-- `Quit`: Has no data associated with it at all
-- `Move`: Has named fields, like a struct does
-- `Write`: Includes a single `String`
-- `ChangeColor`: Includes three `i32` values
+- `Quit`: nie ma żadnych powiązanych danych;
+- `Move`: ma nazwane pola, tak jak struktura;
+- `Write`: zawiera pojedynczy `String`;
+- `ChangeColor`: zawiera trzy wartości `i32`.
 
-Defining an enum with variants such as the ones in Listing 6-2 is similar to
-defining different kinds of struct definitions, except the enum doesn’t use the
-`struct` keyword and all the variants are grouped together under the `Message`
-type. The following structs could hold the same data that the preceding enum
-variants hold:
+Zdefiniowanie enuma z wariantami takimi jak w listingu 6-2 przypomina
+zdefiniowanie różnych rodzajów struktur, z tą różnicą, że enum nie używa słowa
+kluczowego (*keyword*) `struct`, a wszystkie warianty są zgrupowane w typie
+`Message`. Te same dane, które przechowują warianty powyższego enuma, mogłyby
+przechowywać następujące struktury:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-04-structs-similar-to-message-enum/src/main.rs:here}}
 ```
 
-But if we used the different structs, each of which has its own type, we
-couldn’t as easily define a function to take any of these kinds of messages as
-we could with the `Message` enum defined in Listing 6-2, which is a single type.
+Gdybyśmy jednak użyli różnych struktur, z których każda ma własny typ, nie
+moglibyśmy tak łatwo zdefiniować funkcji przyjmującej dowolny z tych rodzajów
+komunikatów, jak w przypadku enuma `Message` z listingu 6-2, który jest
+pojedynczym typem.
 
-There is one more similarity between enums and structs: Just as we’re able to
-define methods on structs using `impl`, we’re also able to define methods on
-enums. Here’s a method named `call` that we could define on our `Message` enum:
+Enumy i struktury mają jeszcze jedno podobieństwo: tak jak możemy definiować
+metody na strukturach za pomocą `impl`, możemy też definiować metody na enumach.
+Oto metoda o nazwie `call`, którą moglibyśmy zdefiniować na naszym enumie
+`Message`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-05-methods-on-enums/src/main.rs:here}}
 ```
 
-The body of the method would use `self` to get the value that we called the
-method on. In this example, we’ve created a variable `m` that has the value
-`Message::Write(String::from("hello"))`, and that is what `self` will be in the
-body of the `call` method when `m.call()` runs.
+Ciało metody użyłoby `self`, żeby dostać wartość, na której wywołaliśmy metodę.
+W tym przykładzie utworzyliśmy zmienną `m` o wartości
+`Message::Write(String::from("hello"))` i to właśnie ona będzie wartością `self`
+w ciele metody `call`, gdy wykona się `m.call()`.
 
-Let’s look at another enum in the standard library that is very common and
-useful: `Option`.
+Przyjrzyjmy się innemu enumowi z biblioteki standardowej, który jest bardzo
+powszechny i przydatny: `Option`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="the-option-enum-and-its-advantages-over-null-values"></a>
 
-### The `Option` Enum {#the-option-enum}
+### Enum `Option` {#the-option-enum}
 
-This section explores a case study of `Option`, which is another enum defined
-by the standard library. The `Option` type encodes the very common scenario in
-which a value could be something, or it could be nothing.
+W tym podrozdziale przeanalizujemy przypadek `Option` – kolejnego enuma
+zdefiniowanego w bibliotece standardowej. Typ `Option` wyraża bardzo częsty
+scenariusz, w którym wartość może być czymś albo może być niczym.
 
-For example, if you request the first item in a non-empty list, you would get
-a value. If you request the first item in an empty list, you would get nothing.
-Expressing this concept in terms of the type system means the compiler can
-check whether you’ve handled all the cases you should be handling; this
-functionality can prevent bugs that are extremely common in other programming
-languages.
+Na przykład, jeśli zażądasz pierwszego elementu niepustej listy, dostaniesz
+wartość. Jeśli zażądasz pierwszego elementu pustej listy, nie dostaniesz nic.
+Wyrażenie tej koncepcji w kategoriach systemu typów (*type system*) oznacza, że
+kompilator może sprawdzić, czy obsłużono wszystkie przypadki, które powinny
+zostać obsłużone. Ta funkcjonalność może zapobiec błędom niezwykle częstym w
+innych językach programowania.
 
-Programming language design is often thought of in terms of which features you
-include, but the features you exclude are important too. Rust doesn’t have the
-null feature that many other languages have. _Null_ is a value that means there
-is no value there. In languages with null, variables can always be in one of
-two states: null or not-null.
+O projektowaniu języka programowania często myśli się w kategoriach tego, jakie
+funkcjonalności się w nim umieszcza, ale funkcjonalności pominięte też są ważne.
+Rust nie ma znanego z wielu innych języków mechanizmu null. _Null_ to wartość
+oznaczająca, że żadnej wartości tam nie ma. W językach z null zmienne zawsze
+mogą być w jednym z dwóch stanów: null albo nie-null.
 
-In his 2009 presentation “Null References: The Billion Dollar Mistake,” Tony
-Hoare, the inventor of null, had this to say:
+W swoim wystąpieniu z 2009 roku „Null References: The Billion Dollar Mistake”
+Tony Hoare, twórca null, powiedział:
 
-> I call it my billion-dollar mistake. At that time, I was designing the first
-> comprehensive type system for references in an object-oriented language. My
-> goal was to ensure that all use of references should be absolutely safe, with
-> checking performed automatically by the compiler. But I couldn’t resist the
-> temptation to put in a null reference, simply because it was so easy to
-> implement. This has led to innumerable errors, vulnerabilities, and system
-> crashes, which have probably caused a billion dollars of pain and damage in
-> the last forty years.
+> Nazywam to swoim błędem wartym miliard dolarów. W tamtym czasie projektowałem
+> pierwszy kompleksowy system typów dla referencji w języku obiektowym. Moim
+> celem było zapewnienie, że każde użycie referencji będzie absolutnie
+> bezpieczne, a sprawdzanie będzie wykonywane automatycznie przez kompilator.
+> Nie mogłem się jednak oprzeć pokusie dodania referencji null, po prostu
+> dlatego, że tak łatwo było ją zaimplementować. Doprowadziło to do
+> niezliczonych błędów, podatności i awarii systemów, które w ciągu ostatnich
+> czterdziestu lat spowodowały zapewne szkody i cierpienia warte miliard
+> dolarów.
 
-The problem with null values is that if you try to use a null value as a
-not-null value, you’ll get an error of some kind. Because this null or not-null
-property is pervasive, it’s extremely easy to make this kind of error.
+Problem z wartościami null polega na tym, że jeśli spróbujesz użyć wartości null
+tak, jakby nie była null, dostaniesz jakiś błąd. Ponieważ ta właściwość bycia
+null albo nie-null jest wszechobecna, niezwykle łatwo popełnić taki błąd.
 
-However, the concept that null is trying to express is still a useful one: A
-null is a value that is currently invalid or absent for some reason.
+Koncepcja, którą null próbuje wyrazić, jest jednak nadal przydatna: null to
+wartość, która z jakiegoś powodu jest obecnie nieprawidłowa albo nieobecna.
 
-The problem isn’t really with the concept but with the particular
-implementation. As such, Rust does not have nulls, but it does have an enum
-that can encode the concept of a value being present or absent. This enum is
-`Option<T>`, and it is [defined by the standard library][option]<!-- ignore -->
-as follows:
+Problem nie leży właściwie w samej koncepcji, tylko w konkretnej implementacji.
+Dlatego Rust nie ma wartości null, ale ma enum, który potrafi wyrazić to, że
+wartość jest obecna albo jej brak. Tym enumem jest `Option<T>`, a
+[biblioteka standardowa definiuje go][option]<!-- ignore --> następująco:
 
 ```rust
 enum Option<T> {
@@ -276,19 +276,18 @@ enum Option<T> {
 }
 ```
 
-The `Option<T>` enum is so useful that it’s even included in the prelude; you
-don’t need to bring it into scope explicitly. Its variants are also included in
-the prelude: You can use `Some` and `None` directly without the `Option::`
-prefix. The `Option<T>` enum is still just a regular enum, and `Some(T)` and
-`None` are still variants of type `Option<T>`.
+Enum `Option<T>` jest tak przydatny, że znajduje się nawet w *prelude* (zestaw
+elementów importowanych automatycznie), więc nie musisz jawnie wprowadzać go do
+zasięgu. Jego warianty również są w prelude: możesz używać `Some` i `None`
+bezpośrednio, bez prefiksu `Option::`. Enum `Option<T>` to mimo wszystko zwykły
+enum, a `Some(T)` i `None` to nadal warianty typu `Option<T>`.
 
-The `<T>` syntax is a feature of Rust we haven’t talked about yet. It’s a
-generic type parameter, and we’ll cover generics in more detail in Chapter 10.
-For now, all you need to know is that `<T>` means that the `Some` variant of
-the `Option` enum can hold one piece of data of any type, and that each
-concrete type that gets used in place of `T` makes the overall `Option<T>` type
-a different type. Here are some examples of using `Option` values to hold
-number types and char types:
+Składnia `<T>` to element Rusta, którego jeszcze nie omawialiśmy. To generyczny
+parametr typu, a typy generyczne (*generics*) omówimy dokładniej w rozdziale
+10. Na razie wystarczy ci wiedzieć, że `<T>` oznacza, iż wariant `Some` enuma
+`Option` może przechowywać jedną wartość dowolnego typu, a każdy konkretny typ
+użyty w miejsce `T` sprawia, że cały typ `Option<T>` staje się innym typem. Oto
+kilka przykładów użycia wartości `Option` do przechowywania liczb i znaków:
 
 ```aquascope,interpreter
 #fn main() {
@@ -299,71 +298,68 @@ let absent_number: Option<i32> = None;`[]`
 #}
 ```
 
-The type of `some_number` is `Option<i32>`. The type of `some_char` is
-`Option<char>`, which is a different type. Rust can infer these types because
-we’ve specified a value inside the `Some` variant. For `absent_number`, Rust
-requires us to annotate the overall `Option` type: The compiler can’t infer the
-type that the corresponding `Some` variant will hold by looking only at a
-`None` value. Here, we tell Rust that we mean for `absent_number` to be of type
-`Option<i32>`.
+Typem `some_number` jest `Option<i32>`. Typem `some_char` jest `Option<char>`,
+czyli inny typ. Rust potrafi wywnioskować te typy, bo podaliśmy wartość wewnątrz
+wariantu `Some`. W przypadku `absent_number` Rust wymaga od nas adnotacji
+całego typu `Option`: kompilator nie wywnioskuje, jakiego typu wartość
+przechowywałby odpowiadający wariant `Some`, patrząc tylko na wartość `None`. Mówimy tu
+Rustowi, że `absent_number` ma być typu `Option<i32>`.
 
-When we have a `Some` value, we know that a value is present, and the value is
-held within the `Some`. When we have a `None` value, in some sense it means the
-same thing as null: We don’t have a valid value. So, why is having `Option<T>`
-any better than having null?
+Gdy mamy wartość `Some`, wiemy, że wartość jest obecna i jest przechowywana w
+`Some`. Gdy mamy wartość `None`, w pewnym sensie oznacza to to samo co null: nie
+mamy prawidłowej wartości. Dlaczego więc `Option<T>` jest w ogóle lepszy od
+null?
 
-In short, because `Option<T>` and `T` (where `T` can be any type) are different
-types, the compiler won’t let us use an `Option<T>` value as if it were
-definitely a valid value. For example, this code won’t compile, because it’s
-trying to add an `i8` to an `Option<i8>`:
+Krótko mówiąc: ponieważ `Option<T>` i `T` (gdzie `T` może być dowolnym typem)
+to różne typy, kompilator nie pozwoli nam użyć wartości `Option<T>` tak, jakby
+na pewno była prawidłową wartością. Na przykład ten kod się nie skompiluje, bo
+próbuje dodać `i8` do `Option<i8>`:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-07-cant-use-option-directly/src/main.rs:here}}
 ```
 
-If we run this code, we get an error message like this one:
+Jeśli uruchomimy ten kod, dostaniemy komunikat o błędzie podobny do tego:
 
 ```console
 {{#include ../listings/ch06-enums-and-pattern-matching/no-listing-07-cant-use-option-directly/output.txt}}
 ```
 
-Intense! In effect, this error message means that Rust doesn’t understand how
-to add an `i8` and an `Option<i8>`, because they’re different types. When we
-have a value of a type like `i8` in Rust, the compiler will ensure that we
-always have a valid value. We can proceed confidently without having to check
-for null before using that value. Only when we have an `Option<i8>` (or
-whatever type of value we’re working with) do we have to worry about possibly
-not having a value, and the compiler will make sure we handle that case before
-using the value.
+Brzmi groźnie! W praktyce ten komunikat oznacza, że Rust nie wie, jak dodać
+`i8` i `Option<i8>`, bo to różne typy. Gdy w Ruście mamy wartość typu takiego
+jak `i8`, kompilator zapewni, że zawsze jest to prawidłowa wartość. Możemy
+śmiało działać dalej bez sprawdzania, czy przed użyciem tej wartości nie jest
+ona null. Dopiero gdy mamy `Option<i8>` (albo inny typ wartości, z którą
+pracujemy), musimy się martwić, że wartości może nie być, a kompilator dopilnuje,
+żebyśmy obsłużyli ten przypadek przed jej użyciem.
 
-In other words, you have to convert an `Option<T>` to a `T` before you can
-perform `T` operations with it. Generally, this helps catch one of the most
-common issues with null: assuming that something isn’t null when it actually is.
+Innymi słowy, musisz przekonwertować `Option<T>` na `T`, zanim wykonasz na tej
+wartości operacje właściwe dla `T`. Na ogół pomaga to wychwycić jeden z
+najczęstszych problemów z null: założenie, że coś nie jest null, gdy w
+rzeczywistości jest.
 
-Eliminating the risk of incorrectly assuming a not-null value helps you be more
-confident in your code. In order to have a value that can possibly be null, you
-must explicitly opt in by making the type of that value `Option<T>`. Then, when
-you use that value, you are required to explicitly handle the case when the
-value is null. Everywhere that a value has a type that isn’t an `Option<T>`,
-you _can_ safely assume that the value isn’t null. This was a deliberate design
-decision for Rust to limit null’s pervasiveness and increase the safety of Rust
-code.
+Wyeliminowanie ryzyka błędnego założenia, że wartość nie jest null, pozwala ci
+pewniej czuć się z własnym kodem. Żeby mieć wartość, która może być null, musisz
+świadomie się na to zdecydować, nadając jej typ `Option<T>`. Potem, używając tej
+wartości, musisz jawnie obsłużyć przypadek, w którym jest ona null. Wszędzie
+tam, gdzie wartość ma typ inny niż `Option<T>`, _możesz_ bezpiecznie założyć, że
+nie jest null. To przemyślana decyzja projektowa Rusta, która ma ograniczyć
+wszechobecność null i zwiększyć bezpieczeństwo kodu w Ruście.
 
-So how do you get the `T` value out of a `Some` variant when you have a value
-of type `Option<T>` so that you can use that value? The `Option<T>` enum has a
-large number of methods that are useful in a variety of situations; you can
-check them out in [its documentation][docs]<!-- ignore -->. Becoming familiar
-with the methods on `Option<T>` will be extremely useful in your journey with
-Rust.
+Jak więc wydobyć wartość `T` z wariantu `Some`, gdy masz wartość typu
+`Option<T>`, żeby móc jej użyć? Enum `Option<T>` ma wiele metod przydatnych w
+najróżniejszych sytuacjach; możesz je przejrzeć w
+[jego dokumentacji][docs]<!-- ignore -->. Poznanie metod `Option<T>` bardzo się
+przyda w twojej przygodzie z Rustem.
 
-In general, in order to use an `Option<T>` value, you want to have code that
-will handle each variant. You want some code that will run only when you have a
-`Some(T)` value, and this code is allowed to use the inner `T`. You want some
-other code to run only if you have a `None` value, and that code doesn’t have a
-`T` value available. The `match` expression is a control flow construct that
-does just this when used with enums: It will run different code depending on
-which variant of the enum it has, and that code can use the data inside the
-matching value.
+Ogólnie rzecz biorąc, żeby użyć wartości `Option<T>`, potrzebujesz kodu, który
+obsłuży każdy wariant. Potrzebujesz kodu, który uruchomi się tylko wtedy, gdy
+masz wartość `Some(T)`, i ten kod może używać wewnętrznej wartości `T`.
+Potrzebujesz też innego kodu, który uruchomi się tylko wtedy, gdy masz wartość
+`None`, i ten kod nie ma dostępu do wartości `T`. Wyrażenie `match` to
+konstrukcja przepływu sterowania (*control flow*), która użyta z enumami robi
+właśnie to: uruchamia różny kod w zależności od tego, jaki wariant enuma
+otrzyma, a ten kod może używać danych wewnątrz dopasowanej wartości.
 
 {{#quiz ../quizzes/ch06-01-defining-an-enum.toml}}
 

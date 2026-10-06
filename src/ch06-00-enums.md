@@ -1,11 +1,11 @@
-# Enums and Pattern Matching {#enums-and-pattern-matching}
+# Enumy i dopasowywanie wzorców {#enums-and-pattern-matching}
 
-In this chapter, we’ll look at enumerations, also referred to as _enums_.
-Enums allow you to define a type by enumerating its possible variants. First
-we’ll define and use an enum to show how an enum can encode meaning along with
-data. Next, we’ll explore a particularly useful enum, called `Option`, which
-expresses that a value can be either something or nothing. Then, we’ll look at
-how pattern matching in the `match` expression makes it easy to run different
-code for different values of an enum. Finally, we’ll cover how the `if let`
-construct is another convenient and concise idiom available to handle enums in
-your code.
+W tym rozdziale przyjrzymy się typom wyliczeniowym, nazywanym też _enumami_
+(*enum*). Enumy pozwalają zdefiniować typ przez wyliczenie jego możliwych
+wariantów. Najpierw zdefiniujemy enum i użyjemy go, żeby pokazać, jak enum może
+wyrażać znaczenie razem z danymi. Następnie omówimy szczególnie przydatny enum o
+nazwie `Option`, który wyraża, że wartość może być czymś albo niczym. Potem
+zobaczymy, jak dopasowywanie wzorców (*pattern matching*) w wyrażeniu `match`
+ułatwia uruchamianie różnego kodu dla różnych wartości enuma. Na koniec
+pokażemy, że konstrukcja `if let` to kolejny wygodny i zwięzły idiom do obsługi
+enumów w kodzie.

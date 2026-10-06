@@ -14,14 +14,14 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 6
 context = """ 
-Rust does not have null pointers, so the `null` keyword does not exist. An Option type should be used to represent the possibility of an object being null.
+Rust nie ma wskaźników null, więc słowo kluczowe `null` nie istnieje. Do wyrażenia tego, że obiekt może być null, należy użyć typu Option.
 """
 
 [[questions]]
 id = "6226be11-31c3-4cac-b97c-515514a70af2"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider these two representations of a `Result` type that contains a value `T` if a computation succeeds, or an error `E` if it fails.
+Rozważ dwie reprezentacje typu `Result`, który zawiera wartość `T`, jeśli obliczenie się powiedzie, albo błąd `E`, jeśli się nie powiedzie.
 
 ```
 struct Result1<T, E> {
@@ -35,19 +35,19 @@ enum Result2<T, E> {
 }
 ```
 
-The enum `Result2` is considered more idiomatic than the struct `Result1` in Rust. 
-Which statement below is **NOT** a valid reason why?
+W Ruście enum `Result2` uważa się za bardziej idiomatyczny niż strukturę `Result1`. 
+Które z poniższych stwierdzeń **NIE** jest prawidłowym uzasadnieniem?
 """
-answer.answer = "The struct contains `Option` types, which are only intended to wrap structs"
+answer.answer = "Struktura zawiera typy `Option`, które są przeznaczone wyłącznie do opakowywania struktur"
 prompt.distractors = [
-  "The struct uses more space in memory at runtime than the enum",
-  "The struct could have `ok` and `err` both be `None`, while the enum must have at least one of them",
-  "The struct is more syntactically verbose to construct than the enum"
+  "W czasie działania struktura zajmuje więcej pamięci niż enum",
+  "W strukturze zarówno `ok`, jak i `err` mogą być `None`, a enum musi mieć przynajmniej jedno z nich",
+  "Tworzenie struktury wymaga rozwleklejszej składni niż tworzenie enuma"
 ]
 context = """
-It's perfectly fine to have structs contain `Option` types as fields (the question asked for which is **NOT** a valid reason).
-But if your data structure has invariants like "exactly one of two optional fields should be `Some`",
-then that invariant is better ensured by use of an enum.
+Struktury jak najbardziej mogą zawierać pola typu `Option` (pytanie dotyczyło tego, co **NIE** jest prawidłowym uzasadnieniem).
+Jeśli jednak twoja struktura danych ma niezmienniki takie jak „dokładnie jedno z dwóch opcjonalnych pól powinno być `Some`”,
+to lepiej zapewnić taki niezmiennik za pomocą enuma.
 """
 
 
