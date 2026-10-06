@@ -129,26 +129,26 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch16-02-message-passing.md | 16 | 1747 | ch16-02-message-passing | gotowe | a5977de1 | 1 |  |  |
 | ch16-03-shared-state.md | 16 | 1957 | ch16-03-shared-state | gotowe | a5977de1 | 1 |  |  |
 | ch16-04-extensible-concurrency-sync-and-send.md | 16 | 892 | ch16-04-extensible-concurrency-send-and-sync | gotowe | a5977de1 | 1 |  |  |
-| ch17-00-async-await.md | 17 | 1644 | — | przetłumaczone | a38a4454 | 1 |  |  |
-| ch17-01-futures-and-syntax.md | 17 | 2979 | async-01-futures-and-syntax | przetłumaczone | ab1a0d8c | 1 |  |  |
-| ch17-02-concurrency-with-async.md | 17 | 2805 | async-02-concurrency-with-async | przetłumaczone | a69798ab | 1 |  |  |
-| ch17-03-more-futures.md | 17 | 1473 | async-03-more-futures | przetłumaczone | ab6bd790 | 1 |  |  |
-| ch17-04-streams.md | 17 | 631 | async-04-streams | przetłumaczone | a0b11b51 | 1 | 1 (`Iterator` z cytowanego nagłówka) |  |
-| ch17-05-traits-for-async.md | 17 | 4099 | async-05-traits-for-async | tłumaczenie | af42ee0e | 1 |  |  |
-| ch17-06-futures-tasks-threads.md | 17 | 873 | — | przetłumaczone | a0b11b51 | 1 |  |  |
-| ch18-00-oop.md | 18 | 143 | — | tłumaczenie | aa2baabc | 1 |  |  |
-| ch18-01-what-is-oo.md | 18 | 1257 | ch17-01-what-is-oo | tłumaczenie | aa2baabc | 1 |  |  |
-| ch18-02-trait-objects.md | 18 | 2203 | ch17-02-trait-objects | do zrobienia | | 0 | | |
-| ch18-03-oo-design-patterns.md | 18 | 4285 | ch17-03-oo-design-patterns | do zrobienia | | 0 | | |
-| ch18-04-inventory.md | 18 | 34 | ch17-04-inventory | do zrobienia | | 0 | | |
-| ch18-05-design-challenge.md | 18 | 598 | ch17-05-design-challenge-references, ch17-05-design-challenge-trait-trees, ch17-05-design-challenge-dispatch, ch17-05-design-challenge-intermediates | do zrobienia | | 0 | | |
-| ch19-00-patterns.md | 19 | 239 | — | do zrobienia | | 0 | | |
-| ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | do zrobienia | | 0 | | |
-| ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | do zrobienia | | 0 | | |
-| ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | do zrobienia | | 0 | | |
-| ch20-00-advanced-features.md | 20 | 198 | — | do zrobienia | | 0 | | |
-| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | do zrobienia | | 0 | | |
-| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | do zrobienia | | 0 | | |
+| ch17-00-async-await.md | 17 | 1644 | — | gotowe | a3451245 | 1 |  |  |
+| ch17-01-futures-and-syntax.md | 17 | 2979 | async-01-futures-and-syntax | gotowe | a3451245 | 1 |  |  |
+| ch17-02-concurrency-with-async.md | 17 | 2805 | async-02-concurrency-with-async | gotowe | a3451245 | 1 |  |  |
+| ch17-03-more-futures.md | 17 | 1473 | async-03-more-futures | gotowe | acb62eb4 | 1 |  |  |
+| ch17-04-streams.md | 17 | 631 | async-04-streams | gotowe | acb62eb4 | 1 | 1 (`Iterator` z cytowanego nagłówka) |  |
+| ch17-05-traits-for-async.md | 17 | 4099 | async-05-traits-for-async | gotowe | acb62eb4 | 1 |  |  |
+| ch17-06-futures-tasks-threads.md | 17 | 873 | — | gotowe | acb62eb4 | 1 |  |  |
+| ch18-00-oop.md | 18 | 143 | — | przegląd | af0a919a | 1 |  |  |
+| ch18-01-what-is-oo.md | 18 | 1257 | ch17-01-what-is-oo | przegląd | af0a919a | 1 |  |  |
+| ch18-02-trait-objects.md | 18 | 2203 | ch17-02-trait-objects | przegląd | af0a919a | 1 |  |  |
+| ch18-03-oo-design-patterns.md | 18 | 4285 | ch17-03-oo-design-patterns | przegląd | af0a919a | 1 |  |  |
+| ch18-04-inventory.md | 18 | 34 | ch17-04-inventory | przegląd | aea152b3 | 1 |  | zrecenzowane |
+| ch18-05-design-challenge.md | 18 | 598 | ch17-05-design-challenge-references, ch17-05-design-challenge-trait-trees, ch17-05-design-challenge-dispatch, ch17-05-design-challenge-intermediates | przegląd | aea152b3 | 1 |  | zrecenzowane |
+| ch19-00-patterns.md | 19 | 239 | — | przegląd | a8eeb640 | 1 |  |  |
+| ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | przegląd | a8eeb640 | 1 |  |  |
+| ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | przegląd | a8eeb640 | 1 |  |  |
+| ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | przegląd | a8eeb640 | 1 |  |  |
+| ch20-00-advanced-features.md | 20 | 198 | — | przetłumaczone | aeb351d4 | 1 |  |  |
+| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | przetłumaczone | aeb351d4 | 1 |  |  |
+| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | tłumaczenie | af37da15 | 1 |  |  |
 | ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | do zrobienia | | 0 | | |
 | ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | do zrobienia | | 0 | | |
 | ch20-05-macros.md | 20 | 3550 | ch19-06-macros | do zrobienia | | 0 | | |
@@ -178,3 +178,4 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - F2.3 autoreview pilota: jakość dobra (bez błędów merytorycznych); poprawiono listy w ch04-01 (fragmenty zdań małą literą ze średnikami), „dokumentacja API” w ch01-01. Wszystkie propozycje „?” w glosariuszu zatwierdzone bez zmian. Dodano: zwalnianie (*freeing* lub *dropping*), modyfikować (*mutate*), endpoint, błąd segmentacji.
 - F2.4: wdrożony pilot (9113fa4a) zweryfikowany: notatka „Uwaga:” w `<section class="note">`, aquascope i quizy na ch04-01.
 - F3: nazwa serwisu w prozie „crates.io” (wielka litera tylko na początku zdania i w cytowanych tytułach); nagłówek ch14-00 „Więcej o Cargo i crates.io” do ujednolicenia w F5.
+- F3: `sprawdz.py` – `<code>` w HTML liczone po usunięciu komentarzy HTML (fałszywy alarm w ch17-05).

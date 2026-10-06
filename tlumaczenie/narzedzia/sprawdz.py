@@ -158,7 +158,7 @@ def analiza_md(text):
         "kod_inline": kod_inline,
         "perm": Counter(m.group(0) for m in PERM_RE.finditer(text)),
         "komentarze": Counter(COMMENT_RE.findall(text)),
-        "code_html": Counter(CODE_HTML_RE.findall(nofence)),
+        "code_html": Counter(CODE_HTML_RE.findall(COMMENT_RE.sub("", nofence))),
         "przypisy": Counter(FOOTNOTE_RE.findall(nofence)),
         "id": Counter(ID_ATTR_RE.findall(nofence)),
         "uwagi": len(NOTE_EN_RE.findall(text)),

@@ -1,22 +1,22 @@
 [[questions]]
 type = "MultipleChoice"
-prompt.prompt = "If you want to wait on a future in non-async code, you should do which of the following?"
+prompt.prompt = "Co należy zrobić, jeśli chcesz poczekać na future’a w kodzie nieasynchronicznym?"
 prompt.distractors = [
-  "Put an `.await` directly after the future",
-  "Give the future to Rust's built-in async runtime",
-  "Wrap the future in an `async` block and `.await` the block",  
+  "Umieścić `.await` bezpośrednio po future’ze",
+  "Przekazać future’a do wbudowanego w Rusta asynchronicznego środowiska uruchomieniowego",
+  "Opakować future’a w blok `async` i użyć `.await` na tym bloku",  
 ]
-answer.answer = "Give the future to a third-party async runtime" 
+answer.answer = "Przekazać future’a do zewnętrznego asynchronicznego środowiska uruchomieniowego" 
 context = """
-Rust does not let you use `.await` outside of `async` blocks or functions. Rust also does not have a built-in async runtime.
-You should use a third-party async runtime like `tokio` or `trpl`. 
+Rust nie pozwala używać `.await` poza blokami lub funkcjami `async`. Rust nie ma też wbudowanego asynchronicznego środowiska uruchomieniowego.
+Należy użyć zewnętrznego asynchronicznego środowiska uruchomieniowego, takiego jak `tokio` lub `trpl`. 
 """
 id = "de2a5023-dd5c-412e-8425-c8ed638f18f0"
 
 [[questions]]
 type = "MultipleChoice"
 prompt.prompt = """
-The async function below desugars into which type signature?
+Do jakiej sygnatury typu rozwija się poniższa funkcja asynchroniczna?
 
 ```rust
 async fn calculate(nums: &[i32]) -> i32 {
@@ -47,9 +47,9 @@ fn calculate<'a>(nums: &'a [i32]) -> impl Future<Output = i32> + 'a;
 ```
 """
 context = """
-An async function returns an anonymous type that implements the `Future` trait whose output is the function's return type. 
-So here, that is represented as `impl Future<Output = i32>`. The future captures any lifetimes in the function's arguments.
-Therefore the returned type has the bound `+ 'a` and the input slice has the type `&'a [i32]`. This indicates that the slice 
-must live at least as long as the future which captures it.
+Funkcja asynchroniczna zwraca anonimowy typ implementujący trait `Future`, którego wynikiem jest typ zwracany funkcji. 
+Tutaj zapisujemy to więc jako `impl Future<Output = i32>`. Future przechwytuje wszystkie czasy życia z argumentów funkcji.
+Dlatego zwracany typ ma ograniczenie `+ 'a`, a wejściowy wycinek ma typ `&'a [i32]`. Oznacza to, że wycinek 
+musi żyć co najmniej tak długo jak future, który go przechwytuje.
 """
 id = "9c000322-464b-4d34-9e30-55591f9283d2"

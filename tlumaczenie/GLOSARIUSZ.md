@@ -358,3 +358,52 @@ recenzent.
 | work stealing | kradzież pracy | kradzież pracy (*work stealing*) | | |
 | fire and forget | „odpal i zapomnij” | — | | |
 | embedded system | system wbudowany | — | | |
+| object-oriented programming | programowanie obiektowe | programowanie obiektowe (*object-oriented programming*) | | |
+| inheritance | dziedziczenie | dziedziczenie (*inheritance*) | | |
+| polymorphism | polimorfizm | polimorfizm (*polymorphism*) | | |
+| parent / child class | klasa nadrzędna / podrzędna | — | | |
+| override | nadpisywać | — | | nie „przesłaniać” (shadowing) |
+| design pattern | wzorzec projektowy | — | | |
+| Gang of Four | Banda Czworga | — | | |
+| static / dynamic dispatch | statyczne / dynamiczne wywoływanie | dynamiczne wywoływanie (*dynamic dispatch*) | | |
+| dyn compatibility | zgodność z dyn | zgodność z dyn (*dyn compatibility*) | | |
+| duck typing | typowanie kaczkowe | typowanie kaczkowe (*duck typing*) | | |
+| downcast | rzutować w dół | — | | |
+| GUI | graficzny interfejs użytkownika (GUI) | — | | |
+| pin / pinning | przypiąć / przypinanie | przypiąć (*pin*) | | |
+| self-referential | samoreferencyjny | — | | |
+| state pattern / state object | wzorzec stanu / obiekt stanu | wzorzec stanu (*state pattern*) | | |
+| delegate | delegować | — | | |
+| extension trait | trait rozszerzający | — | | |
+| virtual table | tablica metod wirtualnych | — | | |
+| inlining | wstawianie w miejsce wywołania | wstawianie w miejsce wywołania (*inlining*) | | |
+| match guard | strażnik dopasowania | strażnik dopasowania (*match guard*) | | |
+| `@` binding | wiązanie `@` | — | | |
+| inclusive range | zakres domknięty | — | | |
+| design trade-off | kompromis projektowy | — | | |
+| callback | funkcja zwrotna | — | | |
+| asset | zasób | — | | |
+| widget | widżet | — | | |
+| serialization | serializacja | — | | |
+| overloading | przeciążanie | — | | |
+| marker type | typ znacznikowy | — | | |
+| cast | rzutować | — | | |
+| outlive | żyć dłużej niż | — | | |
+| intermediate representation | reprezentacja pośrednia | — | | |
+| refutability | odrzucalność | — | | |
+| body (funkcji, pętli, bloku) | treść | — | | nie „ciało” |
+| join handle (zadanie) | uchwyt zadania | — | | |
+| web scraper | *web scraper* | *web scraper* (program pobierający dane ze stron internetowych) | | |
+| compute-bound | ograniczony przez obliczenia | — | | |
+| timer | timer | — | | |
+| superpowers (unsafe) | supermoce | — | | |
+| static variable / global variable | zmienna statyczna / globalna | — | | |
+| union | unia | unia (*union*) | | |
+| FFI | interfejs funkcji obcych (FFI) | interfejs funkcji obcych (*Foreign Function Interface*, FFI) | | |
+| ABI | binarny interfejs aplikacji (ABI) | — | | |
+| name mangling | dekorowanie nazw | dekorowanie nazw (*mangling*) | | |
+| unsound | nieprawidłowy | nieprawidłowy (*unsound*) | | |
+| newtype pattern / never type | wzorzec newtype / typ never | — | | |
+| fully qualified syntax | w pełni kwalifikowana składnia | — | | |
+| supertrait | supertrait | — | | |
+| function pointer | wskaźnik na funkcję | — | | |
