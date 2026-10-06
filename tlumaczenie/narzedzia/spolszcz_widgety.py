@@ -9,14 +9,26 @@ kończy się błędem (CI czerwone) zamiast po cichu zostawić angielski tekst.
 
 Użycie: spolszcz_widgety.py [KATALOG_KSIĄŻKI]   (domyślnie: book)
 """
+import re
 import sys
 from pathlib import Path
 
 # Odmiana „pytanie” po liczebniku (1 pytanie, 2–4 pytania, 5+ pytań).
 PYTANIA = (
-    '(c=>c==1?"pytanie":c%10>=2&&c%10<=4&&(c%100<10||c%100>=20)'
-    '?"pytania":"pytań")(n.questions.length)'
+    r'(c=>c==1?"pytanie":c%10>=2&&c%10<=4&&(c%100<10||c%100>=20)'
+    r'?"pytania":"pytań")(\1.questions.length)'
 )
+
+
+class R:
+    """Wzorzec regex; `ID` oznacza zminifikowany identyfikator (różny między
+    buildami mdbook-quiz na różne platformy)."""
+
+    def __init__(self, wzorzec: str):
+        self.rx = re.compile(re.escape(wzorzec).replace("ID", r"([\w$]+)"))
+
+    def __str__(self):
+        return self.rx.pattern
 
 # (stary, nowy, oczekiwana liczba wystąpień)
 QUIZ_JS = [
@@ -30,7 +42,7 @@ QUIZ_JS = [
         1,
     ),
     ('"Question"," ",(e.attempt', '"Pytanie"," ",(e.attempt', 1),
-    ('," question",n.questions.length>1&&"s"', '," ",' + PYTANIA, 1),
+    (R('," question",ID.questions.length>1&&"s"'), '," ",' + PYTANIA, 1),
     ('"You can either"', '"Możesz"', 1),
     ('"retry the quiz")," ","or"," "', '"rozwiązać quiz ponownie")," ","albo"," "', 1),
     ('"see the correct answers"', '"zobaczyć poprawne odpowiedzi"', 1),
@@ -53,8 +65,8 @@ QUIZ_JS = [
     ('"The output of this program will be:"', '"Ten program wypisze:"', 2),
     ('"Write the program\'s stdout here..."', '"Wpisz tutaj standardowe wyjście programu…"', 1),
     (
-        '"This program"," ",Z.createElement("strong",null,e.doesCompile?"does":"does not")," compile."',
-        '"Ten program"," ",Z.createElement("strong",null,e.doesCompile?"kompiluje się":"nie kompiluje się"),"."',
+        R('"This program"," ",ID.createElement("strong",null,ID.doesCompile?"does":"does not")," compile."'),
+        r'"Ten program"," ",\1.createElement("strong",null,\2.doesCompile?"kompiluje się":"nie kompiluje się"),"."',
         1,
     ),
     ('"Report a bug in this question"', '"Zgłoś błąd w tym pytaniu"', 1),
@@ -70,7 +82,7 @@ QUIZ_JS = [
     ('"Submit bug feedback"', '"Wyślij zgłoszenie"', 1),
     ('"Question ",e.substring(0,1)," has multiple parts."', '"Pytanie ",e.substring(0,1)," składa się z kilku części."', 1),
     ('" The box below contains the shared context for each part."', '" Poniższa ramka zawiera wspólny kontekst wszystkich części."', 1),
-    ('"h4",null,"Question ",r)', '"h4",null,"Pytanie ",r)', 2),
+    (R('"h4",null,"Question ",ID)'), r'"h4",null,"Pytanie ",\1)', 2),
     ('"h4",null,"Response")', '"h4",null,"Odpowiedź")', 1),
     (
         '"In 1-2 sentences, please explain why you picked this answer. \xa0\xa0"',
@@ -86,8 +98,8 @@ QUIZ_JS = [
         1,
     ),
     ('title:"Explanation"', 'title:"Wyjaśnienie"', 1),
-    ('onClick:()=>T(!0)},"Submit")', 'onClick:()=>T(!0)},"Wyślij")', 1),
-    ('Z.createElement("input",{type:"submit"})', 'Z.createElement("input",{type:"submit",value:"Wyślij"})', 1),
+    (R('onClick:()=>ID(!0)},"Submit")'), r'onClick:()=>\1(!0)},"Wyślij")', 1),
+    ('createElement("input",{type:"submit"})', 'createElement("input",{type:"submit",value:"Wyślij"})', 1),
     ('"Return to question context "', '"Wróć do kontekstu pytania "', 1),
     ('"You answered:"', '"Twoja odpowiedź:"', 1),
     ('"The correct answer is:"', '"Poprawna odpowiedź:"', 1),
@@ -175,11 +187,15 @@ bledy = []
 def podmien(path: Path, reguly, opis=None):
     s = path.read_text(encoding="utf-8")
     for stary, nowy, ile in reguly:
-        n = s.count(stary)
+        if isinstance(stary, R):
+            s2, n = stary.rx.subn(nowy, s)
+        else:
+            n = s.count(stary)
+            s2 = s.replace(stary, nowy)
         if n != ile:
-            bledy.append(f"{opis or path}: {stary[:70]!r}: oczekiwano {ile}, jest {n}")
+            bledy.append(f"{opis or path}: {str(stary)[:70]!r}: oczekiwano {ile}, jest {n}")
             continue
-        s = s.replace(stary, nowy)
+        s = s2
     path.write_text(s, encoding="utf-8")
 
 
