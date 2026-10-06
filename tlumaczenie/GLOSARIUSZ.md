@@ -178,3 +178,19 @@ recenzent.
 | owns (dane) | jest właścicielem | — | | unikamy „posiada”; *property* → właściwość (nie „własność”) |
 | reallocate | realokować | — | | |
 | reference-counted pointer | wskaźnik ze zliczaniem referencji | — | | |
+| boilerplate | szablonowy kod | szablonowy kod (*boilerplate*) | | |
+| happy path | szczęśliwa ścieżka | szczęśliwa ścieżka (*happy path*) | | |
+| branch (`if`/`else`) | gałąź | — | | odróżniamy od ramienia (*arm*) w `match` |
+| anti-pattern | antywzorzec | — | | |
+| caller | kod wywołujący / wywołujący | — | | |
+| crate root | korzeń crate’a | korzeń crate’a (*crate root*) | | |
+| item | element | — | | |
+| privacy / private / public | prywatność / prywatny / publiczny | prywatność (*privacy*) | | |
+| glob operator | operator glob | operator glob (*glob operator*) | | |
+| submodule / parent / child / sibling | podmoduł / rodzic (moduł nadrzędny) / dziecko / rodzeństwo | — | | |
+| encapsulation | hermetyzacja | — | | |
+| module system | system modułów | system modułów (*module system*) | | |
+| root module | moduł główny | — | | |
+| build script | skrypt budowania | — | | |
+| method syntax | składnia metod | składnia metod (*method syntax*) | | |
+| receiver (metody) | odbiorca metody | — | | |

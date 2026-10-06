@@ -66,23 +66,23 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch04-03-fixing-ownership-errors.md | 4 | 2480 | ch04-03-fixing-ownership-errors-sec1-idioms, ch04-03-fixing-ownership-errors-sec2-safety | gotowe | a54f221e | 1 |  |  |
 | ch04-04-slices.md | 4 | 1832 | ch04-04-slices | gotowe | a9daf518 | 1 |  |  |
 | ch04-05-ownership-recap.md | 4 | 1470 | ch04-05-ownership-recap | gotowe | a9daf518 | 0 |  |  |
-| ch05-00-structs.md | 5 | 135 | — | przegląd | ab2fdd3d | 1 |  |  |
-| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | przegląd | ab2fdd3d | 1 |  |  |
-| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | przegląd | ab2fdd3d | 1 |  |  |
-| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | przegląd | ab2fdd3d | 1 |  |  |
-| ch06-00-enums.md | 6 | 113 | — | przetłumaczone | ace7fdce | 1 |  |  |
-| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | przetłumaczone | ace7fdce | 1 |  |  |
-| ch06-02-match.md | 6 | 2072 | ch06-02-match | przetłumaczone | a931e740 | 1 | 2 (`match` jako kod, uzasadnione) |  |
-| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | tłumaczenie | a1686ec4 | 1 |  |  |
-| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | tłumaczenie | a1686ec4 | 1 |  |  |
-| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | tłumaczenie | afe1270a | 1 |  |  |
-| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | tłumaczenie | afe1270a | 1 |  |  |
-| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | tłumaczenie | a1fd5f96 | 1 |  |  |
-| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | do zrobienia | | 0 | | |
-| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | do zrobienia | | 0 | | |
-| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | do zrobienia | | 0 | | |
-| ch08-00-common-collections.md | 8 | 218 | — | do zrobienia | | 0 | | |
-| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | do zrobienia | | 0 | | |
+| ch05-00-structs.md | 5 | 135 | — | gotowe | ab2fdd3d | 1 |  |  |
+| ch05-01-defining-structs.md | 5 | 2092 | ch05-01-structs | gotowe | ab2fdd3d | 1 |  |  |
+| ch05-02-example-structs.md | 5 | 1578 | ch05-02-example-structs | gotowe | ab2fdd3d | 1 |  |  |
+| ch05-03-method-syntax.md | 5 | 2491 | ch05-03-method-syntax-sec1, ch05-03-method-syntax-sec2 | gotowe | ab2fdd3d | 1 |  |  |
+| ch06-00-enums.md | 6 | 113 | — | przegląd | ac18a18c | 1 |  |  |
+| ch06-01-defining-an-enum.md | 6 | 2381 | ch06-01-defining-an-enum | przegląd | ac18a18c | 1 |  |  |
+| ch06-02-match.md | 6 | 2072 | ch06-02-match | przegląd | ac18a18c | 1 | 2 (`match` jako kod, uzasadnione) |  |
+| ch06-03-if-let.md | 6 | 1006 | ch06-03-if-let | przegląd | ac18a18c | 1 |  |  |
+| ch06-04-inventory.md | 6 | 312 | ch06-04-inventory | przegląd | ac18a18c | 1 |  |  |
+| ch07-00-managing-growing-projects-with-packages-crates-and-modules.md | 7 | 477 | — | przetłumaczone | afe1270a | 1 |  |  |
+| ch07-01-packages-and-crates.md | 7 | 589 | ch07-01-packages-and-crates | przetłumaczone | afe1270a | 1 |  |  |
+| ch07-02-defining-modules-to-control-scope-and-privacy.md | 7 | 1124 | ch07-02-modules | przetłumaczone | a1fd5f96 | 1 |  |  |
+| ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md | 7 | 2291 | ch07-03-paths-sec1, ch07-03-paths-sec2 | tłumaczenie | abad4f8f | 1 |  |  |
+| ch07-04-bringing-paths-into-scope-with-the-use-keyword.md | 7 | 1826 | ch07-04-use | tłumaczenie | a5fa872c | 1 |  |  |
+| ch07-05-separating-modules-into-different-files.md | 7 | 882 | ch07-05-files | tłumaczenie | ab48837f | 1 |  |  |
+| ch08-00-common-collections.md | 8 | 218 | — | tłumaczenie | aa61e28d | 1 |  |  |
+| ch08-01-vectors.md | 8 | 2030 | ch08-01-vec-sec1, ch08-01-vec-sec2 | tłumaczenie | aa61e28d | 1 |  |  |
 | ch08-02-strings.md | 8 | 2578 | ch08-02-string-sec1, ch08-02-string-sec2 | do zrobienia | | 0 | | |
 | ch08-03-hash-maps.md | 8 | 1844 | ch08-03-hashmap | do zrobienia | | 0 | | |
 | ch08-04-inventory.md | 8 | 34 | ch08-04-inventory | do zrobienia | | 0 | | |

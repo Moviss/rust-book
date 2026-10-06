@@ -1,19 +1,21 @@
-## Defining and Instantiating Structs {#defining-and-instantiating-structs}
+## Definiowanie struktur i tworzenie ich instancji {#defining-and-instantiating-structs}
 
-Structs are similar to tuples, discussed in [“The Tuple Type”][tuples]<!--
-ignore --> section, in that both hold multiple related values. Like tuples, the
-pieces of a struct can be different types. Unlike with tuples, in a struct
-you’ll name each piece of data so it’s clear what the values mean. Adding these
-names means that structs are more flexible than tuples: You don’t have to rely
-on the order of the data to specify or access the values of an instance.
+Struktury (*struct*) są podobne do krotek (*tuple*), omówionych w podrozdziale
+[„Typ krotki”][tuples]<!--
+ignore -->, ponieważ jedne i drugie przechowują wiele powiązanych wartości.
+Podobnie jak w krotkach, elementy struktury mogą mieć różne typy. W odróżnieniu
+od krotek w strukturze nazywasz każdy element danych, więc jasne jest, co
+oznaczają poszczególne wartości. Dzięki tym nazwom struktury są bardziej
+elastyczne niż krotki: nie musisz polegać na kolejności danych, żeby podać
+wartości instancji albo się do nich odwołać.
 
-To define a struct, we enter the keyword `struct` and name the entire struct. A
-struct’s name should describe the significance of the pieces of data being
-grouped together. Then, inside curly brackets, we define the names and types of
-the pieces of data, which we call _fields_. For example, Listing 5-1 shows a
-struct that stores information about a user account.
+Żeby zdefiniować strukturę, wpisujemy słowo kluczowe (*keyword*) `struct` i
+nadajemy nazwę całej strukturze. Nazwa struktury powinna opisywać znaczenie
+grupowanych razem elementów danych. Następnie w nawiasach klamrowych definiujemy
+nazwy i typy elementów danych, które nazywamy _polami_. Na przykład listing 5-1
+pokazuje strukturę przechowującą informacje o koncie użytkownika.
 
-<Listing number="5-1" file-name="src/main.rs" caption="A `User` struct definition">
+<Listing number="5-1" file-name="src/main.rs" caption="Definicja struktury `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-01/src/main.rs:here}}
@@ -21,15 +23,15 @@ struct that stores information about a user account.
 
 </Listing>
 
-To use a struct after we’ve defined it, we create an _instance_ of that struct
-by specifying concrete values for each of the fields. We create an instance by
-stating the name of the struct and then add curly brackets containing _`key:
-value`_ pairs, where the keys are the names of the fields and the values are the
-data we want to store in those fields. We don’t have to specify the fields in
-the same order in which we declared them in the struct. In other words, the
-struct definition is like a general template for the type, and instances fill
-in that template with particular data to create values of the type. For
-example, we can declare a particular user as shown in Listing 5-2.
+Żeby użyć struktury po jej zdefiniowaniu, tworzymy _instancję_ tej struktury,
+podając konkretne wartości dla każdego z pól. Instancję tworzymy, podając nazwę
+struktury, a po niej nawiasy klamrowe zawierające pary _`key:
+value`_ (klucz: wartość), w których kluczami są nazwy pól, a wartościami dane,
+które chcemy w tych polach przechować. Nie musimy podawać pól w tej samej
+kolejności, w jakiej zadeklarowaliśmy je w strukturze. Innymi słowy, definicja
+struktury jest jak ogólny szablon typu, a instancje wypełniają ten szablon
+konkretnymi danymi, tworząc wartości tego typu. Na przykład możemy zadeklarować
+konkretnego użytkownika tak jak w listingu 5-2.
 
 ```aquascope,interpreter
 #struct User {
@@ -48,11 +50,11 @@ fn main() {
 }
 ```
 
-To get a specific value from a struct, we use dot notation. For example, to
-access this user’s email address, we use `user1.email`. If the instance is
-mutable, we can change a value by using the dot notation and assigning into a
-particular field. Listing 5-3 shows how to change the value in the `email`
-field of a mutable `User` instance.
+Żeby pobrać konkretną wartość ze struktury, używamy notacji kropkowej. Na
+przykład, żeby odczytać adres e-mail tego użytkownika, piszemy `user1.email`.
+Jeśli instancja jest mutowalna (*mutable*), możemy zmienić wartość, używając
+notacji kropkowej i przypisując nową wartość do wybranego pola. Listing 5-3
+pokazuje, jak zmienić wartość pola `email` w mutowalnej instancji `User`.
 
 ```aquascope,interpreter
 #struct User {
@@ -73,16 +75,16 @@ fn main() {
 }
 ```
 
-Note that the entire instance must be mutable; Rust doesn’t allow us to mark
-only certain fields as mutable. As with any expression, we can construct a new
-instance of the struct as the last expression in the function body to
-implicitly return that new instance.
+Zwróć uwagę, że mutowalna musi być cała instancja; Rust nie pozwala oznaczyć
+jako mutowalnych tylko wybranych pól. Jak w przypadku każdego wyrażenia
+(*expression*), możemy utworzyć nową instancję struktury jako ostatnie wyrażenie
+w ciele funkcji, żeby niejawnie zwrócić tę nową instancję.
 
-Listing 5-4 shows a `build_user` function that returns a `User` instance with
-the given email and username. The `active` field gets the value `true`, and the
-`sign_in_count` gets a value of `1`.
+Listing 5-4 pokazuje funkcję `build_user`, która zwraca instancję `User` z
+podanym adresem e-mail i nazwą użytkownika. Pole `active` dostaje wartość
+`true`, a `sign_in_count` – wartość `1`.
 
-<Listing number="5-4" file-name="src/main.rs" caption="A `build_user` function that takes an email and username and returns a `User` instance">
+<Listing number="5-4" file-name="src/main.rs" caption="Funkcja `build_user`, która przyjmuje adres e-mail i nazwę użytkownika, a zwraca instancję `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-04/src/main.rs:here}}
@@ -90,23 +92,23 @@ the given email and username. The `active` field gets the value `true`, and the
 
 </Listing>
 
-It makes sense to name the function parameters with the same name as the struct
-fields, but having to repeat the `email` and `username` field names and
-variables is a bit tedious. If the struct had more fields, repeating each name
-would get even more annoying. Luckily, there’s a convenient shorthand!
+Nazwanie parametrów funkcji tak samo jak pól struktury jest rozsądne, ale
+konieczność powtarzania nazw pól i zmiennych `email` oraz `username` jest nieco
+żmudna. Gdyby struktura miała więcej pól, powtarzanie każdej nazwy byłoby
+jeszcze bardziej irytujące. Na szczęście istnieje wygodny skrót!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
-### Using the Field Init Shorthand {#using-the-field-init-shorthand}
+### Skrócona inicjalizacja pól {#using-the-field-init-shorthand}
 
-Because the parameter names and the struct field names are exactly the same in
-Listing 5-4, we can use the _field init shorthand_ syntax to rewrite
-`build_user` so that it behaves exactly the same but doesn’t have the
-repetition of `username` and `email`, as shown in Listing 5-5.
+Ponieważ w listingu 5-4 nazwy parametrów i nazwy pól struktury są dokładnie
+takie same, możemy użyć składni _skróconej inicjalizacji pól_ (*field init
+shorthand*), żeby przepisać `build_user` tak, by działała dokładnie tak samo,
+ale bez powtarzania `username` i `email`, jak pokazuje listing 5-5.
 
-<Listing number="5-5" file-name="src/main.rs" caption="A `build_user` function that uses field init shorthand because the `username` and `email` parameters have the same name as struct fields">
+<Listing number="5-5" file-name="src/main.rs" caption="Funkcja `build_user` używająca skróconej inicjalizacji pól, ponieważ parametry `username` i `email` mają takie same nazwy jak pola struktury">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-05/src/main.rs:here}}
@@ -114,25 +116,26 @@ repetition of `username` and `email`, as shown in Listing 5-5.
 
 </Listing>
 
-Here, we’re creating a new instance of the `User` struct, which has a field
-named `email`. We want to set the `email` field’s value to the value in the
-`email` parameter of the `build_user` function. Because the `email` field and
-the `email` parameter have the same name, we only need to write `email` rather
-than `email: email`.
+Tworzymy tu nową instancję struktury `User`, która ma pole o nazwie `email`.
+Chcemy ustawić wartość pola `email` na wartość parametru `email` funkcji
+`build_user`. Ponieważ pole `email` i parametr `email` mają tę samą nazwę,
+wystarczy napisać `email` zamiast `email: email`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="creating-instances-from-other-instances-with-struct-update-syntax"></a>
 
-### Creating Instances with Struct Update Syntax {#creating-instances-with-struct-update-syntax}
+### Tworzenie instancji za pomocą składni aktualizacji struktury {#creating-instances-with-struct-update-syntax}
 
-It’s often useful to create a new instance of a struct that includes most of
-the values from another instance of the same type, but changes some of them.
-You can do this using struct update syntax.
+Często przydaje się utworzenie nowej instancji struktury, która zawiera
+większość wartości z innej instancji tego samego typu, ale niektóre z nich
+zmienia. Możesz to zrobić za pomocą składni aktualizacji struktury (*struct
+update syntax*).
 
-First, in Listing 5-6 we show how to create a new `User` instance in `user2` in
-the regular way, without the update syntax. We set a new value for `email` but
-otherwise use the same values from `user1` that we created in Listing 5-2.
+Najpierw w listingu 5-6 pokazujemy, jak utworzyć nową instancję `User` w `user2`
+w zwykły sposób, bez składni aktualizacji. Ustawiamy nową wartość `email`, a
+poza tym używamy tych samych wartości z `user1`, które utworzyliśmy w listingu
+5-2.
 
 ```aquascope,interpreter
 #struct User {
@@ -159,14 +162,15 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 5-6: Creating a new `User` instance using all but one of
-the values from `user1`</span>
+<span class="caption">Listing 5-6: Tworzenie nowej instancji `User` z użyciem wszystkich
+wartości z `user1` z wyjątkiem jednej</span>
 
-Using struct update syntax, we can achieve the same effect with less code, as
-shown in Listing 5-7. The syntax `..` specifies that the remaining fields not
-explicitly set should have the same value as the fields in the given instance.
+Za pomocą składni aktualizacji struktury możemy osiągnąć ten sam efekt przy
+mniejszej ilości kodu, jak pokazuje listing 5-7. Składnia `..` oznacza, że
+pozostałe pola, których nie ustawiono jawnie, mają mieć te same wartości co
+pola w podanej instancji.
 
-<Listing number="5-7" file-name="src/main.rs" caption="Using struct update syntax to set a new `email` value for a `User` instance but to use the rest of the values from `user1`">
+<Listing number="5-7" file-name="src/main.rs" caption="Użycie składni aktualizacji struktury do ustawienia nowej wartości `email` w instancji `User` przy zachowaniu pozostałych wartości z `user1`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-07/src/main.rs:here}}
@@ -174,39 +178,39 @@ explicitly set should have the same value as the fields in the given instance.
 
 </Listing>
 
-The code in Listing 5-7 also creates an instance in `user2` that has a
-different value for `email` but has the same values for the `username`,
-`active`, and `sign_in_count` fields from `user1`. The `..user1` must come last
-to specify that any remaining fields should get their values from the
-corresponding fields in `user1`, but we can choose to specify values for as
-many fields as we want in any order, regardless of the order of the fields in
-the struct’s definition.
+Kod z listingu 5-7 również tworzy w `user2` instancję, która ma inną wartość
+`email`, ale te same wartości pól `username`, `active` i `sign_in_count` co
+`user1`. Zapis `..user1` musi być na końcu, żeby wskazać, że wszystkie pozostałe
+pola mają dostać wartości z odpowiadających im pól `user1`. Możemy jednak podać
+wartości dowolnej liczby pól w dowolnej kolejności, niezależnie od kolejności
+pól w definicji struktury.
 
-Note that the struct update syntax uses `=` like an assignment; this is
-because it moves the data, just as we saw in the ["What Is Ownership?"][move]<!-- ignore --> section. In this example, after creating `user2`, `user1` is partially invalidated because the `String` in the
-`username` field of `user1` was moved into `user2`. If we had given `user2` new
-`String` values for both `email` and `username`, and thus only used the
-`active` and `sign_in_count` values from `user1`, then `user1` would still be
-fully valid after creating `user2`. The types of `active` and `sign_in_count` are
-types that implement the `Copy` trait, so the behavior we discussed in the
-[“Copying vs. Moving Out of a Collection”][copy]<!-- ignore --> section would apply.
+Zwróć uwagę, że składnia aktualizacji struktury używa `=` jak przypisanie.
+Wynika to z tego, że przenosi ona dane, tak jak widzieliśmy w podrozdziale [„Czym jest własność?”][move]<!-- ignore -->. W tym przykładzie po utworzeniu `user2` zmienna `user1` staje się częściowo nieważna, ponieważ `String` z pola
+`username` w `user1` został przeniesiony (*move*) do `user2`. Gdybyśmy nadali
+`user2` nowe wartości `String` zarówno dla `email`, jak i dla `username`, i tym
+samym użyli z `user1` tylko wartości `active` i `sign_in_count`, `user1`
+pozostałaby w pełni ważna po utworzeniu `user2`. Pola `active` i `sign_in_count`
+mają typy implementujące *trait* `Copy` (cecha typu, zbliżona do interfejsu),
+więc zastosowanie miałoby zachowanie omówione w podrozdziale
+[„Kopiowanie a przenoszenie z kolekcji”][copy]<!-- ignore -->.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
 
-### Creating Different Types with Tuple Structs {#creating-different-types-with-tuple-structs}
+### Tworzenie różnych typów za pomocą struktur krotkowych {#creating-different-types-with-tuple-structs}
 
-Rust also supports structs that look similar to tuples, called _tuple structs_.
-Tuple structs have the added meaning the struct name provides but don’t have
-names associated with their fields; rather, they just have the types of the
-fields. Tuple structs are useful when you want to give the whole tuple a name
-and make the tuple a different type from other tuples, and when naming each
-field as in a regular struct would be verbose or redundant.
+Rust obsługuje też struktury podobne do krotek, zwane _strukturami krotkowymi_
+(*tuple structs*). Struktury krotkowe mają dodatkowe znaczenie, które nadaje im
+nazwa struktury, ale ich pola nie mają nazw – mają tylko typy. Struktury
+krotkowe przydają się, gdy chcesz nadać nazwę całej krotce i sprawić, by była
+innego typu niż pozostałe krotki, a nazywanie każdego pola jak w zwykłej
+strukturze byłoby rozwlekłe lub zbędne.
 
-To define a tuple struct, start with the `struct` keyword and the struct name
-followed by the types in the tuple. For example, here we define and use two
-tuple structs named `Color` and `Point`:
+Żeby zdefiniować strukturę krotkową, zacznij od słowa kluczowego `struct` i
+nazwy struktury, a po nich podaj typy w krotce. Na przykład tutaj definiujemy i
+używamy dwóch struktur krotkowych o nazwach `Color` i `Point`:
 
 <Listing file-name="src/main.rs">
 
@@ -222,31 +226,32 @@ fn main() {
 
 </Listing>
 
-Note that the `black` and `origin` values are different types because they’re
-instances of different tuple structs. Each struct you define is its own type,
-even though the fields within the struct might have the same types. For
-example, a function that takes a parameter of type `Color` cannot take a
-`Point` as an argument, even though both types are made up of three `i32`
-values. Otherwise, tuple struct instances are similar to tuples in that you can
-destructure them into their individual pieces, and you can use a `.` followed
-by the index to access an individual value. Unlike tuples, tuple structs
-require you to name the type of the struct when you destructure them. For
-example, we would write `let Point(x, y, z) = origin;` to destructure the
-values in the `origin` point into variables named `x`, `y`, and `z`.
+Zwróć uwagę, że wartości `black` i `origin` mają różne typy, ponieważ są
+instancjami różnych struktur krotkowych. Każda zdefiniowana struktura jest
+osobnym typem, nawet jeśli pola w strukturach mają te same typy. Na przykład
+funkcja przyjmująca parametr typu `Color` nie może przyjąć jako argumentu
+wartości `Point`, choć oba typy składają się z trzech wartości `i32`. Poza tym
+instancje struktur krotkowych przypominają krotki: można je poddać
+destrukturyzacji na poszczególne elementy, a do pojedynczej wartości można się
+odwołać za pomocą `.` i indeksu. W odróżnieniu od krotek struktury krotkowe
+wymagają podania nazwy typu struktury podczas destrukturyzacji. Na przykład,
+żeby rozłożyć wartości z punktu `origin` na zmienne o nazwach `x`, `y` i `z`,
+napisalibyśmy `let Point(x, y, z) = origin;`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="unit-like-structs-without-any-fields"></a>
 
-### Defining Unit-Like Structs {#defining-unit-like-structs}
+### Definiowanie struktur jednostkowych {#defining-unit-like-structs}
 
-You can also define structs that don’t have any fields! These are called
-_unit-like structs_ because they behave similarly to `()`, the unit type that
-we mentioned in [“The Tuple Type”][tuples]<!-- ignore --> section. Unit-like
-structs can be useful when you need to implement a trait on some type but don’t
-have any data that you want to store in the type itself. We’ll discuss traits
-in Chapter 10. Here’s an example of declaring and instantiating a unit struct
-named `AlwaysEqual`:
+Możesz też definiować struktury, które nie mają żadnych pól! Nazywamy je
+_strukturami jednostkowymi_ (*unit-like structs*), ponieważ zachowują się
+podobnie do `()`, czyli typu jednostkowego (*unit type*), o którym wspomnieliśmy
+w podrozdziale [„Typ krotki”][tuples]<!-- ignore -->. Struktury jednostkowe mogą się
+przydać, gdy musisz zaimplementować trait dla jakiegoś typu, ale nie masz
+żadnych danych, które chcesz przechowywać w samym typie. Traity omówimy w
+rozdziale 10. Oto przykład deklaracji struktury jednostkowej o nazwie
+`AlwaysEqual` i utworzenia jej instancji:
 
 ```aquascope,interpreter
 struct AlwaysEqual;
@@ -256,29 +261,32 @@ fn main() {
 }
 ```
 
-To define `AlwaysEqual`, we use the `struct` keyword, the name we want, and
-then a semicolon. No need for curly brackets or parentheses! Then, we can get
-an instance of `AlwaysEqual` in the `subject` variable in a similar way: using
-the name we defined, without any curly brackets or parentheses. Imagine that
-later we’ll implement behavior for this type such that every instance of
-`AlwaysEqual` is always equal to every instance of any other type, perhaps to
-have a known result for testing purposes. We wouldn’t need any data to
-implement that behavior! You’ll see in Chapter 10 how to define traits and
-implement them on any type, including unit-like structs.
+Żeby zdefiniować `AlwaysEqual`, używamy słowa kluczowego `struct`, wybranej
+nazwy i średnika. Nie potrzeba nawiasów klamrowych ani okrągłych! Następnie
+możemy w podobny sposób uzyskać instancję `AlwaysEqual` w zmiennej `subject`:
+używając zdefiniowanej nazwy, bez nawiasów klamrowych czy okrągłych. Wyobraź
+sobie, że później zaimplementujemy dla tego typu zachowanie, w którym każda
+instancja `AlwaysEqual` jest zawsze równa każdej instancji dowolnego innego
+typu, na przykład po to, by uzyskać znany wynik na potrzeby testów. Do
+zaimplementowania takiego zachowania nie potrzebowalibyśmy żadnych danych! W
+rozdziale 10 zobaczysz, jak definiować traity i implementować je dla dowolnego
+typu, w tym dla struktur jednostkowych.
 
-> ### Ownership of Struct Data {#ownership-of-struct-data}
+> ### Własność danych struktury {#ownership-of-struct-data}
 >
-> In the `User` struct definition in Listing 5-1, we used the owned `String`
-> type rather than the `&str` string slice type. This is a deliberate choice
-> because we want each instance of this struct to own all of its data and for
-> that data to be valid for as long as the entire struct is valid.
+> W definicji struktury `User` w listingu 5-1 użyliśmy typu `String`, który jest
+> właścicielem swoich danych, a nie typu wycinka łańcucha (*string slice*)
+> `&str`. To celowy wybór, ponieważ chcemy, by każda instancja tej struktury
+> była właścicielem wszystkich swoich danych i by te dane były ważne tak długo,
+> jak ważna jest cała struktura.
 >
-> It’s also possible for structs to store references to data owned by something
-> else, but to do so requires the use of _lifetimes_, a Rust feature that we’ll
-> discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct
-> is valid for as long as the struct is. Let’s say you try to store a reference
-> in a struct without specifying lifetimes, like the following in
-> *src/main.rs*; this won’t work:
+> Struktury mogą też przechowywać referencje (*reference*) do danych, których
+> właścicielem jest coś innego, ale wymaga to użycia _czasów życia_
+> (*lifetimes*) – mechanizmu Rusta, który omówimy w rozdziale 10. Czasy życia
+> gwarantują, że dane, do których odwołuje się struktura, są ważne tak długo
+> jak sama struktura. Załóżmy, że spróbujesz przechować w strukturze
+> referencję bez określania czasów życia, jak poniżej w pliku *src/main.rs*; to
+> nie zadziała:
 >
 > <Listing file-name="src/main.rs">
 >
@@ -304,7 +312,7 @@ implement them on any type, including unit-like structs.
 >
 > </Listing>
 >
-> The compiler will complain that it needs lifetime specifiers:
+> Kompilator zgłosi, że potrzebuje specyfikatorów czasu życia:
 >
 > ```console
 > $ cargo run
@@ -340,14 +348,15 @@ implement them on any type, including unit-like structs.
 > error: could not compile `structs` (bin "structs") due to 2 previous errors
 > ```
 >
-> In Chapter 10, we’ll discuss how to fix these errors so that you can store
-> references in structs, but for now, we’ll fix errors like these using owned
-> types like `String` instead of references like `&str`.
+> W rozdziale 10 omówimy, jak naprawić te błędy, żeby móc przechowywać
+> referencje w strukturach. Na razie będziemy naprawiać takie błędy, używając
+> typów będących właścicielami swoich danych, takich jak `String`, zamiast
+> referencji takich jak `&str`.
 
-### Borrowing Fields of a Struct {#borrowing-fields-of-a-struct}
+### Pożyczanie pól struktury {#borrowing-fields-of-a-struct}
 
-Similar to our discussion in ["Different Tuple Fields"][differentfields], Rust's borrow checker will track ownership permissions
-at both the struct-level and field-level. For example, if we borrow a field `x` of a `Point` structure, then both `p` and `p.x` temporarily lose their permissions (but not `p.y`):
+Podobnie jak w podrozdziale [„Modyfikowanie różnych pól krotki”][differentfields], *borrow checker* (mechanizm sprawdzania pożyczeń) Rusta śledzi uprawnienia (*permissions*) wynikające z własności (*ownership*)
+zarówno na poziomie struktury, jak i na poziomie pól. Na przykład jeśli pożyczymy (*borrow*) pole `x` struktury `Point`, to zarówno `p`, jak i `p.x` tymczasowo tracą swoje uprawnienia (ale `p.y` ich nie traci):
 
 ```aquascope,permissions,stepper,boundaries
 #fn main() {
@@ -360,7 +369,7 @@ println!("{}, {}", p.x, p.y);
 #}
 ```
 
-As a result, if we try and use `p` while `p.x` is mutably borrowed like this:
+W rezultacie, jeśli spróbujemy użyć `p`, gdy `p.x` jest pożyczone mutowalnie, jak tutaj:
 
 ```aquascope,permissions,stepper,boundaries,shouldFail
 struct Point { x: i32, y: i32 }
@@ -377,7 +386,7 @@ fn main() {
 }
 ```
 
-Then the compiler will reject our program with the following error:
+to kompilator odrzuci nasz program z następującym błędem:
 
 ```text
 error[E0502]: cannot borrow `p` as immutable because it is also borrowed as mutable
@@ -391,9 +400,9 @@ error[E0502]: cannot borrow `p` as immutable because it is also borrowed as muta
    |     ------- mutable borrow later used here
 ```
 
-More generally, if you encounter an ownership error that involves a struct, you should consider which fields of your structure
-are supposed to be borrowed with which permissions. But be aware of the borrow checker's limitations, since Rust may sometimes
-assume more fields are borrowed than they actually are.
+Ogólniej: jeśli napotkasz błąd własności dotyczący struktury, zastanów się, które pola twojej struktury
+mają być pożyczone i z jakimi uprawnieniami. Pamiętaj jednak o ograniczeniach borrow checkera – Rust może czasem
+zakładać, że pożyczonych jest więcej pól, niż jest w rzeczywistości.
 
 {{#quiz ../quizzes/ch05-01-structs.toml}}
 

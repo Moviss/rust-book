@@ -2,8 +2,8 @@
 id = "97781ca8-ad58-449c-9769-e20b9d2e42a6"
 type = "MultipleChoice"
 prompt.prompt = """
-Say you have a variable `v` of type `&mut Vec<i32>`, and you want to call the `len` method with the
-following signature:
+Załóżmy, że masz zmienną `v` typu `&mut Vec<i32>` i chcesz wywołać metodę `len` o następującej
+sygnaturze:
 
 ```
 impl Vec<i32> {
@@ -13,24 +13,24 @@ impl Vec<i32> {
 }
 ```
 
-If you try to compile the expression `v.len()`, which of the following statements best describes what happens?
+Które z poniższych stwierdzeń najlepiej opisuje, co się stanie, gdy spróbujesz skompilować wyrażenie `v.len()`?
 """
-answer.answer = "It compiles, because the `&mut` reference is implicitly reborrowed as an `&` reference"
+answer.answer = "Kompiluje się, bo referencja `&mut` jest niejawnie ponownie pożyczana jako referencja `&`"
 prompt.distractors = [
-  "It does not compile, because `&mut Vec<i32>` is not the same type as `&Vec<i32>`",
-  "It does not compile, `v` is not explicitly dereferenced",
-  "It compiles, because `&self` can take any kind of reference"
+  "Nie kompiluje się, bo `&mut Vec<i32>` to nie ten sam typ co `&Vec<i32>`",
+  "Nie kompiluje się, bo na `v` nie wykonano jawnie dereferencji",
+  "Kompiluje się, bo `&self` może przyjąć referencję dowolnego rodzaju"
 ]
 context = """
-The expression `v.len()` desugars to `Vec::len(&*v)`, which is a valid re-borrow of `v`, so this expression compiles.
-You cannot, however, pass `v` directly to `Vec::len`, since `&self` specifically refers to immutable references.
+Wyrażenie `v.len()` po usunięciu lukru składniowego to `Vec::len(&*v)`, czyli poprawne ponowne pożyczenie `v`, więc to wyrażenie się kompiluje.
+Nie można jednak przekazać `v` bezpośrednio do `Vec::len`, bo `&self` oznacza konkretnie referencje niemutowalne.
 """
 
 [[questions]]
 id = "35a75881-eb08-486c-92b3-413ab512138a"
 type = "MultipleChoice"
 prompt.prompt = """
-Consider these two methods that increment a field of a struct. Which style would be more idiomatic for Rust?
+Rozważ te dwie metody, które zwiększają pole struktury. Który styl jest bardziej idiomatyczny w Ruście?
 
 ```
 struct Point(i32, i32);
@@ -43,13 +43,13 @@ impl Point {
 answer.answer = "`incr_v2`"
 prompt.distractors = [
   "`incr_v1`",
-  "Both are idiomatic",
-  "Neither are idiomatic"
+  "Oba są idiomatyczne",
+  "Żaden nie jest idiomatyczny"
 ]
 prompt.answerIndex = 1
 context = """
-The `incr_v1` method is not idiomatic, because it consumes ownership of the `Point`. This means after calling `p.incr_v1()`, `p` 
-would be unusable, which is probably not intended for this method.
+Metoda `incr_v1` nie jest idiomatyczna, bo przejmuje własność `Point`. Oznacza to, że po wywołaniu `p.incr_v1()` zmiennej `p` 
+nie dałoby się już używać, a raczej nie o to chodzi w tej metodzie.
 """
 
 [[questions]]
@@ -72,7 +72,7 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "1"
 context = """ 
-Remember that `.0` is valid for tuple structs like `Point`.
+Pamiętaj, że `.0` jest poprawne dla struktur krotkowych, takich jak `Point`.
 """
 
 [[questions]]
@@ -100,6 +100,6 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 16
 context = """ 
-Because `get_x` mutably borrows all of `p`, a program cannot use `p` in any way until `x` is no longer used. 
-Therefore reading `x` and `p.y` in the same line is an ownership error.
+Ponieważ `get_x` mutowalnie pożycza całe `p`, program nie może w żaden sposób używać `p`, dopóki `x` jest jeszcze używane. 
+Dlatego odczyt `x` i `p.y` w tej samej linii jest błędem własności.
 """

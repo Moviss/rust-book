@@ -1,25 +1,24 @@
-## Methods {#methods}
+## Metody {#methods}
 
-Methods are similar to functions: We declare them with the `fn` keyword and a
-name, they can have parameters and a return value, and they contain some code
-that’s run when the method is called from somewhere else. Unlike functions,
-methods are defined within the context of a struct (or an enum or a trait
-object, which we cover in [Chapter 6][enums]<!-- ignore --> and [Chapter
-18][trait-objects]<!-- ignore -->, respectively), and their first parameter is
-always `self`, which represents the instance of the struct the method is being
-called on.
+Metody (*methods*) przypominają funkcje: deklarujemy je słowem kluczowym
+(*keyword*) `fn` i nazwą, mogą mieć parametry i wartość zwracaną, a ich kod jest
+wykonywany, gdy metoda zostanie gdzieś wywołana. W odróżnieniu od funkcji metody
+definiuje się w kontekście struktury (*struct*) (albo *enuma* (typu
+wyliczeniowego) lub obiektu traitu (*trait object*), które omawiamy odpowiednio
+w [rozdziale 6][enums]<!-- ignore --> i
+[rozdziale 18][trait-objects]<!-- ignore -->), a ich pierwszym parametrem jest
+zawsze `self`, czyli instancja struktury, na której wywołano metodę.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="defining-methods"></a>
 
-### Method Syntax {#method-syntax}
+### Składnia metod {#method-syntax}
 
-Let’s change the `area` function that has a `Rectangle` instance as a parameter
-and instead make an `area` method defined on the `Rectangle` struct, as shown
-in Listing 5-13.
+Zmieńmy funkcję `area`, która przyjmuje jako parametr instancję `Rectangle`, w
+metodę `area` zdefiniowaną dla struktury `Rectangle`, jak pokazuje listing 5-13.
 
-<Listing number="5-13" file-name="src/main.rs" caption="Defining an `area` method on the `Rectangle` struct">
+<Listing number="5-13" file-name="src/main.rs" caption="Definicja metody `area` dla struktury `Rectangle`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-13/src/main.rs}}
@@ -27,45 +26,46 @@ in Listing 5-13.
 
 </Listing>
 
-To define the function within the context of `Rectangle`, we start an `impl`
-(implementation) block for `Rectangle`. Everything within this `impl` block
-will be associated with the `Rectangle` type. Then, we move the `area` function
-within the `impl` curly brackets and change the first (and in this case, only)
-parameter to be `self` in the signature and everywhere within the body. In
-`main`, where we called the `area` function and passed `rect1` as an argument,
-we can instead use _method syntax_ to call the `area` method on our `Rectangle`
-instance. The method syntax goes after an instance: We add a dot followed by
-the method name, parentheses, and any arguments.
+Aby zdefiniować funkcję w kontekście `Rectangle`, otwieramy blok `impl` (od
+*implementation*, implementacja) dla `Rectangle`. Wszystko w tym bloku `impl`
+będzie powiązane z typem `Rectangle`. Następnie przenosimy funkcję `area` do
+nawiasów klamrowych `impl` i zmieniamy pierwszy (a w tym przypadku jedyny)
+parametr na `self` – zarówno w sygnaturze, jak i w całym ciele funkcji. W
+`main`, gdzie wywoływaliśmy funkcję `area` i przekazywaliśmy `rect1` jako
+argument, możemy zamiast tego użyć _składni metod_ (*method syntax*), aby
+wywołać metodę `area` na naszej instancji `Rectangle`. Składnię metod zapisujemy
+po instancji: dodajemy kropkę, a po niej nazwę metody, nawiasy i ewentualne
+argumenty.
 
-In the signature for `area`, we use `&self` instead of `rectangle: &Rectangle`.
-The `&self` is actually short for `self: &Self`. Within an `impl` block, the
-type `Self` is an alias for the type that the `impl` block is for. Methods must
-have a parameter named `self` of type `Self` for their first parameter, so Rust
-lets you abbreviate this with only the name `self` in the first parameter spot.
-Note that we still need to use the `&` in front of the `self` shorthand to
-indicate that this method borrows the `Self` instance, just as we did in
-`rectangle: &Rectangle`. Methods can take ownership of `self`, borrow `self`
-immutably, as we’ve done here, or borrow `self` mutably, just as they can any
-other parameter.
+W sygnaturze `area` używamy `&self` zamiast `rectangle: &Rectangle`. Zapis
+`&self` to w rzeczywistości skrót od `self: &Self`. Wewnątrz bloku `impl` typ
+`Self` jest aliasem typu, dla którego napisano ten blok `impl`. Pierwszym
+parametrem metody musi być parametr o nazwie `self` typu `Self`, dlatego Rust
+pozwala skrócić ten zapis do samej nazwy `self` na pierwszym miejscu. Zwróć
+uwagę, że przed skrótem `self` wciąż musimy napisać `&`, aby wskazać, że metoda
+pożycza (*borrow*) instancję `Self`, tak jak w przypadku
+`rectangle: &Rectangle`. Metody mogą przejmować własność (*ownership*) `self`,
+pożyczać `self` niemutowalnie, jak tutaj, albo pożyczać `self` mutowalnie
+(*mutable*) – tak samo jak każdy inny parametr.
 
-We chose `&self` here for the same reason we used `&Rectangle` in the function
-version: We don’t want to take ownership, and we just want to read the data in
-the struct, not write to it. If we wanted to change the instance that we’ve
-called the method on as part of what the method does, we’d use `&mut self` as
-the first parameter. Having a method that takes ownership of the instance by
-using just `self` as the first parameter is rare; this technique is usually
-used when the method transforms `self` into something else and you want to
-prevent the caller from using the original instance after the transformation.
+Wybraliśmy tu `&self` z tego samego powodu, dla którego w wersji funkcyjnej
+użyliśmy `&Rectangle`: nie chcemy przejmować własności, chcemy tylko odczytać dane
+ze struktury, a nie je zapisywać. Gdybyśmy w ramach działania metody chcieli
+zmienić instancję, na której ją wywołano, użylibyśmy jako pierwszego parametru
+`&mut self`. Metoda, która przejmuje własność instancji, bo ma jako pierwszy
+parametr samo `self`, to rzadkość. Tej techniki używa się zwykle wtedy, gdy
+metoda przekształca `self` w coś innego, a chcesz uniemożliwić wywołującemu
+użycie pierwotnej instancji po tym przekształceniu.
 
-The main reason for using methods instead of functions, in addition to
-providing method syntax and not having to repeat the type of `self` in every
-method’s signature, is for organization. We’ve put all the things we can do
-with an instance of a type in one `impl` block rather than making future users
-of our code search for capabilities of `Rectangle` in various places in the
-library we provide.
+Główny powód, dla którego używa się metod zamiast funkcji – poza samą składnią
+metod i brakiem konieczności powtarzania typu `self` w sygnaturze każdej metody
+– to organizacja kodu. Umieściliśmy wszystko, co można zrobić z instancją typu,
+w jednym bloku `impl`, zamiast zmuszać przyszłych użytkowników naszego kodu do
+szukania możliwości `Rectangle` w różnych miejscach udostępnianej przez nas
+biblioteki.
 
-Note that we can choose to give a method the same name as one of the struct’s
-fields. For example, we can define a method on `Rectangle` that is also named
+Zauważ, że możemy nadać metodzie taką samą nazwę jak jednemu z pól struktury.
+Możemy na przykład zdefiniować dla `Rectangle` metodę, która także nazywa się
 `width`:
 
 <Listing file-name="src/main.rs">
@@ -76,32 +76,31 @@ fields. For example, we can define a method on `Rectangle` that is also named
 
 </Listing>
 
-Here, we’re choosing to make the `width` method return `true` if the value in
-the instance’s `width` field is greater than `0` and `false` if the value is
-`0`: We can use a field within a method of the same name for any purpose. In
-`main`, when we follow `rect1.width` with parentheses, Rust knows we mean the
-method `width`. When we don’t use parentheses, Rust knows we mean the field
-`width`.
+W tym przykładzie metoda `width` zwraca `true`, jeśli wartość w polu `width`
+instancji jest większa od `0`, i `false`, jeśli wynosi `0`: pola o tej samej
+nazwie co metoda możemy w niej użyć w dowolnym celu. Gdy w `main` po
+`rect1.width` piszemy nawiasy, Rust wie, że chodzi o metodę `width`. Gdy
+nawiasów nie ma, Rust wie, że chodzi o pole `width`.
 
-Often, but not always, when we give a method the same name as a field we want
-it to only return the value in the field and do nothing else. Methods like this
-are called _getters_, and Rust does not implement them automatically for struct
-fields as some other languages do. Getters are useful because you can make the
-field private but the method public and thus enable read-only access to that
-field as part of the type’s public API. We will discuss what public and private
-are and how to designate a field or method as public or private in [Chapter
-7][public]<!-- ignore -->.
+Często, choć nie zawsze, gdy nadajemy metodzie taką samą nazwę jak polu, chcemy,
+by tylko zwracała wartość tego pola i nic więcej nie robiła. Takie metody nazywa
+się _getterami_ (*getters*, metody dostępowe) i Rust, w przeciwieństwie do
+niektórych innych języków, nie generuje ich automatycznie dla pól struktur.
+Gettery są przydatne, bo pozwalają uczynić pole prywatnym, a metodę publiczną, i
+w ten sposób udostępnić to pole tylko do odczytu w ramach publicznego API typu.
+Czym jest publiczność i prywatność oraz jak oznaczyć pole lub metodę jako
+publiczne bądź prywatne, omówimy w [rozdziale 7][public]<!-- ignore -->.
 
-### Methods with More Parameters {#methods-with-more-parameters}
+### Metody z większą liczbą parametrów {#methods-with-more-parameters}
 
-Let’s practice using methods by implementing a second method on the `Rectangle`
-struct. This time we want an instance of `Rectangle` to take another instance
-of `Rectangle` and return `true` if the second `Rectangle` can fit completely
-within `self` (the first `Rectangle`); otherwise, it should return `false`.
-That is, once we’ve defined the `can_hold` method, we want to be able to write
-the program shown in Listing 5-14.
+Poćwiczmy używanie metod, implementując drugą metodę dla struktury `Rectangle`.
+Tym razem chcemy, by instancja `Rectangle` przyjmowała inną instancję
+`Rectangle` i zwracała `true`, jeśli ten drugi `Rectangle` mieści się całkowicie
+w `self` (pierwszym `Rectangle`), a w przeciwnym razie `false`. Innymi słowy, po
+zdefiniowaniu metody `can_hold` chcemy móc napisać program pokazany w listingu
+5-14.
 
-<Listing number="5-14" file-name="src/main.rs" caption="Using the as-yet-unwritten `can_hold` method">
+<Listing number="5-14" file-name="src/main.rs" caption="Użycie jeszcze nienapisanej metody `can_hold`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-14/src/main.rs}}
@@ -109,30 +108,28 @@ the program shown in Listing 5-14.
 
 </Listing>
 
-The expected output would look like the following because both dimensions of
-`rect2` are smaller than the dimensions of `rect1`, but `rect3` is wider than
-`rect1`:
+Oczekiwany wynik wyglądałby tak jak poniżej, bo oba wymiary `rect2` są mniejsze
+od wymiarów `rect1`, ale `rect3` jest szerszy niż `rect1`:
 
 ```text
 Can rect1 hold rect2? true
 Can rect1 hold rect3? false
 ```
 
-We know we want to define a method, so it will be within the `impl Rectangle`
-block. The method name will be `can_hold`, and it will take an immutable borrow
-of another `Rectangle` as a parameter. We can tell what the type of the
-parameter will be by looking at the code that calls the method:
-`rect1.can_hold(&rect2)` passes in `&rect2`, which is an immutable borrow to
-`rect2`, an instance of `Rectangle`. This makes sense because we only need to
-read `rect2` (rather than write, which would mean we’d need a mutable borrow),
-and we want `main` to retain ownership of `rect2` so that we can use it again
-after calling the `can_hold` method. The return value of `can_hold` will be a
-Boolean, and the implementation will check whether the width and height of
-`self` are greater than the width and height of the other `Rectangle`,
-respectively. Let’s add the new `can_hold` method to the `impl` block from
-Listing 5-13, shown in Listing 5-15.
+Wiemy, że chcemy zdefiniować metodę, więc znajdzie się ona w bloku
+`impl Rectangle`. Metoda będzie się nazywać `can_hold` i przyjmie jako parametr
+niemutowalne pożyczenie innego `Rectangle`. Typ parametru możemy odczytać z
+kodu, który wywołuje metodę: `rect1.can_hold(&rect2)` przekazuje `&rect2`, czyli
+niemutowalne pożyczenie `rect2`, instancji `Rectangle`. Ma to sens, bo musimy
+tylko odczytać `rect2` (a nie zapisywać, do czego potrzebne byłoby pożyczenie
+mutowalne), a chcemy, żeby `main` zachowało własność `rect2`, abyśmy mogli użyć
+go ponownie po wywołaniu metody `can_hold`. Wartością zwracaną przez `can_hold`
+będzie wartość logiczna, a implementacja sprawdzi, czy szerokość i wysokość
+`self` są większe odpowiednio od szerokości i wysokości drugiego `Rectangle`.
+Dodajmy nową metodę `can_hold` do bloku `impl` z listingu 5-13, jak pokazuje
+listing 5-15.
 
-<Listing number="5-15" file-name="src/main.rs" caption="Implementing the `can_hold` method on `Rectangle` that takes another `Rectangle` instance as a parameter">
+<Listing number="5-15" file-name="src/main.rs" caption="Implementacja metody `can_hold` dla `Rectangle`, która przyjmuje jako parametr inną instancję `Rectangle`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-15/src/main.rs:here}}
@@ -140,52 +137,48 @@ Listing 5-13, shown in Listing 5-15.
 
 </Listing>
 
-When we run this code with the `main` function in Listing 5-14, we’ll get our
-desired output. Methods can take multiple parameters that we add to the
-signature after the `self` parameter, and those parameters work just like
-parameters in functions.
+Gdy uruchomimy ten kod z funkcją `main` z listingu 5-14, otrzymamy oczekiwany
+wynik. Metody mogą przyjmować wiele parametrów, które dodajemy do sygnatury po
+parametrze `self`, a parametry te działają tak samo jak parametry funkcji.
 
 
-### Associated Functions {#associated-functions}
+### Funkcje powiązane {#associated-functions}
 
-All functions defined within an `impl` block are called _associated functions_
-because they’re associated with the type named after the `impl`. We can define
-associated functions as functions that don’t have `self` as their first parameter (and thus
-are not methods) because they don’t need an instance of the type to work with.
-We’ve already used one function like this: the `String::from` function that’s
-defined on the `String` type.
+Wszystkie funkcje zdefiniowane w bloku `impl` nazywamy _funkcjami powiązanymi_
+(*associated functions*), bo są powiązane z typem podanym po `impl`. Możemy
+definiować funkcje powiązane, które nie mają `self` jako pierwszego parametru (a
+zatem nie są metodami), bo do działania nie potrzebują instancji typu.
+Używaliśmy już jednej takiej funkcji: funkcji `String::from` zdefiniowanej dla
+typu `String`.
 
-Associated functions that aren’t methods are often used for constructors that
-will return a new instance of the struct. These are often called `new`, but
-`new` isn’t a special name and isn’t built into the language. For example, we
-could choose to provide an associated function named `square` that would have
-one dimension parameter and use that as both width and height, thus making it
-easier to create a square `Rectangle` rather than having to specify the same
-value twice:
+Funkcje powiązane, które nie są metodami, często służą jako konstruktory
+zwracające nową instancję struktury. Zwykle nazywają się `new`, ale `new` nie
+jest specjalną nazwą i nie jest wbudowane w język. Moglibyśmy na przykład
+udostępnić funkcję powiązaną o nazwie `square`, która miałaby jeden parametr
+wymiaru i używała go zarówno jako szerokości, jak i wysokości. Ułatwiłoby to
+tworzenie kwadratowego `Rectangle` bez podawania dwa razy tej samej wartości:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-03-associated-functions/src/main.rs:here}}
 ```
 
-The `Self` keywords in the return type and in the body of the function are
-aliases for the type that appears after the `impl` keyword, which in this case
-is `Rectangle`.
+Słowa kluczowe `Self` w typie zwracanym i w ciele funkcji są aliasami typu,
+który występuje po słowie kluczowym `impl`, czyli w tym przypadku `Rectangle`.
 
-To call this associated function, we use the `::` syntax with the struct name;
-`let sq = Rectangle::square(3);` is an example. This function is namespaced by
-the struct: The `::` syntax is used for both associated functions and
-namespaces created by modules. We’ll discuss modules in [Chapter
-7][modules]<!-- ignore -->.
+Aby wywołać tę funkcję powiązaną, używamy składni `::` z nazwą struktury, na
+przykład `let sq = Rectangle::square(3);`. Ta funkcja należy do przestrzeni nazw
+struktury: składni `::` używa się zarówno dla funkcji powiązanych, jak i dla
+przestrzeni nazw tworzonych przez moduły. Moduły omówimy w
+[rozdziale 7][modules]<!-- ignore -->.
 
-### Multiple `impl` Blocks {#multiple-impl-blocks}
+### Wiele bloków `impl` {#multiple-impl-blocks}
 
-Each struct is allowed to have multiple `impl` blocks. For example, Listing
-5-15 is equivalent to the code shown in Listing 5-16, which has each method in
-its own `impl` block.
+Każda struktura może mieć wiele bloków `impl`. Na przykład listing 5-15 jest
+równoważny kodowi z listingu 5-16, w którym każda metoda ma własny blok `impl`.
 
-<Listing number="5-16" caption="Rewriting Listing 5-15 using multiple `impl` blocks">
+<Listing number="5-16" caption="Listing 5-15 przepisany z użyciem wielu bloków `impl`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-16/src/main.rs:here}}
@@ -193,13 +186,14 @@ its own `impl` block.
 
 </Listing>
 
-There’s no reason to separate these methods into multiple `impl` blocks here,
-but this is valid syntax. We’ll see a case in which multiple `impl` blocks are
-useful in Chapter 10, where we discuss generic types and traits.
+Nie ma tu powodu, by rozdzielać te metody na wiele bloków `impl`, ale taka
+składnia jest poprawna. Przypadek, w którym wiele bloków `impl` się przydaje,
+zobaczymy w rozdziale 10, gdzie omówimy typy generyczne (*generics*) i *traity*
+(cechy typów, zbliżone do interfejsów).
 
-### Method Calls are Syntactic Sugar for Function Calls {#method-calls-are-syntactic-sugar-for-function-calls}
+### Wywołania metod są lukrem składniowym dla wywołań funkcji {#method-calls-are-syntactic-sugar-for-function-calls}
 
-Using the concepts we've discussed so far, we can now see how method calls are syntactic sugar for function calls. For example, let's say we have a rectangle struct with an `area` method and a `set_width` method:
+Korzystając z poznanych dotąd pojęć, możemy teraz zobaczyć, że wywołania metod są lukrem składniowym (*syntactic sugar*) dla wywołań funkcji. Załóżmy na przykład, że mamy strukturę prostokąta z metodą `area` i metodą `set_width`:
 
 ```rust,ignore
 # struct Rectangle {
@@ -218,7 +212,7 @@ impl Rectangle {
 }
 ```
 
-And let's say we have a rectangle `r`. Then the method calls `r.area()` and `r.set_width(2)` are equivalent to this:
+Załóżmy też, że mamy prostokąt `r`. Wtedy wywołania metod `r.area()` i `r.set_width(2)` są równoważne temu kodowi:
 
 ```rust
 # struct Rectangle {
@@ -250,13 +244,13 @@ Rectangle::set_width(&mut r, 2);
 # }
 ```
 
-The method call `r.area()` becomes `Rectangle::area(&r)`. The function name is the associated function `Rectangle::area`. The function argument is the `&self` parameter. Rust automatically inserts the borrowing operator `&`.
+Wywołanie metody `r.area()` staje się wywołaniem `Rectangle::area(&r)`. Nazwą funkcji jest funkcja powiązana `Rectangle::area`. Argumentem funkcji jest parametr `&self`. Rust automatycznie wstawia operator pożyczenia `&`.
 
-> *Note:* if you are familiar with C or C++, you are used to two different syntaxes for method calls: `r.area()` and `r->area()`. Rust does not have an equivalent to the arrow operator `->`. Rust will automatically reference and dereference the method receiver when you use the dot operator.
+> *Uwaga:* jeśli znasz C lub C++, to dwie różne składnie wywołań metod są ci dobrze znane: `r.area()` i `r->area()`. Rust nie ma odpowiednika operatora strzałki `->`. Gdy używasz operatora kropki, Rust automatycznie tworzy referencję (*reference*) do odbiorcy metody albo wykonuje na nim dereferencję (*dereference*).
 
-The method call `r.set_width(2)` similarly becomes `Rectangle::set_width(&mut r, 2)`. This method expects `&mut self`, so the first argument is a mutable borrow `&mut r`. The second argument is exactly the same, the number 2.
+Wywołanie metody `r.set_width(2)` analogicznie staje się wywołaniem `Rectangle::set_width(&mut r, 2)`. Ta metoda oczekuje `&mut self`, więc pierwszym argumentem jest mutowalne pożyczenie `&mut r`. Drugi argument pozostaje dokładnie taki sam – to liczba 2.
 
-As we described in Chapter 4.2 ["Dereferencing a Pointer Accesses Its Data"](ch04-02-references-and-borrowing.html#dereferencing-a-pointer-accesses-its-data), Rust will insert as many references and dereferences as needed to make the types match up for the `self` parameter. For example, here are two equivalent calls to `area` for a mutable reference to a boxed rectangle:
+Jak opisaliśmy w podrozdziale 4.2 [„Dereferencja wskaźnika daje dostęp do jego danych”](ch04-02-references-and-borrowing.html#dereferencing-a-pointer-accesses-its-data), Rust wstawi tyle referencji i dereferencji, ile trzeba, by typy zgadzały się z parametrem `self`. Oto na przykład dwa równoważne wywołania `area` dla mutowalnej referencji do prostokąta w *boxie* (wskaźniku na dane umieszczone na stercie):
 
 ```rust
 # struct Rectangle {
@@ -284,14 +278,14 @@ assert_eq!(area1, area2);
 # }
 ```
 
-Rust will add two dereferences (once for the mutable reference, once for the box) and then one immutable borrow because `area` expects `&Rectangle`. Note that this is also a situation where a mutable reference is "downgraded" into a shared reference, like we discussed in [Chapter 4.2](ch04-02-references-and-borrowing.html#mutable-references-provide-unique-and-non-owning-access-to-data). Conversely, you would not be allowed to call `set_width` on a value of type `&Rectangle` or `&Box<Rectangle>`.
+Rust doda dwie dereferencje (jedną dla mutowalnej referencji, jedną dla boxa), a potem jedno niemutowalne pożyczenie, bo `area` oczekuje `&Rectangle`. Zwróć uwagę, że to także sytuacja, w której mutowalna referencja zostaje „zdegradowana” do referencji współdzielonej, co omawialiśmy w [podrozdziale 4.2](ch04-02-references-and-borrowing.html#mutable-references-provide-unique-and-non-owning-access-to-data). Z kolei nie wolno wywołać `set_width` na wartości typu `&Rectangle` ani `&Box<Rectangle>`.
 
 {{#quiz ../quizzes/ch05-03-method-syntax-sec1.toml}}
 
 
-### Methods and Ownership {#methods-and-ownership}
+### Metody i własność {#methods-and-ownership}
 
-Like we discussed in Chapter 4.2 ["References and Borrowing"](ch04-02-references-and-borrowing.html), methods must be called on structs that have the necessary permissions. As a running example, we will use these three methods that take `&self`, `&mut self`, and `self`, respectively.
+Jak omawialiśmy w podrozdziale 4.2 [„Referencje i pożyczanie”](ch04-02-references-and-borrowing.html), metody można wywoływać tylko na strukturach, które mają odpowiednie uprawnienia (*permissions*). W przykładach będziemy używać tych trzech metod, które przyjmują odpowiednio `&self`, `&mut self` i `self`.
 
 ```rust,ignore
 impl Rectangle {    
@@ -312,9 +306,9 @@ impl Rectangle {
 }
 ```
 
-#### Reads and Writes with `&self` and `&mut self` {#reads-and-writes-with-self-and-mut-self}
+#### Odczyt i zapis przez `&self` i `&mut self` {#reads-and-writes-with-self-and-mut-self}
 
-If we make an owned rectangle with `let rect = Rectangle { ... }`, then `rect` has @Perm{read} and @Perm{own} permissions. With those permissions, it is permissible to call the `area` and `max` methods:
+Jeśli za pomocą `let rect = Rectangle { ... }` utworzymy prostokąt, którego właścicielem jest zmienna, to `rect` ma uprawnienia @Perm{read} i @Perm{own}, czyli R (*read*, odczyt) i O (*own*, własność). Z tymi uprawnieniami można wywołać metody `area` i `max`:
 
 ```aquascope,permissions,boundaries,stepper
 #struct Rectangle {
@@ -351,7 +345,7 @@ let max_rect = rect.max(other_rect);`{}`
 #}
 ```
 
-However, if we try to call `set_width`, we are missing the @Perm{write} permission:
+Jeśli jednak spróbujemy wywołać `set_width`, zabraknie nam uprawnienia @Perm{write}, czyli W (*write*, zapis):
 
 ```aquascope,permissions,boundaries,shouldFail
 #struct Rectangle {
@@ -385,7 +379,7 @@ rect.set_width(0);`{}`
 #}
 ```
 
-Rust will reject this program with the corresponding error:
+Rust odrzuci ten program z następującym błędem:
 
 ```text
 error[E0596]: cannot borrow `rect` as mutable, as it is not declared as mutable
@@ -398,7 +392,7 @@ error[E0596]: cannot borrow `rect` as mutable, as it is not declared as mutable
    | ^^^^^^^^^^^^^^^^^ cannot borrow as mutable
 ```
 
-We will get a similar error if we try to call `set_width` on an immutable reference to a `Rectangle`, even if the underlying rectangle is mutable:
+Podobny błąd dostaniemy, jeśli spróbujemy wywołać `set_width` na niemutowalnej referencji do `Rectangle`, nawet jeśli sam prostokąt jest mutowalny:
 
 ```aquascope,permissions,boundaries,stepper,shouldFail
 #struct Rectangle {
@@ -436,9 +430,9 @@ rect_ref.set_width(2);`{}` // but this is still not ok
 #}
 ```
 
-#### Moves with `self` {#moves-with-self}
+#### Przeniesienia przez `self` {#moves-with-self}
 
-Calling a method that expects `self` will move the input struct (unless the struct implements `Copy`). For example, we cannot use a `Rectangle` after passing it to `max`:
+Wywołanie metody, która oczekuje `self`, przenosi (*move*) strukturę wejściową (chyba że struktura implementuje `Copy`). Nie możemy na przykład użyć `Rectangle` po przekazaniu go do `max`:
 
 ```aquascope,permissions,boundaries,stepper,shouldFail
 #struct Rectangle {
@@ -477,7 +471,7 @@ println!("{}", rect.area());`{}`
 #}
 ```
 
-Once we call `rect.max(..)`, we move `rect` and so lose all permissions on it. Trying to compile this program would give us the following error:
+Gdy wywołamy `rect.max(..)`, przenosimy `rect` i tracimy wszystkie uprawnienia do niego. Próba skompilowania tego programu da następujący błąd:
 
 ```text
 error[E0382]: borrow of moved value: `rect`
@@ -492,7 +486,7 @@ error[E0382]: borrow of moved value: `rect`
    |                ^^^^^^^^^^^ value borrowed here after move
 ```
 
-A similar situation arises if we try to call a `self` method on a reference. For instance, say we tried to make a method `set_to_max` that assigns `self` to the output of `self.max(..)`:
+Podobna sytuacja zachodzi, gdy próbujemy wywołać metodę przyjmującą `self` na referencji. Załóżmy na przykład, że chcemy napisać metodę `set_to_max`, która przypisuje do `self` wynik `self.max(..)`:
 
 ```aquascope,permissions,boundaries,stepper,shouldFail
 #struct Rectangle {
@@ -522,7 +516,7 @@ impl Rectangle {
 }
 ```
 
-Then we can see that `self` is missing @Perm{own} permissions in the operation `self.max(..)`. Rust therefore rejects this program with the following error:
+Widać wtedy, że w operacji `self.max(..)` brakuje `self` uprawnienia @Perm{own}. Rust odrzuca więc ten program z następującym błędem:
 
 ```text
 error[E0507]: cannot move out of `*self` which is behind a mutable reference
@@ -536,11 +530,11 @@ error[E0507]: cannot move out of `*self` which is behind a mutable reference
    |
 ```
 
-This is the same kind of error we discussed in Chapter 4.3 ["Copying vs. Moving Out of a Collection"](ch04-03-fixing-ownership-errors.html#fixing-an-unsafe-program-copying-vs-moving-out-of-a-collection).
+To ten sam rodzaj błędu, który omawialiśmy w podrozdziale 4.3 [„Kopiowanie a przenoszenie z kolekcji”](ch04-03-fixing-ownership-errors.html#fixing-an-unsafe-program-copying-vs-moving-out-of-a-collection).
 
-#### Good Moves and Bad Moves {#good-moves-and-bad-moves}
+#### Dobre i złe przeniesienia {#good-moves-and-bad-moves}
 
-You might wonder: why does it matter if we move out of `*self`? In fact, for the case of `Rectangle`, it actually is safe to move out of `*self`, even though Rust doesn't let you do it. For example, if we simulate a program that calls the rejected `set_to_max`, you can see how nothing unsafe occurs:
+Możesz się zastanawiać: dlaczego to ważne, czy przenosimy wartość spod `*self`? W rzeczywistości w przypadku `Rectangle` przeniesienie spod `*self` jest bezpieczne, mimo że Rust na to nie pozwala. Jeśli na przykład zasymulujemy program, który wywołuje odrzuconą metodę `set_to_max`, zobaczysz, że nie dzieje się nic niebezpiecznego:
 
 ```aquascope,interpreter,shouldFail,horizontal
 #struct Rectangle {
@@ -569,8 +563,8 @@ fn main() {
 }
 ```
 
-The reason it's safe to move out of `*self` is because `Rectangle` does not own any heap data.
-In fact, we can actually get Rust to compile `set_to_max` by simply adding `#[derive(Copy, Clone)]` to the definition of `Rectangle`:
+Przeniesienie spod `*self` jest bezpieczne, bo `Rectangle` nie jest właścicielem żadnych danych na stercie (*heap*).
+Możemy nawet sprawić, że Rust skompiluje `set_to_max`, dodając po prostu `#[derive(Copy, Clone)]` do definicji `Rectangle`:
 
 ```aquascope,permissions,boundaries,stepper
 \#[derive(Copy, Clone)]
@@ -594,11 +588,11 @@ impl Rectangle {
 }
 ```
 
-Notice that unlike before, `self.max(other)` no longer requires the @Perm{own} permission on `*self` or `other`. Remember that `self.max(other)` desugars to `Rectangle::max(*self, other)`. The dereference `*self` does not require ownership over `*self` if `Rectangle` is copyable.
+Zauważ, że w odróżnieniu od poprzedniej wersji `self.max(other)` nie wymaga już uprawnienia @Perm{own} do `*self` ani do `other`. Pamiętaj, że `self.max(other)` po usunięciu lukru składniowego to `Rectangle::max(*self, other)`. Dereferencja `*self` nie wymaga własności `*self`, jeśli `Rectangle` da się kopiować.
 
-You might wonder: why doesn't Rust automatically derive `Copy` for `Rectangle`? Rust does not auto-derive `Copy` for stability across API changes. Imagine that the author of the `Rectangle` type decided to add a `name: String` field. Then all client code that relies on `Rectangle` being `Copy` would suddenly get rejected by the compiler. To avoid that issue, API authors must explicitly add `#[derive(Copy)]` to indicate that they expect their struct to always be `Copy`.
+Możesz się zastanawiać: dlaczego Rust nie wyprowadza (*derive*) automatycznie `Copy` dla `Rectangle`? Rust nie wyprowadza automatycznie `Copy`, aby zachować stabilność przy zmianach API. Wyobraź sobie, że autor typu `Rectangle` postanowił dodać pole `name: String`. Wtedy cały kod klientów, który zakłada, że `Rectangle` jest `Copy`, nagle zostałby odrzucony przez kompilator. Aby tego uniknąć, autorzy API muszą jawnie dodać `#[derive(Copy)]`, sygnalizując, że ich struktura ma zawsze być `Copy`.
 
-To better understand the issue, let's run a simulation. Say we added `name: String` to `Rectangle`. What would happen if Rust allowed `set_to_max` to compile?
+Aby lepiej zrozumieć problem, uruchommy symulację. Załóżmy, że dodaliśmy do `Rectangle` pole `name: String`. Co by się stało, gdyby Rust pozwolił skompilować `set_to_max`?
 
 ```aquascope,interpreter,shouldFail,horizontal
 struct Rectangle {
@@ -640,24 +634,23 @@ fn main() {
 }
 ```
 
-In this program, we call `set_to_max` with two rectangles `r1` and `r2`. `self` is a mutable reference to `r1` and `other` is a move of `r2`. After calling `self.max(other)`, the `max` method consumes ownership of both rectangles. When `max` returns, Rust deallocates both strings "r1" and "r2" in the heap. Notice the problem: at the location L2, `*self` is supposed to be readable and writable. However, `(*self).name` (actually `r1.name`) has been deallocated.
+W tym programie wywołujemy `set_to_max` z dwoma prostokątami: `r1` i `r2`. `self` jest mutowalną referencją do `r1`, a `other` to przeniesienie `r2`. Po wywołaniu `self.max(other)` metoda `max` przejmuje własność obu prostokątów. Gdy `max` kończy działanie, Rust dealokuje oba łańcuchy znaków (*strings*), „r1” i „r2”, na stercie. Zwróć uwagę na problem: w miejscu L2 `*self` powinno dać się odczytywać i zapisywać. Tymczasem `(*self).name` (a właściwie `r1.name`) zostało już zdealokowane.
 
-Therefore when we do `*self = max`, we encounter undefined behavior. When we overwrite `*self`, Rust will implicitly drop the data previously in `*self`. To make that behavior explicit, we have added `drop(*self)`. After calling `drop(*self)`, Rust attempts to free `(*self).name` a second time. That action is a double-free, which is undefined behavior.
+Dlatego gdy wykonujemy `*self = max`, dochodzi do niezdefiniowanego zachowania (*undefined behavior*). Gdy nadpisujemy `*self`, Rust niejawnie zwalnia (*drop*) dane, które wcześniej były w `*self`. Aby uczynić to zachowanie jawnym, dodaliśmy `drop(*self)`. Po wywołaniu `drop(*self)` Rust próbuje po raz drugi zwolnić `(*self).name`. To podwójne zwolnienie (*double-free*), czyli niezdefiniowane zachowanie.
 
-So remember: when you see an error like "cannot move out of `*self`", that's usually because you're trying to call a `self` method on a reference like `&self` or `&mut self`. Rust is protecting you from a double-free.
+Zapamiętaj więc: gdy widzisz błąd w rodzaju „cannot move out of `*self`”, to zwykle dlatego, że próbujesz wywołać metodę przyjmującą `self` na referencji takiej jak `&self` czy `&mut self`. Rust chroni cię wtedy przed podwójnym zwolnieniem.
 
 
-## Summary {#summary}
+## Podsumowanie {#summary}
 
-Structs let you create custom types that are meaningful for your domain. By
-using structs, you can keep associated pieces of data connected to each other
-and name each piece to make your code clear. In `impl` blocks, you can define
-functions that are associated with your type, and methods are a kind of
-associated function that let you specify the behavior that instances of your
-structs have.
+Struktury pozwalają tworzyć własne typy, które mają znaczenie w twojej
+dziedzinie. Dzięki nim możesz trzymać powiązane ze sobą fragmenty danych razem i
+nadać każdemu z nich nazwę, by kod był czytelny. W blokach `impl` możesz
+definiować funkcje powiązane z twoim typem, a metody to rodzaj funkcji
+powiązanych, które pozwalają określić zachowanie instancji twoich struktur.
 
-But structs aren’t the only way you can create custom types: Let’s turn to
-Rust’s enum feature to add another tool to your toolbox.
+Struktury nie są jednak jedynym sposobem tworzenia własnych typów: przyjrzyjmy
+się teraz enumom w Ruście, aby dodać do swojego zestawu kolejne narzędzie.
 
 {{#quiz ../quizzes/ch05-03-method-syntax-sec2.toml}}
 

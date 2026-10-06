@@ -1,17 +1,17 @@
 [[questions]]
 id = "ae4e06f6-5fdc-43d9-929c-85eba3559a82"
 type = "MultipleChoice"
-prompt.prompt = "What is the keyword for constructor functions in Rust?"
-answer.answer = "None of the above"
+prompt.prompt = "Jakie jest w Ruście słowo kluczowe dla konstruktorów?"
+answer.answer = "Żadne z powyższych"
 prompt.distractors = [
   "`constructor`",
   "`new`",
-  "The name of the type being constructed",
+  "Nazwa konstruowanego typu",
 ]
 prompt.answerIndex = 3
 context = """
-Rust does not have a keyword for constructor functions. The idiomatic way to define a constructor function is to make an associated function called `new`, 
-but that is not enforced by the language.
+Rust nie ma słowa kluczowego dla konstruktorów. Idiomatycznym sposobem zdefiniowania konstruktora jest utworzenie funkcji powiązanej o nazwie `new`, 
+ale język tego nie wymusza.
 """
 
 [[questions]]
@@ -32,5 +32,5 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 5
 context = """ 
-Methods can only be implemented for types (e.g. `impl Point`), not variables (like `p`).
+Metody można implementować tylko dla typów (np. `impl Point`), a nie dla zmiennych (takich jak `p`).
 """

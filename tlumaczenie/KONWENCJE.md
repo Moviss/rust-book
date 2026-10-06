@@ -121,3 +121,5 @@ angielsku (nazwa programu); nagłówek „Hello, World!” zapisujemy „Hello, 
 **Po „Uwaga:”** piszemy małą literą (polska reguła po dwukropku), chyba że dalej jest nazwa własna lub kod.
 
 **unsafe w prozie:** *unsafe code* bez kodu inline w oryginale → „niebezpieczny kod”.
+
+**Numer linii kodu:** „w wierszu 3” (nie „w linii 3”).
