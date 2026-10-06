@@ -26,7 +26,7 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 - [x] F2.4 Push i weryfikacja strony
 - [x] F3.1 Strony otwierające
 - [x] F3.2 Rozdziały 2–21
-- [ ] F3.3 Dodatki
+- [x] F3.3 Dodatki
 - [x] F4.1 `SUMMARY.md`
 - [x] F4.2 `book.toml`
 - [x] F4.3 `ferris.js`
@@ -157,14 +157,14 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch21-02-multithreaded.md | 21 | 4855 | — | gotowe | afea98ae | 1 |  |  |
 | ch21-03-graceful-shutdown-and-cleanup.md | 21 | 1497 | — | gotowe | a6f1718b | 1 |  |  |
 | end-of-experiment.md | 0 | 47 | — | gotowe | afe257bc | 1 |  |  |
-| appendix-00.md | dod. | 17 | — | przegląd | a5a133b8 | 1 |  |  |
-| appendix-01-keywords.md | dod. | 743 | — | przegląd | a5a133b8 | 1 |  |  |
-| appendix-02-operators.md | dod. | 1779 | — | przegląd | a5a133b8 | 1 |  |  |
-| appendix-03-derivable-traits.md | dod. | 1495 | — | przegląd | aea87797 | 1 |  |  |
-| appendix-04-useful-development-tools.md | dod. | 567 | — | przegląd | aea87797 | 1 |  |  |
-| appendix-05-editions.md | dod. | 496 | — | przegląd | aea87797 | 1 |  |  |
-| appendix-06-translation.md | dod. | 97 | — | przegląd | a5a133b8 | 1 | 2 (wiersze z samymi nazwami języków i linkami) |  |
-| appendix-07-nightly-rust.md | dod. | 1376 | — | przegląd | aea87797 | 1 |  |  |
+| appendix-00.md | dod. | 17 | — | gotowe | a5a133b8 | 1 |  |  |
+| appendix-01-keywords.md | dod. | 743 | — | gotowe | a5a133b8 | 1 |  |  |
+| appendix-02-operators.md | dod. | 1779 | — | gotowe | a5a133b8 | 1 |  |  |
+| appendix-03-derivable-traits.md | dod. | 1495 | — | gotowe | aea87797 | 1 |  |  |
+| appendix-04-useful-development-tools.md | dod. | 567 | — | gotowe | aea87797 | 1 |  |  |
+| appendix-05-editions.md | dod. | 496 | — | gotowe | aea87797 | 1 |  |  |
+| appendix-06-translation.md | dod. | 97 | — | gotowe | a5a133b8 | 1 | 2 (wiersze z samymi nazwami języków i linkami) |  |
+| appendix-07-nightly-rust.md | dod. | 1376 | — | gotowe | aea87797 | 1 |  |  |
 
 
 ## Decyzje orkiestratora

@@ -458,3 +458,7 @@ recenzent.
 | URI / URL | ujednolicony identyfikator / lokalizator zasobów | — | | |
 | coerce | (automatycznie) konwertować | — | | |
 | unit struct | struktura jednostkowa | — | | |
+| software release train | model pociągu wydań | — | | |
+| end of life (EOL) | koniec wsparcia | — | | |
+| overloadable | przeciążalny | — | | |
+| bottom type | typ dolny | — | | |

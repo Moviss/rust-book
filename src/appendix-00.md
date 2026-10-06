@@ -1,4 +1,4 @@
-# Appendix {#appendix}
+# Dodatek {#appendix}
 
-The following sections contain reference material you may find useful in your
-Rust journey.
+Kolejne podrozdziały zawierają materiały referencyjne, które mogą okazać się
+przydatne w twojej przygodzie z Rustem.

@@ -1,70 +1,79 @@
-## Appendix A: Keywords {#appendix-a-keywords}
+## Dodatek A: Słowa kluczowe {#appendix-a-keywords}
 
-The following lists contain keywords that are reserved for current or future
-use by the Rust language. As such, they cannot be used as identifiers (except
-as raw identifiers, as we discuss in the [“Raw
-Identifiers”][raw-identifiers]<!-- ignore --> section). _Identifiers_ are names
-of functions, variables, parameters, struct fields, modules, crates, constants,
-macros, static values, attributes, types, traits, or lifetimes.
+Poniższe listy zawierają słowa kluczowe (*keyword*), które język Rust rezerwuje
+do obecnego lub przyszłego użytku. Z tego powodu nie można ich używać jako
+identyfikatorów (z wyjątkiem surowych identyfikatorów, które omawiamy w
+podrozdziale [„Surowe identyfikatory”][raw-identifiers]<!-- ignore -->).
+_Identyfikatory_ to nazwy funkcji, zmiennych, parametrów, pól struktur
+(*struct*), modułów, *crate’ów* (jednostek kompilacji w Ruście), stałych
+(*constant*), makr, wartości statycznych, atrybutów, typów, *traitów* (cech
+typów, zbliżonych do interfejsów) i czasów życia (*lifetime*).
 
 [raw-identifiers]: #raw-identifiers
 
-### Keywords Currently in Use {#keywords-currently-in-use}
+### Obecnie używane słowa kluczowe {#keywords-currently-in-use}
 
-The following is a list of keywords currently in use, with their functionality
-described.
+Poniżej znajduje się lista obecnie używanych słów kluczowych wraz z opisem ich
+działania.
 
-- **`as`**: Perform primitive casting, disambiguate the specific trait
-  containing an item, or rename items in `use` statements.
-- **`async`**: Return a `Future` instead of blocking the current thread.
-- **`await`**: Suspend execution until the result of a `Future` is ready.
-- **`break`**: Exit a loop immediately.
-- **`const`**: Define constant items or constant raw pointers.
-- **`continue`**: Continue to the next loop iteration.
-- **`crate`**: In a module path, refers to the crate root.
-- **`dyn`**: Dynamic dispatch to a trait object.
-- **`else`**: Fallback for `if` and `if let` control flow constructs.
-- **`enum`**: Define an enumeration.
-- **`extern`**: Link an external function or variable.
-- **`false`**: Boolean false literal.
-- **`fn`**: Define a function or the function pointer type.
-- **`for`**: Loop over items from an iterator, implement a trait, or specify a
-  higher ranked lifetime.
-- **`if`**: Branch based on the result of a conditional expression.
-- **`impl`**: Implement inherent or trait functionality.
-- **`in`**: Part of `for` loop syntax.
-- **`let`**: Bind a variable.
-- **`loop`**: Loop unconditionally.
-- **`match`**: Match a value to patterns.
-- **`mod`**: Define a module.
-- **`move`**: Make a closure take ownership of all its captures.
-- **`mut`**: Denote mutability in references, raw pointers, or pattern bindings.
-- **`pub`**: Denote public visibility in struct fields, `impl` blocks, or
-  modules.
-- **`ref`**: Bind by reference.
-- **`return`**: Return from function.
-- **`Self`**: A type alias for the type we are defining or implementing.
-- **`self`**: Method subject or current module.
-- **`static`**: Global variable or lifetime lasting the entire program
-  execution.
-- **`struct`**: Define a structure.
-- **`super`**: Parent module of the current module.
-- **`trait`**: Define a trait.
-- **`true`**: Boolean true literal.
-- **`type`**: Define a type alias or associated type.
-- **`union`**: Define a [union][union]<!-- ignore -->; is a keyword only when
-  used in a union declaration.
-- **`unsafe`**: Denote unsafe code, functions, traits, or implementations.
-- **`use`**: Bring symbols into scope.
-- **`where`**: Denote clauses that constrain a type.
-- **`while`**: Loop conditionally based on the result of an expression.
+- **`as`**: wykonuje rzutowanie typów prymitywnych, jednoznacznie wskazuje
+  trait zawierający dany element albo zmienia nazwy elementów w instrukcjach `use`.
+- **`async`**: zwraca `Future` zamiast blokować bieżący wątek.
+- **`await`**: wstrzymuje wykonanie, dopóki wynik `Future` nie będzie gotowy.
+- **`break`**: natychmiast kończy pętlę.
+- **`const`**: definiuje stałe lub stałe surowe wskaźniki (*raw pointer*).
+- **`continue`**: przechodzi do następnej iteracji pętli.
+- **`crate`**: w ścieżce modułu oznacza korzeń crate’a (*crate root*).
+- **`dyn`**: dynamiczne wywoływanie (*dynamic dispatch*) na obiekcie traitu
+  (*trait object*).
+- **`else`**: alternatywna gałąź w konstrukcjach przepływu sterowania
+  (*control flow*) `if` i `if let`.
+- **`enum`**: definiuje *enum* (typ wyliczeniowy).
+- **`extern`**: łączy z zewnętrzną funkcją lub zmienną.
+- **`false`**: literał logiczny oznaczający fałsz.
+- **`fn`**: definiuje funkcję lub typ wskaźnika na funkcję (*function
+  pointer*).
+- **`for`**: iteruje po elementach z iteratora, implementuje trait albo określa
+  czas życia wyższego rzędu.
+- **`if`**: rozgałęzienie zależne od wyniku wyrażenia warunkowego.
+- **`impl`**: implementuje funkcjonalność własną typu lub funkcjonalność
+  traitu.
+- **`in`**: część składni pętli `for`.
+- **`let`**: wiąże zmienną.
+- **`loop`**: pętla bezwarunkowa.
+- **`match`**: dopasowuje wartość do wzorców.
+- **`mod`**: definiuje moduł.
+- **`move`**: sprawia, że domknięcie (*closure*) przejmuje własność
+  (*ownership*) wszystkich przechwyconych wartości.
+- **`mut`**: oznacza mutowalność (*mutability*) w referencjach (*reference*),
+  surowych wskaźnikach lub wiązaniach we wzorcach.
+- **`pub`**: oznacza publiczną widoczność pól struktur, bloków `impl` lub
+  modułów.
+- **`ref`**: wiąże przez referencję.
+- **`return`**: powrót z funkcji.
+- **`Self`**: alias typu dla typu, który definiujemy lub implementujemy.
+- **`self`**: odbiorca metody lub bieżący moduł.
+- **`static`**: zmienna globalna lub czas życia trwający przez całe wykonanie
+  programu.
+- **`struct`**: definiuje strukturę.
+- **`super`**: moduł nadrzędny bieżącego modułu.
+- **`trait`**: definiuje trait.
+- **`true`**: literał logiczny oznaczający prawdę.
+- **`type`**: definiuje alias typu lub typ powiązany (*associated type*).
+- **`union`**: definiuje [unię][union]<!-- ignore --> (*union*); jest słowem
+  kluczowym tylko w deklaracji unii.
+- **`unsafe`**: oznacza niebezpieczny kod, niebezpieczne funkcje, traity lub
+  implementacje.
+- **`use`**: wprowadza symbole do zasięgu (*scope*).
+- **`where`**: oznacza klauzule ograniczające typ.
+- **`while`**: pętla warunkowa zależna od wyniku wyrażenia.
 
 [union]: https://doc.rust-lang.org/reference/items/unions.html
 
-### Keywords Reserved for Future Use {#keywords-reserved-for-future-use}
+### Słowa kluczowe zarezerwowane na przyszłość {#keywords-reserved-for-future-use}
 
-The following keywords do not yet have any functionality but are reserved by
-Rust for potential future use:
+Poniższe słowa kluczowe nie mają jeszcze żadnej funkcjonalności, ale Rust
+rezerwuje je na potencjalny przyszły użytek:
 
 - `abstract`
 - `become`
@@ -81,15 +90,16 @@ Rust for potential future use:
 - `virtual`
 - `yield`
 
-### Raw Identifiers {#raw-identifiers}
+### Surowe identyfikatory {#raw-identifiers}
 
-_Raw identifiers_ are the syntax that lets you use keywords where they wouldn’t
-normally be allowed. You use a raw identifier by prefixing a keyword with `r#`.
+_Surowe identyfikatory_ to składnia, która pozwala używać słów kluczowych tam,
+gdzie normalnie nie byłyby dozwolone. Surowego identyfikatora używasz,
+poprzedzając słowo kluczowe prefiksem `r#`.
 
-For example, `match` is a keyword. If you try to compile the following function
-that uses `match` as its name:
+Na przykład `match` jest słowem kluczowym. Jeśli spróbujesz skompilować
+poniższą funkcję, która ma nazwę `match`:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn match(needle: &str, haystack: &str) -> bool {
@@ -97,7 +107,7 @@ fn match(needle: &str, haystack: &str) -> bool {
 }
 ```
 
-you’ll get this error:
+otrzymasz taki błąd:
 
 ```text
 error: expected identifier, found keyword `match`
@@ -107,11 +117,11 @@ error: expected identifier, found keyword `match`
   |    ^^^^^ expected identifier, found keyword
 ```
 
-The error shows that you can’t use the keyword `match` as the function
-identifier. To use `match` as a function name, you need to use the raw
-identifier syntax, like this:
+Błąd pokazuje, że nie możesz użyć słowa kluczowego `match` jako identyfikatora
+funkcji. Aby użyć `match` jako nazwy funkcji, musisz zastosować składnię
+surowych identyfikatorów, o tak:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Plik: src/main.rs</span>
 
 ```rust
 fn r#match(needle: &str, haystack: &str) -> bool {
@@ -123,18 +133,19 @@ fn main() {
 }
 ```
 
-This code will compile without any errors. Note the `r#` prefix on the function
-name in its definition as well as where the function is called in `main`.
+Ten kod skompiluje się bez żadnych błędów. Zwróć uwagę na prefiks `r#` przed
+nazwą funkcji zarówno w jej definicji, jak i w miejscu jej wywołania w `main`.
 
-Raw identifiers allow you to use any word you choose as an identifier, even if
-that word happens to be a reserved keyword. This gives us more freedom to choose
-identifier names, as well as lets us integrate with programs written in a
-language where these words aren’t keywords. In addition, raw identifiers allow
-you to use libraries written in a different Rust edition than your crate uses.
-For example, `try` isn’t a keyword in the 2015 edition but is in the 2018, 2021,
-and 2024 editions. If you depend on a library that is written using the 2015
-edition and has a `try` function, you’ll need to use the raw identifier syntax,
-`r#try` in this case, to call that function from your code on later editions.
-See [Appendix E][appendix-e]<!-- ignore --> for more information on editions.
+Surowe identyfikatory pozwalają użyć jako identyfikatora dowolnie wybranego
+słowa, nawet jeśli jest ono zarezerwowanym słowem kluczowym. Daje nam to
+większą swobodę w wyborze nazw identyfikatorów, a także umożliwia integrację z
+programami napisanymi w języku, w którym te słowa nie są słowami kluczowymi.
+Ponadto surowe identyfikatory pozwalają korzystać z bibliotek napisanych w innej
+edycji (*edition*) Rusta niż ta, której używa twój crate. Na przykład `try` nie
+jest słowem kluczowym w edycji 2015, ale jest nim w edycjach 2018, 2021 i 2024.
+Jeśli twój kod zależy od biblioteki napisanej w edycji 2015, która ma funkcję
+`try`, to aby wywołać tę funkcję ze swojego kodu w późniejszych edycjach,
+musisz użyć składni surowych identyfikatorów – w tym przypadku `r#try`. Więcej
+informacji o edycjach znajdziesz w [dodatku E][appendix-e]<!-- ignore -->.
 
 [appendix-e]: appendix-05-editions.html
