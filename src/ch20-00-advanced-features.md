@@ -1,22 +1,26 @@
-# Advanced Features {#advanced-features}
+# Zaawansowane mechanizmy {#advanced-features}
 
-By now, you’ve learned the most commonly used parts of the Rust programming
-language. Before we do one more project, in Chapter 21, we’ll look at a few
-aspects of the language you might run into every once in a while but may not
-use every day. You can use this chapter as a reference for when you encounter
-any unknowns. The features covered here are useful in very specific situations.
-Although you might not reach for them often, we want to make sure you have a
-grasp of all the features Rust has to offer.
+Znasz już najczęściej używane elementy języka programowania Rust. Zanim w
+rozdziale 21 zrealizujemy jeszcze jeden projekt, przyjrzymy się kilku aspektom
+języka, na które możesz czasem natrafić, ale których raczej nie będziesz używać
+na co dzień. Możesz traktować ten rozdział jako punkt odniesienia, gdy
+napotkasz coś nieznanego. Omawiane tu mechanizmy przydają się w bardzo
+konkretnych sytuacjach. Choć być może nie będziesz po nie często sięgać, chcemy
+mieć pewność, że znasz wszystkie mechanizmy, jakie oferuje Rust.
 
-In this chapter, we’ll cover:
+W tym rozdziale omówimy:
 
-- Unsafe Rust: How to opt out of some of Rust’s guarantees and take
-  responsibility for manually upholding those guarantees
-- Advanced traits: Associated types, default type parameters, fully qualified
-  syntax, supertraits, and the newtype pattern in relation to traits
-- Advanced types: More about the newtype pattern, type aliases, the never type,
-  and dynamically sized types
-- Advanced functions and closures: Function pointers and returning closures
-- Macros: Ways to define code that defines more code at compile time
+- niebezpieczny Rust (*unsafe Rust*): jak zrezygnować z niektórych gwarancji
+  Rusta i samodzielnie wziąć odpowiedzialność za ich dotrzymanie;
+- zaawansowane *traity* (cechy typów, zbliżone do interfejsów): typy powiązane
+  (*associated types*), domyślne parametry typów, w pełni kwalifikowaną
+  składnię, supertraity i wzorzec newtype w odniesieniu do traitów;
+- zaawansowane typy: więcej o wzorcu newtype, aliasy typów, typ never i typy o
+  dynamicznym rozmiarze (*dynamically sized types*);
+- zaawansowane funkcje i domknięcia (*closures*): wskaźniki na funkcje
+  (*function pointers*) i zwracanie domknięć;
+- makra: sposoby definiowania kodu, który w czasie kompilacji (*compile-time*)
+  definiuje kolejny kod.
 
-It’s a panoply of Rust features with something for everyone! Let’s dive in!
+To prawdziwa mozaika mechanizmów Rusta – każdy znajdzie tu coś dla siebie!
+Zaczynajmy!

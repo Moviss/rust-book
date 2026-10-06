@@ -1,28 +1,29 @@
-## Advanced Functions and Closures {#advanced-functions-and-closures}
+## Zaawansowane funkcje i domknięcia {#advanced-functions-and-closures}
 
-This section explores some advanced features related to functions and closures,
-including function pointers and returning closures.
+W tym podrozdziale omówimy kilka zaawansowanych mechanizmów związanych z
+funkcjami i domknięciami (*closures*), w tym wskaźniki na funkcje i zwracanie
+domknięć.
 
-### Function Pointers {#function-pointers}
+### Wskaźniki na funkcje {#function-pointers}
 
-We’ve talked about how to pass closures to functions; you can also pass regular
-functions to functions! This technique is useful when you want to pass a
-function you’ve already defined rather than defining a new closure. Functions
-coerce to the type `fn` (with a lowercase _f_), not to be confused with the
-`Fn` closure trait. The `fn` type is called a _function pointer_. Passing
-functions with function pointers will allow you to use functions as arguments
-to other functions.
+Mówiliśmy już o tym, jak przekazywać domknięcia do funkcji; do funkcji można
+jednak przekazywać także zwykłe funkcje! Ta technika przydaje się, gdy chcesz
+przekazać już zdefiniowaną funkcję, zamiast definiować nowe domknięcie. Funkcje
+są automatycznie konwertowane na typ `fn` (z małym _f_), którego nie należy
+mylić z *traitem* (cechą typu, zbliżoną do interfejsu) domknięć `Fn`. Typ `fn` nazywa się _wskaźnikiem na
+funkcję_ (*function pointer*). Przekazywanie funkcji za pomocą wskaźników na
+funkcje pozwala używać funkcji jako argumentów innych funkcji.
 
-The syntax for specifying that a parameter is a function pointer is similar to
-that of closures, as shown in Listing 20-28, where we’ve defined a function
-`add_one` that adds 1 to its parameter. The function `do_twice` takes two
-parameters: a function pointer to any function that takes an `i32` parameter
-and returns an `i32`, and one `i32` value. The `do_twice` function calls the
-function `f` twice, passing it the `arg` value, then adds the two function call
-results together. The `main` function calls `do_twice` with the arguments
-`add_one` and `5`.
+Składnia określająca, że parametr jest wskaźnikiem na funkcję, przypomina
+składnię domknięć, co widać w listingu 20-28. Zdefiniowaliśmy w nim funkcję
+`add_one`, która dodaje 1 do swojego parametru. Funkcja `do_twice` przyjmuje dwa
+parametry: wskaźnik na dowolną funkcję, która przyjmuje parametr typu `i32` i
+zwraca `i32`, oraz jedną wartość typu `i32`. Funkcja `do_twice` dwukrotnie
+wywołuje funkcję `f`, przekazując jej wartość `arg`, a następnie dodaje do
+siebie wyniki obu wywołań. Funkcja `main` wywołuje `do_twice` z argumentami
+`add_one` i `5`.
 
-<Listing number="20-28" file-name="src/main.rs" caption="Using the `fn` type to accept a function pointer as an argument">
+<Listing number="20-28" file-name="src/main.rs" caption="Użycie typu `fn`, aby przyjąć wskaźnik na funkcję jako argument">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-28/src/main.rs}}
@@ -30,31 +31,32 @@ results together. The `main` function calls `do_twice` with the arguments
 
 </Listing>
 
-This code prints `The answer is: 12`. We specify that the parameter `f` in
-`do_twice` is an `fn` that takes one parameter of type `i32` and returns an
-`i32`. We can then call `f` in the body of `do_twice`. In `main`, we can pass
-the function name `add_one` as the first argument to `do_twice`.
+Ten kod wypisuje `The answer is: 12`. Określamy, że parametr `f` w `do_twice`
+jest typu `fn`, który przyjmuje jeden parametr typu `i32` i zwraca `i32`.
+Następnie możemy wywołać `f` w treści `do_twice`. W `main` możemy przekazać
+nazwę funkcji `add_one` jako pierwszy argument `do_twice`.
 
-Unlike closures, `fn` is a type rather than a trait, so we specify `fn` as the
-parameter type directly rather than declaring a generic type parameter with one
-of the `Fn` traits as a trait bound.
+W przeciwieństwie do domknięć `fn` jest typem, a nie traitem, więc podajemy
+`fn` bezpośrednio jako typ parametru, zamiast deklarować generyczny parametr
+typu z jednym z traitów `Fn` jako ograniczeniem traitu (*trait bound*).
 
-Function pointers implement all three of the closure traits (`Fn`, `FnMut`, and
-`FnOnce`), meaning you can always pass a function pointer as an argument for a
-function that expects a closure. It’s best to write functions using a generic
-type and one of the closure traits so that your functions can accept either
-functions or closures.
+Wskaźniki na funkcje implementują wszystkie trzy traity domknięć (`Fn`, `FnMut`
+i `FnOnce`), co oznacza, że wskaźnik na funkcję zawsze możesz przekazać jako
+argument funkcji, która oczekuje domknięcia. Najlepiej pisać funkcje z użyciem
+typu generycznego (*generic type*) i jednego z traitów domknięć, aby mogły
+przyjmować zarówno funkcje, jak i domknięcia.
 
-That said, one example of where you would want to only accept `fn` and not
-closures is when interfacing with external code that doesn’t have closures: C
-functions can accept functions as arguments, but C doesn’t have closures.
+Mimo to przykładem sytuacji, w której chcielibyśmy przyjmować tylko `fn`, a nie
+domknięcia, jest współpraca z zewnętrznym kodem, który nie ma domknięć: funkcje
+w C mogą przyjmować funkcje jako argumenty, ale C nie ma domknięć.
 
-As an example of where you could use either a closure defined inline or a named
-function, let’s look at a use of the `map` method provided by the `Iterator`
-trait in the standard library. To use the `map` method to turn a vector of
-numbers into a vector of strings, we could use a closure, as in Listing 20-29.
+Jako przykład sytuacji, w której można użyć albo domknięcia zdefiniowanego w
+miejscu, albo nazwanej funkcji, przyjrzyjmy się użyciu metody `map` dostarczanej
+przez trait `Iterator` z biblioteki standardowej. Aby za pomocą metody `map`
+zamienić wektor (*vector*) liczb na wektor łańcuchów znaków (*strings*), możemy
+użyć domknięcia, jak w listingu 20-29.
 
-<Listing number="20-29" caption="Using a closure with the `map` method to convert numbers to strings">
+<Listing number="20-29" caption="Użycie domknięcia z metodą `map` do konwersji liczb na łańcuchy znaków">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-29/src/main.rs:here}}
@@ -62,10 +64,10 @@ numbers into a vector of strings, we could use a closure, as in Listing 20-29.
 
 </Listing>
 
-Or we could name a function as the argument to `map` instead of the closure.
-Listing 20-30 shows what this would look like.
+Zamiast domknięcia możemy też jako argument `map` podać nazwę funkcji. Listing
+20-30 pokazuje, jak by to wyglądało.
 
-<Listing number="20-30" caption="Using the `String::to_string` function with the `map` method to convert numbers to strings">
+<Listing number="20-30" caption="Użycie funkcji `String::to_string` z metodą `map` do konwersji liczb na łańcuchy znaków">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-30/src/main.rs:here}}
@@ -73,21 +75,21 @@ Listing 20-30 shows what this would look like.
 
 </Listing>
 
-Note that we must use the fully qualified syntax that we talked about in the
-[“Advanced Traits”][advanced-traits]<!-- ignore --> section because there are
-multiple functions available named `to_string`.
+Zauważ, że musimy użyć w pełni kwalifikowanej składni, o której mówiliśmy w
+podrozdziale [„Zaawansowane traity”][advanced-traits]<!-- ignore -->, ponieważ
+dostępnych jest kilka funkcji o nazwie `to_string`.
 
-Here, we’re using the `to_string` function defined in the `ToString` trait,
-which the standard library has implemented for any type that implements
-`Display`.
+Używamy tu funkcji `to_string` zdefiniowanej w traicie `ToString`, który
+biblioteka standardowa implementuje dla każdego typu implementującego `Display`.
 
-Recall from the [“Enum Values”][enum-values]<!-- ignore --> section in Chapter
-6 that the name of each enum variant that we define also becomes an initializer
-function. We can use these initializer functions as function pointers that
-implement the closure traits, which means we can specify the initializer
-functions as arguments for methods that take closures, as seen in Listing 20-31.
+Przypomnij sobie z podrozdziału [„Wartości enumów”][enum-values]<!-- ignore -->
+w rozdziale 6, że nazwa każdego zdefiniowanego przez nas wariantu *enuma* (typu
+wyliczeniowego) staje się również funkcją inicjalizującą. Tych funkcji
+inicjalizujących możemy używać jako wskaźników na funkcje implementujących
+traity domknięć, co oznacza, że możemy je podawać jako argumenty metod
+przyjmujących domknięcia, jak w listingu 20-31.
 
-<Listing number="20-31" caption="Using an enum initializer with the `map` method to create a `Status` instance from numbers">
+<Listing number="20-31" caption="Użycie inicjalizatora wariantu enuma z metodą `map` do utworzenia instancji `Status` z liczb">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-31/src/main.rs:here}}
@@ -95,26 +97,26 @@ functions as arguments for methods that take closures, as seen in Listing 20-31.
 
 </Listing>
 
-Here, we create `Status::Value` instances using each `u32` value in the range
-that `map` is called on by using the initializer function of `Status::Value`.
-Some people prefer this style and some people prefer to use closures. They
-compile to the same code, so use whichever style is clearer to you.
+Tworzymy tu instancje `Status::Value` z każdej wartości `u32` z zakresu, na
+którym wywołano `map`, używając funkcji inicjalizującej `Status::Value`. Jedni
+wolą ten styl, inni wolą używać domknięć. Oba kompilują się do tego samego kodu,
+więc używaj tego, który jest dla ciebie czytelniejszy.
 
-### Returning Closures {#returning-closures}
+### Zwracanie domknięć {#returning-closures}
 
-Closures are represented by traits, which means you can’t return closures
-directly. In most cases where you might want to return a trait, you can instead
-use the concrete type that implements the trait as the return value of the
-function. However, you can’t usually do that with closures because they don’t
-have a concrete type that is returnable; you’re not allowed to use the function
-pointer `fn` as a return type if the closure captures any values from its
-scope, for example.
+Domknięcia są reprezentowane przez traity, co oznacza, że nie można zwracać
+domknięć bezpośrednio. W większości przypadków, w których chcielibyśmy zwrócić
+trait, możemy zamiast tego użyć typu konkretnego implementującego ten trait jako
+wartości zwracanej funkcji. Z domknięciami zwykle nie da się jednak tak zrobić,
+ponieważ nie mają one typu konkretnego, który można zwrócić. Na przykład nie
+wolno użyć wskaźnika na funkcję `fn` jako typu zwracanego, jeśli domknięcie
+przechwytuje jakiekolwiek wartości ze swojego zasięgu (*scope*).
 
-Instead, you will normally use the `impl Trait` syntax we learned about in
-Chapter 10. You can return any function type, using `Fn`, `FnOnce`, and `FnMut`.
-For example, the code in Listing 20-32 will compile just fine.
+Zamiast tego zwykle użyjesz składni `impl Trait`, którą poznaliśmy w
+rozdziale 10. Możesz zwrócić dowolny typ funkcyjny, używając `Fn`, `FnOnce` i
+`FnMut`. Na przykład kod z listingu 20-32 skompiluje się bez problemu.
 
-<Listing number="20-32" caption="Returning a closure from a function using the `impl Trait` syntax">
+<Listing number="20-32" caption="Zwracanie domknięcia z funkcji za pomocą składni `impl Trait`">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-32/src/lib.rs}}
@@ -122,14 +124,15 @@ For example, the code in Listing 20-32 will compile just fine.
 
 </Listing>
 
-However, as we noted in the [“Inferring and Annotating Closure
-Types”][closure-types]<!-- ignore --> section in Chapter 13, each closure is
-also its own distinct type. If you need to work with multiple functions that
-have the same signature but different implementations, you will need to use a
-trait object for them. Consider what happens if you write code like that shown
-in Listing 20-33.
+Jak jednak zauważyliśmy w podrozdziale
+[„Wnioskowanie i adnotacje typów domknięć”][closure-types]<!-- ignore --> w
+rozdziale 13, każde domknięcie ma też swój własny, odrębny typ. Jeśli musisz
+pracować z wieloma funkcjami o tej samej sygnaturze, ale różnych
+implementacjach, musisz użyć dla nich obiektu
+traitu (*trait object*). Zobacz, co się stanie, jeśli napiszesz kod taki jak w
+listingu 20-33.
 
-<Listing file-name="src/main.rs" number="20-33" caption="Creating a `Vec<T>` of closures defined by functions that return `impl Fn` types">
+<Listing file-name="src/main.rs" number="20-33" caption="Tworzenie `Vec<T>` z domknięć zdefiniowanych przez funkcje zwracające typy `impl Fn`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-33/src/main.rs}}
@@ -137,27 +140,28 @@ in Listing 20-33.
 
 </Listing>
 
-Here we have two functions, `returns_closure` and `returns_initialized_closure`,
-which both return `impl Fn(i32) -> i32`. Notice that the closures that they
-return are different, even though they implement the same type. If we try to
-compile this, Rust lets us know that it won’t work:
+Mamy tu dwie funkcje, `returns_closure` i `returns_initialized_closure`, które
+obie zwracają `impl Fn(i32) -> i32`. Zauważ, że zwracane przez nie domknięcia
+są różne, mimo że implementują ten sam typ. Jeśli spróbujemy to skompilować,
+Rust poinformuje nas, że to nie zadziała:
 
 ```text
 {{#include ../listings/ch20-advanced-features/listing-20-33/output.txt}}
 ```
 
-The error message tells us that whenever we return an `impl Trait`, Rust
-creates a unique _opaque type_, a type where we cannot see into the details of
-what Rust constructs for us, nor can we guess the type Rust will generate to
-write ourselves. So, even though these functions return closures that implement
-the same trait, `Fn(i32) -> i32`, the opaque types Rust generates for each are
-distinct. (This is similar to how Rust produces different concrete types for
-distinct async blocks even when they have the same output type, as we saw in
-[“The `Pin` Type and the `Unpin` Trait”][future-types]<!-- ignore --> in
-Chapter 17.) We have seen a solution to this problem a few times now: We can
-use a trait object, as in Listing 20-34.
+Komunikat o błędzie mówi, że za każdym razem, gdy zwracamy `impl Trait`, Rust
+tworzy unikalny _typ nieprzezroczysty_ (*opaque type*), czyli typ, w którego
+szczegóły – to, co Rust dla nas konstruuje – nie możemy zajrzeć; nie możemy też
+odgadnąć, jaki typ Rust wygeneruje, żeby zapisać go samodzielnie. Mimo że te
+funkcje zwracają domknięcia implementujące ten sam trait, `Fn(i32) -> i32`, typy
+nieprzezroczyste generowane przez Rusta dla każdej z nich są różne. (Przypomina
+to sytuację, w której Rust tworzy różne typy konkretne dla odrębnych bloków
+async, nawet jeśli mają ten sam typ wyjściowy, co widzieliśmy w podrozdziale
+[„Typ `Pin` i trait `Unpin`”][future-types]<!-- ignore --> w rozdziale 17).
+Rozwiązanie tego problemu widzieliśmy już kilka razy: możemy użyć obiektu
+traitu, jak w listingu 20-34.
 
-<Listing number="20-34" caption="Creating a `Vec<T>` of closures defined by functions that return `Box<dyn Fn>` so that they have the same type">
+<Listing number="20-34" caption="Tworzenie `Vec<T>` z domknięć zdefiniowanych przez funkcje zwracające `Box<dyn Fn>`, dzięki czemu mają one ten sam typ">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-34/src/main.rs:here}}
@@ -165,11 +169,12 @@ use a trait object, as in Listing 20-34.
 
 </Listing>
 
-This code will compile just fine. For more about trait objects, refer to the
-section [“Using Trait Objects To Abstract over Shared
-Behavior”][trait-objects]<!-- ignore --> in Chapter 18.
+Ten kod skompiluje się bez problemu. Więcej o obiektach traitów znajdziesz w
+podrozdziale
+[„Używanie obiektów traitów do abstrahowania wspólnego zachowania”][trait-objects]<!-- ignore -->
+w rozdziale 18.
 
-Next, let’s look at macros!
+Teraz przyjrzyjmy się makrom!
 
 {{#quiz ../quizzes/ch19-05-advanced-functions-and-closures.toml}}
 

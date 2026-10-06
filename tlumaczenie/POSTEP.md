@@ -146,12 +146,12 @@ Stan wykonania planu z `PLAN.md`. Aktualizuje wyłącznie orkiestrator.
 | ch19-01-all-the-places-for-patterns.md | 19 | 1657 | ch18-01-all-the-places-for-patterns | gotowe | a8eeb640 | 1 |  |  |
 | ch19-02-refutability.md | 19 | 650 | ch18-02-refutability | gotowe | a8eeb640 | 1 |  |  |
 | ch19-03-pattern-syntax.md | 19 | 4266 | ch18-03-pattern-syntax | gotowe | a8eeb640 | 1 |  |  |
-| ch20-00-advanced-features.md | 20 | 198 | — | przegląd | a4c4322a | 1 |  | zrecenzowane |
-| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | przegląd | a4c4322a | 1 |  | zrecenzowane |
-| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | przegląd | a4c4322a | 1 |  | zrecenzowane |
-| ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | przegląd | a862ec0f | 1 |  |  |
-| ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | przegląd | a862ec0f | 1 |  |  |
-| ch20-05-macros.md | 20 | 3550 | ch19-06-macros | przegląd | a862ec0f | 1 |  |  |
+| ch20-00-advanced-features.md | 20 | 198 | — | gotowe | a4c4322a | 1 |  |  |
+| ch20-01-unsafe-rust.md | 20 | 4284 | ch19-01-unsafe-rust | gotowe | a4c4322a | 1 |  |  |
+| ch20-02-advanced-traits.md | 20 | 2996 | ch19-03-advanced-traits | gotowe | a4c4322a | 1 |  |  |
+| ch20-03-advanced-types.md | 20 | 2024 | ch19-04-advanced-types | gotowe | a862ec0f | 1 |  |  |
+| ch20-04-advanced-functions-and-closures.md | 20 | 1151 | ch19-05-advanced-functions-and-closures | gotowe | a862ec0f | 1 |  |  |
+| ch20-05-macros.md | 20 | 3550 | ch19-06-macros | gotowe | a862ec0f | 1 |  |  |
 | ch21-00-final-project-a-web-server.md | 21 | 356 | — | gotowe | a6f1718b | 1 |  |  |
 | ch21-01-single-threaded.md | 21 | 3273 | — | gotowe | a6f1718b | 1 |  |  |
 | ch21-02-multithreaded.md | 21 | 4855 | — | gotowe | afea98ae | 1 |  |  |

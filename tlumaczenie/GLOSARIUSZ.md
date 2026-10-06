@@ -456,3 +456,5 @@ recenzent.
 | temporary value | wartość tymczasowa | — | | |
 | body (HTTP) | treść | — | | |
 | URI / URL | ujednolicony identyfikator / lokalizator zasobów | — | | |
+| coerce | (automatycznie) konwertować | — | | |
+| unit struct | struktura jednostkowa | — | | |

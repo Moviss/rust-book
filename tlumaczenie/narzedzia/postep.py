@@ -64,10 +64,14 @@ def init():
 
 
 def h1(f):
-    for line in (REPO / "src" / f).read_text(encoding="utf-8").splitlines():
-        if line.startswith("# "):
-            return HEADING_ID_RE.sub("", line[2:]).strip()
-    return None
+    """Pierwszy nagłówek pliku poza blokami kodu (Brown używa często `##`)."""
+    from wspolne import naglowki_md
+
+    heads = naglowki_md((REPO / "src" / f).read_text(encoding="utf-8"))
+    if not heads:
+        return None
+    raw = heads[0][2].lstrip("> ").lstrip("#").strip()
+    return HEADING_ID_RE.sub("", raw).strip()
 
 
 def tytuly():

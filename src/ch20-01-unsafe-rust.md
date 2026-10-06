@@ -1,99 +1,112 @@
-## Unsafe Rust {#unsafe-rust}
+## Niebezpieczny Rust {#unsafe-rust}
 
-All the code we’ve discussed so far has had Rust’s memory safety guarantees
-enforced at compile time. However, Rust has a second language hidden inside it
-that doesn’t enforce these memory safety guarantees: It’s called _unsafe Rust_
-and works just like regular Rust but gives us extra superpowers.
+Cały omawiany dotąd kod podlegał gwarancjom bezpieczeństwa pamięci Rusta,
+egzekwowanym w czasie kompilacji (*compile-time*). Rust kryje jednak w sobie
+drugi język, który tych gwarancji nie egzekwuje: nazywa się on _niebezpiecznym
+Rustem_ (*unsafe Rust*) i działa tak samo jak zwykły Rust, ale daje nam
+dodatkowe supermoce.
 
-Unsafe Rust exists because, by nature, static analysis is conservative. When
-the compiler tries to determine whether or not code upholds the guarantees,
-it’s better for it to reject some valid programs than to accept some invalid
-programs. Although the code _might_ be okay, if the Rust compiler doesn’t have
-enough information to be confident, it will reject the code. In these cases,
-you can use unsafe code to tell the compiler, “Trust me, I know what I’m
-doing.” Be warned, however, that you use unsafe Rust at your own risk: If you
-use unsafe code incorrectly, problems can occur due to memory unsafety, such as
-null pointer dereferencing.
+Niebezpieczny Rust istnieje, ponieważ analiza statyczna jest z natury
+zachowawcza. Gdy kompilator próbuje ustalić, czy kod dotrzymuje gwarancji,
+lepiej, żeby odrzucił pewne poprawne programy, niż zaakceptował pewne
+niepoprawne. Nawet jeśli kod _może_ być w porządku, kompilator Rusta odrzuci go,
+jeśli nie ma dość informacji, by mieć pewność. W takich sytuacjach możesz użyć
+niebezpiecznego kodu, by powiedzieć kompilatorowi: „Zaufaj mi, wiem, co robię”.
+Pamiętaj jednak, że niebezpiecznego Rusta używasz na własne ryzyko: jeśli
+użyjesz niebezpiecznego kodu niepoprawnie, mogą wystąpić problemy wynikające z
+braku bezpieczeństwa pamięci, takie jak dereferencja (*dereference*) wskaźnika
+null.
 
-Another reason Rust has an unsafe alter ego is that the underlying computer
-hardware is inherently unsafe. If Rust didn’t let you do unsafe operations, you
-couldn’t do certain tasks. Rust needs to allow you to do low-level systems
-programming, such as directly interacting with the operating system or even
-writing your own operating system. Working with low-level systems programming
-is one of the goals of the language. Let’s explore what we can do with unsafe
-Rust and how to do it.
+Drugi powód, dla którego Rust ma niebezpieczne alter ego, jest taki, że sprzęt
+komputerowy, na którym wszystko działa, jest z natury niebezpieczny. Gdyby Rust
+nie pozwalał na niebezpieczne operacje, niektórych zadań nie dałoby się
+wykonać. Rust musi umożliwiać niskopoziomowe programowanie systemowe, takie jak
+bezpośrednia interakcja z systemem operacyjnym, a nawet pisanie własnego
+systemu operacyjnego. Niskopoziomowe programowanie systemowe jest jednym z
+celów tego języka. Zobaczmy, co możemy zrobić w niebezpiecznym Ruście i jak to
+zrobić.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="unsafe-superpowers"></a>
 
-### Performing Unsafe Superpowers {#performing-unsafe-superpowers}
+### Korzystanie z niebezpiecznych supermocy {#performing-unsafe-superpowers}
 
-To switch to unsafe Rust, use the `unsafe` keyword and then start a new block
-that holds the unsafe code. You can take five actions in unsafe Rust that you
-can’t in safe Rust, which we call _unsafe superpowers_. Those superpowers
-include the ability to:
+Aby przełączyć się na niebezpieczny Rust, użyj słowa kluczowego (*keyword*)
+`unsafe`, a następnie otwórz nowy blok zawierający niebezpieczny kod. W
+niebezpiecznym Ruście możesz wykonać pięć działań, których nie da się wykonać w
+bezpiecznym Ruście; nazywamy je _niebezpiecznymi supermocami_ (*unsafe
+superpowers*). Te supermoce obejmują możliwość:
 
-1. Dereference a raw pointer.
-1. Call an unsafe function or method.
-1. Access or modify a mutable static variable.
-1. Implement an unsafe trait.
-1. Access fields of `union`s.
+1. dereferencji surowego wskaźnika (*raw pointer*);
+1. wywołania niebezpiecznej funkcji lub metody;
+1. odczytu lub modyfikacji mutowalnej (*mutable*) zmiennej statycznej;
+1. implementacji niebezpiecznego *traitu* (cechy typu, zbliżonej do
+   interfejsu);
+1. dostępu do pól unii (`union`).
 
-It’s important to understand that `unsafe` doesn’t turn off the borrow checker
-or disable any of Rust’s other safety checks: If you use a reference in unsafe
-code, it will still be checked. The `unsafe` keyword only gives you access to
-these five features that are then not checked by the compiler for memory
-safety. You’ll still get some degree of safety inside an unsafe block.
+Trzeba pamiętać, że `unsafe` nie wyłącza *borrow checkera* (mechanizmu
+sprawdzania pożyczeń) ani żadnych innych kontroli bezpieczeństwa Rusta: jeśli
+użyjesz referencji (*reference*) w niebezpiecznym kodzie, nadal zostanie ona
+sprawdzona. Słowo kluczowe `unsafe` daje jedynie dostęp do tych pięciu
+mechanizmów, których kompilator nie sprawdza potem pod kątem bezpieczeństwa
+pamięci. Wewnątrz bloku unsafe nadal masz więc pewien stopień bezpieczeństwa.
 
-In addition, `unsafe` does not mean the code inside the block is necessarily
-dangerous or that it will definitely have memory safety problems: The intent is
-that as the programmer, you’ll ensure that the code inside an `unsafe` block
-will access memory in a valid way.
+Poza tym `unsafe` nie oznacza, że kod wewnątrz bloku jest koniecznie
+niebezpieczny ani że na pewno będzie miał problemy z bezpieczeństwem pamięci:
+chodzi o to, że to ty jako programista zadbasz o to, by kod wewnątrz bloku
+`unsafe` odwoływał się do pamięci w prawidłowy sposób.
 
-People are fallible and mistakes will happen, but by requiring these five
-unsafe operations to be inside blocks annotated with `unsafe`, you’ll know that
-any errors related to memory safety must be within an `unsafe` block. Keep
-`unsafe` blocks small; you’ll be thankful later when you investigate memory
-bugs.
+Ludzie są omylni i błędy się zdarzają, ale dzięki wymogowi umieszczania tych
+pięciu niebezpiecznych operacji w blokach oznaczonych `unsafe` będziesz wiedzieć,
+że wszelkie błędy związane z bezpieczeństwem pamięci muszą się znajdować w
+którymś bloku `unsafe`. Dbaj o to, by bloki `unsafe` były małe; podziękujesz sobie
+później, gdy będziesz szukać błędów pamięci.
 
-To isolate unsafe code as much as possible, it’s best to enclose such code
-within a safe abstraction and provide a safe API, which we’ll discuss later in
-the chapter when we examine unsafe functions and methods. Parts of the standard
-library are implemented as safe abstractions over unsafe code that has been
-audited. Wrapping unsafe code in a safe abstraction prevents uses of `unsafe`
-from leaking out into all the places that you or your users might want to use
-the functionality implemented with `unsafe` code, because using a safe
-abstraction is safe.
+Aby jak najbardziej odizolować niebezpieczny kod, najlepiej zamknąć go w
+bezpiecznej abstrakcji i udostępnić bezpieczne API, o czym opowiemy w dalszej
+części rozdziału, przy okazji niebezpiecznych funkcji i metod. Części
+biblioteki standardowej są zaimplementowane jako bezpieczne abstrakcje nad
+niebezpiecznym kodem, który przeszedł audyt. Opakowanie niebezpiecznego kodu w
+bezpieczną abstrakcję zapobiega rozlewaniu się `unsafe` po wszystkich
+miejscach, w których ty lub twoi użytkownicy chcielibyście korzystać z
+funkcjonalności zaimplementowanej za pomocą kodu `unsafe`, ponieważ korzystanie
+z bezpiecznej abstrakcji jest bezpieczne.
 
-Let’s look at each of the five unsafe superpowers in turn. We’ll also look at
-some abstractions that provide a safe interface to unsafe code.
+Przyjrzyjmy się po kolei każdej z pięciu niebezpiecznych supermocy. Zobaczymy
+też kilka abstrakcji, które zapewniają bezpieczny interfejs do niebezpiecznego
+kodu.
 
-### Dereferencing a Raw Pointer {#dereferencing-a-raw-pointer}
+### Dereferencja surowego wskaźnika {#dereferencing-a-raw-pointer}
 
-In [“The Borrow Checker Finds Permission Violations”][permission-violations]<!-- ignore --> in Chapter 4, we
-described how the compiler ensures references are always valid. Unsafe Rust has
-two new types called _raw pointers_ that are similar to references. As with
-references, raw pointers can be immutable or mutable and are written as `*const
-T` and `*mut T`, respectively. The asterisk isn’t the dereference operator; it’s
-part of the type name. In the context of raw pointers, _immutable_ means that
-the pointer can’t be directly assigned to after being dereferenced.
+W podrozdziale [„Borrow checker wykrywa naruszenia uprawnień”][permission-violations]<!-- ignore --> w rozdziale 4
+opisaliśmy, jak kompilator zapewnia, że referencje są zawsze prawidłowe.
+Niebezpieczny Rust ma dwa nowe typy, zwane _surowymi wskaźnikami_, które są
+podobne do referencji. Podobnie jak referencje, surowe wskaźniki mogą być
+niemutowalne lub mutowalne i zapisuje się je
+odpowiednio jako `*const T` i `*mut T`. Gwiazdka nie jest tu operatorem
+dereferencji, lecz częścią nazwy typu. W kontekście surowych wskaźników
+_niemutowalny_ oznacza, że po dereferencji wskaźnika nie można bezpośrednio
+przypisać mu wartości.
 
-Different from references and smart pointers, raw pointers:
+W odróżnieniu od referencji i inteligentnych wskaźników (*smart pointers*)
+surowe wskaźniki:
 
-- Are allowed to ignore the borrowing rules by having both immutable and
-  mutable pointers or multiple mutable pointers to the same location
-- Aren’t guaranteed to point to valid memory
-- Are allowed to be null
-- Don’t implement any automatic cleanup
+- mogą ignorować reguły pożyczania (*borrowing*), ponieważ dopuszczają
+  jednoczesne istnienie niemutowalnych i mutowalnych wskaźników albo wielu
+  mutowalnych wskaźników do tego samego miejsca;
+- nie mają gwarancji, że wskazują na prawidłową pamięć;
+- mogą mieć wartość null;
+- nie implementują żadnego automatycznego sprzątania.
 
-By opting out of having Rust enforce these guarantees, you can give up
-guaranteed safety in exchange for greater performance or the ability to
-interface with another language or hardware where Rust’s guarantees don’t apply.
+Rezygnując z egzekwowania tych gwarancji przez Rusta, możesz porzucić
+zagwarantowane bezpieczeństwo w zamian za większą wydajność albo możliwość
+współpracy z innym językiem lub sprzętem, których gwarancje Rusta nie
+obejmują.
 
-Listing 20-1 shows how to create an immutable and a mutable raw pointer.
+Listing 20-1 pokazuje, jak utworzyć niemutowalny i mutowalny surowy wskaźnik.
 
-<Listing number="20-1" caption="Creating raw pointers with the raw borrow operators">
+<Listing number="20-1" caption="Tworzenie surowych wskaźników za pomocą operatorów surowego pożyczania">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-01/src/main.rs:here}}
@@ -101,27 +114,28 @@ Listing 20-1 shows how to create an immutable and a mutable raw pointer.
 
 </Listing>
 
-Notice that we don’t include the `unsafe` keyword in this code. We can create
-raw pointers in safe code; we just can’t dereference raw pointers outside an
-unsafe block, as you’ll see in a bit.
+Zwróć uwagę, że w tym kodzie nie ma słowa kluczowego `unsafe`. Surowe
+wskaźniki możemy tworzyć w bezpiecznym kodzie; nie możemy jedynie wykonywać
+ich dereferencji poza blokiem unsafe, o czym przekonasz się za chwilę.
 
-We’ve created raw pointers by using the raw borrow operators: `&raw const num`
-creates a `*const i32` immutable raw pointer, and `&raw mut num` creates a `*mut
-i32` mutable raw pointer. Because we created them directly from a local
-variable, we know these particular raw pointers are valid, but we can’t make
-that assumption about just any raw pointer.
+Utworzyliśmy surowe wskaźniki za pomocą operatorów surowego pożyczania (*raw
+borrow operators*): `&raw const num` tworzy niemutowalny surowy wskaźnik
+`*const i32`, a `&raw mut num` tworzy mutowalny surowy wskaźnik `*mut i32`.
+Ponieważ utworzyliśmy je bezpośrednio ze zmiennej lokalnej, wiemy, że te
+konkretne surowe wskaźniki są prawidłowe, ale nie możemy zakładać tego o
+dowolnym surowym wskaźniku.
 
-To demonstrate this, next we’ll create a raw pointer whose validity we can’t be
-so certain of, using the keyword `as` to cast a value instead of using the raw
-borrow operator. Listing 20-2 shows how to create a raw pointer to an arbitrary
-location in memory. Trying to use arbitrary memory is undefined: There might be
-data at that address or there might not, the compiler might optimize the code
-so that there is no memory access, or the program might terminate with a
-segmentation fault. Usually, there is no good reason to write code like this,
-especially in cases where you can use a raw borrow operator instead, but it is
-possible.
+Aby to zademonstrować, utworzymy teraz surowy wskaźnik, którego prawidłowości
+nie możemy być aż tak pewni – zamiast operatora surowego pożyczania użyjemy
+słowa kluczowego `as` do rzutowania wartości. Listing 20-2 pokazuje, jak
+utworzyć surowy wskaźnik do dowolnego miejsca w pamięci. Próba użycia dowolnej
+pamięci jest niezdefiniowana: pod tym adresem mogą być dane albo może ich nie
+być, kompilator może zoptymalizować kod tak, że w ogóle nie dojdzie do dostępu
+do pamięci, a program może też zakończyć się błędem segmentacji. Zwykle nie ma
+dobrego powodu, by pisać taki kod, zwłaszcza gdy można zamiast tego użyć
+operatora surowego pożyczania, ale jest to możliwe.
 
-<Listing number="20-2" caption="Creating a raw pointer to an arbitrary memory address">
+<Listing number="20-2" caption="Tworzenie surowego wskaźnika do dowolnego adresu w pamięci">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-02/src/main.rs:here}}
@@ -129,11 +143,12 @@ possible.
 
 </Listing>
 
-Recall that we can create raw pointers in safe code, but we can’t dereference
-raw pointers and read the data being pointed to. In Listing 20-3, we use the
-dereference operator `*` on a raw pointer that requires an `unsafe` block.
+Przypomnijmy: surowe wskaźniki możemy tworzyć w bezpiecznym kodzie, ale nie
+możemy wykonywać ich dereferencji i odczytywać wskazywanych przez nie danych. W
+listingu 20-3 używamy na surowym wskaźniku operatora dereferencji `*`, co
+wymaga bloku `unsafe`.
 
-<Listing number="20-3" caption="Dereferencing raw pointers within an `unsafe` block">
+<Listing number="20-3" caption="Dereferencja surowych wskaźników wewnątrz bloku `unsafe`">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-03/src/main.rs:here}}
@@ -141,70 +156,72 @@ dereference operator `*` on a raw pointer that requires an `unsafe` block.
 
 </Listing>
 
-Creating a pointer does no harm; it’s only when we try to access the value that
-it points at that we might end up dealing with an invalid value.
+Samo utworzenie wskaźnika nie wyrządza szkody; dopiero przy próbie dostępu do
+wartości, na którą wskazuje, możemy natrafić na nieprawidłową wartość.
 
-Note also that in Listings 20-1 and 20-3, we created `*const i32` and `*mut
-i32` raw pointers that both pointed to the same memory location, where `num` is
-stored. If we instead tried to create an immutable and a mutable reference to
-`num`, the code would not have compiled because Rust’s ownership rules don’t
-allow a mutable reference at the same time as any immutable references. With
-raw pointers, we can create a mutable pointer and an immutable pointer to the
-same location and change data through the mutable pointer, potentially creating
-a data race. Be careful!
+Zauważ też, że w listingach 20-1 i 20-3 utworzyliśmy surowe wskaźniki
+`*const i32` i `*mut i32`, które wskazywały na to samo miejsce w pamięci, w
+którym przechowywana jest zmienna `num`. Gdybyśmy zamiast tego spróbowali
+utworzyć niemutowalną i mutowalną referencję do `num`, kod by się nie
+skompilował, ponieważ reguły własności (*ownership*) Rusta nie pozwalają na
+istnienie mutowalnej referencji jednocześnie z jakąkolwiek niemutowalną. Za
+pomocą surowych wskaźników możemy utworzyć mutowalny i niemutowalny wskaźnik
+do tego samego miejsca i zmieniać dane przez wskaźnik mutowalny, potencjalnie
+powodując wyścig danych. Uważaj!
 
-With all of these dangers, why would you ever use raw pointers? One major use
-case is when interfacing with C code, as you’ll see in the next section.
-Another case is when building up safe abstractions that the borrow checker
-doesn’t understand. We’ll introduce unsafe functions and then look at an
-example of a safe abstraction that uses unsafe code.
+Skoro wiąże się z tym tyle zagrożeń, po co w ogóle używać surowych wskaźników?
+Jednym z głównych zastosowań jest współpraca z kodem w C, co zobaczysz w
+następnym podrozdziale. Innym jest budowanie bezpiecznych abstrakcji, których
+borrow checker nie rozumie. Najpierw przedstawimy niebezpieczne funkcje, a
+potem przyjrzymy się przykładowi bezpiecznej abstrakcji korzystającej z
+niebezpiecznego kodu.
 
-### Calling an Unsafe Function or Method {#calling-an-unsafe-function-or-method}
+### Wywoływanie niebezpiecznej funkcji lub metody {#calling-an-unsafe-function-or-method}
 
-The second type of operation you can perform in an unsafe block is calling
-unsafe functions. Unsafe functions and methods look exactly like regular
-functions and methods, but they have an extra `unsafe` before the rest of the
-definition. The `unsafe` keyword in this context indicates the function has
-requirements we need to uphold when we call this function, because Rust can’t
-guarantee we’ve met these requirements. By calling an unsafe function within an
-`unsafe` block, we’re saying that we’ve read this function’s documentation and
-we take responsibility for upholding the function’s contracts.
+Drugim rodzajem operacji, które możesz wykonać w bloku unsafe, jest
+wywoływanie niebezpiecznych funkcji. Niebezpieczne funkcje i metody wyglądają
+dokładnie tak samo jak zwykłe funkcje i metody, ale przed resztą definicji mają
+dodatkowe `unsafe`. Słowo kluczowe `unsafe` oznacza w tym kontekście, że
+funkcja ma wymagania, których musimy dotrzymać przy jej wywołaniu, ponieważ
+Rust nie może zagwarantować, że je spełniliśmy. Wywołując niebezpieczną
+funkcję wewnątrz bloku `unsafe`, deklarujemy, że przeczytaliśmy jej
+dokumentację i bierzemy odpowiedzialność za dotrzymanie jej kontraktów.
 
-Here is an unsafe function named `dangerous` that doesn’t do anything in its
-body:
+Oto niebezpieczna funkcja o nazwie `dangerous`, której treść nic nie robi:
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/no-listing-01-unsafe-fn/src/main.rs:here}}
 ```
 
-We must call the `dangerous` function within a separate `unsafe` block. If we
-try to call `dangerous` without the `unsafe` block, we’ll get an error:
+Funkcję `dangerous` musimy wywołać w osobnym bloku `unsafe`. Jeśli spróbujemy
+wywołać `dangerous` bez bloku `unsafe`, otrzymamy błąd:
 
 ```console
 {{#include ../listings/ch20-advanced-features/output-only-01-missing-unsafe/output.txt}}
 ```
 
-With the `unsafe` block, we’re asserting to Rust that we’ve read the function’s
-documentation, we understand how to use it properly, and we’ve verified that
-we’re fulfilling the contract of the function.
+Blokiem `unsafe` zapewniamy Rusta, że przeczytaliśmy dokumentację funkcji,
+rozumiemy, jak jej poprawnie używać, i sprawdziliśmy, że spełniamy jej
+kontrakt.
 
-To perform unsafe operations in the body of an `unsafe` function, you still
-need to use an `unsafe` block, just as within a regular function, and the
-compiler will warn you if you forget. This helps us keep `unsafe` blocks as
-small as possible, as unsafe operations may not be needed across the whole
-function body.
+Aby wykonać niebezpieczne operacje w treści funkcji `unsafe`, nadal musisz użyć
+bloku `unsafe`, tak jak w zwykłej funkcji, a kompilator ostrzeże cię, jeśli o
+tym zapomnisz. Pomaga nam to utrzymywać bloki `unsafe` tak małe, jak to
+możliwe, bo niebezpieczne operacje mogą nie być potrzebne w całej treści
+funkcji.
 
-#### Creating a Safe Abstraction over Unsafe Code {#creating-a-safe-abstraction-over-unsafe-code}
+#### Tworzenie bezpiecznej abstrakcji nad niebezpiecznym kodem {#creating-a-safe-abstraction-over-unsafe-code}
 
-Just because a function contains unsafe code doesn’t mean we need to mark the
-entire function as unsafe. In fact, wrapping unsafe code in a safe function is
-a common abstraction. As an example, let’s study the `split_at_mut` function
-from the standard library, which requires some unsafe code. We’ll explore how
-we might implement it. This safe method is defined on mutable slices: It takes
-one slice and makes it two by splitting the slice at the index given as an
-argument. Listing 20-4 shows how to use `split_at_mut`.
+To, że funkcja zawiera niebezpieczny kod, nie oznacza, że musimy oznaczyć całą
+funkcję jako niebezpieczną. Opakowanie niebezpiecznego kodu w bezpieczną
+funkcję to wręcz powszechna abstrakcja. Jako przykład przeanalizujmy funkcję
+`split_at_mut` z biblioteki standardowej, która wymaga trochę niebezpiecznego
+kodu. Zastanowimy się, jak można by ją zaimplementować. Ta bezpieczna metoda
+jest zdefiniowana na mutowalnych wycinkach (*slices*): przyjmuje jeden wycinek
+i dzieli go na dwa w miejscu indeksu podanego jako argument. Listing 20-4
+pokazuje, jak używać `split_at_mut`.
 
-<Listing number="20-4" caption="Using the safe `split_at_mut` function">
+<Listing number="20-4" caption="Użycie bezpiecznej funkcji `split_at_mut`">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-04/src/main.rs:here}}
@@ -212,12 +229,13 @@ argument. Listing 20-4 shows how to use `split_at_mut`.
 
 </Listing>
 
-We can’t implement this function using only safe Rust. An attempt might look
-something like Listing 20-5, which won’t compile. For simplicity, we’ll
-implement `split_at_mut` as a function rather than a method and only for slices
-of `i32` values rather than for a generic type `T`.
+Nie da się zaimplementować tej funkcji wyłącznie w bezpiecznym Ruście. Próba
+mogłaby wyglądać mniej więcej tak jak w listingu 20-5, który się nie
+skompiluje. Dla uproszczenia zaimplementujemy `split_at_mut` jako funkcję, a
+nie metodę, i tylko dla wycinków wartości `i32`, a nie dla typu generycznego
+(*generic type*) `T`.
 
-<Listing number="20-5" caption="An attempted implementation of `split_at_mut` using only safe Rust">
+<Listing number="20-5" caption="Próba implementacji `split_at_mut` wyłącznie w bezpiecznym Ruście">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-05/src/main.rs:here}}
@@ -225,32 +243,33 @@ of `i32` values rather than for a generic type `T`.
 
 </Listing>
 
-This function first gets the total length of the slice. Then, it asserts that
-the index given as a parameter is within the slice by checking whether it’s
-less than or equal to the length. The assertion means that if we pass an index
-that is greater than the length to split the slice at, the function will panic
-before it attempts to use that index.
+Ta funkcja najpierw pobiera całkowitą długość wycinka. Następnie za pomocą
+asercji sprawdza, czy indeks podany jako parametr mieści się w wycinku, czyli
+czy jest mniejszy lub równy jego długości. Dzięki asercji, jeśli przekażemy
+indeks większy niż długość, funkcja spanikuje, zanim spróbuje go użyć do
+podziału wycinka.
 
-Then, we return two mutable slices in a tuple: one from the start of the
-original slice to the `mid` index and another from `mid` to the end of the
-slice.
+Następnie zwracamy w krotce (*tuple*) dwa mutowalne wycinki: jeden od początku
+oryginalnego wycinka do indeksu `mid`, a drugi od `mid` do końca wycinka.
 
-When we try to compile the code in Listing 20-5, we’ll get an error:
+Gdy spróbujemy skompilować kod z listingu 20-5, otrzymamy błąd:
 
 ```console
 {{#include ../listings/ch20-advanced-features/listing-20-05/output.txt}}
 ```
 
-Rust’s borrow checker can’t understand that we’re borrowing different parts of
-the slice; it only knows that we’re borrowing from the same slice twice.
-Borrowing different parts of a slice is fundamentally okay because the two
-slices aren’t overlapping, but Rust isn’t smart enough to know this. When we
-know code is okay, but Rust doesn’t, it’s time to reach for unsafe code.
+Borrow checker Rusta nie rozumie, że pożyczamy różne części wycinka; wie tylko,
+że dwukrotnie pożyczamy z tego samego wycinka. Pożyczanie różnych części
+wycinka jest w gruncie rzeczy w porządku, ponieważ te dwa wycinki na siebie
+nie nachodzą, ale Rust nie jest na tyle sprytny, by to wiedzieć. Gdy wiemy, że
+kod jest w porządku, a Rust tego nie wie, przychodzi czas, by sięgnąć po
+niebezpieczny kod.
 
-Listing 20-6 shows how to use an `unsafe` block, a raw pointer, and some calls
-to unsafe functions to make the implementation of `split_at_mut` work.
+Listing 20-6 pokazuje, jak za pomocą bloku `unsafe`, surowego wskaźnika i kilku
+wywołań niebezpiecznych funkcji sprawić, by implementacja `split_at_mut`
+działała.
 
-<Listing number="20-6" caption="Using unsafe code in the implementation of the `split_at_mut` function">
+<Listing number="20-6" caption="Użycie niebezpiecznego kodu w implementacji funkcji `split_at_mut`">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-06/src/main.rs:here}}
@@ -258,42 +277,42 @@ to unsafe functions to make the implementation of `split_at_mut` work.
 
 </Listing>
 
-Recall from [“The Slice Type”][the-slice-type]<!-- ignore --> section in
-Chapter 4 that a slice is a pointer to some data and the length of the slice.
-We use the `len` method to get the length of a slice and the `as_mut_ptr`
-method to access the raw pointer of a slice. In this case, because we have a
-mutable slice to `i32` values, `as_mut_ptr` returns a raw pointer with the type
-`*mut i32`, which we’ve stored in the variable `ptr`.
+Przypomnij sobie z podrozdziału [„Typ wycinka”][the-slice-type]<!-- ignore --> w
+rozdziale 4, że wycinek to wskaźnik na pewne dane i długość wycinka. Metody
+`len` używamy do pobrania długości wycinka, a metody `as_mut_ptr` – do
+uzyskania surowego wskaźnika wycinka. Ponieważ mamy mutowalny wycinek wartości
+`i32`, `as_mut_ptr` zwraca surowy wskaźnik typu `*mut i32`, który zapisaliśmy
+w zmiennej `ptr`.
 
-We keep the assertion that the `mid` index is within the slice. Then, we get to
-the unsafe code: The `slice::from_raw_parts_mut` function takes a raw pointer
-and a length, and it creates a slice. We use this function to create a slice
-that starts from `ptr` and is `mid` items long. Then, we call the `add` method
-on `ptr` with `mid` as an argument to get a raw pointer that starts at `mid`,
-and we create a slice using that pointer and the remaining number of items
-after `mid` as the length.
+Zachowujemy asercję, że indeks `mid` mieści się w wycinku. Następnie
+przechodzimy do niebezpiecznego kodu: funkcja `slice::from_raw_parts_mut`
+przyjmuje surowy wskaźnik i długość, a następnie tworzy wycinek. Używamy jej do
+utworzenia wycinka, który zaczyna się od `ptr` i ma długość `mid` elementów.
+Potem wywołujemy na `ptr` metodę `add` z argumentem `mid`, by uzyskać surowy
+wskaźnik zaczynający się od `mid`, i tworzymy wycinek z użyciem tego wskaźnika
+oraz liczby elementów pozostałych za `mid` jako długości.
 
-The function `slice::from_raw_parts_mut` is unsafe because it takes a raw
-pointer and must trust that this pointer is valid. The `add` method on raw
-pointers is also unsafe because it must trust that the offset location is also
-a valid pointer. Therefore, we had to put an `unsafe` block around our calls to
-`slice::from_raw_parts_mut` and `add` so that we could call them. By looking at
-the code and by adding the assertion that `mid` must be less than or equal to
-`len`, we can tell that all the raw pointers used within the `unsafe` block
-will be valid pointers to data within the slice. This is an acceptable and
-appropriate use of `unsafe`.
+Funkcja `slice::from_raw_parts_mut` jest niebezpieczna, ponieważ przyjmuje
+surowy wskaźnik i musi ufać, że jest on prawidłowy. Metoda `add` na surowych
+wskaźnikach również jest niebezpieczna, ponieważ musi ufać, że miejsce po
+przesunięciu także jest prawidłowym wskaźnikiem. Dlatego musieliśmy umieścić
+wywołania `slice::from_raw_parts_mut` i `add` w bloku `unsafe`, aby móc je
+wywołać. Analizując kod i dodając asercję, że `mid` musi być mniejsze lub równe
+`len`, możemy stwierdzić, że wszystkie surowe wskaźniki użyte w bloku `unsafe`
+będą prawidłowymi wskaźnikami na dane wewnątrz wycinka. To dopuszczalne i
+właściwe użycie `unsafe`.
 
-Note that we don’t need to mark the resultant `split_at_mut` function as
-`unsafe`, and we can call this function from safe Rust. We’ve created a safe
-abstraction to the unsafe code with an implementation of the function that uses
-`unsafe` code in a safe way, because it creates only valid pointers from the
-data this function has access to.
+Zwróć uwagę, że nie musimy oznaczać powstałej funkcji `split_at_mut` jako
+`unsafe` i możemy ją wywoływać z bezpiecznego Rusta. Utworzyliśmy bezpieczną
+abstrakcję nad niebezpiecznym kodem – implementację funkcji, która używa kodu
+`unsafe` w bezpieczny sposób, ponieważ tworzy wyłącznie prawidłowe wskaźniki
+na dane, do których ta funkcja ma dostęp.
 
-In contrast, the use of `slice::from_raw_parts_mut` in Listing 20-7 would
-likely crash when the slice is used. This code takes an arbitrary memory
-location and creates a slice 10,000 items long.
+Natomiast użycie `slice::from_raw_parts_mut` w listingu 20-7 najprawdopodobniej
+doprowadziłoby do awarii przy próbie użycia wycinka. Ten kod bierze dowolne
+miejsce w pamięci i tworzy wycinek o długości 10 000 elementów.
 
-<Listing number="20-7" caption="Creating a slice from an arbitrary memory location">
+<Listing number="20-7" caption="Tworzenie wycinka z dowolnego miejsca w pamięci">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-07/src/main.rs:here}}
@@ -301,26 +320,27 @@ location and creates a slice 10,000 items long.
 
 </Listing>
 
-We don’t own the memory at this arbitrary location, and there is no guarantee
-that the slice this code creates contains valid `i32` values. Attempting to use
-`values` as though it’s a valid slice results in undefined behavior.
+Pamięć w tym dowolnym miejscu nie należy do nas i nie ma gwarancji, że wycinek
+tworzony przez ten kod zawiera prawidłowe wartości `i32`. Próba użycia `values`
+tak, jakby był prawidłowym wycinkiem, skutkuje niezdefiniowanym zachowaniem
+(*undefined behavior*).
 
-#### Using `extern` Functions to Call External Code {#using-extern-functions-to-call-external-code}
+#### Wywoływanie kodu zewnętrznego za pomocą funkcji `extern` {#using-extern-functions-to-call-external-code}
 
-Sometimes your Rust code might need to interact with code written in another
-language. For this, Rust has the keyword `extern` that facilitates the creation
-and use of a _Foreign Function Interface (FFI)_, which is a way for a
-programming language to define functions and enable a different (foreign)
-programming language to call those functions.
+Czasami twój kod w Ruście musi współpracować z kodem napisanym w innym języku.
+W tym celu Rust ma słowo kluczowe `extern`, które ułatwia tworzenie i
+używanie _interfejsu funkcji obcych_ (*Foreign Function Interface*, FFI), czyli
+sposobu, w jaki jeden język programowania definiuje funkcje i pozwala innemu
+(obcemu) językowi programowania je wywoływać.
 
-Listing 20-8 demonstrates how to set up an integration with the `abs` function
-from the C standard library. Functions declared within `extern` blocks are
-generally unsafe to call from Rust code, so `extern` blocks must also be marked
-`unsafe`. The reason is that other languages don’t enforce Rust’s rules and
-guarantees, and Rust can’t check them, so responsibility falls on the
-programmer to ensure safety.
+Listing 20-8 pokazuje, jak przygotować integrację z funkcją `abs` z biblioteki
+standardowej C. Funkcje zadeklarowane w blokach `extern` są na ogół
+niebezpieczne do wywołania z kodu w Ruście, więc bloki `extern` również muszą
+być oznaczone jako `unsafe`. Powód jest taki, że inne języki nie egzekwują
+reguł i gwarancji Rusta, a Rust nie może ich sprawdzić, więc odpowiedzialność
+za bezpieczeństwo spada na programistę.
 
-<Listing number="20-8" file-name="src/main.rs" caption="Declaring and calling an `extern` function defined in another language">
+<Listing number="20-8" file-name="src/main.rs" caption="Deklarowanie i wywoływanie funkcji `extern` zdefiniowanej w innym języku">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-08/src/main.rs}}
@@ -328,22 +348,24 @@ programmer to ensure safety.
 
 </Listing>
 
-Within the `unsafe extern "C"` block, we list the names and signatures of
-external functions from another language we want to call. The `"C"` part
-defines which _application binary interface (ABI)_ the external function uses:
-The ABI defines how to call the function at the assembly level. The `"C"` ABI
-is the most common and follows the C programming language’s ABI. Information
-about all the ABIs Rust supports is available in [the Rust Reference][ABI].
+W bloku `unsafe extern "C"` wymieniamy nazwy i sygnatury funkcji zewnętrznych
+z innego języka, które chcemy wywołać. Część `"C"` określa, którego
+_binarnego interfejsu aplikacji_ (*application binary interface*, ABI) używa
+funkcja zewnętrzna: ABI definiuje, jak wywołać funkcję na poziomie asemblera.
+ABI `"C"` jest najpopularniejszy i odpowiada ABI języka programowania C.
+Informacje o wszystkich ABI obsługiwanych przez Rusta znajdziesz w
+[dokumentacji Rust Reference][ABI].
 
-Every item declared within an `unsafe extern` block is implicitly unsafe.
-However, some FFI functions *are* safe to call. For example, the `abs` function
-from C’s standard library does not have any memory safety considerations, and we
-know it can be called with any `i32`. In cases like this, we can use the `safe`
-keyword to say that this specific function is safe to call even though it is in
-an `unsafe extern` block. Once we make that change, calling it no longer
-requires an `unsafe` block, as shown in Listing 20-9.
+Każdy element zadeklarowany w bloku `unsafe extern` jest niejawnie
+niebezpieczny. Niektóre funkcje FFI *są* jednak bezpieczne do wywołania. Na
+przykład funkcja `abs` z biblioteki standardowej C nie wiąże się z żadnymi
+kwestiami bezpieczeństwa pamięci i wiemy, że można ją wywołać z dowolną
+wartością `i32`. W takich przypadkach możemy użyć słowa kluczowego `safe`, by
+zaznaczyć, że ta konkretna funkcja jest bezpieczna do wywołania, mimo że
+znajduje się w bloku `unsafe extern`. Po tej zmianie jej wywołanie nie wymaga
+już bloku `unsafe`, jak pokazuje listing 20-9.
 
-<Listing number="20-9" file-name="src/main.rs" caption="Explicitly marking a function as `safe` within an `unsafe extern` block and calling it safely">
+<Listing number="20-9" file-name="src/main.rs" caption="Jawne oznaczenie funkcji jako `safe` w bloku `unsafe extern` i jej bezpieczne wywołanie">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-09/src/main.rs}}
@@ -351,28 +373,29 @@ requires an `unsafe` block, as shown in Listing 20-9.
 
 </Listing>
 
-Marking a function as `safe` does not inherently make it safe! Instead, it is
-like a promise you are making to Rust that it is safe. It is still your
-responsibility to make sure that promise is kept!
+Oznaczenie funkcji jako `safe` samo w sobie nie czyni jej bezpieczną! Jest to
+raczej obietnica składana Rustowi, że funkcja jest bezpieczna. Dotrzymanie tej
+obietnicy nadal jest twoim obowiązkiem!
 
-#### Calling Rust Functions from Other Languages {#calling-rust-functions-from-other-languages}
+#### Wywoływanie funkcji Rusta z innych języków {#calling-rust-functions-from-other-languages}
 
-We can also use `extern` to create an interface that allows other languages to
-call Rust functions. Instead of creating a whole `extern` block, we add the
-`extern` keyword and specify the ABI to use just before the `fn` keyword for
-the relevant function. We also need to add an `#[unsafe(no_mangle)]` annotation
-to tell the Rust compiler not to mangle the name of this function. _Mangling_
-is when a compiler changes the name we’ve given a function to a different name
-that contains more information for other parts of the compilation process to
-consume but is less human readable. Every programming language compiler mangles
-names slightly differently, so for a Rust function to be nameable by other
-languages, we must disable the Rust compiler’s name mangling. This is unsafe
-because there might be name collisions across libraries without the built-in
-mangling, so it is our responsibility to make sure the name we choose is safe
-to export without mangling.
+Za pomocą `extern` możemy też utworzyć interfejs, który pozwala innym językom
+wywoływać funkcje napisane w Ruście. Zamiast tworzyć cały blok `extern`,
+dodajemy słowo kluczowe `extern` i określamy ABI tuż przed słowem kluczowym
+`fn` danej funkcji. Musimy też dodać adnotację `#[unsafe(no_mangle)]`, aby
+powiedzieć kompilatorowi Rusta, żeby nie dekorował nazwy tej funkcji.
+_Dekorowanie nazw_ (*mangling*) to zmiana przez kompilator nadanej przez nas
+nazwy funkcji na inną nazwę, która zawiera więcej informacji dla innych etapów
+kompilacji, ale jest mniej czytelna dla człowieka. Kompilator każdego języka
+programowania dekoruje nazwy nieco inaczej, więc aby inne języki mogły
+odwołać się do funkcji Rusta po nazwie, musimy wyłączyć dekorowanie nazw przez
+kompilator Rusta. Jest to niebezpieczne, ponieważ bez wbudowanego dekorowania
+mogą wystąpić kolizje nazw między bibliotekami, więc to naszym obowiązkiem jest
+upewnić się, że wybrana nazwa może bezpiecznie zostać wyeksportowana bez
+dekorowania.
 
-In the following example, we make the `call_from_c` function accessible from C
-code, after it’s compiled to a shared library and linked from C:
+W poniższym przykładzie udostępniamy funkcję `call_from_c` kodowi w C, po
+skompilowaniu jej do biblioteki współdzielonej i skonsolidowaniu z kodem w C:
 
 ```
 #[unsafe(no_mangle)]
@@ -381,21 +404,21 @@ pub extern "C" fn call_from_c() {
 }
 ```
 
-This usage of `extern` requires `unsafe` only in the attribute, not on the
-`extern` block.
+Takie użycie `extern` wymaga `unsafe` tylko w atrybucie, a nie przy bloku
+`extern`.
 
-### Accessing or Modifying a Mutable Static Variable {#accessing-or-modifying-a-mutable-static-variable}
+### Odczyt lub modyfikacja mutowalnej zmiennej statycznej {#accessing-or-modifying-a-mutable-static-variable}
 
-In this book, we’ve not yet talked about global variables, which Rust does
-support but which can be problematic with Rust’s ownership rules. If two
-threads are accessing the same mutable global variable, it can cause a data
-race.
+W tej książce nie mówiliśmy jeszcze o zmiennych globalnych, które Rust
+obsługuje, ale które mogą sprawiać problemy w połączeniu z regułami własności
+Rusta. Jeśli dwa wątki odwołują się do tej samej mutowalnej zmiennej
+globalnej, może to spowodować wyścig danych.
 
-In Rust, global variables are called _static_ variables. Listing 20-10 shows an
-example declaration and use of a static variable with a string slice as a
-value.
+W Ruście zmienne globalne nazywa się zmiennymi _statycznymi_ (*static*).
+Listing 20-10 pokazuje przykładową deklarację i użycie zmiennej statycznej,
+której wartością jest wycinek łańcucha znaków (*string slice*).
 
-<Listing number="20-10" file-name="src/main.rs" caption="Defining and using an immutable static variable">
+<Listing number="20-10" file-name="src/main.rs" caption="Definiowanie i używanie niemutowalnej zmiennej statycznej">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-10/src/main.rs}}
@@ -403,22 +426,24 @@ value.
 
 </Listing>
 
-Static variables are similar to constants, which we discussed in the
-[“Declaring Constants”][constants]<!-- ignore --> section in Chapter 3. The
-names of static variables are in `SCREAMING_SNAKE_CASE` by convention. Static
-variables can only store references with the `'static` lifetime, which means
-the Rust compiler can figure out the lifetime and we aren’t required to
-annotate it explicitly. Accessing an immutable static variable is safe.
+Zmienne statyczne są podobne do stałych (*constants*), które omawialiśmy w
+podrozdziale [„Deklarowanie stałych”][constants]<!-- ignore --> w rozdziale 3.
+Zgodnie z konwencją nazwy zmiennych statycznych zapisuje się w stylu
+`SCREAMING_SNAKE_CASE`. Zmienne statyczne mogą przechowywać wyłącznie
+referencje z czasem życia (*lifetime*) `'static`, co oznacza, że kompilator
+Rusta potrafi sam ustalić czas życia i nie musimy go jawnie oznaczać. Odczyt
+niemutowalnej zmiennej statycznej jest bezpieczny.
 
-A subtle difference between constants and immutable static variables is that
-values in a static variable have a fixed address in memory. Using the value
-will always access the same data. Constants, on the other hand, are allowed to
-duplicate their data whenever they’re used. Another difference is that static
-variables can be mutable. Accessing and modifying mutable static variables is
-_unsafe_. Listing 20-11 shows how to declare, access, and modify a mutable
-static variable named `COUNTER`.
+Subtelna różnica między stałymi a niemutowalnymi zmiennymi statycznymi polega
+na tym, że wartości w zmiennej statycznej mają stały adres w pamięci. Użycie
+takiej wartości zawsze odwołuje się do tych samych danych. Stałe natomiast
+mogą powielać swoje dane przy każdym użyciu. Kolejna różnica polega na tym, że
+zmienne statyczne mogą być mutowalne. Odczyt i modyfikacja mutowalnych
+zmiennych statycznych są _niebezpieczne_. Listing 20-11 pokazuje, jak
+zadeklarować mutowalną zmienną statyczną o nazwie `COUNTER`, odczytać ją i
+zmodyfikować.
 
-<Listing number="20-11" file-name="src/main.rs" caption="Reading from or writing to a mutable static variable is unsafe.">
+<Listing number="20-11" file-name="src/main.rs" caption="Odczyt i zapis mutowalnej zmiennej statycznej są niebezpieczne.">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-11/src/main.rs}}
@@ -426,46 +451,49 @@ static variable named `COUNTER`.
 
 </Listing>
 
-As with regular variables, we specify mutability using the `mut` keyword. Any
-code that reads or writes from `COUNTER` must be within an `unsafe` block. The
-code in Listing 20-11 compiles and prints `COUNTER: 3` as we would expect
-because it’s single threaded. Having multiple threads access `COUNTER` would
-likely result in data races, so it is undefined behavior. Therefore, we need to
-mark the entire function as `unsafe` and document the safety limitation so that
-anyone calling the function knows what they are and are not allowed to do
-safely.
+Podobnie jak w przypadku zwykłych zmiennych, mutowalność określamy za pomocą
+słowa kluczowego `mut`. Każdy kod, który odczytuje lub zapisuje `COUNTER`,
+musi się znajdować w bloku `unsafe`. Kod z listingu 20-11 kompiluje się i
+wypisuje `COUNTER: 3`, tak jak można się spodziewać, ponieważ jest
+jednowątkowy. Dostęp do `COUNTER` z wielu wątków prawdopodobnie prowadziłby do
+wyścigów danych, więc jest to niezdefiniowane zachowanie. Dlatego musimy
+oznaczyć całą funkcję jako `unsafe` i udokumentować ograniczenie dotyczące
+bezpieczeństwa, aby każdy, kto ją wywołuje, wiedział, co wolno, a czego nie
+wolno mu bezpiecznie robić.
 
-Whenever we write an unsafe function, it is idiomatic to write a comment
-starting with `SAFETY` and explaining what the caller needs to do to call the
-function safely. Likewise, whenever we perform an unsafe operation, it is
-idiomatic to write a comment starting with `SAFETY` to explain how the safety
-rules are upheld.
+Gdy piszemy niebezpieczną funkcję, idiomatyczne jest napisanie komentarza
+zaczynającego się od `SAFETY` i wyjaśniającego, co wywołujący musi zrobić, aby
+bezpiecznie wywołać funkcję. Podobnie, gdy wykonujemy niebezpieczną operację,
+idiomatyczne jest napisanie komentarza zaczynającego się od `SAFETY`, który
+wyjaśnia, w jaki sposób przestrzegane są reguły bezpieczeństwa.
 
-Additionally, the compiler will deny by default any attempt to create
-references to a mutable static variable through a compiler lint. You must
-either explicitly opt out of that lint’s protections by adding an
-`#[allow(static_mut_refs)]` annotation or access the mutable static variable
-via a raw pointer created with one of the raw borrow operators. That includes
-cases where the reference is created invisibly, as when it is used in the
-`println!` in this code listing. Requiring references to static mutable
-variables to be created via raw pointers helps make the safety requirements for
-using them more obvious.
+Ponadto kompilator domyślnie odrzuca, za pomocą lintu (reguły ostrzeżeń
+kompilatora), każdą próbę utworzenia referencji do mutowalnej zmiennej
+statycznej. Musisz albo jawnie zrezygnować z ochrony tego lintu, dodając
+adnotację `#[allow(static_mut_refs)]`, albo odwoływać się do mutowalnej
+zmiennej statycznej przez surowy wskaźnik utworzony jednym z operatorów
+surowego pożyczania. Dotyczy to również sytuacji, w których referencja
+tworzona jest niejawnie, na przykład gdy zmienna jest użyta w `println!` w tym
+listingu. Wymóg tworzenia referencji do mutowalnych zmiennych statycznych przez
+surowe wskaźniki sprawia, że wymagania bezpieczeństwa związane z ich używaniem
+stają się bardziej oczywiste.
 
-With mutable data that is globally accessible, it’s difficult to ensure that
-there are no data races, which is why Rust considers mutable static variables
-to be unsafe. Where possible, it’s preferable to use the concurrency techniques
-and thread-safe smart pointers we discussed in Chapter 16 so that the compiler
-checks that data access from different threads is done safely.
+Przy mutowalnych danych dostępnych globalnie trudno zapewnić, że nie wystąpią
+wyścigi danych, i dlatego Rust uznaje mutowalne zmienne statyczne za
+niebezpieczne. Tam, gdzie to możliwe, lepiej korzystać z technik współbieżności
+(*concurrency*) i bezpiecznych wątkowo inteligentnych wskaźników omówionych w
+rozdziale 16, aby kompilator sprawdzał, czy dostęp do danych z różnych wątków
+odbywa się bezpiecznie.
 
-### Implementing an Unsafe Trait {#implementing-an-unsafe-trait}
+### Implementacja niebezpiecznego traitu {#implementing-an-unsafe-trait}
 
-We can use `unsafe` to implement an unsafe trait. A trait is unsafe when at
-least one of its methods has some invariant that the compiler can’t verify. We
-declare that a trait is `unsafe` by adding the `unsafe` keyword before `trait`
-and marking the implementation of the trait as `unsafe` too, as shown in
-Listing 20-12.
+Za pomocą `unsafe` możemy zaimplementować niebezpieczny trait. Trait jest niebezpieczny, gdy co najmniej jedna z jego
+metod ma jakiś niezmiennik, którego kompilator nie może zweryfikować.
+Deklarujemy, że trait jest `unsafe`, dodając słowo kluczowe `unsafe` przed
+`trait` i oznaczając implementację traitu również jako `unsafe`, jak pokazano w
+listingu 20-12.
 
-<Listing number="20-12" caption="Defining and implementing an unsafe trait">
+<Listing number="20-12" caption="Definiowanie i implementacja niebezpiecznego traitu">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-12/src/main.rs:here}}
@@ -473,91 +501,95 @@ Listing 20-12.
 
 </Listing>
 
-By using `unsafe impl`, we’re promising that we’ll uphold the invariants that
-the compiler can’t verify.
+Używając `unsafe impl`, obiecujemy, że dotrzymamy niezmienników, których
+kompilator nie może zweryfikować.
 
-As an example, recall the `Send` and `Sync` marker traits we discussed in the
-[“Extensible Concurrency with `Send` and `Sync`”][send-and-sync]<!-- ignore -->
-section in Chapter 16: The compiler implements these traits automatically if
-our types are composed entirely of other types that implement `Send` and
-`Sync`. If we implement a type that contains a type that does not implement
-`Send` or `Sync`, such as raw pointers, and we want to mark that type as `Send`
-or `Sync`, we must use `unsafe`. Rust can’t verify that our type upholds the
-guarantees that it can be safely sent across threads or accessed from multiple
-threads; therefore, we need to do those checks manually and indicate as such
-with `unsafe`.
+Jako przykład przypomnij sobie traity znacznikowe (*marker traits*) `Send` i
+`Sync`, które omawialiśmy w podrozdziale
+[„Rozszerzalna współbieżność dzięki `Send` i `Sync`”][send-and-sync]<!-- ignore -->
+w rozdziale 16: kompilator implementuje te traity automatycznie, jeśli nasze
+typy składają się wyłącznie z innych typów implementujących `Send` i `Sync`.
+Jeśli implementujemy typ, który zawiera typ nieimplementujący `Send` lub
+`Sync`, na przykład surowe wskaźniki, i chcemy oznaczyć ten typ jako `Send` lub
+`Sync`, musimy użyć `unsafe`. Rust nie może zweryfikować, że nasz typ
+dotrzymuje gwarancji, że można go bezpiecznie przesyłać między wątkami lub
+używać z wielu wątków; dlatego musimy przeprowadzić te kontrole ręcznie i
+zaznaczyć to za pomocą `unsafe`.
 
-### Accessing Fields of a Union {#accessing-fields-of-a-union}
+### Dostęp do pól unii {#accessing-fields-of-a-union}
 
-The final action that works only with `unsafe` is accessing fields of a union.
-A *union* is similar to a `struct`, but only one declared field is used in a
-particular instance at one time. Unions are primarily used to interface with
-unions in C code. Accessing union fields is unsafe because Rust can’t guarantee
-the type of the data currently being stored in the union instance. You can
-learn more about unions in [the Rust Reference][unions].
+Ostatnią operacją, którą można wykonać tylko z `unsafe`, jest dostęp do pól
+unii. *Unia* (*union*) przypomina `struct`, ale w danej instancji w danym
+momencie używane jest tylko jedno z zadeklarowanych pól. Unie służą przede
+wszystkim do współpracy z uniami w kodzie w C. Dostęp do pól unii jest
+niebezpieczny, ponieważ Rust nie może zagwarantować typu danych
+przechowywanych aktualnie w instancji unii. Więcej o uniach dowiesz się z
+[dokumentacji Rust Reference][unions].
 
-### Using Miri to Check Unsafe Code {#using-miri-to-check-unsafe-code}
+### Sprawdzanie niebezpiecznego kodu za pomocą Miri {#using-miri-to-check-unsafe-code}
 
-When writing unsafe code, you might want to check that what you have written
-actually is safe and correct. One of the best ways to do that is to use Miri,
-an official Rust tool for detecting undefined behavior. Whereas the borrow
-checker is a _static_ tool that works at compile time, Miri is a _dynamic_
-tool that works at runtime. It checks your code by running your program, or
-its test suite, and detecting when you violate the rules it understands about
-how Rust should work.
+Pisząc niebezpieczny kod, możesz chcieć sprawdzić, czy to, co napisano,
+rzeczywiście jest bezpieczne i poprawne. Jednym z najlepszych sposobów jest
+użycie Miri – oficjalnego narzędzia Rusta do wykrywania niezdefiniowanego
+zachowania. Podczas gdy borrow checker jest narzędziem _statycznym_, które
+działa w czasie kompilacji, Miri jest narzędziem _dynamicznym_, które działa w
+czasie działania programu. Sprawdza kod, uruchamiając program lub jego zestaw
+testów i wykrywając sytuacje, w których naruszasz znane mu reguły dotyczące
+tego, jak Rust powinien działać.
 
-Using Miri requires a nightly build of Rust (which we talk about more in
-[Appendix G: How Rust is Made and “Nightly Rust”][nightly]<!-- ignore -->). You
-can install both a nightly version of Rust and the Miri tool by typing `rustup
-+nightly component add miri`. This does not change what version of Rust your
-project uses; it only adds the tool to your system so you can use it when you
-want to. You can run Miri on a project by typing `cargo +nightly miri run` or
+Korzystanie z Miri wymaga wersji nightly Rusta (więcej o niej piszemy w
+[dodatku G: Jak powstaje Rust i „Rust nightly”][nightly]<!-- ignore -->).
+Zarówno Rust nightly, jak i narzędzie Miri możesz zainstalować, wpisując
+`rustup +nightly component add miri`. Nie zmienia to wersji Rusta używanej w
+projekcie; jedynie dodaje narzędzie do systemu, z którego możesz skorzystać,
+kiedy zechcesz. Miri uruchomisz w projekcie, wpisując `cargo +nightly miri run` lub
 `cargo +nightly miri test`.
 
-For an example of how helpful this can be, consider what happens when we run it
-against Listing 20-7.
+Aby zobaczyć, jak bardzo może to być pomocne, sprawdźmy, co się stanie, gdy
+uruchomimy je na kodzie z listingu 20-7.
 
 ```console
 {{#include ../listings/ch20-advanced-features/listing-20-07/output.txt}}
 ```
 
-Miri correctly warns us that we’re casting an integer to a pointer, which might
-be a problem, but Miri can’t determine whether a problem exists because it
-doesn’t know how the pointer originated. Then, Miri returns an error where
-Listing 20-7 has undefined behavior because we have a dangling pointer. Thanks
-to Miri, we now know there is a risk of undefined behavior, and we can think
-about how to make the code safe. In some cases, Miri can even make
-recommendations about how to fix errors.
+Miri słusznie ostrzega, że rzutujemy liczbę całkowitą na wskaźnik, co może być
+problemem, ale nie potrafi ustalić, czy problem faktycznie występuje, ponieważ
+nie wie, skąd pochodzi wskaźnik. Następnie Miri zgłasza błąd w miejscu, w
+którym listing 20-7 ma niezdefiniowane zachowanie, ponieważ mamy tam wiszący
+wskaźnik. Dzięki Miri wiemy już, że istnieje ryzyko niezdefiniowanego
+zachowania, i możemy zastanowić się, jak uczynić kod bezpiecznym. W niektórych
+przypadkach Miri potrafi nawet zasugerować, jak naprawić błędy.
 
-Miri doesn’t catch everything you might get wrong when writing unsafe code.
-Miri is a dynamic analysis tool, so it only catches problems with code that
-actually gets run. That means you will need to use it in conjunction with good
-testing techniques to increase your confidence about the unsafe code you have
-written. Miri also does not cover every possible way your code can be unsound.
+Miri nie wychwytuje wszystkiego, co możesz zrobić źle, pisząc niebezpieczny
+kod. Jest narzędziem do analizy dynamicznej, więc wychwytuje problemy tylko w
+kodzie, który faktycznie zostaje wykonany. Oznacza to, że aby zwiększyć
+pewność co do napisanego niebezpiecznego kodu, musisz używać go razem z
+dobrymi technikami testowania. Miri nie obejmuje też wszystkich możliwych
+sposobów, w jakie kod może być nieprawidłowy (*unsound*).
 
-Put another way: If Miri _does_ catch a problem, you know there’s a bug, but
-just because Miri _doesn’t_ catch a bug doesn’t mean there isn’t a problem. It
-can catch a lot, though. Try running it on the other examples of unsafe code in
-this chapter and see what it says!
+Innymi słowy: jeśli Miri _wykryje_ problem, wiesz, że jest błąd, ale to, że
+Miri _nie wykryje_ błędu, nie oznacza, że problemu nie ma. Mimo to potrafi
+wychwycić naprawdę sporo. Spróbuj uruchomić je na pozostałych przykładach
+niebezpiecznego kodu w tym rozdziale i zobacz, co zgłosi!
 
-You can learn more about Miri at [its GitHub repository][miri].
+Więcej o Miri dowiesz się z [jego repozytorium na GitHubie][miri].
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="when-to-use-unsafe-code"></a>
 
-### Using Unsafe Code Correctly {#using-unsafe-code-correctly}
+### Poprawne używanie niebezpiecznego kodu {#using-unsafe-code-correctly}
 
-Using `unsafe` to use one of the five superpowers just discussed isn’t wrong or
-even frowned upon, but it is trickier to get `unsafe` code correct because the
-compiler can’t help uphold memory safety. When you have a reason to use
-`unsafe` code, you can do so, and having the explicit `unsafe` annotation makes
-it easier to track down the source of problems when they occur. Whenever you
-write unsafe code, you can use Miri to help you be more confident that the code
-you have written upholds Rust’s rules.
+Używanie `unsafe`, by skorzystać z jednej z pięciu omówionych właśnie
+supermocy, nie jest złe ani nawet źle widziane, ale trudniej jest napisać
+poprawny kod `unsafe`, ponieważ kompilator nie może pomóc w zapewnieniu
+bezpieczeństwa pamięci. Gdy masz powód, by użyć kodu `unsafe`, możesz to
+zrobić, a jawna adnotacja `unsafe` ułatwia namierzenie źródła problemów, gdy
+już wystąpią. Za każdym razem, gdy piszesz niebezpieczny kod, możesz użyć
+Miri, by zyskać większą pewność, że napisany kod przestrzega reguł Rusta.
 
-For a much deeper exploration of how to work effectively with unsafe Rust, read
-Rust’s official guide for `unsafe`, [The Rustonomicon][nomicon].
+Aby znacznie dogłębniej poznać skuteczną pracę z niebezpiecznym Rustem,
+przeczytaj oficjalny przewodnik Rusta po `unsafe`, [The Rustonomicon][nomicon].
 
 {{#quiz ../quizzes/ch19-01-unsafe-rust.toml}}
 

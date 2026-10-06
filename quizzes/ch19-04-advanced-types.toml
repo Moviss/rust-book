@@ -16,8 +16,8 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 4
 context = """
-The `!` type is not an appropriate return type for this function because it only panics
-some of the time, not all of the time.
+Typ `!` nie jest odpowiednim typem zwracanym dla tej funkcji, ponieważ panikuje ona
+tylko czasami, a nie zawsze.
 """
 
 [[questions]]
@@ -36,6 +36,6 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 6
 context = """
-The call to `is_equal` passes values of type `&str`. That means `T = str`. However, `str`
-is only allowed to be used in such a generic function if `T` is marked as `?Sized`.
+Wywołanie `is_equal` przekazuje wartości typu `&str`. Oznacza to, że `T = str`. Jednak `str`
+można użyć w takiej funkcji generycznej tylko wtedy, gdy `T` jest oznaczone jako `?Sized`.
 """

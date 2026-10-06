@@ -2,20 +2,20 @@
 id = "05a7959b-4fe7-4ee6-9c25-bfa9a4e72535"
 type = "MultipleChoice"
 prompt.prompt = """
-Which of the following are "superpowers" that Rust enables inside an `unsafe` block?
+Które z poniższych to „supermoce”, które Rust udostępnia wewnątrz bloku `unsafe`?
 """
 answer.answer = [
-    "Dereferencing a raw pointer",
-    "Calling a function marked as `unsafe`",
+    "Dereferencja surowego wskaźnika",
+    "Wywołanie funkcji oznaczonej jako `unsafe`",
 ]
 prompt.distractors = [
-    "Disabling the borrow checker",
-    "Converting a reference to a raw pointer",
+    "Wyłączenie borrow checkera",
+    "Konwersja referencji na surowy wskaźnik",
 ]
 context = """
-`unsafe` blocks enable you to dereference raw pointers and call `unsafe` functions. However,
-`unsafe` does not disable the borrow checker (operations on safe references are still checked).
-A reference can be converted to a raw pointer in normal safe code.
+Bloki `unsafe` pozwalają wykonywać dereferencję surowych wskaźników i wywoływać funkcje `unsafe`. Jednak
+`unsafe` nie wyłącza borrow checkera (operacje na bezpiecznych referencjach nadal są sprawdzane).
+Referencję można przekonwertować na surowy wskaźnik w zwykłym bezpiecznym kodzie.
 """
 
 
@@ -36,35 +36,35 @@ fn main() {
 answer.doesCompile = true
 answer.stdout = "0"
 context = """
-This program is dangerous! It compiles correctly and executes without issue
-because `Vec` has enough capacity such that `v.push(4)` does not resize it. However,
-if the capacity were 3, then `n` would point to deallocated memory.
+Ten program jest niebezpieczny! Kompiluje się poprawnie i wykonuje bez problemów,
+ponieważ `Vec` ma wystarczającą pojemność, by `v.push(4)` nie zmieniało jego rozmiaru. Gdyby jednak
+pojemność wynosiła 3, `n` wskazywałoby na zdealokowaną pamięć.
 """
 
 [[questions]]
 id = "015941ed-d375-4070-a8dc-2f368584b302"
 type = "MultipleChoice"
 prompt.prompt = """
-Which of the following are situations where using `unsafe` code (or a safe wrapper around `unsafe` code) 
-is an idiomatic method for working around the borrow checker?
+W których z poniższych sytuacji użycie kodu `unsafe` (lub bezpiecznego opakowania wokół kodu `unsafe`) 
+jest idiomatycznym sposobem obejścia borrow checkera?
 """
 answer.answer = [    
-    "Getting two mutable references to disjoint indices in an array",
-    "Allowing values to be uninitialized when they are not being read",
-    "Having a reference to one field of a struct sit in another field of the same struct"
+    "Uzyskanie dwóch mutowalnych referencji do rozłącznych indeksów tablicy",
+    "Dopuszczenie, by wartości były niezainicjalizowane, gdy nie są odczytywane",
+    "Przechowywanie referencji do jednego pola struktury w innym polu tej samej struktury"
 ]
 prompt.distractors = [
-    "Returning a pointer to a stack-allocated variable out of a function",    
+    "Zwrócenie z funkcji wskaźnika na zmienną zaalokowaną na stosie",    
 ]
 context = """
-Two mutable references to disjoint indices is reasonable because the borrow checker doesn't understand when indices are disjoint. See: [`slice::split_at_mut`](https://doc.rust-lang.org/stable/std/primitive.slice.html#method.split_at_mut).
+Dwie mutowalne referencje do rozłącznych indeksów są uzasadnione, ponieważ borrow checker nie rozumie, kiedy indeksy są rozłączne. Zob. [`slice::split_at_mut`](https://doc.rust-lang.org/stable/std/primitive.slice.html#method.split_at_mut).
 
-Allowing values to be uninitialized is reasonable because the borrow checker adopts a conservative policy that values must be always initialized, but it's sometimes useful to work with uninitialized values. See [`MaybeUninit`](https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html) and the [`take_mut`](https://docs.rs/take_mut/0.2.2/take_mut/index.html) crate.
+Dopuszczenie niezainicjalizowanych wartości jest uzasadnione, ponieważ borrow checker przyjmuje zachowawczą zasadę, że wartości muszą być zawsze zainicjalizowane, a czasem przydaje się praca z wartościami niezainicjalizowanymi. Zob. [`MaybeUninit`](https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html) oraz crate [`take_mut`](https://docs.rs/take_mut/0.2.2/take_mut/index.html).
 
-Having a struct hold a reference to itself is reasonable because the borrow checker cannot
-reason about the lifetime of self-references. See the [`std::pin`](https://doc.rust-lang.org/stable/std/pin/index.html) module.
+Przechowywanie przez strukturę referencji do samej siebie jest uzasadnione, ponieważ borrow checker nie potrafi
+wnioskować o czasie życia referencji wskazujących na tę samą strukturę. Zob. moduł [`std::pin`](https://doc.rust-lang.org/stable/std/pin/index.html).
 
-However, returning a pointer to a stack-allocated variable is *never* valid to do with unsafe
-code. The only appropriate workaround is to use garbage collection, e.g. returning an `Rc<T>`
-instead of `&T`.
+Natomiast zwrócenie wskaźnika na zmienną zaalokowaną na stosie *nigdy* nie jest poprawne, nawet w kodzie
+niebezpiecznym. Jedynym właściwym obejściem jest odśmiecanie pamięci, np. zwrócenie `Rc<T>`
+zamiast `&T`.
 """

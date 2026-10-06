@@ -20,48 +20,48 @@ fn main() {
 answer.doesCompile = false
 answer.lineNumber = 11
 context = """
-The `manylet` macro syntactically duplicates the expression `e` as a binding to each
-variable on the left-hand side of the equals. However, because `s` is an owned string, 
-then the first binding to `x` moves `s`, and the second binding to `y` is invalid.
+Makro `manylet` składniowo powiela wyrażenie `e` jako wiązanie dla każdej
+zmiennej po lewej stronie znaku równości. Ponieważ jednak `s` jest łańcuchem będącym właścicielem swoich danych,
+pierwsze wiązanie do `x` przenosi `s`, a drugie wiązanie do `y` jest niepoprawne.
 """
 
 [[questions]]
 id = "f4f664ef-4b0b-43ac-ba90-5051a4ef89fb"
 type = "MultipleChoice"
 prompt.prompt = """
-Which of the following are valid reasons for implementing a macro as a
-procedural macro instead of a declarative macro?
+Które z poniższych powodów są uzasadnione, by zaimplementować makro jako
+makro proceduralne zamiast makra deklaratywnego?
 """
 answer.answer = [
-    "You want to integrate with Rust's derive system",
-    "Your macro requires nontrivial analysis of the macro user's syntax",
+    "Chcesz zintegrować makro z systemem derive w Ruście",
+    "Twoje makro wymaga nietrywialnej analizy składni napisanej przez użytkownika makra",
 ]
 prompt.distractors = [
-  "You want to generate variable-length sequences of code",
-  "Your macro requires an entire item as input, not just an expression"
+  "Chcesz generować sekwencje kodu o zmiennej długości",
+  "Twoje makro wymaga na wejściu całego elementu, a nie tylko wyrażenia"
 ]
 context = """
-Procedural macros are the only way to create a custom derive. Procedural macros
-are also useful when you need code to analyze the macro user's syntax &mdash; declarative
-macros only permit shuffling around the input, not e.g. computing its size.
+Makra proceduralne to jedyny sposób na utworzenie własnego derive. Makra proceduralne
+przydają się też, gdy potrzebujesz kodu analizującego składnię użytkownika makra &mdash; makra
+deklaratywne pozwalają jedynie przestawiać elementy wejścia, a nie np. obliczać jego rozmiar.
 
-Declarative macros can generate variable-length sequences of code, and can wrap/produce
-items and not just expressions.
+Makra deklaratywne potrafią generować sekwencje kodu o zmiennej długości i mogą opakowywać
+lub tworzyć elementy, a nie tylko wyrażenia.
 """
 
 [[questions]]
 id = "4c7dce03-99c6-41e3-8482-ccf4e30974ff"
 type = "MultipleChoice"
 prompt.prompt = """
-Which of the following best describes the input to a procedural macro? 
+Które z poniższych zdań najlepiej opisuje wejście makra proceduralnego?
 """
-answer.answer = "The input is a sequence of tokens"
+answer.answer = "Wejściem jest sekwencja tokenów"
 prompt.distractors = [
-  "The input is a typed control-flow graph",
-   "The input is an abstract syntax tree",
-  "The input is a byte-string"
+  "Wejściem jest otypowany graf przepływu sterowania",
+   "Wejściem jest abstrakcyjne drzewo składni",
+  "Wejściem jest łańcuch bajtów"
 ]
 context = """
-Procedural macros take as input (and produce as output) token streams.
-You can use crates like `syn` to convert tokens to syntax trees.
+Makra proceduralne przyjmują na wejściu (i zwracają na wyjściu) strumienie tokenów.
+Do przekształcania tokenów w drzewa składni możesz używać crate’ów takich jak `syn`.
 """
